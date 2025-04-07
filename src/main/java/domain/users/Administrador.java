@@ -10,10 +10,6 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Administrador {
-    public Coleccion crearColeccion() {
-
-        return null; //TODO
-    }
 
     public void importarHecho(Coleccion unaColeccion, String archivo) {
         String linea;
@@ -28,10 +24,10 @@ public class Administrador {
                 Categoria categoria = Categoria.valueOf(campos[2]);
                 LocalDateTime fechaHora = LocalDateTime.parse(campos[3], formatter);
                 Lugar lugar = new Lugar(campos[4]); // adapta a tu constructor
-                Origen origen = new Origen(campos[5]);
+                OrigenDelHecho origen = new OrigenDelHecho(campos[5]);
                 Etiqueta etiqueta = new Etiqueta(campos[6]);
 
-                Hecho hecho = new Hecho(usuario, titulo, descripcion, categoria, fechaHora, lugar, origen, etiqueta);
+                Hecho hecho = new Hecho(this, titulo, descripcion, categoria, fechaHora, lugar, origen, etiqueta);
 
                 unaColeccion.agregarHechos(hecho);
             }
@@ -40,13 +36,14 @@ public class Administrador {
         }
     }
 
-    public void analizarSolicitudEliminacion(Hecho hecho) {
+    public void crearColeccion(Hecho... hechos){} //TODO
+    public void gestionarSolicitudEliminacion(Hecho hecho) {
 
-    }
+    }//TODO
 
     public void eliminarHecho(Hecho hecho) {
 
-    }
+    }//TODO
 
 
 }

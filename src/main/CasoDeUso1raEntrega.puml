@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+Administrador -> (CrearColeccion)
+Administrador -> (ImportarHechos)
+Administrador -> (GestionarSolucutudesDeEliminacion)
+Usuario -->(NavegarColeccion)
+(NavegarColeccion)<.. (AplicarFiltros) : <extends>
+Usuario --> (SolicitarEliminacionDeHecho)
+Usuario --> (CargarHecho)
+(GestionarSolucutudesDeEliminacion) <.. (EliminarHecho): <extends>
+
+
+
+@enduml

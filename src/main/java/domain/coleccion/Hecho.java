@@ -3,7 +3,6 @@ package domain.coleccion;
 import java.time.LocalDateTime;
 import domain.users.Usuario;
 
-
 public class Hecho {
 /*
   - Usuario publicador
@@ -22,6 +21,6 @@ public class Hecho {
     private Enum categoria;
     private LocalDateTime fechaHora;
     private Lugar lugar;
-    private Origen origen;
+    private OrigenDelHecho origen;
     private Etiqueta unaEtiqueta;
 }

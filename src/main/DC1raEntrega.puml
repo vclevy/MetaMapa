@@ -1,0 +1,64 @@
+@startuml
+'https://plantuml.com/class-diagram
+'El titulo podria ser un posible enum
+
+class Coleccion{
+    - String titulo
+    - String descripcion
+    - List<Hecho> hechos
+
+    + crearColeccion()
+}
+
+abstract class Hecho{
+  - Usuario publicador
+  - String titulo
+  - String descripcion
+  - Enum categoria
+  - LocalDateTime fechaHora
+  - Lugar lugar
+  - Origen origen
+  - Etiqueta unaEtiqueta
+}
+
+class HechoDeTexto extends Hecho{}
+
+class HechoMultimedia extends Hecho{
+ - ???? contenidoMultimedia
+}
+
+
+class Usuario{
+    - String nombre
+    - String apellido
+    - Integer edad
+    # Enum tipoDeUsuario
+    + void subirHecho(Hecho unHecho)
+    + void solicitarBorrarHecho(Hecho unHecho)
+}
+
+class Lugar{
+    - String nombre
+    - Float latitud
+    - Float longitud
+    }
+
+class Solicitud{
+    - String justificacion
+    - Enum estado
+}
+
+class Administrador{
+   + void crearColeccion(Coleccion unaColeccion)
+   + importarHecho(??? archivo)
+   + aceptarSolicitud(Solicitud solicitud)
+   + eliminarSolicitud(Solicitud solicitud)
+}
+
+Hecho --> Usuario
+Lugar o-- Hecho
+Coleccion -->"*" Hecho
+Administrador -->"*" Solicitud
+Administrador --> Coleccion
+Usuario --> Solicitud
+@enduml
