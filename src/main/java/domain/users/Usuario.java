@@ -1,7 +1,7 @@
 package domain.users;
 
 import domain.coleccion.Coleccion;
-import domain.coleccion.Hecho;
+import domain.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
 
