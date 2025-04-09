@@ -2,6 +2,7 @@ package domain.users;
 import domain.coleccion.*; // importa toda la carpeta, sino hay que ir importando x clases
 import domain.hecho.*;
 import domain.hecho.origenDelHecho.Dataset;
+import domain.hecho.origenDelHecho.OrigenDelHecho;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,8 +15,8 @@ public class Administrador {
     private String nombre;
 
     public void importarHecho(Coleccion unaColeccion, String archivo) {
-        String linea;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // adapta al formato real
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -24,14 +25,17 @@ public class Administrador {
 
                 String titulo = campos[0];
                 String descripcion = campos[1];
-                Categoria categoria = Categoria.valueOf(campos[2].toUpperCase());
-                double latitud = Double.parseDouble(campos[3]);
+                String nombreCategoria = campos[2];
+                double latitud = Double.parseDouble(campos[3]); // Tira error aca
                 double longitud = Double.parseDouble(campos[4]);
-                LocalDateTime fechaHora = LocalDateTime.parse(campos[5], formatter);
+                LocalDateTime fechaAcontecimiento = LocalDateTime.parse(campos[5], formatter);
+                LocalDateTime fechaDeCarga = LocalDateTime.now();
 
                 Lugar lugar = new Lugar(latitud, longitud);
+                OrigenDelHecho origen = new Dataset();
+                Categoria categoria = new Categoria(nombreCategoria);
 
-                Hecho hecho = new Hecho(this.nombre, titulo, descripcion, categoria, fechaHora, lugar, new Dataset(), null);
+                Hecho hecho = new HechoDeTexto(titulo, descripcion, categoria, fechaAcontecimiento, fechaDeCarga, lugar, origen);
 
                 unaColeccion.agregarHechos(hecho);
             }

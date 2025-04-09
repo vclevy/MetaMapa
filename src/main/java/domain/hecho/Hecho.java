@@ -2,15 +2,22 @@ package domain.hecho;
 
 
 import java.time.LocalDateTime;
+
+import domain.coleccion.Categoria;
 import domain.coleccion.Lugar;
 import domain.hecho.origenDelHecho.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public abstract class Hecho {
     protected String titulo;
     protected String descripcion;
-    protected Enum categoria;
-    protected LocalDateTime fechaHora;
+    protected Categoria categoria;
+    protected LocalDateTime fechaDeAcontecimiento;
+    protected LocalDateTime fechaDeCarga;
     protected Lugar lugar;
     protected OrigenDelHecho origen;
-    protected Etiqueta unaEtiqueta;
+    // protected Etiqueta unaEtiqueta; SOLO LOS HECHOS Q APORTAN LOS CONTRIBUS
 }
