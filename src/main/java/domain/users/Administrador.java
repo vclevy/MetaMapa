@@ -7,6 +7,7 @@ import domain.hecho.origenDelHecho.OrigenDelHecho;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,8 +16,6 @@ public class Administrador {
     private String nombre;
 
     public void importarHecho(Coleccion unaColeccion, String archivo) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
@@ -28,7 +27,10 @@ public class Administrador {
                 String nombreCategoria = campos[2];
                 double latitud = Double.parseDouble(campos[3]); // Tira error aca
                 double longitud = Double.parseDouble(campos[4]);
-                LocalDateTime fechaAcontecimiento = LocalDateTime.parse(campos[5], formatter);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate fecha = LocalDate.parse(campos[5].trim(), formatter);
+                LocalDateTime fechaAcontecimiento = fecha.atStartOfDay();
+
                 LocalDateTime fechaDeCarga = LocalDateTime.now();
 
                 Lugar lugar = new Lugar(latitud, longitud);
