@@ -3,25 +3,26 @@
 'El titulo podria ser un posible enum
 
 class Coleccion{
-    - String titulo
-    - String descripcion
-    - List<Hecho> hechos
+    - titulo : String
+    - descripcion : String
+    - hechos : List<Hecho>
 
-    + crearColeccion()
+    + crearColeccion() : ¿void?
 }
 
 abstract class Hecho{
-  - Usuario publicador
-  - String titulo
-  - String descripcion
-  - Enum categoria
-  - LocalDateTime fechaHora
-  - Lugar lugar
-  - Origen origen
-  - Etiqueta unaEtiqueta
+  - publicador : Usuario
+  - titulo : String
+  - descripcion : String
+  - categoria : Enum
+  - fechaDelAcontecimiento : LocalDateTime
+  - lugarDelAcontecimiento : Lugar
+  - origen : Origen
+  - etiqueta : Etiqueta
 }
 
-class HechoDeTexto extends Hecho{}
+class HechoDeTexto extends Hecho{
+}
 
 class HechoMultimedia extends Hecho{
  - ???? contenidoMultimedia
@@ -29,36 +30,49 @@ class HechoMultimedia extends Hecho{
 
 
 class Usuario{
-    - String nombre
-    - String apellido
-    - Integer edad
-    # Enum tipoDeUsuario
+    - nombre : String
+    - apellido : String
+    - edad : Integer
+    - tipoDeUsuario : TipoDeUsuario
     + void subirHecho(Hecho unHecho)
     + void solicitarBorrarHecho(Hecho unHecho)
 }
 
+enum TipoDeUsuario {
+    CONTRIBUYENTE,
+    VISUALIZADOR
+}
+
 class Lugar{
-    - String nombre
-    - Float latitud
-    - Float longitud
-    }
+    - nombre : String
+    - latitud : Float
+    - longitud : Float
+}
 
 class Solicitud{
-    - String justificacion
-    - Enum estado
+    - justificacion : String
+    - estadoDeSolicitud : EstadoDeSolicitudDeEliminacion
+}
+
+enum EstadoDeSolicitudDeEliminacion {
+    PENDIENTE,
+    APROBADA,
+    RECHAZADA
 }
 
 class Administrador{
-   + void crearColeccion(Coleccion unaColeccion)
-   + importarHecho(??? archivo)
-   + aceptarSolicitud(Solicitud solicitud)
-   + eliminarSolicitud(Solicitud solicitud)
+   + crearColeccion(Coleccion unaColeccion) : void
+   + importarHecho(??? archivo) : void
+   + aceptarSolicitud(Solicitud solicitud) : void
+   + eliminarSolicitud(Solicitud solicitud) : void
 }
 
 Hecho --> Usuario
-Lugar o-- Hecho
+Lugar o-l- Hecho
 Coleccion -->"*" Hecho
 Administrador -->"*" Solicitud
 Administrador --> Coleccion
 Usuario --> Solicitud
+EstadoDeSolicitudDeEliminacion o-u- Solicitud
+TipoDeUsuario o-u- Usuario
 @enduml
