@@ -8,7 +8,15 @@ import java.time.LocalDateTime;
 
 public class HechoDeTexto extends Hecho {
 
-    public HechoDeTexto(String titulo, String descripcion, Categoria categoria, LocalDateTime fechaAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, OrigenDelHecho origen) {
+    public HechoDeTexto(
+            String titulo,
+            String descripcion,
+            Categoria categoria,
+            LocalDateTime fechaAcontecimiento,
+            LocalDateTime fechaDeCarga,
+            Lugar lugar,
+            OrigenDelHecho origen
+    ) {
         super();
     }
 }
