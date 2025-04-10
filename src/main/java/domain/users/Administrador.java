@@ -105,7 +105,6 @@ public void importarHecho(Coleccion unaColeccion, String archivo) {
     }
 }
 
-
     public Coleccion crearColeccion(String titulo, String descripcion){
         Coleccion coleccion = new Coleccion(titulo,descripcion);
         return coleccion;

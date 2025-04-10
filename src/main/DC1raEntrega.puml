@@ -28,6 +28,27 @@ class HechoMultimedia extends Hecho{
  - ???? contenidoMultimedia
 }
 
+class Lugar{
+    - nombre : String
+    - latitud : Float
+    - longitud : Float
+}
+
+interface OrigenDelHecho {
+    cargarHecho(Hecho unHecho) : void
+}
+
+class CargaManual implements OrigenDelHecho {
+    cargarHecho(Hecho unHecho) : void
+}
+
+class Dataset implements OrigenDelHecho {
+    cargarHecho(Hecho unHecho) : void
+}
+
+class Contribuyente implements OrigenDelHecho {
+    cargarHecho(Hecho unHecho) : void
+}
 
 class Usuario{
     - nombre : String
@@ -41,12 +62,6 @@ class Usuario{
 enum TipoDeUsuario {
     CONTRIBUYENTE,
     VISUALIZADOR
-}
-
-class Lugar{
-    - nombre : String
-    - latitud : Float
-    - longitud : Float
 }
 
 class Solicitud{
@@ -75,4 +90,6 @@ Administrador --> Coleccion
 Usuario --> Solicitud
 EstadoDeSolicitudDeEliminacion o-u- Solicitud
 TipoDeUsuario o-u- Usuario
+OrigenDelHecho o-- Hecho
+
 @enduml

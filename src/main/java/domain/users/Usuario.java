@@ -8,31 +8,28 @@ import lombok.Setter;
 
 @Getter@Setter
 public abstract class Usuario {
- private String nombre;
- private String apellido;
- private Integer edad;
+    private String nombre;
+    private String apellido;
+    private Integer edad;
+    protected TipoDeUsuario tipoDeUsuario = TipoDeUsuario.VISUALIZADOR;
 
- protected TipoDeUsuario tipoDeUsuario = TipoDeUsuario.VISUALIZADOR; // un usuario arranca siendo visualizador
+    // INICIALIZAR USUARIO
+    public Usuario(String unNombre, String unApellido, Integer unEdad) {
+        this.nombre = unNombre;
+        this.apellido = unApellido;
+        this.edad = unEdad;
+    }
 
- public Usuario(String nombre, String apellido, Integer edad, TipoDeUsuario tipoDeUsuario) {
-  this.nombre = nombre;
-  this.apellido = apellido;
-  this.edad = edad;
- }
+    // SUBIR UN HECHO
+    public void subirHecho(Hecho unHecho) {
+        // TODO: FUNCIONALIDAD DE MANTENERSE EN ANONIMO Y PASAR A CONTRIBUYENTE
+    }
 
- public void subirHechoAnonimo(Hecho unHecho){
-  this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE); // Una vez que suben un hecho se transforman en Contribuyentes
- }//TODO
+    // SOLICITAR BORRAR UN HECHO
+    public void solicitarBorrarHecho(Hecho unHecho) {} // TODO
 
- public void subirHecho() {
-  this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
- } //TODO
-
- public void solicitarBorrarHecho(Hecho unHecho){}//TODO
-
- public void navegarHechos(Coleccion unaColeccion){} //TODO
-
-
+    // NAVEGAR HECHOS
+    public void buscarHecho(Hecho unHecho) {} // TODO
 }
 
 
