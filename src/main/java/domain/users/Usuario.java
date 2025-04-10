@@ -5,6 +5,8 @@ import domain.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Scanner;
+
 
 @Getter@Setter
 public abstract class Usuario {
@@ -29,10 +31,13 @@ public abstract class Usuario {
         this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
 
-    // SOLICITAR BORRAR UN HECHO
     public void solicitarBorrarHecho(Hecho unHecho) {
-        // TODO: PROPONER AL USAURIO QUE INGRESE LA JUSTIFICACION
-        String justificacion = "USUARIO ADJUNTA JUSTIFICACION";
+        // USUARIO INGRESA POR CONSOLA LA JUSTIFICACION
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la justificacion para elimnar el hecho: ");
+        String justificacion = scanner.nextLine();
+
+        // HAGO QUE EL HECHO AGREGUE UNA SOLICITUD DE BORRAR EL HECHO CON LA JUSTIFICACION DADA
         unHecho.agregarSolicitudDeElimnacion(justificacion);
     }
 
