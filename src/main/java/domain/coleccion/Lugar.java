@@ -1,7 +1,7 @@
 package domain.coleccion;
 
 public class Lugar {
-//    private String nombre;
+    private String nombre;
     private Double latitud;
     private Double longitud;
 

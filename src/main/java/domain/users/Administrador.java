@@ -111,8 +111,8 @@ public void importarHecho(Coleccion unaColeccion, String archivo) {
     }
 
 
-    public void gestionarSolicitudEliminacion(Hecho hecho) {
-
+    public void gestionarSolicitudEliminacion(Hecho unHecho) {
+        
     }//TODO
 
     public void eliminarHecho(Hecho hecho) {
