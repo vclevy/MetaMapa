@@ -5,6 +5,7 @@ import domain.coleccion.*; // importa toda la carpeta, sino hay que ir importand
 import domain.hecho.*;
 import domain.hecho.origenDelHecho.Dataset;
 import domain.hecho.origenDelHecho.OrigenDelHecho;
+import domain.hecho.solicitudes.Solicitud;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,57 +14,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Administrador {
     private String nombre;
+    private List<Solicitud> solicitudesDeEliminacionDeHecho;
 
-//    public void importarHecho(Coleccion unaColeccion, String archivo) {
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-//            String linea;
-//            boolean primeraLinea = true; // Inicialmente me encuentro en la primera linea. Caso true -> son encabezados
-//            while ((linea = br.readLine()) != null) {
-//
-//                if (primeraLinea) {
-//                    if (linea.toLowerCase().contains("titulo") || linea.toLowerCase().contains("título") || linea.toLowerCase().contains("descripcion")|| linea.toLowerCase().contains("descripción")) {
-//                        primeraLinea = false;
-//                        continue; // Salteo la primer linea y lo paso a false para continuar la lectura
-//                    }
-//                    primeraLinea = false; // Si no contiene encabezados, comienzo a leer
-//                }
-//
-////                String[] campos = linea.split(",");
-//                String[] campos = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1); // Divido solo por comas si no estan dentro de comillas y verifica que haya una cantidad par de comillas.
-//
-//                for (int i = 0; i < campos.length; i++) {// Elimino comillas
-//                    campos[i] = campos[i].trim().replaceAll("^\"|\"$", "");
-//                }
-//
-//                String titulo = campos[0];
-//                String descripcion = campos[1];
-//                String nombreCategoria = campos[2];
-//                double latitud = Double.parseDouble(campos[3]);
-//                double longitud = Double.parseDouble(campos[4]);
-//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//                LocalDate fecha = LocalDate.parse(campos[5].trim(), formatter);
-//                LocalDateTime fechaAcontecimiento = fecha.atStartOfDay();
-//
-//                LocalDateTime fechaDeCarga = LocalDateTime.now();
-//
-//                Lugar lugar = new Lugar(latitud, longitud);
-//                OrigenDelHecho origen = new Dataset();
-//                Categoria categoria = new Categoria(nombreCategoria);
-//
-//                Hecho hecho = new HechoDeTexto(titulo, descripcion, categoria, fechaAcontecimiento, fechaDeCarga, lugar, origen);
-//
-//                unaColeccion.agregarHechos(hecho);
-//            }
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 public void importarHecho(Coleccion unaColeccion, String archivo) {
     try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
@@ -118,5 +75,6 @@ public void importarHecho(Coleccion unaColeccion, String archivo) {
     public void eliminarHecho(Hecho hecho) {
 
     }//TODO
+
 }
 

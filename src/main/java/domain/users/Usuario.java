@@ -21,12 +21,20 @@ public abstract class Usuario {
     }
 
     // SUBIR UN HECHO
+    // todo: ver distintas formas de subir un hecho (anonimo o normal)
+
+
     public void subirHecho(Hecho unHecho) {
         // TODO: FUNCIONALIDAD DE MANTENERSE EN ANONIMO Y PASAR A CONTRIBUYENTE
+        this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
 
     // SOLICITAR BORRAR UN HECHO
-    public void solicitarBorrarHecho(Hecho unHecho) {} // TODO
+    public void solicitarBorrarHecho(Hecho unHecho) {
+        // TODO: PROPONER AL USAURIO QUE INGRESE LA JUSTIFICACION
+        String justificacion = "USUARIO ADJUNTA JUSTIFICACION";
+        unHecho.agregarSolicitudDeElimnacion(justificacion);
+    }
 
     // NAVEGAR HECHOS
     public void buscarHecho(Hecho unHecho) {} // TODO
