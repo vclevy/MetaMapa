@@ -22,51 +22,50 @@ public class Administrador {
     private List<Solicitud> solicitudesDeEliminacionDeHecho;
 
 
-public void importarHecho(Coleccion unaColeccion, String archivo) {
-    try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
-        String[] campos;
-        boolean primeraLinea = true;
+    public void importarHecho(Coleccion unaColeccion, String archivo) {
+        try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
+            String[] campos;
+            boolean primeraLinea = true;
 
-        while ((campos = reader.readNext()) != null) {
-            if (primeraLinea) {
-                primeraLinea = false;
-                continue;
+            while ((campos = reader.readNext()) != null) {
+                if (primeraLinea) {
+                    primeraLinea = false;
+                    continue;
+                }
+
+                try {
+                    String titulo = campos[0].trim();
+                    String descripcion = campos[1].trim();
+                    String categoria = campos[2].trim();
+                    double latitud = Double.parseDouble(campos[3].trim());
+                    double longitud = Double.parseDouble(campos[4].trim());
+                    LocalDate fecha = LocalDate.parse(campos[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+                    Hecho hecho = new HechoDeTexto(
+                            titulo,
+                            descripcion,
+                            new Categoria(categoria),
+                            fecha.atStartOfDay(),
+                            LocalDateTime.now(),
+                            new Lugar(latitud, longitud),
+                            new Dataset()
+                    );
+
+                    unaColeccion.agregarHechos(hecho);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-
-            try {
-                String titulo = campos[0].trim();
-                String descripcion = campos[1].trim();
-                String categoria = campos[2].trim();
-                double latitud = Double.parseDouble(campos[3].trim());
-                double longitud = Double.parseDouble(campos[4].trim());
-                LocalDate fecha = LocalDate.parse(campos[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-                Hecho hecho = new HechoDeTexto(
-                        titulo,
-                        descripcion,
-                        new Categoria(categoria),
-                        fecha.atStartOfDay(),
-                        LocalDateTime.now(),
-                        new Lugar(latitud, longitud),
-                        new Dataset()
-                );
-
-                unaColeccion.agregarHechos(hecho);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (IOException | CsvValidationException e) {
+            System.err.println("Error al leer el archivo: " + archivo);
+            e.printStackTrace();
         }
-    } catch (IOException | CsvValidationException e) {
-        System.err.println("Error al leer el archivo: " + archivo);
-        e.printStackTrace();
     }
-}
 
     public Coleccion crearColeccion(String titulo, String descripcion){
         Coleccion coleccion = new Coleccion(titulo,descripcion);
         return coleccion;
     }
-
 
     public void gestionarSolicitudEliminacion(Hecho unHecho) {
         

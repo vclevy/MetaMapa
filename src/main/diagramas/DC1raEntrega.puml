@@ -50,18 +50,25 @@ class Contribuyente implements OrigenDelHecho {
     cargarHecho(Hecho unHecho) : void
 }
 
-class Usuario{
+abstract class Usuario{
     - nombre : String
     - apellido : String
     - edad : Integer
     - tipoDeUsuario : TipoDeUsuario
     + void subirHecho(Hecho unHecho)
     + void solicitarBorrarHecho(Hecho unHecho)
+    + void buscarHecho(Hecho unHecho)
 }
 
 enum TipoDeUsuario {
     CONTRIBUYENTE,
     VISUALIZADOR
+}
+
+class UsuarioAnonimo extends Usuario {
+}
+
+class UsuarioConocido extends Usuario {
 }
 
 class Solicitud{

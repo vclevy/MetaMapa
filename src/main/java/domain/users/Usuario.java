@@ -22,14 +22,46 @@ public abstract class Usuario {
         this.edad = unEdad;
     }
 
-    // SUBIR UN HECHO
-    // todo: ver distintas formas de subir un hecho (anonimo o normal)
-
-
+    // TODO: VER COMO HACER SI EL USUARIO QUIERE SUBIR DE FORMA ANONIMA O QUE SE DE A CONOCER
     public void subirHecho(Hecho unHecho) {
-        // TODO: FUNCIONALIDAD DE MANTENERSE EN ANONIMO Y PASAR A CONTRIBUYENTE
+        this.tipoDeFormaParaSubirUnHecho();
         this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
+
+    public void tipoDeFormaParaSubirUnHecho() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("¿Desea subir el hecho de forma anonima? (s/n)");
+        String respuesta = scanner.nextLine();
+
+        if(respuesta.equals("s")) {
+            System.out.println("Hecho subido de forma anonima");
+        } else {
+            System.out.print("Ingrese su nombre (obligatorio): ");
+            String nombreIngresado = scanner.nextLine().trim();
+
+            while (nombreIngresado.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío. Intente nuevamente.");
+                System.out.print("Ingrese su nombre (obligatorio): ");
+                nombreIngresado = scanner.nextLine().trim();
+            }
+            this.nombre = nombreIngresado;
+
+            System.out.print("¿Desea ingresar su apellido? (s/n): ");
+            if (scanner.nextLine().equalsIgnoreCase("s")) {
+                System.out.print("Apellido: ");
+                this.apellido = scanner.nextLine();
+            }
+
+            System.out.print("¿Desea ingresar su edad? (s/n): ");
+            if (scanner.nextLine().equalsIgnoreCase("s")) {
+                System.out.print("Edad: ");
+                this.edad = scanner.nextInt();
+            }
+
+            System.out.println("Hecho subido como contribuyente identificado.");
+        }
+    }
+
 
     public void solicitarBorrarHecho(Hecho unHecho) {
         // USUARIO INGRESA POR CONSOLA LA JUSTIFICACION
