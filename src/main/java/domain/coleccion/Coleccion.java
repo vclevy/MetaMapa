@@ -22,4 +22,9 @@ public class Coleccion {
     public void agregarHechos(Hecho ... unosHechos){
         Collections.addAll(this.hechos, unosHechos);
     }
+
+    // BORRAR HECHOS
+    public void eliminarHecho(Hecho unHecho) {
+        this.hechos.remove(unHecho);
+    }
 }

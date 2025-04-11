@@ -22,7 +22,7 @@ public class Administrador {
     private String nombre;
     private List<Solicitud> solicitudesDeEliminacionDeHecho;
 
-
+    /*---------------------------------------- IMPORTAR ARCHIVO ------------------------------------------*/
     public void importarHecho(Coleccion unaColeccion, String archivo) {
         try (CSVReader reader = new CSVReader(new FileReader(archivo))) {
             String[] campos;
@@ -63,21 +63,22 @@ public class Administrador {
         }
     }
 
+    /*------------------------------------------ CREAR COLECCION -----------------------------------------*/
     public Coleccion crearColeccion(String titulo, String descripcion){
         Coleccion coleccion = new Coleccion(titulo,descripcion);
         return coleccion;
     }
 
-    // ADMINISTRAR SOLICITUDES
+    /*--------------------------------------- ADMINISTRAR SOLICITUDES--------------------------------------*/
     public List<Solicitud> getSolicitudesDeEliminacionDeHechoPendientes() {
         return solicitudesDeEliminacionDeHecho.stream().filter(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.PENDIENTE).toList();
     }
 
-    public void aceptarSolicitud() {
-        getSolicitudesDeEliminacionDeHechoPendientes().forEach(this::evaluarSolicitudPendiente);
+    public void gestionarSolicitudesPendientes() {
+        getSolicitudesDeEliminacionDeHechoPendientes().forEach(this::evaluarEstadoDeSolicitudPendiente);
     }
 
-    public void evaluarSolicitudPendiente(Solicitud unaSolicitud) {
+    public void evaluarEstadoDeSolicitudPendiente(Solicitud unaSolicitud) {
         if (unaSolicitud.getJustificacionDeEliminacion() == null || unaSolicitud.getJustificacionDeEliminacion().length() < 500) {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
             throw new IllegalArgumentException("La justificacion debe tener al menos 500 caracteres");
@@ -86,7 +87,5 @@ public class Administrador {
             // TODO: BORRAR DE LA COLECCION
         }
     }
-
-
 }
 

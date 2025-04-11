@@ -16,13 +16,14 @@ public abstract class Usuario {
     private Integer edad;
     protected TipoDeUsuario tipoDeUsuario = TipoDeUsuario.VISUALIZADOR;
 
-    // INICIALIZAR USUARIO
+    /*----------------------------------- CONSTRUCTOR USUARIO --------------------------------------------*/
     public Usuario(String unNombre, String unApellido, Integer unEdad) {
         this.nombre = unNombre;
         this.apellido = unApellido;
         this.edad = unEdad;
     }
 
+    /*--------------------------------------- SUBIR HECHOS ------------------------------------------------*/
     // TODO: VER COMO HACER SI EL USUARIO QUIERE SUBIR DE FORMA ANONIMA O QUE SE DE A CONOCER
     public void subirHecho(Hecho unHecho) {
         this.tipoDeFormaParaSubirUnHecho();
@@ -63,8 +64,7 @@ public abstract class Usuario {
         }
     }
 
-
-    // SOLICITAR BORRAR UN HECHO
+    /*---------------------------------- SOLICITAR BORRAR UN HECHO --------------------------------------*/
     public void solicitarBorrarUnHecho(Hecho unHecho) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
