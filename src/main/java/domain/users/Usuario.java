@@ -2,6 +2,7 @@ package domain.users;
 
 import domain.coleccion.Coleccion;
 import domain.hecho.Hecho;
+import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -63,18 +64,15 @@ public abstract class Usuario {
     }
 
 
-    public void solicitarBorrarHecho(Hecho unHecho) {
-        // USUARIO INGRESA POR CONSOLA LA JUSTIFICACION
+    // SOLICITAR BORRAR UN HECHO
+    public void solicitarBorrarUnHecho(Hecho unHecho) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese la justificacion para elimnar el hecho: ");
-        String justificacion = scanner.nextLine();
+        System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
+        String justificacion = scanner.nextLine().trim();
 
-        // HAGO QUE EL HECHO AGREGUE UNA SOLICITUD DE BORRAR EL HECHO CON LA JUSTIFICACION DADA
-        unHecho.agregarSolicitudDeElimnacion(justificacion);
+        Solicitud solicitud = new Solicitud(unHecho, justificacion);
+        unHecho.agregarSolicitudDeElimnacion(solicitud);
     }
-
-    // NAVEGAR HECHOS
-    public void buscarHecho(Hecho unHecho) {} // TODO
 }
 
 

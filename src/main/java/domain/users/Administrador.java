@@ -5,6 +5,7 @@ import domain.coleccion.*; // importa toda la carpeta, sino hay que ir importand
 import domain.hecho.*;
 import domain.hecho.origenDelHecho.Dataset;
 import domain.hecho.origenDelHecho.OrigenDelHecho;
+import domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import domain.hecho.solicitudes.Solicitud;
 
 import java.io.FileReader;
@@ -67,13 +68,25 @@ public class Administrador {
         return coleccion;
     }
 
-    public void gestionarSolicitudEliminacion(Hecho unHecho) {
-        
-    }//TODO
+    // ADMINISTRAR SOLICITUDES
+    public List<Solicitud> getSolicitudesDeEliminacionDeHechoPendientes() {
+        return solicitudesDeEliminacionDeHecho.stream().filter(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.PENDIENTE).toList();
+    }
 
-    public void eliminarHecho(Hecho hecho) {
+    public void aceptarSolicitud() {
+        getSolicitudesDeEliminacionDeHechoPendientes().forEach(this::evaluarSolicitudPendiente);
+    }
 
-    }//TODO
+    public void evaluarSolicitudPendiente(Solicitud unaSolicitud) {
+        if (unaSolicitud.getJustificacionDeEliminacion() == null || unaSolicitud.getJustificacionDeEliminacion().length() < 500) {
+            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
+            throw new IllegalArgumentException("La justificacion debe tener al menos 500 caracteres");
+        } else {
+            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
+            // TODO: BORRAR DE LA COLECCION
+        }
+    }
+
 
 }
 

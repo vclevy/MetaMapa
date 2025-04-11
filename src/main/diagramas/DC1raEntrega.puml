@@ -65,12 +65,6 @@ enum TipoDeUsuario {
     VISUALIZADOR
 }
 
-class UsuarioAnonimo extends Usuario {
-}
-
-class UsuarioConocido extends Usuario {
-}
-
 class Solicitud{
     - justificacion : String
     - estadoDeSolicitud : EstadoDeSolicitudDeEliminacion

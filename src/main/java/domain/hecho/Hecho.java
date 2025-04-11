@@ -27,8 +27,7 @@ public abstract class Hecho {
 
 
     // AGREGAR SOLICITUD DE ELIMINACION A UN HECHO
-    public void agregarSolicitudDeElimnacion(String unaJustificacion) {
-        Solicitud unaSolicitd = new Solicitud(unaJustificacion);
-        solicitudesDeEliminacion.add(unaSolicitd);
+    public void agregarSolicitudDeElimnacion(Solicitud unaSolicitud) {
+        this.solicitudesDeEliminacion.add(unaSolicitud);
     }
 }
