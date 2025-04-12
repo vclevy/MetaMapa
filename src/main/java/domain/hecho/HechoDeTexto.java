@@ -4,6 +4,7 @@ import domain.coleccion.Categoria;
 import domain.coleccion.Lugar;
 import domain.hecho.origenDelHecho.OrigenDelHecho;
 
+import javax.swing.text.StyledEditorKit;
 import java.time.LocalDateTime;
 
 public class HechoDeTexto extends Hecho {
@@ -15,7 +16,8 @@ public class HechoDeTexto extends Hecho {
             LocalDateTime fechaAcontecimiento,
             LocalDateTime fechaDeCarga,
             Lugar lugar,
-            OrigenDelHecho origen
+            OrigenDelHecho origen,
+            Boolean esAnonimo
     ) {
         super();
     }

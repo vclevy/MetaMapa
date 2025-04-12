@@ -1,5 +1,8 @@
 package domain.coleccion;
 
+import lombok.Getter;
+
+@Getter
 public class Lugar {
     private String nombre;
     private Double latitud;

@@ -2,9 +2,7 @@ package domain.hecho;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
 import domain.coleccion.Categoria;
 import domain.coleccion.Lugar;
 import domain.hecho.origenDelHecho.*;
@@ -23,11 +21,12 @@ public abstract class Hecho {
     protected Lugar lugar;
     protected OrigenDelHecho origen;
     protected List<Solicitud> solicitudesDeEliminacion;
+    protected Boolean esAnonimo = true;
     // protected Etiqueta unaEtiqueta; SOLO LOS HECHOS Q APORTAN LOS CONTRIBUS
 
 
     // AGREGAR SOLICITUD DE ELIMINACION A UN HECHO
-    public void agregarSolicitudDeElimnacion(Solicitud unaSolicitud) {
+    public void agregarSolicitudDeEliminacion(Solicitud unaSolicitud) {
         this.solicitudesDeEliminacion.add(unaSolicitud);
     }
 }

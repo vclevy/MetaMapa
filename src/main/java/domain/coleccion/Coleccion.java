@@ -2,7 +2,6 @@ package domain.coleccion;
 
 import domain.hecho.Hecho;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

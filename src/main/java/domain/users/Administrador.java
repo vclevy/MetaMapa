@@ -1,21 +1,19 @@
 package domain.users;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import domain.coleccion.*; // importa toda la carpeta, sino hay que ir importando x clases
+import domain.coleccion.*;
 import domain.hecho.*;
 import domain.hecho.origenDelHecho.Dataset;
-import domain.hecho.origenDelHecho.OrigenDelHecho;
-import domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import domain.hecho.solicitudes.Solicitud;
-
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.BufferedReader;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+
+import static domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion.*;
 
 
 public class Administrador {
@@ -49,7 +47,8 @@ public class Administrador {
                             fecha.atStartOfDay(),
                             LocalDateTime.now(),
                             new Lugar(latitud, longitud),
-                            new Dataset()
+                            new Dataset(),
+                            false
                     );
 
                     unaColeccion.agregarHechos(hecho);
@@ -64,28 +63,59 @@ public class Administrador {
     }
 
     /*------------------------------------------ CREAR COLECCION -----------------------------------------*/
-    public Coleccion crearColeccion(String titulo, String descripcion){
-        Coleccion coleccion = new Coleccion(titulo,descripcion);
+    public Coleccion crearColeccion(String titulo, String descripcion) {
+        Coleccion coleccion = new Coleccion(titulo, descripcion);
         return coleccion;
     }
 
     /*--------------------------------------- ADMINISTRAR SOLICITUDES--------------------------------------*/
     public List<Solicitud> getSolicitudesDeEliminacionDeHechoPendientes() {
-        return solicitudesDeEliminacionDeHecho.stream().filter(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.PENDIENTE).toList();
+        return solicitudesDeEliminacionDeHecho.stream().filter(unaSolicitud -> unaSolicitud.getEstado() == PENDIENTE).toList();
     }
 
-    public void gestionarSolicitudesPendientes() {
-        getSolicitudesDeEliminacionDeHechoPendientes().forEach(this::evaluarEstadoDeSolicitudPendiente);
-    }
-
-    public void evaluarEstadoDeSolicitudPendiente(Solicitud unaSolicitud) {
-        if (unaSolicitud.getJustificacionDeEliminacion() == null || unaSolicitud.getJustificacionDeEliminacion().length() < 500) {
-            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
-            throw new IllegalArgumentException("La justificacion debe tener al menos 500 caracteres");
-        } else {
-            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
-            // TODO: BORRAR DE LA COLECCION
+    public List<Solicitud> solicitudesValidas() {
+        for (Solicitud solicitud : getSolicitudesDeEliminacionDeHechoPendientes()) {
+            if (solicitud.getJustificacionDeEliminacion() == null || solicitud.getJustificacionDeEliminacion().length() < 500) {
+                solicitud.setEstado(RECHAZADA);
+                throw new IllegalArgumentException("La justificacion debe tener al menos 500 caracteres");
+            }
         }
+        return getSolicitudesDeEliminacionDeHechoPendientes().stream().filter(solicitud -> solicitud.getEstado()!=RECHAZADA).toList();
     }
+
+        public void evaluarSolicitud() {
+            Scanner scanner = new Scanner(System.in);
+
+            for (Solicitud solicitud : solicitudesValidas()) {
+                System.out.println("----- Solicitud -----");
+                System.out.println("Hecho solicitado: " + solicitud.getHecho().getTitulo());
+                System.out.println("Motivo: " + solicitud.getJustificacionDeEliminacion());
+
+                System.out.print("¿Aprobar esta solicitud? (s/n): ");
+                String input = scanner.nextLine().trim().toLowerCase();
+
+                if (input.equals("s")) {
+                    aprobarSolicitud(solicitud);
+                    System.out.println("Solicitud aprobada.");
+                } else {
+                    rechazarSolicitud(solicitud);
+                    System.out.println("Solicitud rechazada.");
+                }
+
+                System.out.println("----------------------\n");
+            }
+        }
+
+        public void aprobarSolicitud(Solicitud unaSolicitud) {
+            unaSolicitud.setEstado(APROBADA);
+            this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
+            //Cuando un hecho se quiera mostrar en interfaz, se debe verificar en sus solicitudes de eliminacion asociadas, que no haya ninguna aprobada
+        }
+
+        public void rechazarSolicitud (Solicitud unaSolicitud) {
+            unaSolicitud.setEstado(RECHAZADA);
+            this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
+        }
 }
+
 

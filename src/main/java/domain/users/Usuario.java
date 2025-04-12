@@ -1,11 +1,11 @@
 package domain.users;
 
+import domain.RepositorioHechosDinámicos.RepositorioHechosDinamicos;
 import domain.coleccion.Coleccion;
 import domain.hecho.Hecho;
 import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Scanner;
 
 
@@ -24,44 +24,18 @@ public abstract class Usuario {
     }
 
     /*--------------------------------------- SUBIR HECHOS ------------------------------------------------*/
-    // TODO: VER COMO HACER SI EL USUARIO QUIERE SUBIR DE FORMA ANONIMA O QUE SE DE A CONOCER
-    public void subirHecho(Hecho unHecho) {
-        this.tipoDeFormaParaSubirUnHecho();
-        this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
-    }
 
-    public void tipoDeFormaParaSubirUnHecho() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("¿Desea subir el hecho de forma anonima? (s/n)");
-        String respuesta = scanner.nextLine();
-
-        if(respuesta.equals("s")) {
+    public void subirHecho(Hecho unHecho){
+        RepositorioHechosDinamicos.repositorioHechos.agregarHechos(unHecho);
+        if(unHecho.getEsAnonimo()){
             System.out.println("Hecho subido de forma anonima");
+            // A IMPLEMENTAR: funcion mostrar, q en base a si es anónimo o no muestre datos del usuario correspondientes
         } else {
-            System.out.print("Ingrese su nombre (obligatorio): ");
-            String nombreIngresado = scanner.nextLine().trim();
-
-            while (nombreIngresado.isEmpty()) {
-                System.out.println("El nombre no puede estar vacío. Intente nuevamente.");
-                System.out.print("Ingrese su nombre (obligatorio): ");
-                nombreIngresado = scanner.nextLine().trim();
-            }
-            this.nombre = nombreIngresado;
-
-            System.out.print("¿Desea ingresar su apellido? (s/n): ");
-            if (scanner.nextLine().equalsIgnoreCase("s")) {
-                System.out.print("Apellido: ");
-                this.apellido = scanner.nextLine();
-            }
-
-            System.out.print("¿Desea ingresar su edad? (s/n): ");
-            if (scanner.nextLine().equalsIgnoreCase("s")) {
-                System.out.print("Edad: ");
-                this.edad = scanner.nextInt();
-            }
-
-            System.out.println("Hecho subido como contribuyente identificado.");
+            System.out.println("Hecho subido de forma publica");
+            unHecho.setEsAnonimo(false);
+            //Posible implementacion -> Tabla intermedia con IdHecho (puede ser posicion de array) con IdUsuario ()
         }
+            this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
 
     /*---------------------------------- SOLICITAR BORRAR UN HECHO --------------------------------------*/
@@ -71,8 +45,22 @@ public abstract class Usuario {
         String justificacion = scanner.nextLine().trim();
 
         Solicitud solicitud = new Solicitud(unHecho, justificacion);
-        unHecho.agregarSolicitudDeElimnacion(solicitud);
+        unHecho.agregarSolicitudDeEliminacion(solicitud);
     }
+
+    /*---------------------------------- NAVEGAR LOS HECHOS DE UNA COLECCION --------------------------------------*/
+    public void visualizar(Coleccion unaColeccion) {
+        for (Hecho hecho : unaColeccion.getHechos()) {
+            System.out.println("Título: " + hecho.getTitulo());
+            System.out.println("Descripción: " + hecho.getDescripcion());
+            System.out.println("Categoría: " + hecho.getCategoria());
+            System.out.println("Fecha de Acontecimiento: " + hecho.getFechaDeAcontecimiento());
+            System.out.println("Lugar: " + hecho.getLugar().getNombre());
+            System.out.println("¿Anónimo?: " + (hecho.getEsAnonimo() ? "Sí" : "No"));
+            System.out.println("-------------------------");
+        }
+    }
+
 }
 
 
