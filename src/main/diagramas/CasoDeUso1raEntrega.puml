@@ -1,16 +1,30 @@
 @startuml
-'https://plantuml.com/use-case-diagram
+left to right direction
+skinparam packageStyle rectangle
 
 
-Administrador -> (CrearColeccion)
-Administrador -> (ImportarHechos)
-Administrador -> (GestionarSolucutudesDeEliminacion)
-Usuario -->(NavegarColeccion)
-(NavegarColeccion)<.. (AplicarFiltros) : <extends>
-Usuario --> (SolicitarEliminacionDeHecho)
-Usuario --> (CargarHecho)
-(GestionarSolucutudesDeEliminacion) <.. (EliminarHecho): <extends>
+actor Administrador
+actor Usuario
 
+package "SW de MetaMapa" {
+  (Navegar colecciones)
+  (Aplicar filtros)
+  (Cargar hecho)
+  (Solicitar eliminación de hecho)
+  (Crear colección)
+  (Importar hechos desde CSV)
+  (Gestionar solicitudes de eliminación)
+  (Eliminar hecho)
+}
 
+Usuario --> (Navegar colecciones)
+(Navegar colecciones) <.. (Aplicar filtros) : <<extend>>
+Usuario --> (Cargar hecho)
+Usuario --> (Solicitar eliminación de hecho)
+
+Administrador --> (Crear colección)
+Administrador --> (Importar hechos desde CSV)
+Administrador --> (Gestionar solicitudes de eliminación)
+(Gestionar solicitudes de eliminación) <.. (Eliminar hecho) : <<extend>>
 
 @enduml
