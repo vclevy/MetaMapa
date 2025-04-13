@@ -1,95 +1,162 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Coleccion{
-    - titulo : String
-    - descripcion : String
-    - hechos : List<Hecho>
+class Categoria {
+    - String nombre
 
-    + crearColeccion() : ¿void?
+    + Categoria(String nombre)
 }
 
-abstract class Hecho{
-  - publicador : Usuario
-  - titulo : String
-  - descripcion : String
-  - categoria : Enum
-  - fechaDelAcontecimiento : LocalDateTime
-  - lugarDelAcontecimiento : Lugar
-  - origen : Origen
-  - etiqueta : Etiqueta
+class Coleccion {
+    - String titulo
+    - String descripcion
+    - List<Hecho> hechos
+
+    + Coleccion(String titulo, String descripcion)
+    + void agregarHechos(Hecho ... unosHechos)
+    + void eliminarHecho(Hecho unHecho)
 }
 
-class HechoDeTexto extends Hecho{
+class Lugar {
+    - String nombre;
+    - Double latitud;
+    - Double longitud;
+
+    + Lugar(Double latitud, Double longitud)
 }
 
-class HechoMultimedia extends Hecho{
- - ???? contenidoMultimedia
+interface FiltroHecho {
+    boolean aplica(Hecho hecho)
 }
 
-class Lugar{
-    - nombre : String
-    - latitud : Float
-    - longitud : Float
+class FiltroPorAnonimato implements FiltroHecho {
+    - boolean esAnonimo
+
+    + FiltroPorAnonimato(boolean esAnonimo)
+    + boolean aplica(Hecho hecho)
+}
+
+class FiltroPorCategoria implements FiltroHecho {
+    - Categoria categoria
+
+    + FiltroPorCategoria(Categoria categoria)
+
+    + boolean aplica(Hecho hecho)
+}
+
+class FiltroPorLugar implements FiltroHecho {
+    - Lugar lugar
+
+    + FiltroPorLugar(Lugar lugar)
+    + boolean aplica(Hecho hecho)
 }
 
 interface OrigenDelHecho {
-    cargarHecho(Hecho unHecho) : void
+
+    + void cargarHecho(Hecho hecho)
 }
 
-class CargaManual implements OrigenDelHecho {
-    cargarHecho(Hecho unHecho) : void
+class CargaManual implements OrigenDelHecho{
+
+    + void cargarHecho(Hecho hecho)
+}
+
+class Contribuyente implements OrigenDelHecho{
+    + void cargarHecho(Hecho hecho)
 }
 
 class Dataset implements OrigenDelHecho {
-    cargarHecho(Hecho unHecho) : void
-}
+    - Hecho hecho
 
-class Contribuyente implements OrigenDelHecho {
-    cargarHecho(Hecho unHecho) : void
-}
-
-abstract class Usuario{
-    - nombre : String
-    - apellido : String
-    - edad : Integer
-    - tipoDeUsuario : TipoDeUsuario
-    + void subirHecho(Hecho unHecho)
-    + void solicitarBorrarHecho(Hecho unHecho)
-    + void buscarHecho(Hecho unHecho)
-}
-
-enum TipoDeUsuario {
-    CONTRIBUYENTE,
-    VISUALIZADOR
-}
-
-class Solicitud{
-    - justificacion : String
-    - estadoDeSolicitud : EstadoDeSolicitudDeEliminacion
+    + void cargarHecho(Hecho hecho)
 }
 
 enum EstadoDeSolicitudDeEliminacion {
     PENDIENTE,
-    APROBADA,
-    RECHAZADA
+    RECHAZADA,
+    APROBADA
 }
 
-class Administrador{
-   + crearColeccion(Coleccion unaColeccion) : void
-   + importarHecho(??? archivo) : void
-   + aceptarSolicitud(Solicitud solicitud) : void
-   + eliminarSolicitud(Solicitud solicitud) : void
+class Solicitud {
+    - String justificacionDeEliminacion
+    - Hecho hecho
+    - EstadoDeSolicitudDeEliminacion estado
+
+    + Solicitud (Hecho unHecho, String unaJustificacion)
+
+}
+
+abstract class Hecho {
+    # String titulo
+    # String descripcion
+    # Categoria categoria
+    # LocalDateTime fechaDeAcontecimiento
+    # LocalDateTime fechaDeCarga
+    # Lugar lugar
+    # OrigenDelHecho origen
+    # List<Solicitud> solicitudesDeEliminacion
+    # Boolean esAnonimo
+    # Etiqueta unaEtiqueta
+
+    + void agregarSolicitudDeEliminacion(Solicitud unaSolicitud)
+}
+
+class HechoDeTexto extends Hecho {
+
+    + HechoDeTexto() (constructor con todos los parametros de hecho)
+}
+
+class RepositorioHechosDinamicos {
+
+    + static RepositorioHechosDinamicos repositorioHechos
+    - List<Hecho> hechosSubidos
+
+    + void agregarHechos(Hecho ... unosHechos)
+}
+
+class Administrador {
+    - String nombre
+    - List<Solicitud> solicitudesDeEliminacionDeHecho
+
+    + void importarHecho(Coleccion unaColeccion, String archivo)
+    + Coleccion crearColeccion(String titulo, String descripcion)
+    + List<Solicitud> getSolicitudesDeEliminacionDeHechoPendientes()
+    + List<Solicitud> solicitudesValidas() {
+    + void evaluarSolicitud()
+    + void aprobarSolicitud(Solicitud unaSolicitud)
+    + void rechazarSolicitud (Solicitud unaSolicitud)
+}
+
+enum TipoDeUsuario {
+    VISUALIZADOR,
+    CONTRIBUYENTE
+}
+
+class Usuario {
+    - String nombre
+    - String apellido
+    - Integer edad
+    # TipoDeUsuario tipoDeUsuario
+
+    + Usuario(String unNombre, String unApellido, Integer unEdad)
+    + void subirHecho(Hecho unHecho)
+    + void solicitarBorrarUnHecho(Hecho unHecho)
+    + void visualizar(Coleccion unaColeccion)
+    + void navegar(Coleccion coleccion, FiltroHecho filtro)
 }
 
 Hecho --> Usuario
 Lugar o-l- Hecho
-Coleccion -->"*" Hecho
-Administrador -->"*" Solicitud
+Coleccion --> "*" Hecho
+Administrador --> "*" Solicitud
 Administrador --> Coleccion
 Usuario --> Solicitud
 EstadoDeSolicitudDeEliminacion o-u- Solicitud
 TipoDeUsuario o-u- Usuario
 OrigenDelHecho o-- Hecho
+RepositorioHechosDinamicos --> "*" Hecho
+Usuario ..> FiltroHecho
+Hecho --> "*" Solicitud
+Hecho --> Categoria
 
 @enduml

@@ -24,5 +24,4 @@ public class Coleccion {
         this.hechos.remove(unHecho);
     }
 
-
 }
