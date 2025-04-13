@@ -83,39 +83,39 @@ public class Administrador {
         return getSolicitudesDeEliminacionDeHechoPendientes().stream().filter(solicitud -> solicitud.getEstado()!=RECHAZADA).toList();
     }
 
-        public void evaluarSolicitud() {
-            Scanner scanner = new Scanner(System.in);
+    public void evaluarSolicitud() {
+        Scanner scanner = new Scanner(System.in);
 
-            for (Solicitud solicitud : solicitudesValidas()) {
-                System.out.println("----- Solicitud -----");
-                System.out.println("Hecho solicitado: " + solicitud.getHecho().getTitulo());
-                System.out.println("Motivo: " + solicitud.getJustificacionDeEliminacion());
+        for (Solicitud solicitud : solicitudesValidas()) {
+            System.out.println("----- Solicitud -----");
+            System.out.println("Hecho solicitado: " + solicitud.getHecho().getTitulo());
+            System.out.println("Motivo: " + solicitud.getJustificacionDeEliminacion());
 
-                System.out.print("¿Aprobar esta solicitud? (s/n): ");
-                String input = scanner.nextLine().trim().toLowerCase();
+            System.out.print("¿Aprobar esta solicitud? (s/n): ");
+            String input = scanner.nextLine().trim().toLowerCase();
 
-                if (input.equals("s")) {
-                    aprobarSolicitud(solicitud);
-                    System.out.println("Solicitud aprobada.");
-                } else {
-                    rechazarSolicitud(solicitud);
-                    System.out.println("Solicitud rechazada.");
-                }
-
-                System.out.println("----------------------\n");
+            if (input.equals("s")) {
+                aprobarSolicitud(solicitud);
+                System.out.println("Solicitud aprobada.");
+            } else {
+                rechazarSolicitud(solicitud);
+                System.out.println("Solicitud rechazada.");
             }
-        }
 
-        public void aprobarSolicitud(Solicitud unaSolicitud) {
-            unaSolicitud.setEstado(APROBADA);
-            this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
-            //Cuando un hecho se quiera mostrar en interfaz, se debe verificar en sus solicitudes de eliminacion asociadas, que no haya ninguna aprobada
+            System.out.println("----------------------\n");
         }
+    }
 
-        public void rechazarSolicitud (Solicitud unaSolicitud) {
-            unaSolicitud.setEstado(RECHAZADA);
-            this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
-        }
+    public void aprobarSolicitud(Solicitud unaSolicitud) {
+        unaSolicitud.setEstado(APROBADA);
+        this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
+        // TODO Cuando un hecho se quiera mostrar en interfaz, se debe verificar en sus solicitudes de eliminacion asociadas, que no haya ninguna aprobada
+    }
+
+    public void rechazarSolicitud (Solicitud unaSolicitud) {
+        unaSolicitud.setEstado(RECHAZADA);
+        this.getSolicitudesDeEliminacionDeHechoPendientes().remove(unaSolicitud);
+    }
 }
 
 

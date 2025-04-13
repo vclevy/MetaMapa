@@ -29,16 +29,15 @@ public class Usuario {
     }
 
     /*--------------------------------------- SUBIR HECHOS ------------------------------------------------*/
-
     public void subirHecho(Hecho unHecho) {
         RepositorioHechosDinamicos.repositorioHechos.agregarHechos(unHecho);
         if (unHecho.getEsAnonimo()) {
             System.out.println("Hecho subido de forma anonima");
-            // A IMPLEMENTAR: funcion mostrar, q en base a si es anónimo o no muestre datos del usuario correspondientes
+            // TODO A IMPLEMENTAR: funcion mostrar, q en base a si es anónimo o no muestre datos del usuario correspondientes
         } else {
             System.out.println("Hecho subido de forma publica");
             unHecho.setEsAnonimo(false);
-            //Posible implementacion -> Tabla intermedia con IdHecho (puede ser posicion de array) con IdUsuario ()
+            // TODO Posible implementacion -> Tabla intermedia con IdHecho (puede ser posicion de array) con IdUsuario ()
         }
         this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
@@ -65,7 +64,6 @@ public class Usuario {
             System.out.println("-------------------------");
         }
     }
-    /*---------------------------------- NAVEGAR LOS HECHOS DE UNA COLECCION USANDO FILTROS --------------------------------------*/
 
     public void navegar(Coleccion coleccion, FiltroHecho filtro) {
         List<Hecho> hechosFiltrados = coleccion.getHechos().stream()
