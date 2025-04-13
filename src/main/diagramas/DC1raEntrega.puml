@@ -1,6 +1,5 @@
 @startuml
 'https://plantuml.com/class-diagram
-'El titulo podria ser un posible enum
 
 class Coleccion{
     - titulo : String

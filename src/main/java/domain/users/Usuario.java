@@ -2,11 +2,16 @@ package domain.users;
 
 import domain.RepositorioHechosDinámicos.RepositorioHechosDinamicos;
 import domain.coleccion.Coleccion;
+import domain.hecho.FiltroHecho.FiltroHecho;
 import domain.hecho.Hecho;
 import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 @Getter@Setter
@@ -25,9 +30,9 @@ public abstract class Usuario {
 
     /*--------------------------------------- SUBIR HECHOS ------------------------------------------------*/
 
-    public void subirHecho(Hecho unHecho){
+    public void subirHecho(Hecho unHecho) {
         RepositorioHechosDinamicos.repositorioHechos.agregarHechos(unHecho);
-        if(unHecho.getEsAnonimo()){
+        if (unHecho.getEsAnonimo()) {
             System.out.println("Hecho subido de forma anonima");
             // A IMPLEMENTAR: funcion mostrar, q en base a si es anónimo o no muestre datos del usuario correspondientes
         } else {
@@ -35,7 +40,7 @@ public abstract class Usuario {
             unHecho.setEsAnonimo(false);
             //Posible implementacion -> Tabla intermedia con IdHecho (puede ser posicion de array) con IdUsuario ()
         }
-            this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
+        this.setTipoDeUsuario(TipoDeUsuario.CONTRIBUYENTE);
     }
 
     /*---------------------------------- SOLICITAR BORRAR UN HECHO --------------------------------------*/
@@ -60,7 +65,24 @@ public abstract class Usuario {
             System.out.println("-------------------------");
         }
     }
+    /*---------------------------------- NAVEGAR LOS HECHOS DE UNA COLECCION USANDO FILTROS --------------------------------------*/
 
+    public void navegar(Coleccion coleccion, FiltroHecho filtro) {
+        List<Hecho> hechosFiltrados = coleccion.getHechos().stream()
+                .filter(filtro::aplica)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (hechosFiltrados.isEmpty()) {
+            System.out.println("No se encontraron hechos que coincidan con el filtro.");
+            return;
+        }
+
+        Coleccion nuevaColeccion = new Coleccion("NuevaCol", "para Imprimir");
+        nuevaColeccion.agregarHechos(hechosFiltrados.toArray(new Hecho[0])); // agregarHechs espera un array de Hechos, no una List<Hecho>
+        visualizar(nuevaColeccion);
+    }
 }
+
+
 
 

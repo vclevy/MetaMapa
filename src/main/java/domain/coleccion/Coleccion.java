@@ -2,9 +2,7 @@ package domain.coleccion;
 
 import domain.hecho.Hecho;
 import lombok.Getter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public class Coleccion {
@@ -22,8 +20,9 @@ public class Coleccion {
         Collections.addAll(this.hechos, unosHechos);
     }
 
-    // BORRAR HECHOS
     public void eliminarHecho(Hecho unHecho) {
         this.hechos.remove(unHecho);
     }
+
+
 }
