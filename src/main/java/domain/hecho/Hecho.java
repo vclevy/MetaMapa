@@ -4,7 +4,8 @@ package domain.hecho;
 import java.time.LocalDateTime;
 import java.util.List;
 import domain.coleccion.Categoria;
-import domain.coleccion.Lugar;
+import domain.hecho.lugar.Lugar;
+import domain.hecho.etiqueta.Etiqueta;
 import domain.hecho.origenDelHecho.*;
 import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public abstract class Hecho {
     protected OrigenDelHecho origen;
     protected List<Solicitud> solicitudesDeEliminacion;
     protected Boolean esAnonimo = true;
-    // protected Etiqueta unaEtiqueta; SOLO LOS HECHOS Q APORTAN LOS CONTRIBUS
+    protected Etiqueta etiqueta;
 
 
     // AGREGAR SOLICITUD DE ELIMINACION A UN HECHO

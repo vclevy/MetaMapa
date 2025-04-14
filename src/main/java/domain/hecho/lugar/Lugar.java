@@ -1,4 +1,4 @@
-package domain.coleccion;
+package domain.hecho.lugar;
 
 import lombok.Getter;
 

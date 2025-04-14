@@ -1,10 +1,9 @@
 package domain.hecho;
 
 import domain.coleccion.Categoria;
-import domain.coleccion.Lugar;
+import domain.hecho.lugar.Lugar;
 import domain.hecho.origenDelHecho.OrigenDelHecho;
 
-import javax.swing.text.StyledEditorKit;
 import java.time.LocalDateTime;
 
 public class HechoDeTexto extends Hecho {

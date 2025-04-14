@@ -3,6 +3,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import domain.coleccion.*;
 import domain.hecho.*;
+import domain.hecho.lugar.Lugar;
 import domain.hecho.origenDelHecho.Dataset;
 import domain.hecho.solicitudes.Solicitud;
 import java.io.FileReader;

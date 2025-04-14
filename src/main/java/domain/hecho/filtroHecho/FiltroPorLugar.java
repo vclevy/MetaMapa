@@ -1,6 +1,6 @@
-package domain.hecho.FiltroHecho;
+package domain.hecho.filtroHecho;
 
-import domain.coleccion.Lugar;
+import domain.hecho.lugar.Lugar;
 import domain.hecho.Hecho;
 
 public class FiltroPorLugar implements FiltroHecho {

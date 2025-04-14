@@ -1,9 +1,7 @@
 @startuml
 
-class Categoria {
-    - nombre : String
-}
 
+package "Colecciones" {
 class Coleccion {
     - titulo : String
     - descripcion : String
@@ -13,16 +11,15 @@ class Coleccion {
     + eliminarHecho(Hecho unHecho) : void
 }
 
-class Lugar {
+class Categoria {
     - nombre : String
-    - latitud : Double
-    - longitud : Double
 }
 
+}
 
-
+package "Hechos" {
 interface FiltroHecho {
-    + aplica(Hecho (Hecho unHecho) : boolean
+    + aplica(Hecho unHecho) : boolean
 }
 
 class FiltroHechoPorAnonimato implements FiltroHecho {
@@ -63,6 +60,7 @@ class DataSet implements OrigenDelHecho {
 
 
 
+
 abstract class Hecho {
     # titulo : String
     # descripcion : String
@@ -99,16 +97,24 @@ enum EstadoDeSolicitudDeEliminacion {
     RECHAZADA
 }
 
+class Lugar {
+    - nombre : String
+    - latitud : Double
+    - longitud : Double
+}
 
+}
 
+package "Repositorio De Hechos Dinamico" {
 class RepositorioHechosDinamicos {
     - hechosSubidos : List<Hecho>
 
     + agregarHechos(Hecho ... unosHechos) : void
 }
 
+}
 
-
+package "Usuarios" {
 class Administrador {
     - nombre : String
     - solicitudesDeEliminacion : List<Solicitud>
@@ -139,25 +145,33 @@ enum TipoDeUsuario {
     VISUALIZADOR
 }
 
+}
+
 
 
 '------------------- RELACIONES -----------------------'
-Hecho --> Categoria
-Hecho --> Lugar
-Hecho --> Etiqueta
-Hecho -r-> OrigenDelHecho
-Hecho -l-> Solicitud
 
+'RELACIONES DE PACKAGE HECHOS'
+Hecho -r-> "*" Solicitud
+FiltroHecho *-- Hecho
+EstadoDeSolicitudDeEliminacion *-- Hecho
+OrigenDelHecho *-r- Hecho
+Lugar *-- Hecho
+Etiqueta *-- Hecho
+
+
+'RELACIONES DE PACKAGE USUARIOS'
+Usuario --> TipoDeUsuario
+
+'RELACIONES DE PACKAGE COLECCIONES'
+Coleccion -l-> Categoria
+
+
+'RELACIONES ENTRE PACKAGES'
 Coleccion --> "*" Hecho
-
-Usuario --> Coleccion
-Usuario --> Hecho
-Usuario -r-> FiltroHecho
-
-Administrador --> Coleccion
 Administrador --> "*" Solicitud
-Administrador --> Hecho
-
+RepositorioHechosDinamicos --> "*" Hecho
+Usuario ..> Hecho
 
 
 

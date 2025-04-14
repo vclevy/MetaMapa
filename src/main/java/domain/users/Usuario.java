@@ -1,8 +1,8 @@
 package domain.users;
 
-import domain.RepositorioHechosDinámicos.RepositorioHechosDinamicos;
+import domain.repositorioHechosDinámicos.RepositorioHechosDinamicos;
 import domain.coleccion.Coleccion;
-import domain.hecho.FiltroHecho.FiltroHecho;
+import domain.hecho.filtroHecho.FiltroHecho;
 import domain.hecho.Hecho;
 import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
@@ -44,12 +44,14 @@ public class Usuario {
 
     /*---------------------------------- SOLICITAR BORRAR UN HECHO --------------------------------------*/
     public void solicitarBorrarUnHecho(Hecho unHecho) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
-        String justificacion = scanner.nextLine().trim();
+        if (tipoDeUsuario.equals(TipoDeUsuario.CONTRIBUYENTE)) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
+            String justificacion = scanner.nextLine().trim();
 
-        Solicitud solicitud = new Solicitud(unHecho, justificacion);
-        unHecho.agregarSolicitudDeEliminacion(solicitud);
+            Solicitud solicitud = new Solicitud(unHecho, justificacion);
+            unHecho.agregarSolicitudDeEliminacion(solicitud);
+        }
     }
 
     /*---------------------------------- NAVEGAR LOS HECHOS DE UNA COLECCION --------------------------------------*/

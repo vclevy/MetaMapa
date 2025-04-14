@@ -1,4 +1,4 @@
-package domain.RepositorioHechosDinámicos;
+package domain.repositorioHechosDinámicos;
 
 import domain.hecho.Hecho;
 import lombok.Getter;
