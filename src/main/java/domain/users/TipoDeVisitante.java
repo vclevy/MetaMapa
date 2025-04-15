@@ -1,6 +1,6 @@
 package domain.users;
 
-public enum TipoDeUsuario {
+public enum TipoDeVisitante {
     VISUALIZADOR,
     CONTRIBUYENTE
 }

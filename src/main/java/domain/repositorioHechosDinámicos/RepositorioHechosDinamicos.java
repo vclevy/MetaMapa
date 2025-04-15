@@ -17,5 +17,4 @@ public class RepositorioHechosDinamicos {
     public void agregarHechos(Hecho ... unosHechos){
         Collections.addAll(this.hechosSubidos, unosHechos);
     }
-
 }
