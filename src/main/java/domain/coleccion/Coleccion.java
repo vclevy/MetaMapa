@@ -12,6 +12,7 @@ public class Coleccion {
     private String titulo;
     private String descripcion;
     private Map<String, Hecho> hechos;
+    private CriterioDePertenencia criterioDePertenencia;
 
     public Coleccion() {
         hechos = new HashMap<>();

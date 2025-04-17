@@ -1,9 +1,7 @@
 package domain.hecho.solicitudes;
 
 import lombok.Getter;
-
 import java.util.List;
-
 import static domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion.*;
 
 @Getter

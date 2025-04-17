@@ -36,7 +36,6 @@ public class Hecho {
         this.etiqueta = etiqueta;
     }
 
-
     public boolean tieneMultimedia() {
         return multimedia != null && !multimedia.isEmpty();
     }
