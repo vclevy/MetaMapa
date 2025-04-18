@@ -21,15 +21,17 @@ public class Administrador {
         this.importador = importador;
     }
 
-    public void importarHechos() {
-        Coleccion coleccion = new Coleccion(); // metodo crear coleccion?????
+    public Coleccion importarHechos() {
+        Coleccion coleccion = new Coleccion();
         String archivo = Config.get("ruta.archivo.hechos");
         try {
             importador.importarHechos(archivo, coleccion);
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
+        return coleccion;
     }
+
 
 //    public Coleccion crearColeccion(String titulo, String descripcion) {
 //        Coleccion coleccion = new Coleccion(titulo, descripcion);
