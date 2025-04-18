@@ -2,7 +2,7 @@ package domain.users;
 
 import domain.hecho.gestorDeHechos.GestorDeHechos;
 import domain.coleccion.Coleccion;
-import domain.hecho.filtroHecho.FiltroHecho;
+import domain.hecho.FiltroHecho.FiltroHecho;
 import domain.hecho.Hecho;
 import domain.hecho.solicitudes.Solicitud;
 import lombok.Getter;
@@ -43,17 +43,17 @@ public class Visitante {
         }
     }
 
-    public List<Hecho> filtrar(Coleccion coleccion, FiltroHecho filtro) {
+    public List<Hecho> filtrar(Coleccion coleccion, List<FiltroHecho> filtros) {
         List<Hecho> hechosFiltrados = coleccion.getHechos().values().stream()
-                .filter(filtro::aplica)
+                .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho))) // <-- aplica todos los filtros
                 .collect(Collectors.toCollection(ArrayList::new));
 
         if (hechosFiltrados.isEmpty()) {
             System.out.println("No se encontraron hechos que coincidan con el filtro.");
         }
-
         return hechosFiltrados;
     }
+
 }
 
 

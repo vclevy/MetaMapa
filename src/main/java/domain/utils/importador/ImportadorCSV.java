@@ -40,7 +40,7 @@ public class ImportadorCSV implements Importador {
                             titulo,
                             descripcion,
                             new Categoria(categoria),
-                            fecha.atStartOfDay(),
+                            fecha,
                             LocalDateTime.now(),
                             new Lugar(latitud, longitud),
                             OrigenDelHecho.DATASET,  // El origen es un dataset

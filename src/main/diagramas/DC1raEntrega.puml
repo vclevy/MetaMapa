@@ -102,7 +102,7 @@ package "hecho" {
         - titulo : String
         - descripcion : String
         - categoria : Categoria
-        - fechaDeAcontecimiento : LocalDateTime
+        - fechaDeAcontecimiento : LocalDate
         - fechaDeCarga : LocalDateTime
         - lugar : Lugar
         - origen : OrigenDelHecho

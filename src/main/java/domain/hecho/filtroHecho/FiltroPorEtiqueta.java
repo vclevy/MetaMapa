@@ -1,4 +1,4 @@
-package domain.hecho.filtroHecho;
+package domain.hecho.FiltroHecho;
 import domain.hecho.etiqueta.Etiqueta;
 
 
@@ -13,6 +13,6 @@ public class FiltroPorEtiqueta implements FiltroHecho {
 
     @Override
     public boolean aplica(Hecho hecho) {
-        return hecho.getEtiqueta().equals(etiqueta);
+        return hecho.getEtiquetas().equals(etiqueta);
     }
 }

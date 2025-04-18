@@ -1,4 +1,4 @@
-package domain.hecho.filtroHecho;
+package domain.hecho.FiltroHecho;
 
 import domain.hecho.Hecho;
 
