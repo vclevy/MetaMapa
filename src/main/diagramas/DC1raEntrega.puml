@@ -149,7 +149,6 @@ package "users" {
         # tipoDeVisitante: TipoDeVisitante
         - gestorDeHechos: GestorDeHechos
 
-        + Visitante(String unNombre, String unApellido, Integer unEdad)
         + subirHecho(Hecho unHecho): void
         + solicitarBorrarUnHecho(Hecho unHecho): void
         + filtrar(Coleccion coleccion, FiltroHecho filtro): List<Hecho>

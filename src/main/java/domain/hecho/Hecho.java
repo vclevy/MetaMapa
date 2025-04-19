@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import lombok.Builder;
 
 import domain.coleccion.Categoria;
 import domain.hecho.lugar.Lugar;
@@ -14,7 +15,8 @@ import lombok.*;
 
 @Setter
 @Getter
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Hecho {
     private String titulo;
     private String descripcion;
