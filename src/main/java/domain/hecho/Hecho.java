@@ -40,6 +40,7 @@ public class Hecho {
         this.origen = origen;
         this.esAnonimo = esAnonimo;
         this.etiquetas = new ArrayList<>();
+        this.solicitudesDeEliminacion = new ArrayList<>();
     }
 
     public boolean tieneMultimedia() {

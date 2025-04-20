@@ -1,13 +1,15 @@
 package domain.hecho.solicitudes;
 
 import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 import static domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion.*;
 
 @Getter
 public class GestorDeSolicitudes {
 
-    private List<Solicitud> solicitudesDeEliminacionDeHecho;
+    private List<Solicitud> solicitudesDeEliminacionDeHecho = new ArrayList<>();
 
     public void aprobarSolicitud(Solicitud unaSolicitud) {
         if(esValida(unaSolicitud)) {

@@ -32,12 +32,12 @@ public class Visitante {
         this.setTipoDeVisitante(TipoDeVisitante.CONTRIBUYENTE);
     }
 
-    public void solicitarBorrarUnHecho(Hecho unHecho) {
+    public void solicitarBorrarUnHecho(Hecho unHecho, String justificacion) {
         if (tipoDeVisitante.equals(TipoDeVisitante.CONTRIBUYENTE)) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
-            String justificacion = scanner.nextLine().trim();
-
+            //Scanner scanner = new Scanner(System.in);
+            //System.out.print("Ingrese Justificacion de eliminacion (al menos 500 caracteres): ");
+            //String justificacion = scanner.nextLine().trim();
+            // todo: solucion momentanea con la interfaz es diferente
             Solicitud solicitud = new Solicitud(unHecho, justificacion);
             unHecho.agregarSolicitudDeEliminacion(solicitud);
         }
