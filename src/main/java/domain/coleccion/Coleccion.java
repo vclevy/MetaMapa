@@ -4,6 +4,7 @@ import domain.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -20,20 +21,28 @@ public class Coleccion {
 
     public void agregarHecho(Hecho hecho) {
         if (criteriosDePertenencia != null && !criteriosDePertenencia.isEmpty()) {
-            boolean cumpleTodos = criteriosDePertenencia.stream()
-                    .allMatch(criterio -> criterio.cumple(hecho));
+            boolean cumpleTodos = criteriosDePertenencia.stream().allMatch(criterio -> criterio.cumple(hecho));
 
             if (cumpleTodos) {
                 hechos.put(hecho.getTitulo(), hecho);
             }
-        } else {
-            hechos.put(hecho.getTitulo(), hecho);
-        }
+            } else {
+                hechos.put(hecho.getTitulo(), hecho);
+            }
     }
 
     public void agregarCriterioDePertenencia(CriterioDePertenencia criterio) {
         criteriosDePertenencia.add(criterio);
     }
 
+    public void eliminarHechoPorSolicitudDeEliminacionAprobada(Hecho unHecho) {
+        if (unHecho.tieneSolicitudesDeEliminacionAprobada()) {
+            hechos.remove(unHecho.getTitulo());
+        }
+    }
+
+    public List<Hecho> hechosConSolicitudesDeEliminacionAprobada() {
+        return hechos.values().stream().filter(unHecho -> unHecho.tieneSolicitudesDeEliminacionAprobada()).collect(Collectors.toList());
+    }
 }
 

@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import lombok.Builder;
 
 import domain.coleccion.Categoria;
@@ -53,5 +55,9 @@ public class Hecho {
 
     public void agregarSolicitudDeEliminacion(Solicitud unaSolicitud) {
         this.solicitudesDeEliminacion.add(unaSolicitud);
+    }
+
+    public boolean tieneSolicitudesDeEliminacionAprobada() {
+        return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
 }
