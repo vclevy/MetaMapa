@@ -3,22 +3,25 @@
 
 package "coleccion" {
     class Categoria {
-        - String nombre;
-        + Categoria(String nombre)
+        - nombre : String
     }
 
     class Coleccion {
-        - String titulo
-        - String descripcion
-        - Map<String, Hecho> hechos
-        - CriterioDePertenencia criterioDePertenencia
+        - titulo : String
+        - descripcion : String
+        - hechos : Map<String, Hecho>
+        - criterioDePertenencia : List<CriterioDePertenencia>
 
-        + void agregarHecho(Hecho hecho)
-        + void eliminarHecho(Hecho unHecho)
+        + agregarHecho(Hecho hecho) : void
+        + eliminarHecho(Hecho unHecho) : void
+        + agregarCriterioDePertenencia(CriterioDePertenencia criterio) : void
+        + eliminarHechoPorSolicitudDeEliminacionAprobada(Hecho unHecho) : void
+        + hechosConSolicitudesDeEliminacionAprobada() : List<Hecho>
         }
 
 
-    class CriterioDePertenencia {
+    interface CriterioDePertenencia {
+        + cumple(Hecho unHecho) : boolean
     }
 }
 
@@ -33,7 +36,7 @@ package "hecho" {
 
     package "filtroHecho" {
         interface FiltroHecho {
-            + aplica (Hecho unHecho) : boolean
+            + aplica(Hecho unHecho) : boolean
         }
 
         class FiltroPorAnonimato implements FiltroHecho {
@@ -87,7 +90,7 @@ package "hecho" {
 
             + aprobarSolicitud(Solicitud unaSolicitud) : void
             + rechazarSolicitud(Solicitud unaSolicitud) : void
-            + getSolicitudesDeEliminacionDeHechoPendientes() : List<Solicitud>
+            + eliminarSolicitudDeLista(Solicitud unaSolicitud) : void
             + esValida(Solicitud unaSolicitud) : boolean
         }
 
@@ -95,6 +98,7 @@ package "hecho" {
             - justificacionDeEliminacion : String
             - hecho : Hecho
             - estado : EstadoDeSolicitudDeEliminacion
+            - fechaSolicitud : LocalDateTime
         }
     }
 
@@ -111,8 +115,9 @@ package "hecho" {
         - etiqueta : Etiqueta
         - multimedia : List<Multimedia>
 
-        + tieneMultimedia() : void
+        + tieneMultimedia() : boolean
         + agregarSolicitudesDeEliminacion(Solicitud unaSolicitud) : void
+        + tieneSolicitudesDeEliminacionAprobada() : boolean
     }
 
     class Multimedia {
@@ -132,7 +137,7 @@ package "users" {
         - importador: Importador
 
         + elegirImportador(Importador importador): void
-        + importarHechos(): void
+        + importarHechos(): Coleccion
         + aprobarSolicitud(Solicitud unaSolicitud): void
         + rechazarSolicitud(Solicitud unaSolicitud): void
         }
@@ -157,13 +162,14 @@ package "users" {
 package "utils.importador" {
 
     class Config {
-        - static final String ARCHIVO_CONFIG
+        - static final ARCHIVO_CONFIG : String
+        - static final props : Properties
+
 
         + static String get(String clave)
         }
 
     interface Importador {
-
         + void importarHechos(String archivo, Coleccion coleccion)
     }
 
