@@ -40,9 +40,5 @@ public class Coleccion {
             hechos.remove(unHecho.getTitulo());
         }
     }
-
-    public List<Hecho> hechosConSolicitudesDeEliminacionAprobada() {
-        return hechos.values().stream().filter(unHecho -> unHecho.tieneSolicitudesDeEliminacionAprobada()).collect(Collectors.toList());
-    }
 }
 

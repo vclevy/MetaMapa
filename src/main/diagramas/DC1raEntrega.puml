@@ -16,8 +16,7 @@ package "coleccion" {
         + eliminarHecho(Hecho unHecho) : void
         + agregarCriterioDePertenencia(CriterioDePertenencia criterio) : void
         + eliminarHechoPorSolicitudDeEliminacionAprobada(Hecho unHecho) : void
-        + hechosConSolicitudesDeEliminacionAprobada() : List<Hecho>
-        }
+    }
 
 
     interface CriterioDePertenencia {
@@ -116,6 +115,7 @@ package "hecho" {
         - multimedia : List<Multimedia>
 
         + tieneMultimedia() : boolean
+        + agregarEtiquetas(Etiqueta ... unasEtiquetas) : void
         + agregarSolicitudesDeEliminacion(Solicitud unaSolicitud) : void
         + tieneSolicitudesDeEliminacionAprobada() : boolean
     }
