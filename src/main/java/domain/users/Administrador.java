@@ -8,7 +8,9 @@ import domain.utils.importador.Importador;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 @Setter
 @Getter
@@ -21,14 +23,15 @@ public class Administrador {
         this.importador = importador;
     }
 
-    public void importarHechos() {
-        Coleccion coleccion = new Coleccion(); // metodo crear coleccion?????
-        String archivo = Config.get("ruta.archivo.hechos");
+    public Coleccion importarHechos() {
+        Coleccion coleccion = new Coleccion();
+        String archivo = Config.get("ruta.archivo.hechos"); // <- nombre relativo, como 'desastres_sanitarios_contaminacion_argentina.csv'
         try {
             importador.importarHechos(archivo, coleccion);
         } catch (IOException | CsvValidationException e) {
             e.printStackTrace();
         }
+        return coleccion;
     }
 
 //    public Coleccion crearColeccion(String titulo, String descripcion) {

@@ -1,162 +1,202 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Categoria {
-    - String nombre
+package "coleccion" {
+    class Categoria {
+        - nombre : String
+    }
 
-    + Categoria(String nombre)
+    class Coleccion {
+        - titulo : String
+        - descripcion : String
+        - hechos : Map<String, Hecho>
+        - criterioDePertenencia : List<CriterioDePertenencia>
+
+        + agregarHecho(Hecho hecho) : void
+        + eliminarHecho(Hecho unHecho) : void
+        + agregarCriterioDePertenencia(CriterioDePertenencia criterio) : void
+        + eliminarHechoPorSolicitudDeEliminacionAprobada(Hecho unHecho) : void
+    }
+
+
+    interface CriterioDePertenencia {
+        + cumple(Hecho unHecho) : boolean
+    }
 }
 
-class Coleccion {
-    - String titulo
-    - String descripcion
-    - List<Hecho> hechos
 
-    + Coleccion(String titulo, String descripcion)
-    + void agregarHechos(Hecho ... unosHechos)
-    + void eliminarHecho(Hecho unHecho)
+package "hecho" {
+    package "etiqueta" {
+        class Etiqueta {
+            - nombre : String
+            - descripcion : String
+        }
+    }
+
+    package "filtroHecho" {
+        interface FiltroHecho {
+            + aplica(Hecho unHecho) : boolean
+        }
+
+        class FiltroPorAnonimato implements FiltroHecho {
+            - esAnonimo : boolean
+
+            + aplica(Hecho unHecho) : boolean
+        }
+
+        class FiltroPorCategoria implements FiltroHecho {
+            - categoria : Categoria
+
+            + aplica(Hecho unHecho) : boolean
+        }
+
+        class FiltroPorEtiqueta implements FiltroHecho {
+            - etiqueta : Etiqueta
+
+            + aplica(Hecho unHecho) : boolean
+        }
+
+        class FiltroPorLugar implements FiltroHecho {
+            - lugar : Lugar
+
+            + aplica(Hecho unHecho) : boolean
+        }
+    }
+
+    package "gestorDeHechos" {
+        class GestorDeHechos {
+            + cargarHecho(Hecho unHecho) : void
+        }
+    }
+
+    package "lugar" {
+        class Lugar {
+            - nombre : String
+            - latitud : Double
+            - longitud : Double
+        }
+    }
+
+    package "solicitudes" {
+        enum EstadoDeSolicitudDeEliminacion {
+            PENDIENTE,
+            APROBADA,
+            RECHAZADA
+        }
+
+        class GestorDeSolicitudes {
+            - solicitudesDeEliminacionDeHecho : List<Solicitud>
+
+            + aprobarSolicitud(Solicitud unaSolicitud) : void
+            + rechazarSolicitud(Solicitud unaSolicitud) : void
+            + eliminarSolicitudDeLista(Solicitud unaSolicitud) : void
+            + esValida(Solicitud unaSolicitud) : boolean
+        }
+
+        class Solicitud {
+            - justificacionDeEliminacion : String
+            - hecho : Hecho
+            - estado : EstadoDeSolicitudDeEliminacion
+            - fechaSolicitud : LocalDateTime
+        }
+    }
+
+    class Hecho {
+        - titulo : String
+        - descripcion : String
+        - categoria : Categoria
+        - fechaDeAcontecimiento : LocalDate
+        - fechaDeCarga : LocalDateTime
+        - lugar : Lugar
+        - origen : OrigenDelHecho
+        - solicitudesDeEliminacion : List<Solicitud>
+        - esAnonimo : Boolean
+        - etiqueta : Etiqueta
+        - multimedia : List<Multimedia>
+
+        + tieneMultimedia() : boolean
+        + agregarEtiquetas(Etiqueta ... unasEtiquetas) : void
+        + agregarSolicitudesDeEliminacion(Solicitud unaSolicitud) : void
+        + tieneSolicitudesDeEliminacionAprobada() : boolean
+    }
+
+    class Multimedia {
+    }
+
+    enum OrigenDelHecho {
+        DATASET,
+        CARGA_MANUAL,
+        CONTRIBUYENTE;
+    }
 }
 
-class Lugar {
-    - String nombre;
-    - Double latitud;
-    - Double longitud;
+package "users" {
+     class Administrador {
+        - nombre: String
+        - gestorDeSolicitudes: GestorDeSolicitudes
+        - importador: Importador
 
-    + Lugar(Double latitud, Double longitud)
+        + elegirImportador(Importador importador): void
+        + importarHechos(): Coleccion
+        + aprobarSolicitud(Solicitud unaSolicitud): void
+        + rechazarSolicitud(Solicitud unaSolicitud): void
+        }
+
+    enum TipoDeVisitante {
+        VISUALIZADOR,
+        CONTRIBUYENTE
+    }
+
+    class Visitante {
+        - nombre: String
+        - apellido: String
+        - edad: Integer
+        # tipoDeVisitante: TipoDeVisitante
+        - gestorDeHechos: GestorDeHechos
+
+        + subirHecho(Hecho unHecho): void
+        + solicitarBorrarUnHecho(Hecho unHecho): void
+        + filtrar(Coleccion coleccion, FiltroHecho filtro): List<Hecho>
 }
 
-interface FiltroHecho {
-    boolean aplica(Hecho hecho)
-}
+package "utils.importador" {
 
-class FiltroPorAnonimato implements FiltroHecho {
-    - boolean esAnonimo
+    class Config {
+        - static final ARCHIVO_CONFIG : String
+        - static final props : Properties
 
-    + FiltroPorAnonimato(boolean esAnonimo)
-    + boolean aplica(Hecho hecho)
-}
 
-class FiltroPorCategoria implements FiltroHecho {
-    - Categoria categoria
+        + static String get(String clave)
+        }
 
-    + FiltroPorCategoria(Categoria categoria)
+    interface Importador {
+        + void importarHechos(String archivo, Coleccion coleccion)
+    }
 
-    + boolean aplica(Hecho hecho)
-}
-
-class FiltroPorLugar implements FiltroHecho {
-    - Lugar lugar
-
-    + FiltroPorLugar(Lugar lugar)
-    + boolean aplica(Hecho hecho)
-}
-
-interface OrigenDelHecho {
-
-    + void cargarHecho(Hecho hecho)
-}
-
-class CargaManual implements OrigenDelHecho{
-
-    + void cargarHecho(Hecho hecho)
-}
-
-class Contribuyente implements OrigenDelHecho{
-    + void cargarHecho(Hecho hecho)
-}
-
-class Dataset implements OrigenDelHecho {
-    - Hecho hecho
-
-    + void cargarHecho(Hecho hecho)
-}
-
-enum EstadoDeSolicitudDeEliminacion {
-    PENDIENTE,
-    RECHAZADA,
-    APROBADA
-}
-
-class Solicitud {
-    - String justificacionDeEliminacion
-    - Hecho hecho
-    - EstadoDeSolicitudDeEliminacion estado
-
-    + Solicitud (Hecho unHecho, String unaJustificacion)
+    class ImportadorCSV implements Importador {
+        + void importarHechos(String archivo, Coleccion coleccion)
+    }
 
 }
 
-abstract class Hecho {
-    # String titulo
-    # String descripcion
-    # Categoria categoria
-    # LocalDateTime fechaDeAcontecimiento
-    # LocalDateTime fechaDeCarga
-    # Lugar lugar
-    # OrigenDelHecho origen
-    # List<Solicitud> solicitudesDeEliminacion
-    # Boolean esAnonimo
-    # Etiqueta unaEtiqueta
 
-    + void agregarSolicitudDeEliminacion(Solicitud unaSolicitud)
-}
-
-class HechoDeTexto extends Hecho {
-
-    + HechoDeTexto() (constructor con todos los parametros de hecho)
-}
-
-class RepositorioHechosDinamicos {
-
-    + static RepositorioHechosDinamicos repositorioHechos
-    - List<Hecho> hechosSubidos
-
-    + void agregarHechos(Hecho ... unosHechos)
-}
-
-class Administrador {
-    - String nombre
-    - List<Solicitud> solicitudesDeEliminacionDeHecho
-
-    + void importarHecho(Coleccion unaColeccion, String archivo)
-    + Coleccion crearColeccion(String titulo, String descripcion)
-    + List<Solicitud> getSolicitudesDeEliminacionDeHechoPendientes()
-    + List<Solicitud> solicitudesValidas() {
-    + void evaluarSolicitud()
-    + void aprobarSolicitud(Solicitud unaSolicitud)
-    + void rechazarSolicitud (Solicitud unaSolicitud)
-}
-
-enum TipoDeUsuario {
-    VISUALIZADOR,
-    CONTRIBUYENTE
-}
-
-class Usuario {
-    - String nombre
-    - String apellido
-    - Integer edad
-    # TipoDeUsuario tipoDeUsuario
-
-    + Usuario(String unNombre, String unApellido, Integer unEdad)
-    + void subirHecho(Hecho unHecho)
-    + void solicitarBorrarUnHecho(Hecho unHecho)
-    + void visualizar(Coleccion unaColeccion)
-    + void navegar(Coleccion coleccion, FiltroHecho filtro)
-}
-
-Hecho --> Usuario
 Lugar o-l- Hecho
 Coleccion --> "*" Hecho
-Administrador --> "*" Solicitud
-Administrador --> Coleccion
-Usuario --> Solicitud
+GestorDeSolicitudes --> "*" Solicitud
+Administrador --> GestorDeSolicitudes
+Administrador --> Importador
 EstadoDeSolicitudDeEliminacion o-u- Solicitud
-TipoDeUsuario o-u- Usuario
 OrigenDelHecho o-- Hecho
-RepositorioHechosDinamicos --> "*" Hecho
-Usuario ..> FiltroHecho
+Visitante ..> FiltroHecho
 Hecho --> "*" Solicitud
 Hecho --> Categoria
-
+Hecho o--> Etiqueta
+Visitante --> GestorDeSolicitudes
+Visitante --> TipoDeVisitante
+Visitante ..> Hecho
+Hecho --> "*" Multimedia
+Visitante--> GestorDeHechos
+GestorDeHechos..>Hecho
+Coleccion-->CriterioDePertenencia
+Administrador..>Config
 @enduml
