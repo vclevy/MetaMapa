@@ -1,5 +1,6 @@
 package domain.coleccion;
 
+import domain.fuentes.Fuente;
 import domain.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ public class Coleccion {
     private String descripcion;
     private Map<String, Hecho> hechos;
     private List<CriterioDePertenencia> criteriosDePertenencia;
+    private List<Fuente> fuentes;
 
     public Coleccion() {
         hechos = new HashMap<>();

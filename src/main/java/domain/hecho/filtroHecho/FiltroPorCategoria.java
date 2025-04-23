@@ -1,6 +1,6 @@
 package domain.hecho.FiltroHecho;
 
-import domain.coleccion.Categoria;
+import domain.hecho.Categoria;
 import domain.hecho.Hecho;
 
 public class FiltroPorCategoria implements FiltroHecho {

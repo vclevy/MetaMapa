@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class Lugar {
-    private String nombre;
     private Double latitud;
     private Double longitud;
 

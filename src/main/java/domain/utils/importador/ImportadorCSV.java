@@ -2,7 +2,7 @@ package domain.utils.importador;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
-import domain.coleccion.Categoria;
+import domain.hecho.Categoria;
 import domain.coleccion.Coleccion;
 import domain.hecho.Hecho;
 import domain.hecho.OrigenDelHecho;
@@ -12,7 +12,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ImportadorCSV implements Importador {
     @Override
