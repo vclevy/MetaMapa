@@ -4,7 +4,7 @@ skinparam packageStyle rectangle
 
 
 actor Administrador
-actor Usuario
+actor Vistante
 
 package "SW de MetaMapa" {
   (Navegar colecciones)
@@ -17,10 +17,10 @@ package "SW de MetaMapa" {
   (Eliminar hecho)
 }
 
-Usuario --> (Navegar colecciones)
+Vistante --> (Navegar colecciones)
 (Navegar colecciones) <.. (Aplicar filtros) : <<extend>>
-Usuario --> (Cargar hecho)
-Usuario --> (Solicitar eliminación de hecho)
+Vistante --> (Cargar hecho)
+Vistante --> (Solicitar eliminación de hecho)
 
 Administrador --> (Crear colección)
 Administrador --> (Importar hechos desde CSV)

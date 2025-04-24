@@ -2,7 +2,7 @@ package domain.hecho.FiltroHecho;
 
 import domain.hecho.Hecho;
 
-public class FiltroPorAnonimato implements FiltroHecho {
+public class FiltroPorAnonimato implements domain.hecho.FiltroHecho.FiltroHecho {
     private boolean esAnonimo;
 
     public FiltroPorAnonimato(boolean esAnonimo) {

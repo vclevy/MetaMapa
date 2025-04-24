@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import domain.hecho.lugar.Lugar;
 import domain.hecho.etiqueta.Etiqueta;
 import domain.hecho.solicitudes.Solicitud;
@@ -39,6 +38,7 @@ public class Hecho {
         this.origen = origen;
         this.esAnonimo = esAnonimo;
         this.etiquetas = new ArrayList<>();
+        this.solicitudesDeEliminacion = new ArrayList<>();
     }
 
     public boolean tieneMultimedia() {
@@ -51,5 +51,9 @@ public class Hecho {
 
     public void agregarSolicitudDeEliminacion(Solicitud unaSolicitud) {
         this.solicitudesDeEliminacion.add(unaSolicitud);
+    }
+
+    public boolean tieneSolicitudesDeEliminacionAprobada() {
+        return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
 }

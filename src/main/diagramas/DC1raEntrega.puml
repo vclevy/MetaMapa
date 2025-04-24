@@ -12,6 +12,7 @@ package "coleccion" {
         }
 
     class CriterioDePertenencia {
+
     }
 }
 
@@ -31,7 +32,7 @@ package "hecho" {
 
     package "filtroHecho" {
         interface FiltroHecho {
-            + aplica (Hecho unHecho) : boolean
+            + aplica(Hecho unHecho) : boolean
         }
 
         class FiltroPorAnonimato implements FiltroHecho {
@@ -91,6 +92,7 @@ package "hecho" {
             - justificacionDeEliminacion : String
             - hecho : Hecho
             - estado : EstadoDeSolicitudDeEliminacion
+            - fechaSolicitud : LocalDateTime
         }
     }
 
@@ -108,7 +110,9 @@ package "hecho" {
         - multimedia : List<Multimedia>
         - fueEliminado : Boolean
 
+
         + tieneMultimedia() : void
+
     }
 
     class Multimedia {
@@ -151,13 +155,14 @@ package "users" {
 package "utils.importador" {
 
     class Config {
-        - static final String ARCHIVO_CONFIG
+        - static final ARCHIVO_CONFIG : String
+        - static final props : Properties
+
 
         + static String get(String clave)
         }
 
     interface Importador {
-
         + void importarHechos(String archivo, Coleccion coleccion)
     }
 
