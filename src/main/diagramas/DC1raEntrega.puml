@@ -2,25 +2,17 @@
 'https://plantuml.com/class-diagram
 
 package "coleccion" {
-    class Categoria {
-        - nombre : String
-    }
 
     class Coleccion {
-        - titulo : String
-        - descripcion : String
-        - hechos : Map<String, Hecho>
-        - criterioDePertenencia : List<CriterioDePertenencia>
+        - String titulo
+        - String descripcion
+        - Map<String, Hecho> hechos
+        - CriterioDePertenencia criterioDePertenencia
+        - List<Fuente> fuentes
+        }
 
-        + agregarHecho(Hecho hecho) : void
-        + eliminarHecho(Hecho unHecho) : void
-        + agregarCriterioDePertenencia(CriterioDePertenencia criterio) : void
-        + eliminarHechoPorSolicitudDeEliminacionAprobada(Hecho unHecho) : void
-    }
+    class CriterioDePertenencia {
 
-
-    interface CriterioDePertenencia {
-        + cumple(Hecho unHecho) : boolean
     }
 }
 
@@ -31,6 +23,11 @@ package "hecho" {
             - nombre : String
             - descripcion : String
         }
+    }
+
+    class Categoria {
+            - String nombre;
+            + Categoria(String nombre)
     }
 
     package "filtroHecho" {
@@ -71,7 +68,6 @@ package "hecho" {
 
     package "lugar" {
         class Lugar {
-            - nombre : String
             - latitud : Double
             - longitud : Double
         }
@@ -89,7 +85,6 @@ package "hecho" {
 
             + aprobarSolicitud(Solicitud unaSolicitud) : void
             + rechazarSolicitud(Solicitud unaSolicitud) : void
-            + eliminarSolicitudDeLista(Solicitud unaSolicitud) : void
             + esValida(Solicitud unaSolicitud) : boolean
         }
 
@@ -111,16 +106,17 @@ package "hecho" {
         - origen : OrigenDelHecho
         - solicitudesDeEliminacion : List<Solicitud>
         - esAnonimo : Boolean
-        - etiqueta : Etiqueta
+        - etiquetas : List<Etiqueta>
         - multimedia : List<Multimedia>
+        - fueEliminado : Boolean
 
-        + tieneMultimedia() : boolean
-        + agregarEtiquetas(Etiqueta ... unasEtiquetas) : void
-        + agregarSolicitudesDeEliminacion(Solicitud unaSolicitud) : void
-        + tieneSolicitudesDeEliminacionAprobada() : boolean
+
+        + tieneMultimedia() : void
+
     }
 
     class Multimedia {
+    - rutaAlArchivo : String
     }
 
     enum OrigenDelHecho {
@@ -137,7 +133,6 @@ package "users" {
         - importador: Importador
 
         + elegirImportador(Importador importador): void
-        + importarHechos(): Coleccion
         + aprobarSolicitud(Solicitud unaSolicitud): void
         + rechazarSolicitud(Solicitud unaSolicitud): void
         }
@@ -155,8 +150,6 @@ package "users" {
         - gestorDeHechos: GestorDeHechos
 
         + subirHecho(Hecho unHecho): void
-        + solicitarBorrarUnHecho(Hecho unHecho): void
-        + filtrar(Coleccion coleccion, FiltroHecho filtro): List<Hecho>
 }
 
 package "utils.importador" {
@@ -179,6 +172,23 @@ package "utils.importador" {
 
 }
 
+package "Fuente"{
+    interface Fuente {
+    }
+
+    class FuenteDinamica implements Fuente{
+    }
+
+    class FuenteEstatica implements Fuente{
+        - Importador importadorCSV
+
+        +  public Coleccion importarHechos()
+        }
+
+   class FuenteProxy implements Fuente{
+       }
+}
+
 
 Lugar o-l- Hecho
 Coleccion --> "*" Hecho
@@ -199,4 +209,5 @@ Visitante--> GestorDeHechos
 GestorDeHechos..>Hecho
 Coleccion-->CriterioDePertenencia
 Administrador..>Config
+
 @enduml

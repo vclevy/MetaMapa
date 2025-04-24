@@ -1,4 +1,4 @@
-package domain.coleccion;
+package domain.hecho;
 
 import lombok.Getter;
 import lombok.Setter;

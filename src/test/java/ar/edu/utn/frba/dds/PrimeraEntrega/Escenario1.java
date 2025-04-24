@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.PrimeraEntrega;
 
-import domain.coleccion.Categoria;
+import domain.hecho.Categoria;
 import domain.coleccion.Coleccion;
 import domain.coleccion.CriterioDePertenencia;
 import domain.hecho.*;

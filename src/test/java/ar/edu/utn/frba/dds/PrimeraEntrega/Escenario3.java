@@ -1,7 +1,8 @@
 package ar.edu.utn.frba.dds.PrimeraEntrega;
 
-import domain.coleccion.Categoria;
-import domain.coleccion.Coleccion;
+
+import domain.hecho.Categoria;
+
 import domain.hecho.Hecho;
 import domain.hecho.OrigenDelHecho;
 import domain.hecho.lugar.Lugar;

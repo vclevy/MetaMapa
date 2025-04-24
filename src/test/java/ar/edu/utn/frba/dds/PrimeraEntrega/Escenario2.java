@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import domain.coleccion.Coleccion;
+import domain.fuentes.Fuente;
+import domain.fuentes.FuenteEstatica;
 import domain.hecho.Hecho;
 import domain.users.Administrador;
 import domain.utils.importador.Config;
@@ -13,10 +15,9 @@ import org.junit.jupiter.api.Test;
 public class Escenario2 {
     @Test
     public void importarHechosDesdeCSVTest() {
-        Administrador admin = new Administrador();
-        admin.elegirImportador(new ImportadorCSV());
 
-        Coleccion coleccion = admin.importarHechos();
+        FuenteEstatica fuente = new FuenteEstatica();
+        Coleccion coleccion = fuente.importarHechos();
 
         // Verificar si la colección está vacía
         assertFalse(coleccion.getHechos().isEmpty(), "La colección no debería estar vacía después de importar.");

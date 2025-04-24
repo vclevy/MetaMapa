@@ -5,11 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import domain.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
-import lombok.Builder;
-
-import domain.coleccion.Categoria;
 import domain.hecho.lugar.Lugar;
 import domain.hecho.etiqueta.Etiqueta;
 import domain.hecho.solicitudes.Solicitud;
@@ -31,6 +26,7 @@ public class Hecho {
     private Boolean esAnonimo = true;
     private List<Etiqueta> etiquetas;
     private List<Multimedia> multimedia;
+    private Boolean fueEliminado;
 
     public Hecho(String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, OrigenDelHecho origen,Boolean esAnonimo) {
         this.titulo = titulo;
