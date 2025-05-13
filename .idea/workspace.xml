@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ar/edu/utn/frba/dds/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ar/edu/utn/frba/dds/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +24,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
-    &quot;accountId&quot;: &quot;2a1d33c6-d3df-4177-a271-fa0e4a8a11aa&quot;
+    &quot;accountId&quot;: &quot;e97f65a5-06a1-4279-a72b-b5634ad3a1a6&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -51,14 +48,17 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -73,6 +73,8 @@
       <workItem from="1747174059938" duration="499000" />
       <workItem from="1747174876885" duration="17000" />
       <workItem from="1747174898807" duration="60000" />
+      <workItem from="1747175559222" duration="95000" />
+      <workItem from="1747176092107" duration="268000" />
     </task>
     <servers />
   </component>
