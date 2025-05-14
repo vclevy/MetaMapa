@@ -1,15 +1,15 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.services.impl;
+package ar.utn.ba.ddsi.services.impl;
 
 import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.entities.Hecho;
 import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.repositories.IHechosRepository;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.services.IHechosServices;
+import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class HechosServices implements IHechosServices {
+public class HechosServices implements ar.utn.ba.ddsi.services.IHechosServices {
     @Autowired
     private IHechosRepository repositorioDeHechos;
 

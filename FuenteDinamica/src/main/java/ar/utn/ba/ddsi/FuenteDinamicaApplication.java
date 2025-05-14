@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteDinamica;
+package ar.utn.ba.ddsi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
