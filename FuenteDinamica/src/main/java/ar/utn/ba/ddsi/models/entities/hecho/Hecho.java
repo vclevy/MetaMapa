@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
+import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,7 @@ public class Hecho {
     private List<Etiqueta> etiquetas;
     private List<Multimedia> multimedia;
     private Boolean fueEliminado = false;
+    private Usuario contribuyente;
 
     public Hecho(String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, OrigenDelHecho origen, Boolean esAnonimo) {
         this.titulo = titulo;
