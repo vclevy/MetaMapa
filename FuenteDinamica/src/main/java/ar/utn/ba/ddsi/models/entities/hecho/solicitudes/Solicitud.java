@@ -1,9 +1,7 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.entities.hecho.solicitudes;
+package ar.utn.ba.ddsi.models.entities.hecho.solicitudes;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.users.Visitante;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.HistorialSolicitud;
+import ar.utn.ba.ddsi.models.entities.Usuario;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +18,7 @@ public class Solicitud {
     private EstadoDeSolicitudDeEliminacion estado = EstadoDeSolicitudDeEliminacion.PENDIENTE;
     private LocalDateTime fechaSolicitud;
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
-    private Visitante visitanteQueCargoLaSolicitud;
+    private Usuario visitanteQueCargoLaSolicitud;
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
 
     public Solicitud (Hecho unHecho, String unaJustificacion) {

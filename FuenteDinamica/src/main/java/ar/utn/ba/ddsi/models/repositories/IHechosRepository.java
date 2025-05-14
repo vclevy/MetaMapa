@@ -1,11 +1,11 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.repositories;
+package ar.utn.ba.ddsi.models.repositories;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import java.util.List;
 
 public interface IHechosRepository {
-    List<Hecho> findAll();
+    List<ar.utn.ba.ddsi.models.entities.hecho.Hecho> findAll();
     Hecho findById(int id);
     void save(Hecho hecho);
     void delete(Hecho hecho);

@@ -1,6 +1,6 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.entities.hecho.filtroHecho;
+package ar.utn.ba.ddsi.models.entities.hecho.filtroHecho;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 public interface FiltroHecho {
     boolean aplica(Hecho hecho);

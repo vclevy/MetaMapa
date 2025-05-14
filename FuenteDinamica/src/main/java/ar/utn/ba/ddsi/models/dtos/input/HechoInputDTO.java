@@ -1,10 +1,10 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.dtos.input;
+package ar.utn.ba.ddsi.models.dtos.input;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Etiqueta;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Lugar;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.Categoria;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.Multimedia;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.OrigenDelHecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
+import ar.utn.ba.ddsi.models.entities.hecho.Multimedia;
+import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;

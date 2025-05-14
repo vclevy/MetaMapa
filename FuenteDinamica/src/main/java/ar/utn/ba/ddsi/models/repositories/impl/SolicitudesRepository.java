@@ -1,11 +1,14 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.repositories.impl;
+package ar.utn.ba.ddsi.models.repositories.impl;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.Solicitud;
+
+import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
+import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class SolicitudesRepository implements ISolicitudesRepository {
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
 

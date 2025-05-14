@@ -1,6 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.entities.roles;
-
-import java.util.Set;
+package ar.utn.ba.ddsi.models.entities.roles;
 
 import java.util.Set;
 import java.util.EnumSet;
