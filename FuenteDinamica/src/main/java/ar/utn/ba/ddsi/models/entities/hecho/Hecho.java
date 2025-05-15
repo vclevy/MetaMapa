@@ -3,12 +3,14 @@ package ar.utn.ba.ddsi.models.entities.hecho;
 import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
+import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,5 +63,13 @@ public class Hecho {
 
     public boolean tieneSolicitudesDeEliminacionAprobada() {
        return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
+    }
+
+    public boolean esEditable(){
+        return (ChronoUnit.DAYS.between(this.getFechaDeCarga(), LocalDateTime.now())) < 7;
+    }
+
+    public boolean esAnonimo(){
+        return this.contribuyente == null;
     }
 }

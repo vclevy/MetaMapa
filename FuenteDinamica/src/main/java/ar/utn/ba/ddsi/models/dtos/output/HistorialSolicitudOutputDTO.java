@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class HistorialSolicitudOutputDTO {
+    private Integer id;
     private String estado;
     private LocalDateTime fechaModificacion;
     private String administrador;

@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.services.impl;
 
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
@@ -10,9 +10,7 @@ import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
 
 @Service
 public class HechosServices implements IHechosServices {
@@ -31,6 +29,7 @@ public class HechosServices implements IHechosServices {
         hechoOutputDTO.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
         hechoOutputDTO.setEtiquetas(hecho.getEtiquetas());
         hechoOutputDTO.setFueEliminado(hecho.getFueEliminado());
+        hechoOutputDTO.setEsEditable(hecho.esEditable());
         return hechoOutputDTO;
     }
 
@@ -38,14 +37,16 @@ public class HechosServices implements IHechosServices {
         HechoInputDTO dto = new HechoInputDTO();
         dto.setTitulo(hecho.getTitulo());
         dto.setDescripcion(hecho.getDescripcion());
-        dto.setCategoriaId(hecho.getCategoria());
         dto.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
         dto.setLugar(hecho.getLugar());
-        dto.setOrigen(hecho.getOrigen());
         dto.setEtiquetas(hecho.getEtiquetas());
         dto.setMultimedia(hecho.getMultimedia());
 
         return dto;
+    }
+
+    public HechoOutputDTO findById(Integer id) {
+        return hechoOutputDTO(repositorioDeHechos.findById(id));
     }
 
     public Hecho inputDTOAHecho(HechoInputDTO dto) {
@@ -53,17 +54,12 @@ public class HechosServices implements IHechosServices {
 
         hecho.setTitulo(dto.getTitulo());
         hecho.setDescripcion(dto.getDescripcion());
-        hecho.setCategoria(dto.getCategoriaId());
         hecho.setFechaDeAcontecimiento(dto.getFechaDeAcontecimiento());
         hecho.setLugar(dto.getLugar());
-        hecho.setOrigen(dto.getOrigen());
         hecho.setEtiquetas(dto.getEtiquetas());
         hecho.setMultimedia(dto.getMultimedia());
-
-        // Valores por defecto o a definir fuera del DTO
-        hecho.setFechaDeCarga(LocalDateTime.now());
         hecho.setFueEliminado(false);
-        hecho.setEsAnonimo(true);
+        hecho.setEsAnonimo(hecho.esAnonimo());
         hecho.setSolicitudesDeEliminacion(new ArrayList<>());
         hecho.setContribuyente(null);
 
@@ -76,23 +72,34 @@ public class HechosServices implements IHechosServices {
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
         nuevoHecho.setContribuyente(usuario);
 
-        if(usuario.getRol().tenesPermiso(Permisos.SUBIR_HECHO)){
+        if (usuario.getRol().tenesPermiso(Permisos.SUBIR_HECHO)) {
             repositorioDeHechos.save(nuevoHecho);
         }
     }
 
-
-    public void editarHecho(HechoInputDTO hecho, Usuario usuario) {
-        if (usuario.getRol().tenesPermiso(Permisos.EDITAR_HECHO)) {
-            if (ChronoUnit.DAYS.between(hecho.getFechaDeCarga(), LocalDateTime.now()) < 7) {
-                //TODO logica de editar un hecho
-            }
-            throw new RuntimeException("Ya no puedes editar este hecho");
-
+    @Override
+    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario) {
+        Hecho hechoOriginal = repositorioDeHechos.findById(id);
+        if (hechoOriginal == null) {
+            throw new RuntimeException("Hecho no encontrado");
         }
-        throw new SecurityException("No tienes permiso para realizar esta acción");
-    }
 
+        if (!usuario.getRol().tenesPermiso(Permisos.EDITAR_HECHO)) {
+            throw new RuntimeException("No tenés permiso para editar hechos");
+        }
+
+        if (!hechoOriginal.esEditable() || !usuario.equals(hechoOriginal.getContribuyente())) {
+            throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
+        }
+
+        hechoOriginal.setTitulo(hechoModificado.getTitulo());
+        hechoOriginal.setDescripcion((hechoModificado.getDescripcion()));
+        hechoOriginal.setFechaDeAcontecimiento(hechoModificado.getFechaDeAcontecimiento());
+        hechoOriginal.setLugar((hechoModificado.getLugar()));
+        hechoOriginal.setEtiquetas(hechoModificado.getEtiquetas());
+        hechoOriginal.setMultimedia(hechoModificado.getMultimedia());
+        repositorioDeHechos.save(hechoOriginal);
+    }
 }
 
 
