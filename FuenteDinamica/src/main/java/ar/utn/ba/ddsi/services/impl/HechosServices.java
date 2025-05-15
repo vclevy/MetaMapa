@@ -3,7 +3,9 @@ package ar.utn.ba.ddsi.services.impl;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.Usuario;
+import ar.utn.ba.ddsi.models.entities.hecho.EstadoRevision;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Revision;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
@@ -99,6 +101,20 @@ public class HechosServices implements IHechosServices {
         hechoOriginal.setEtiquetas(hechoModificado.getEtiquetas());
         hechoOriginal.setMultimedia(hechoModificado.getMultimedia());
         repositorioDeHechos.save(hechoOriginal);
+    }
+    public void revisarHecho(int id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
+        if (!admin.getRol().tenesPermiso(Permisos.REVISAR_HECHO)) {
+            throw new RuntimeException("No tenés permiso para revisar hechos");
+        }
+
+        Hecho hecho = repositorioDeHechos.findById(id);
+        if (hecho == null) {
+            throw new RuntimeException("Hecho no encontrado");
+        }
+
+        Revision nuevaRevision = new Revision(nuevoEstado, comentario);
+        hecho.setRevision(nuevaRevision);
+        repositorioDeHechos.save(hecho);
     }
 }
 

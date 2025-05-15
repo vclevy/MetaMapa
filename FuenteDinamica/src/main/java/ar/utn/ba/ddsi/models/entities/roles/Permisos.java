@@ -6,6 +6,7 @@ public enum Permisos {
     SUBIR_HECHO,
     EDITAR_HECHO,
     ELIMINAR_HECHO,
+    REVISAR_HECHO,
 
     // Importación
     IMPORTAR_HECHOS,

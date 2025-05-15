@@ -15,7 +15,8 @@ public class Revisor implements Rol{
             Permisos.ELIMINAR_HECHO,
             Permisos.GESTIONAR_ETIQUETAS,
             Permisos.VER_SOLICITUDES,
-            Permisos.GESTIONAR_SOLICITUDES
+            Permisos.GESTIONAR_SOLICITUDES,
+            Permisos.REVISAR_HECHO
             );
 
     public Boolean tenesPermiso(Permisos permiso) {

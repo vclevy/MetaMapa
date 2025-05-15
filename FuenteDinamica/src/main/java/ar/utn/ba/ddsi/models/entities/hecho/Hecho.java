@@ -35,6 +35,7 @@ public class Hecho {
     private List<Multimedia> multimedia;
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
+    private Revision revision;
 
     public Hecho(String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, OrigenDelHecho origen, Boolean esAnonimo) {
         this.titulo = titulo;
