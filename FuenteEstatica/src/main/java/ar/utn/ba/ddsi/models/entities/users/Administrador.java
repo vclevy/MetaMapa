@@ -1,5 +1,5 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.users;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.importador.Importador;
+package ar.utn.ba.ddsi.models.entities.users;
+import ar.utn.ba.ddsi.models.importador.Importador;
 import lombok.Getter;
 import lombok.Setter;
 

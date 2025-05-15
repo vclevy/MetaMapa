@@ -1,14 +1,14 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.services.impl;
+package ar.utn.ba.ddsi.services.impl;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.dtos.output.HechoOutputDTO;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.dtos.output.HistorialSolicitudOutputDTO;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.dtos.output.SolicitudOutputDTO;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.HistorialSolicitud;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.Solicitud;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.services.ISolicitudesServices;
+
+import ar.utn.ba.ddsi.models.dtos.output.HistorialSolicitudOutputDTO;
+import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
+import ar.utn.ba.ddsi.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.hecho.solicitudes.HistorialSolicitud;
+import ar.utn.ba.ddsi.models.hecho.solicitudes.Solicitud;
+import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
+import ar.utn.ba.ddsi.services.ISolicitudesServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

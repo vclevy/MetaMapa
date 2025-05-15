@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.importador;
+package ar.utn.ba.ddsi.models.importador;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;

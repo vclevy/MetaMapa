@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes;
+package ar.utn.ba.ddsi.models.hecho.solicitudes;
 
 public enum EstadoDeSolicitudDeEliminacion {
     PENDIENTE,

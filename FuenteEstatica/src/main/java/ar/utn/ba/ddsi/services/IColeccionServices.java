@@ -1,7 +1,8 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.services;
+package ar.utn.ba.ddsi.services;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Coleccion;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.filtroHecho.FiltroHecho;
+
+import ar.utn.ba.ddsi.models.entities.Coleccion;
+import ar.utn.ba.ddsi.models.hecho.filtroHecho.FiltroHecho;
 
 public interface IColeccionServices
 {

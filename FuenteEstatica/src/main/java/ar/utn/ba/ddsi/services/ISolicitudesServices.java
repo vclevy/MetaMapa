@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.services;
+package ar.utn.ba.ddsi.services;
 
 public interface ISolicitudesServices {
 

@@ -1,6 +1,6 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes;
+package ar.utn.ba.ddsi.models.hecho.solicitudes;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.users.Administrador;
+import ar.utn.ba.ddsi.models.entities.users.Administrador;
 import lombok.Getter;
 import lombok.Setter;
 

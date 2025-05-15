@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities;
+package ar.utn.ba.ddsi.models.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.Categoria;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.Multimedia;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.OrigenDelHecho;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.Solicitud;
+
+import ar.utn.ba.ddsi.models.hecho.Categoria;
+import ar.utn.ba.ddsi.models.hecho.Multimedia;
+import ar.utn.ba.ddsi.models.hecho.OrigenDelHecho;
+import ar.utn.ba.ddsi.models.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.hecho.solicitudes.Solicitud;
 import lombok.*;
 
 @Setter
