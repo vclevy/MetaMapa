@@ -1,0 +1,22 @@
+@startuml
+
+class Hecho {
+    - id : Integer
+    - titulo : String
+    - descripcion : String
+    - categoria : Categoria
+    - fechaDeAcontecimiento : LocalDate
+    - fechaDeCarga : LocalDateTime
+    - lugar : Lugar
+    - origen : OrigenDelHecho
+    - solicitudesDeEliminacion : List<Solicitud>
+    - esAnonimo : Boolean
+    - etiquetas : List<Etiqueta>
+    - multimedia : List<Multimedia>
+    - fueEliminado : Boolean
+    - contribuyente : Usuario
+    - revision : Revision
+    - handlesColecciones : List<String>
+}
+
+@enduml

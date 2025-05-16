@@ -1,0 +1,15 @@
+package ar.utn.ba.ddsi.models.entities.hecho;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Categoria {
+
+    private String nombre;
+
+    public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
+}
