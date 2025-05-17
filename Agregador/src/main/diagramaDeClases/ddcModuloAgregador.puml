@@ -1,5 +1,7 @@
 @startuml
-
+/'------------------------------------------------ PACKAGE MODELS -------------------------------------------------------------'/
+/'------------------------------------------ EMPIEZA PACKAGE ENTITIES -------------------------------------------------------------'/
+/'------------------------------------------------ PACKAGE HECHO -------------------------------------------------------------'/
 class Hecho {
     - id : Integer
     - titulo : String
@@ -16,7 +18,146 @@ class Hecho {
     - fueEliminado : Boolean
     - contribuyente : Usuario
     - revision : Revision
-    - handlesColecciones : List<String>
+}
+
+class Categoria {
+    - nombre : String
+}
+
+enum EstadoRevision {
+    PENDIENTE,
+    ACEPTADO,
+    RECHAZADO
+}
+
+class Etiqueta {
+    - nombre : String
+    - descripcion : String
+}
+
+class Lugar {
+    - latitud : Double
+    - longitud : Double
+}
+
+class Multimedia {
+    - rutaAlArchivo : String
+}
+
+enum OrigenDelHecho {
+    FUENTEDINAMICA,
+    FUENTEESTATICA,
+    FUENTEPROXY
+}
+
+class Revision {
+    - estado : EstadoRevision
+    - comentario : String
+
+    + estaPendiente() : boolean
+}
+
+
+/'------------------------------------------------ PACKAGE SOLICITUD -------------------------------------------------------------'/
+class Solicitud {
+    - id : Integer
+    - justificacionDeEliminacion : String
+    - hecho : Hecho
+    - estado : EstadoDeSolicitudDeEliminacion
+    - fechaSolicitud : LocalDateTime
+    - fechaDeEvaluacionDeSolicitud : LocalDateTime
+    - visitanteQueCargoSolicitud : Usuario
+    - historialSolicitud : List<HistorialSolicitud>
+}
+
+class HistorialSolicitud {
+    - estado : EstadoDeSolicitudDeEliminacion
+    - fechaModificacion : LocalDateTime
+    - usuarioModificador : Usuario
+}
+
+enum EstadoDeSolicitudDeEliminacion {
+    PENDIENTE,
+    RECHAZADA,
+    APROBADA
+}
+
+/'------------------------------------------------ PACKAGE COLECCION -------------------------------------------------------------'/
+class Coleccion {
+    - titulo : String
+    - descripcion : String
+    - handle : String
+    - hechos : List<Hecho>
+}
+
+
+/'------------------------------------------------ PACKAGE ROLES -------------------------------------------------------------'/
+class Usuario {
+    - nombre : String
+    - rol : IRol
+}
+
+interface IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class Revisor implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class VisitanteAnonimo implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class VisitanteRegistrado implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+enum Permisos {
+    VER_HECHOS,
+    SUBIR_HECHO,
+    EDITAR_HECHO,
+    ELIMINAR_HECHO,
+    REVISAR_HECHO,
+    IMPORTAR_HECHOS,
+    VER_COLECCIONES,
+    CREAR_COLECCION,
+    EDITAR_COLECCION,
+    ELIMINAR_COLECCION,
+    GESTIONAR_ETIQUETAS,
+    SOLICITAR_ELIMINACION,
+    VER_SOLICITUDES,
+    GESTIONAR_SOLICITUDES
+}
+/'------------------------------------------------ TERMINA PACKAGE ENTITIES -------------------------------------------------------------'/
+/'------------------------------------------------ EMPIEZA PACKAGE REPOSITORY -------------------------------------------------------------'/
+interface IHechosRepository {
+    + findAll() : List<Hecho>
+    + findById(Int id) : Hecho
+    + save(Hecho hecho) : void
+    + delete(Hecho hecho) : void
+}
+
+interface ISolicitudesRepository {
+    + findAll() : List<Solicitud>
+    + findById(Int id) : Solicitud
+    + save(Solicitud solicitud) : void
+    + delete(Solicitud solicitud) : void
+}
+
+/'------------------------------------------------ EMPIEZA PACKAGE IMPL -------------------------------------------------------------'/
+class SolicitudesRepository implements ISolicitudesRepository {
+     + findAll() : List<Solicitud>
+     + findById(Int id) : Solicitud
+     + save(Solicitud solicitud) : void
+     + delete(Solicitud solicitud) : void
+}
+
+class HechosRepository implements IHechosRepository {
+     + findAll() : List<Hecho>
+     + findById(Int id) : Hecho
+     + save(Hecho hecho) : void
+     + delete(Hecho hecho) : void
 }
 
 @enduml

@@ -27,5 +27,4 @@ public class Hecho {
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
     private Revision revision;
-    private List<String> handlesColecciones;
 }

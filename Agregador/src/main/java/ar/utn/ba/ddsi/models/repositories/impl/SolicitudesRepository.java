@@ -23,11 +23,9 @@ public class SolicitudesRepository implements ISolicitudesRepository {
 
     @Override
     public void save(Solicitud hecho) {
-
     }
 
     @Override
     public void delete(Solicitud hecho) {
-
     }
 }
