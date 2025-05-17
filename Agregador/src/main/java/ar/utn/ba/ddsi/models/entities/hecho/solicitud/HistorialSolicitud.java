@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.models.entities.hecho.solicitud;
 
-import ar.utn.ba.ddsi.models.entities.Usuario;
+import ar.utn.ba.ddsi.models.entities.roles.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 

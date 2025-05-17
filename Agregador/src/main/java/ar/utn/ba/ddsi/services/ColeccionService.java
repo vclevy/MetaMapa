@@ -2,7 +2,6 @@ package ar.utn.ba.ddsi.services;
 
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

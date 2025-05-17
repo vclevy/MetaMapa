@@ -1,0 +1,30 @@
+package ar.utn.ba.ddsi.models.repositories.impl;
+
+import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ColeccionesRepository implements IColeccionesRepository {
+    private List<Coleccion> colecciones = new ArrayList<>();
+
+    @Override
+    public List<Coleccion> findAll() {
+        return new ArrayList<>(colecciones);
+    }
+
+    @Override
+    public Coleccion findByHandle(String handle) {
+        return null;
+    }
+
+    @Override
+    public void save(Coleccion coleccion) {
+    }
+
+    @Override
+    public void delete(Coleccion coleccion) {
+    }
+}
