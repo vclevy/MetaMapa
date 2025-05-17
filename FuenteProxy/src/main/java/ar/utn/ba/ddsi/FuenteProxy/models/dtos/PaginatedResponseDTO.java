@@ -16,5 +16,4 @@ public class PaginatedResponseDTO<T> {
     private String prev_page_url;
     private int per_page;
     private int total;
-
 }

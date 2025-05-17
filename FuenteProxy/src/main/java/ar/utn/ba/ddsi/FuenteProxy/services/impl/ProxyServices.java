@@ -9,8 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.core.ParameterizedTypeReference;
-
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -68,29 +66,18 @@ public class ProxyServices implements IProxyServices {
     }
 
     private Hecho convertirDTOaHecho(HechoProxyDTO dto) {
-        LocalDateTime fechaHecho = null;
-        LocalDateTime createdAt = null;
-        try {
-            if (dto.getFecha_hecho() != null)
-                fechaHecho = LocalDateTime.parse(dto.getFecha_hecho(), FORMATTER);
-            if (dto.getCreated_at() != null)
-                createdAt = LocalDateTime.parse(dto.getCreated_at(), FORMATTER);
-        } catch (Exception e) {
-            // En caso de error de parseo, podés dejarlo en null o poner LocalDateTime.now()
-            fechaHecho = null;
-            createdAt = LocalDateTime.now();
-        }
-
         return new Hecho(
                 dto.getId(),
                 dto.getTitulo(),
                 dto.getDescripcion(),
                 dto.getCategoria(),
-                fechaHecho,
-                createdAt != null ? createdAt : LocalDateTime.now(),
+                dto.getFechaHecho(),
+                dto.getCreatedAt(),
+                dto.getUpdatedAt(),
                 dto.getLatitud(),
-                dto.getLongitud(),
-                null
+                dto.getLongitud()
         );
     }
+
+
 }
