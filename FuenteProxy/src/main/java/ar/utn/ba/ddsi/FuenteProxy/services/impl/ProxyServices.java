@@ -21,7 +21,6 @@ public class ProxyServices implements IProxyServices {
     private final WebClient webClient;
     private final IProxyRepository proxyRepository;
 
-    // Formato para parsear fecha ISO del JSON (ejemplo: "2020-10-10T00:00:00.000000Z")
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
 
     public ProxyServices(WebClient.Builder webClientBuilder, IProxyRepository proxyRepository) {
@@ -78,6 +77,5 @@ public class ProxyServices implements IProxyServices {
                 dto.getLongitud()
         );
     }
-
 
 }
