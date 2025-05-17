@@ -12,12 +12,12 @@ import java.util.List;
 public class Coleccion {
     private String titulo;
     private String descripcion;
-    private String handle;
+    private String handle; // TODO
     private List<Hecho> hechos;
 
-    public Coleccion (String titulo, String descripcion, String handle) {
+    public Coleccion (String titulo, String descripcion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.handle = handle;
+        // this.handle
     }
 }

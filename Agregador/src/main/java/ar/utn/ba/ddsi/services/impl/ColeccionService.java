@@ -22,10 +22,6 @@ public class ColeccionService implements IColeccionService {
     @Autowired
     private IHechosRepository hechosRepository;
 
-    public void crearColeccion(Coleccion unaColeccion) {
-        coleccionesRepository.save(unaColeccion);
-    }
-
     public void eliminar(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
@@ -44,11 +40,15 @@ public class ColeccionService implements IColeccionService {
     public void crear(ColeccionInputDTO unaColeccionInputDTO) {
         var coleccion = new Coleccion(
                 unaColeccionInputDTO.getTitulo(),
-                unaColeccionInputDTO.getDescripcion(),
-                unaColeccionInputDTO.getHandle()
+                unaColeccionInputDTO.getDescripcion()
         );
 
         this.coleccionesRepository.save(coleccion);
+    }
+
+    public Coleccion getColeccionesByHandle(String unHandle) {
+        var coleccion = this.coleccionesRepository.findByHandle(unHandle);
+        return coleccion;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ColeccionService implements IColeccionService {
         ColeccionOutputDTO coleccionOutputDTO = new ColeccionOutputDTO();
         coleccionOutputDTO.setTitulo(unaColeccion.getTitulo());
         coleccionOutputDTO.setDescripcion(unaColeccion.getDescripcion());
-        coleccionOutputDTO.setHandle(unaColeccion.getHandle());
+        //coleccionOutputDTO.setHandle(unaColeccion.getHandle());
         // TODO: VER QUE LOS HECHOS TAMBIEN SEAN OUTPUTS: coleccionOutputDTO.setHechosOutputDtos(new ArrayList<>());
         return coleccionOutputDTO;
     }

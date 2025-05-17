@@ -19,7 +19,7 @@ public class ColeccionesRepository implements IColeccionesRepository {
 
     @Override
     public Coleccion findByHandle(String handle) {
-        return null;
+        return colecciones.stream().filter(unaColeccion -> unaColeccion.getHandle().equals(handle)).findFirst().orElse(null);
     }
 
     @Override
