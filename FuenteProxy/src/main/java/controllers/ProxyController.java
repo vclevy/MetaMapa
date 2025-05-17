@@ -2,25 +2,32 @@ package controllers;
 
 import models.entities.Hecho;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import services.IProxyServices;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/hechos")
+@RequestMapping("/api")
 public class ProxyController {
 
     @Autowired
     private IProxyServices proxyServices;
 
-    @GetMapping
-    public Mono<List<Hecho>> obtenerHechos(@RequestParam Map<String, String> filtros) {
-        return proxyServices.obtenerHechosDesdeAPI(filtros);
+    @GetMapping("/hechos")
+    public List<Hecho> obtenerHechos() {
+        return proxyServices.obtenerHechosDesdeAPI();
     }
+
+
+  // @GetMapping("/colecciones/{identificador}/hechos")
+  // public List<Hecho> obtenerHechosDeColeccion(
+  //         @PathVariable String identificador,
+  //         @RequestParam Map<String, String> filtros) {
+  //     return proxyServices.obtenerHechosDeColeccion(identificador, filtros);
+  // }
+
 }
