@@ -3,10 +3,12 @@ package ar.utn.ba.ddsi.models.repositories.impl;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ColeccionesRepository implements IColeccionesRepository {
     private List<Coleccion> colecciones = new ArrayList<>();
 

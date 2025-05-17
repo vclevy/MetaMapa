@@ -1,7 +1,11 @@
-package ar.utn.ba.ddsi.services;
+package ar.utn.ba.ddsi.services.impl;
 
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.IColeccionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ColeccionService {
+public class ColeccionService implements IColeccionService {
+    @Autowired
+    private IColeccionesRepository coleccionesRepository;
+
+    @Autowired
+    private IHechosRepository hechosRepository;
+
+    /*
     private List<Coleccion> colecciones = new ArrayList<>();
     private List<Hecho> hechos = new ArrayList<>();
 
@@ -39,4 +50,5 @@ public class ColeccionService {
     public void actualizarHechosColeccion(String handle, List<Hecho> nuevosHechos){
         //TODO CronJobs
     }
+     */
 }
