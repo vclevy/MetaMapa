@@ -1,14 +1,11 @@
-package controllers;
+package ar.utn.ba.ddsi.FuenteProxy.controllers;
 
-import models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
-import services.IProxyServices;
-
-import java.util.Collections;
+import ar.utn.ba.ddsi.FuenteProxy.services.IProxyServices;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +18,6 @@ public class ProxyController {
     public List<Hecho> obtenerHechos() {
         return proxyServices.obtenerHechosDesdeAPI();
     }
-
 
   // @GetMapping("/colecciones/{identificador}/hechos")
   // public List<Hecho> obtenerHechosDeColeccion(

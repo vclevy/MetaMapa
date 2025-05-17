@@ -1,13 +1,10 @@
-package models.repositories.impl;
+package ar.utn.ba.ddsi.FuenteProxy.models.repositories.impl;
 
-import models.entities.Hecho;
-import models.repositories.IProxyRepository;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -29,26 +26,34 @@ public class ProxyRepository implements IProxyRepository {
 
     @Override
     public void save(Hecho hecho) {
-        if (hecho.getId() != null) {
-            hechosMap.put(hecho.getId(), hecho);
+        // Asumo que id es int primitivo, entonces chequeo > 0
+        if (hecho.getId() > 0) {
+            String key = String.valueOf(hecho.getId());
+            hechosMap.put(key, hecho);
 
-            // Add to collection if category is specified
+            // Agregar a coleccionesMap
             if (hecho.getCategoria() != null && !hecho.getCategoria().isEmpty()) {
-                coleccionesMap.computeIfAbsent(hecho.getCategoria(), k -> new ArrayList<>()).add(hecho);
+                coleccionesMap.computeIfAbsent(hecho.getCategoria(), k -> new ArrayList<>());
+
+                // Evitar duplicados
+                List<Hecho> lista = coleccionesMap.get(hecho.getCategoria());
+                // Remover si ya existe uno con ese ID para evitar duplicados
+                lista.removeIf(h -> h.getId() == hecho.getId());
+                lista.add(hecho);
             }
         }
     }
 
     @Override
     public void delete(Hecho hecho) {
-        if (hecho.getId() != null) {
-            hechosMap.remove(hecho.getId());
+        if (hecho.getId() > 0) {
+            String key = String.valueOf(hecho.getId());
+            hechosMap.remove(key);
 
-            // Remove from collection if category is specified
             if (hecho.getCategoria() != null && !hecho.getCategoria().isEmpty()) {
                 List<Hecho> coleccion = coleccionesMap.get(hecho.getCategoria());
                 if (coleccion != null) {
-                    coleccion.removeIf(h -> h.getId().equals(hecho.getId()));
+                    coleccion.removeIf(h -> h.getId() == hecho.getId());
                 }
             }
         }
@@ -73,26 +78,27 @@ public class ProxyRepository implements IProxyRepository {
         return hechos.stream()
                 .filter(hecho -> {
                     for (Map.Entry<String, String> filtro : filtros.entrySet()) {
-                        switch (filtro.getKey()) {
+                        String key = filtro.getKey();
+                        String valor = filtro.getValue();
+                        if (valor == null) continue; // ignorar filtros nulos
+                        switch (key) {
                             case "titulo":
-                                if (!hecho.getTitulo().toLowerCase().contains(filtro.getValue().toLowerCase())) {
+                                if (hecho.getTitulo() == null || !hecho.getTitulo().toLowerCase().contains(valor.toLowerCase())) {
                                     return false;
                                 }
                                 break;
                             case "descripcion":
-                                if (!hecho.getDescripcion().toLowerCase().contains(filtro.getValue().toLowerCase())) {
+                                if (hecho.getDescripcion() == null || !hecho.getDescripcion().toLowerCase().contains(valor.toLowerCase())) {
                                     return false;
                                 }
                                 break;
                             case "categoria":
-                                if (!hecho.getCategoria().equalsIgnoreCase(filtro.getValue())) {
+                                if (hecho.getCategoria() == null || !hecho.getCategoria().equalsIgnoreCase(valor)) {
                                     return false;
                                 }
                                 break;
-                            case "fuente":
-                                if (!hecho.getFuente().equalsIgnoreCase(filtro.getValue())) {
-                                    return false;
-                                }
+                            default:
+                                // Podés agregar más filtros si querés
                                 break;
                         }
                     }
