@@ -5,8 +5,8 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import java.util.List;
 
 public interface IHechosRepository {
-    List<Hecho> findAll();
-    Hecho findById(int id);
-    void save(Hecho hecho);
-    void delete(Hecho hecho);
+    public List<Hecho> findAll();
+    public Hecho findById(Integer id);
+    public void save(Hecho hecho);
+    public void delete(Hecho hecho);
 }

@@ -10,23 +10,29 @@ import java.util.List;
 
 @Repository
 public class HechosRepository implements IHechosRepository {
-    private List<Hecho> hechos = new ArrayList<>();
+    private List<Hecho> hechos;
 
-    @Override
-    public List<Hecho> findAll() {
-        return new ArrayList<>(hechos);
+    public HechosRepository() {
+        this.hechos = new ArrayList<>();
     }
 
     @Override
-    public Hecho findById(int id) {
-        return null;
+    public List<Hecho> findAll() {
+        return this.hechos;
+    }
+
+    @Override
+    public Hecho findById(Integer id) {
+        return this.hechos.stream().filter(unHecho -> unHecho.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public void save(Hecho hecho) {
+        this.hechos.add(hecho);
     }
 
     @Override
     public void delete(Hecho hecho) {
+        this.hechos.remove(hecho);
     }
 }

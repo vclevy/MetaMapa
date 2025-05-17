@@ -10,11 +10,15 @@ import java.util.List;
 
 @Repository
 public class ColeccionesRepository implements IColeccionesRepository {
-    private List<Coleccion> colecciones = new ArrayList<>();
+    private List<Coleccion> colecciones;
+
+    public ColeccionesRepository() {
+        colecciones = new ArrayList<>();
+    }
 
     @Override
     public List<Coleccion> findAll() {
-        return new ArrayList<>(colecciones);
+        return this.colecciones;
     }
 
     @Override
@@ -24,9 +28,11 @@ public class ColeccionesRepository implements IColeccionesRepository {
 
     @Override
     public void save(Coleccion coleccion) {
+        this.colecciones.add(coleccion);
     }
 
     @Override
     public void delete(Coleccion coleccion) {
+        this.colecciones.remove(coleccion);
     }
 }

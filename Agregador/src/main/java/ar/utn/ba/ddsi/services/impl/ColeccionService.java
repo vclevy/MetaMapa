@@ -29,7 +29,7 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
-    public ColeccionOutputDTO buscarPorHandle(String unHandle) {
+    public ColeccionOutputDTO findByHandle(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
             return null;
@@ -44,11 +44,6 @@ public class ColeccionService implements IColeccionService {
         );
 
         this.coleccionesRepository.save(coleccion);
-    }
-
-    public Coleccion getColeccionesByHandle(String unHandle) {
-        var coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        return coleccion;
     }
 
     @Override
@@ -66,25 +61,4 @@ public class ColeccionService implements IColeccionService {
         // TODO: VER QUE LOS HECHOS TAMBIEN SEAN OUTPUTS: coleccionOutputDTO.setHechosOutputDtos(new ArrayList<>());
         return coleccionOutputDTO;
     }
-
-    /*
-    public void addColeccion(Coleccion coleccion){
-        colecciones.add(coleccion);
-    }
-
-    public List<Coleccion> getColecciones(){
-        return colecciones;
-    }
-
-    //Optional -> Puede traer un valor o traer NULL
-    public Optional<Coleccion> findByHandle(String handleAEncontrar){
-        return colecciones.stream().filter(c -> c.getHandle().equals(handleAEncontrar)).findFirst();
-    }
-
-    public List<Hecho> getHechosColeccion(String handle){
-        return hechos.stream()
-                .filter(hecho ->hecho.getHandlesColecciones().contains(handle))
-                .toList();
-    }
-     */
 }

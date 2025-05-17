@@ -9,23 +9,29 @@ import java.util.List;
 
 @Repository
 public class SolicitudesRepository implements ISolicitudesRepository {
-    private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
+    private List<Solicitud> solicitudesDeEliminacion;
+
+    public SolicitudesRepository() {
+        this.solicitudesDeEliminacion = new ArrayList<>();
+    }
 
     @Override
     public List<Solicitud> findAll() {
-        return new ArrayList<>(solicitudesDeEliminacion);
+        return this.solicitudesDeEliminacion;
     }
 
     @Override
-    public Solicitud findById(int id) {
-        return null;
+    public Solicitud findById(Integer id) {
+        return this.solicitudesDeEliminacion.stream().filter(unaSolicitud -> unaSolicitud.getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override
-    public void save(Solicitud hecho) {
+    public void save(Solicitud unaSolicitud) {
+        solicitudesDeEliminacion.add(unaSolicitud);
     }
 
     @Override
-    public void delete(Solicitud hecho) {
+    public void delete(Solicitud unaSolicitud) {
+        this.solicitudesDeEliminacion.remove(unaSolicitud);
     }
 }
