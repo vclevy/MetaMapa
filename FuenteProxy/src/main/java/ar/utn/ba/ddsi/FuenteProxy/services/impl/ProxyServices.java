@@ -20,11 +20,10 @@ public class ProxyServices implements IProxyServices {
 
     private final WebClient webClient;
     private final IProxyRepository proxyRepository;
-
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
 
     public ProxyServices(WebClient.Builder webClientBuilder, IProxyRepository proxyRepository) {
-        String token = "rY3j0CD1b4hpJBNWwZvJkva2NhsGEukeS2pFQkjE2yMBmk6sdlGQ5ATQkpYo"; // poné tu token real acá
+        String token = "rY3j0CD1b4hpJBNWwZvJkva2NhsGEukeS2pFQkjE2yMBmk6sdlGQ5ATQkpYo";
         this.webClient = webClientBuilder
                 .baseUrl("https://api-ddsi.disilab.ar/public/api")
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + token)
@@ -55,7 +54,12 @@ public class ProxyServices implements IProxyServices {
     }
 
     @Override
-    public List<Hecho> obtenerTodosLosHechos(Map<String, String> filtros) {
+    public List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros) {
+        return List.of();
+    }
+
+    @Override
+    public List<String> obtenerTodasLasColecciones() {
         return List.of();
     }
 
@@ -63,6 +67,7 @@ public class ProxyServices implements IProxyServices {
     public List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
         return List.of();
     }
+
 
     private Hecho convertirDTOaHecho(HechoProxyDTO dto) {
         return new Hecho(
