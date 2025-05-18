@@ -14,16 +14,11 @@ public class ProxyController {
     @Autowired
     private IProxyServices proxyServices;
 
+
     @GetMapping("/hechos")
     public List<Hecho> obtenerHechos() {
         return proxyServices.obtenerHechosDesdeAPI();
     }
 
-  // @GetMapping("/colecciones/{identificador}/hechos")
-  // public List<Hecho> obtenerHechosDeColeccion(
-  //         @PathVariable String identificador,
-  //         @RequestParam Map<String, String> filtros) {
-  //     return proxyServices.obtenerHechosDeColeccion(identificador, filtros);
-  // }
 
 }

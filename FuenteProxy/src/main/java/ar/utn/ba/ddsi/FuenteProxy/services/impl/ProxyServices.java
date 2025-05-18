@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.PaginatedResponseDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
 import ar.utn.ba.ddsi.FuenteProxy.services.IProxyServices;
@@ -74,7 +75,7 @@ public class ProxyServices implements IProxyServices {
                 dto.getId(),
                 dto.getTitulo(),
                 dto.getDescripcion(),
-                dto.getCategoria(),
+                new Categoria(dto.getCategoria()),
                 dto.getFechaHecho(),
                 dto.getCreatedAt(),
                 dto.getUpdatedAt(),

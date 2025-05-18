@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 @Repository
 public class ProxyRepository implements IProxyRepository {
 
-    // In-memory storage for hechos
     private final Map<String, Hecho> hechosMap = new HashMap<>();
     private final Map<String, List<Hecho>> coleccionesMap = new HashMap<>();
 
@@ -26,19 +25,16 @@ public class ProxyRepository implements IProxyRepository {
 
     @Override
     public void save(Hecho hecho) {
-        // Asumo que id es int primitivo, entonces chequeo > 0
         if (hecho.getId() > 0) {
             String key = String.valueOf(hecho.getId());
             hechosMap.put(key, hecho);
 
-            // Agregar a coleccionesMap
-            if (hecho.getCategoria() != null && !hecho.getCategoria().isEmpty()) {
-                coleccionesMap.computeIfAbsent(hecho.getCategoria(), k -> new ArrayList<>());
+            String nombreCategoria = hecho.getCategoria() != null ? hecho.getCategoria().getNombre() : null;
+            if (nombreCategoria != null && !nombreCategoria.isEmpty()) {
+                coleccionesMap.computeIfAbsent(nombreCategoria, k -> new ArrayList<>());
 
-                // Evitar duplicados
-                List<Hecho> lista = coleccionesMap.get(hecho.getCategoria());
-                // Remover si ya existe uno con ese ID para evitar duplicados
-                lista.removeIf(h -> h.getId() == hecho.getId());
+                List<Hecho> lista = coleccionesMap.get(nombreCategoria);
+                lista.removeIf(h -> h.getId().equals(hecho.getId()));
                 lista.add(hecho);
             }
         }
@@ -50,10 +46,11 @@ public class ProxyRepository implements IProxyRepository {
             String key = String.valueOf(hecho.getId());
             hechosMap.remove(key);
 
-            if (hecho.getCategoria() != null && !hecho.getCategoria().isEmpty()) {
-                List<Hecho> coleccion = coleccionesMap.get(hecho.getCategoria());
+            String nombreCategoria = hecho.getCategoria() != null ? hecho.getCategoria().getNombre() : null;
+            if (nombreCategoria != null && !nombreCategoria.isEmpty()) {
+                List<Hecho> coleccion = coleccionesMap.get(nombreCategoria);
                 if (coleccion != null) {
-                    coleccion.removeIf(h -> h.getId() == hecho.getId());
+                    coleccion.removeIf(h -> h.getId().equals(hecho.getId()));
                 }
             }
         }
@@ -80,7 +77,8 @@ public class ProxyRepository implements IProxyRepository {
                     for (Map.Entry<String, String> filtro : filtros.entrySet()) {
                         String key = filtro.getKey();
                         String valor = filtro.getValue();
-                        if (valor == null) continue; // ignorar filtros nulos
+                        if (valor == null) continue;
+
                         switch (key) {
                             case "titulo":
                                 if (hecho.getTitulo() == null || !hecho.getTitulo().toLowerCase().contains(valor.toLowerCase())) {
@@ -93,12 +91,12 @@ public class ProxyRepository implements IProxyRepository {
                                 }
                                 break;
                             case "categoria":
-                                if (hecho.getCategoria() == null || !hecho.getCategoria().equalsIgnoreCase(valor)) {
+                                if (hecho.getCategoria() == null || hecho.getCategoria().getNombre() == null ||
+                                        !hecho.getCategoria().getNombre().equalsIgnoreCase(valor)) {
                                     return false;
                                 }
                                 break;
                             default:
-                                // Podés agregar más filtros si querés
                                 break;
                         }
                     }
@@ -107,3 +105,4 @@ public class ProxyRepository implements IProxyRepository {
                 .collect(Collectors.toList());
     }
 }
+

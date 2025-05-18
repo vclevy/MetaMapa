@@ -13,10 +13,10 @@ public class Hecho {
     private Integer id;
     private String titulo;
     private String descripcion;
-    private String categoria;
+    private Categoria categoria;
     private LocalDateTime fechaHecho;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt; // importante
+    private LocalDateTime updatedAt;
     private double latitud;
     private double longitud;
 }
