@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.PaginatedResponseDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
 import ar.utn.ba.ddsi.FuenteProxy.services.IProxyServices;
@@ -55,10 +56,11 @@ public class ProxyServices implements IProxyServices {
     }
 
     @Override
-    public List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros) {
-        return List.of();
+    public List<Hecho> obtenerHechosConFiltros(List<IFiltroHecho> filtros) {
+        return this.obtenerHechosDesdeAPI().stream()
+                .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho)))
+                .collect(Collectors.toList());
     }
-
     @Override
     public List<String> obtenerTodasLasColecciones() {
         return List.of();
