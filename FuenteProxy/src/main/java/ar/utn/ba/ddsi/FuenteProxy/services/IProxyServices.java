@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface IProxyServices {
     List<Hecho> obtenerHechosDesdeAPI(); // sin filtros
-    List<Hecho> obtenerHechosConFiltros(List<IFiltroHecho> filtros); // con filtros
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros); // con filtros
     List<String> obtenerTodasLasColecciones();
     List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
 }
