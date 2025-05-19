@@ -13,12 +13,12 @@ import java.util.UUID;
 public class Coleccion {
     private String titulo;
     private String descripcion;
-    private String handle; // TODO
+    private String handle;
     private List<Hecho> hechos;
 
     public Coleccion (String titulo, String descripcion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        // this.handle
+        this.handle = UUID.randomUUID().toString();
     }
 }
