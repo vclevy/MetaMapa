@@ -32,7 +32,7 @@ public class Hecho {
     private List<Solicitud> solicitudesDeEliminacion;
     private Boolean esAnonimo = true;
     private List<Etiqueta> etiquetas;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
     private Revision revision;

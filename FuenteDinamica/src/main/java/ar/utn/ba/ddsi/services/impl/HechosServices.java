@@ -10,9 +10,18 @@ import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class HechosServices implements IHechosServices {
@@ -64,33 +73,54 @@ public class HechosServices implements IHechosServices {
         hecho.setEsAnonimo(hecho.esAnonimo());
         hecho.setSolicitudesDeEliminacion(new ArrayList<>());
         hecho.setContribuyente(null);
-
         return hecho;
     }
 
     @Override
-    public void subirHecho(HechoInputDTO hecho, Usuario usuario) {
+    public void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos) {
         Hecho nuevoHecho = inputDTOAHecho(hecho);
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
-        nuevoHecho.setContribuyente(usuario);
+        List<String> rutasMultimedia = new ArrayList<>();
 
-        if (usuario.getRol().tenesPermiso(Permisos.SUBIR_HECHO)) {
-            repositorioDeHechos.save(nuevoHecho);
+        if (archivos != null) {
+            for (MultipartFile archivo : archivos) {
+                if (!archivo.isEmpty()) {
+                    try {
+                        String nombreArchivo = UUID.randomUUID() + "_" + archivo.getOriginalFilename();
+                        Path destino = Paths.get("src/main/resources/static/images/" + nombreArchivo);
+                        Files.createDirectories(destino.getParent());
+                        Files.write(destino, archivo.getBytes());
+                        rutasMultimedia.add("/images/" + nombreArchivo); // URL relativa
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error al guardar archivo multimedia", e);
+                    }
+                }
+            }
         }
+
+        // Agregamos también lo que venga en el DTO, si hubiera
+        if (hecho.getMultimedia() != null) {
+            rutasMultimedia.addAll(hecho.getMultimedia());
+        }
+
+        nuevoHecho.setMultimedia(rutasMultimedia);
+        //nuevoHecho.setContribuyente(usuario);
+        repositorioDeHechos.save(nuevoHecho);
     }
 
+
     @Override
-    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario) {
+    public void editarHecho(int id, HechoInputDTO hechoModificado) {
         Hecho hechoOriginal = repositorioDeHechos.findById(id);
         if (hechoOriginal == null) {
             throw new RuntimeException("Hecho no encontrado");
         }
 
-        if (!usuario.getRol().tenesPermiso(Permisos.EDITAR_HECHO)) {
-            throw new RuntimeException("No tenés permiso para editar hechos");
+        if (hechoOriginal.getContribuyente() == null) {
+            throw new RuntimeException("Un usuario anónimo no puede editar hechos");
         }
 
-        if (!hechoOriginal.esEditable() || !usuario.equals(hechoOriginal.getContribuyente())) {
+        if (!hechoOriginal.esEditable()) {
             throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 

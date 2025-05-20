@@ -6,6 +6,6 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 
 public interface IHechosServices {
 
-    public void subirHecho(HechoInputDTO hecho, Usuario usuario);
-    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario);
+    public void subirHecho(HechoInputDTO hecho);
+    public void editarHecho(int id, HechoInputDTO hechoModificado);
 }

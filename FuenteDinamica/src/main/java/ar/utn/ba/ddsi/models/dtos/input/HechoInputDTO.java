@@ -19,5 +19,5 @@ public class HechoInputDTO {
     private LocalDate fechaDeAcontecimiento;
     private Lugar lugar;
     private List<Etiqueta> etiquetas;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
 }
