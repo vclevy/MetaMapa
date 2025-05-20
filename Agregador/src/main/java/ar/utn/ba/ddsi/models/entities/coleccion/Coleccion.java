@@ -1,8 +1,8 @@
 package ar.utn.ba.ddsi.models.entities.coleccion;
 
-
-import ar.utn.ba.ddsi.models.entities.coleccion.criterio.Criterio;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +16,12 @@ public class Coleccion {
     private String descripcion;
     private String handle;
     private List<Hecho> hechos;
-    private Criterio criterioDePertenencia;
+    private List<Criterio> criterioDePertenencia;
 
     public Coleccion (String titulo, String descripcion) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
     }
+
 }

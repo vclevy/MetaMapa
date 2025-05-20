@@ -20,6 +20,7 @@ public class Solicitud {
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
     private Usuario visitanteQueCargoLaSolicitud;
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
+    private DetectorDeSpam detectorDeSpam;
 
     public Solicitud (Hecho unHecho, String unaJustificacion) {
         this.justificacionDeEliminacion = unaJustificacion;

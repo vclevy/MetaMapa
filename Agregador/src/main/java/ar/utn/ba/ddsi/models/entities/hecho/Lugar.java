@@ -13,4 +13,8 @@ public class Lugar {
         this.latitud = latitud;
         this.longitud = longitud;
     }
+
+    public boolean esValido() {
+        return latitud != null && longitud != null;
+    }
 }

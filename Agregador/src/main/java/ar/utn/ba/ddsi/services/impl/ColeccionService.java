@@ -3,11 +3,15 @@ package ar.utn.ba.ddsi.services.impl;
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.coleccion.Criterio;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.models.repositories.impl.ColeccionesRepository;
 import ar.utn.ba.ddsi.services.IColeccionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +33,27 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
+    public static boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
+        for (Criterio c : criterios) {
+            if (!c.cumple(hecho)) return false;
+        }
+        return true;
+    }
+    public static boolean agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
+        if (hecho == null || hecho.getSolicitudesDeEliminacion().stream().anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA)) {
+            return false;
+        }
+
+        for (Criterio criterio : criterios) {
+            if (!criterio.cumple(hecho)) {
+                return false;
+            }
+        }
+
+        coleccion.getHechos().add(hecho);
+        return true;
+    }
+
     public ColeccionOutputDTO findByHandle(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
@@ -46,8 +71,11 @@ public class ColeccionService implements IColeccionService {
         this.coleccionesRepository.save(coleccion);
     }
 
+    @Scheduled(cron = "0 0 * * * *")
     public void actualizarColecciones() {
-
+        for (Coleccion coleccion: ){
+            agregarHechoAColeccion(coleccion, )
+        }
     }
 
 
