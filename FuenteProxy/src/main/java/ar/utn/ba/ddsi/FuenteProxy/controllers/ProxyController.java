@@ -3,7 +3,7 @@ package ar.utn.ba.ddsi.FuenteProxy.controllers;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ar.utn.ba.ddsi.FuenteProxy.services.IProxyServices;
+import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 public class ProxyController {
 
     @Autowired
-    private IProxyServices proxyServices;
+    private IApiCatedraServices proxyServices;
 
     @GetMapping("/hechos")
     public List<Hecho> obtenerHechos(@RequestParam(required = false) Map<String, String> filtrosRaw) {

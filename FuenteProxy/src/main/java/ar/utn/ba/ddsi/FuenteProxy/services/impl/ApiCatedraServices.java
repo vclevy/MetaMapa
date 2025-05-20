@@ -6,12 +6,11 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
-import ar.utn.ba.ddsi.FuenteProxy.services.IProxyServices;
+import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.core.ParameterizedTypeReference;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,13 +21,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ProxyServices implements IProxyServices {
+public class ApiCatedraServices implements IApiCatedraServices {
 
     private final WebClient webClient;
     private final IProxyRepository proxyRepository;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
 
-    public ProxyServices(WebClient.Builder webClientBuilder, IProxyRepository proxyRepository) {
+    public ApiCatedraServices(WebClient.Builder webClientBuilder, IProxyRepository proxyRepository) {
         String token = "rY3j0CD1b4hpJBNWwZvJkva2NhsGEukeS2pFQkjE2yMBmk6sdlGQ5ATQkpYo";
         this.webClient = webClientBuilder
                 .baseUrl("https://api-ddsi.disilab.ar/public/api")
@@ -81,7 +80,6 @@ public class ProxyServices implements IProxyServices {
             }
         }
 
-
         String hasta = filtrosRaw.get("fecha_acontecimiento_hasta");
         if (hasta != null && !hasta.isBlank()) {
             try {
@@ -91,8 +89,6 @@ public class ProxyServices implements IProxyServices {
                 System.err.println("Error al parsear fecha_acontecimiento_hasta: " + e.getMessage());
             }
         }
-
-        // Aplicar los filtros a los hechos obtenidos
         return obtenerHechosDesdeAPI().stream()
                 .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho)))
                 .collect(Collectors.toList());
@@ -107,7 +103,6 @@ public class ProxyServices implements IProxyServices {
     public List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
         return List.of();
     }
-
 
     private Hecho convertirDTOaHecho(HechoProxyDTO dto) {
         return new Hecho(
