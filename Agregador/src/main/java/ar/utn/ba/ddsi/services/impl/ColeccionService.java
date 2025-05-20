@@ -46,11 +46,9 @@ public class ColeccionService implements IColeccionService {
         this.coleccionesRepository.save(coleccion);
     }
 
-    @Override
-    public void actualizarHechosPertenecientes() {
-        // TODO: CRON JOBS CADA UNA HORA Y ADEMAS HACER LA CONEXION ENTRE MODULOS PARA OBTENER LOS HECHOS DE DISTINTAS FUENTES
-    }
+    public void actualizarColecciones() {
 
+    }
 
 
     private ColeccionOutputDTO coleccionOutputDTO(Coleccion unaColeccion) {
