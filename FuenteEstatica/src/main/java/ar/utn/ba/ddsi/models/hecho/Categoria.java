@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho;
+package ar.utn.ba.ddsi.models.hecho;
 
 import lombok.Getter;
 import lombok.Setter;

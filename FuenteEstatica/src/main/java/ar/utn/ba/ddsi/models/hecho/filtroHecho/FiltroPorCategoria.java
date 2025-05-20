@@ -1,7 +1,8 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.filtroHecho;
+package ar.utn.ba.ddsi.models.hecho.filtroHecho;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.Categoria;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
+
+import ar.utn.ba.ddsi.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.hecho.Categoria;
 
 public class FiltroPorCategoria implements FiltroHecho {
     private Categoria categoria;

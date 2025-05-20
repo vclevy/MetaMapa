@@ -1,7 +1,8 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.repositories.impl;
+package ar.utn.ba.ddsi.models.repositories.impl;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Coleccion;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.repositories.IColeccionesRepository;
+
+import ar.utn.ba.ddsi.models.entities.Coleccion;
+import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 
 import java.util.List;
 

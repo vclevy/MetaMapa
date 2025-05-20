@@ -1,7 +1,8 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities;
+package ar.utn.ba.ddsi.models.entities;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.coleccion.CriterioDePertenencia;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.fuentes.Fuente;
+
+import ar.utn.ba.ddsi.models.coleccion.CriterioDePertenencia;
+import ar.utn.ba.ddsi.models.fuentes.Fuente;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.*;

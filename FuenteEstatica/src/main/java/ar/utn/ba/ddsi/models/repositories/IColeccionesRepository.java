@@ -1,6 +1,7 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.repositories;
+package ar.utn.ba.ddsi.models.repositories;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Coleccion;
+
+import ar.utn.ba.ddsi.models.entities.Coleccion;
 
 public interface IColeccionesRepository {
 

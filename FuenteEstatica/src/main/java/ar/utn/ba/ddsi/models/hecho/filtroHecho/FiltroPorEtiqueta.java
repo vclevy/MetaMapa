@@ -1,8 +1,8 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.filtroHecho;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Etiqueta;
+package ar.utn.ba.ddsi.models.hecho.filtroHecho;
 
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.entities.Etiqueta;
+import ar.utn.ba.ddsi.models.entities.Hecho;
 
 public class FiltroPorEtiqueta implements FiltroHecho {
     private Etiqueta etiqueta;

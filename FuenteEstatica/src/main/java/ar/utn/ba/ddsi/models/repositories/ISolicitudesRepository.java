@@ -1,6 +1,7 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.repositories;
+package ar.utn.ba.ddsi.models.repositories;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.Solicitud;
+
+import ar.utn.ba.ddsi.models.hecho.solicitudes.Solicitud;
 
 import java.util.List;
 

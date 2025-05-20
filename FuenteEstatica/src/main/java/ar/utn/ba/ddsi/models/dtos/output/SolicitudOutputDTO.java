@@ -1,6 +1,5 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.dtos.output;
+package ar.utn.ba.ddsi.models.dtos.output;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.HistorialSolicitud;
 import lombok.Getter;
 import lombok.Setter;
 
