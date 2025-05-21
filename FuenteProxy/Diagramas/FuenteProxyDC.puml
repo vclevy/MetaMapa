@@ -1,0 +1,114 @@
+@startuml
+
+' ENUMS
+enum EstadoSolicitudEliminacion {
+  PENDIENTE
+  APROBADA
+  RECHAZADA
+}
+
+' INTERFACES
+interface IFiltroHecho {
+  +aplica(Hecho): boolean
+}
+
+interface Criterio {
+  +cumple(Hecho): boolean
+}
+
+' CLASES
+class Categoria {
+  -nombre: String
+  +getNombre(): String
+  +setNombre(String): void
+}
+
+class Hecho {
+  -id: Integer
+  -titulo: String
+  -descripcion: String
+  -categoria: Categoria
+  -fechaHecho: LocalDateTime
+  -createdAt: LocalDateTime
+  -updatedAt: LocalDateTime
+  -latitud: double
+  -longitud: double
+  +getCategoria(): Categoria
+  +getFechaHecho(): LocalDateTime
+  +getLatitud(): double
+  +getLongitud(): double
+}
+
+class Coleccion {
+  -titulo: String
+  -descripcion: String
+  -handle: String
+  -hechos: List<Hecho>
+  -criterioDePertenencia: List<Criterio>
+  +Coleccion(String, String)
+}
+
+class SolicitudEliminacion {
+  -id: UUID
+  -justificacionDeEliminacion: String
+  -hecho: Hecho
+  -estado: EstadoSolicitudEliminacion
+  -fechaSolicitud: LocalDateTime
+  +getId(): UUID
+  +SolicitudEliminacion(Hecho, String)
+}
+
+' FILTROS
+class FiltroCategoria {
+  -categoriaBuscada: String
+  +FiltroCategoria(String)
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoDesde {
+  -fechaDesde: LocalDateTime
+  +FiltroFechaAcontecimientoDesde(LocalDateTime)
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoHasta {
+  -fechaHasta: LocalDateTime
+  +FiltroFechaAcontecimientoHasta(LocalDateTime)
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaDesde {
+  -fechaLimite: LocalDateTime
+  +FiltroFechaDesde(LocalDateTime)
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaHasta {
+  -fechaLimite: LocalDateTime
+  +FiltroFechaHasta(LocalDateTime)
+  +aplica(Hecho): boolean
+}
+
+class FiltroUbicacion {
+  -latitudEsperada: double
+  -longitudEsperada: double
+  +FiltroUbicacion(double, double)
+  +aplica(Hecho): boolean
+}
+
+' RELACIONES
+Hecho --> Categoria
+Coleccion --> Hecho
+Coleccion <-- Criterio
+SolicitudEliminacion --> Hecho
+
+FiltroCategoria ..|> IFiltroHecho
+FiltroFechaAcontecimientoDesde ..|> IFiltroHecho
+FiltroFechaAcontecimientoHasta ..|> IFiltroHecho
+FiltroFechaDesde ..|> IFiltroHecho
+FiltroFechaHasta ..|> IFiltroHecho
+FiltroUbicacion ..|> IFiltroHecho
+
+EstadoSolicitudEliminacion --> SolicitudEliminacion
+
+@enduml
