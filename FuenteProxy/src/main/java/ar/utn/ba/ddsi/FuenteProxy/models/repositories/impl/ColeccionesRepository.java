@@ -4,7 +4,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 
 import java.util.List;
 
-import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IColeccionesRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
