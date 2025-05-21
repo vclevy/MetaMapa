@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IApiCatedraServices {
-    List<Hecho> obtenerHechosDesdeAPI(); // sin filtros
-    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros); // con filtros
+    List<Hecho> obtenerHechosDesdeAPI();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros);
 }
 

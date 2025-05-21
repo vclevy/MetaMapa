@@ -1,8 +1,5 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.PaginatedResponseDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
@@ -12,12 +9,9 @@ import ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl.ApiCatedraAdapter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.core.ParameterizedTypeReference;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
