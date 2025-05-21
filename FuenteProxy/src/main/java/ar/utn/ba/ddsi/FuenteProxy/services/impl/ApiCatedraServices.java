@@ -5,7 +5,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.dtos.PaginatedResponseDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
+import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -24,10 +24,10 @@ import java.util.stream.Collectors;
 public class ApiCatedraServices implements IApiCatedraServices {
 
     private final WebClient webClient;
-    private final IProxyRepository proxyRepository;
+    private final IHechosRepository proxyRepository;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
 
-    public ApiCatedraServices(WebClient.Builder webClientBuilder, IProxyRepository proxyRepository) {
+    public ApiCatedraServices(WebClient.Builder webClientBuilder, IHechosRepository proxyRepository) {
         String token = "rY3j0CD1b4hpJBNWwZvJkva2NhsGEukeS2pFQkjE2yMBmk6sdlGQ5ATQkpYo";
         this.webClient = webClientBuilder
                 .baseUrl("https://api-ddsi.disilab.ar/public/api")

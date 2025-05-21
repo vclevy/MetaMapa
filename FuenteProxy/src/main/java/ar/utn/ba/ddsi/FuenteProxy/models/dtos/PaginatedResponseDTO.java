@@ -1,11 +1,11 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.dtos;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 public class PaginatedResponseDTO<T> {
     private int current_page;
     private List<T> data;
