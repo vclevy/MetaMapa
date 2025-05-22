@@ -5,7 +5,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import java.util.List;
 import java.util.Map;
 
-public interface IProxyRepository {
+public interface IHechosRepository {
         List<Hecho> findAll();
 
         Hecho findById(int id);

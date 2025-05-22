@@ -1,14 +1,14 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.repositories.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IProxyRepository;
+import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class ProxyRepository implements IProxyRepository {
+public class HechosRepository implements IHechosRepository {
 
     private final Map<String, Hecho> hechosMap = new HashMap<>();
     private final Map<String, List<Hecho>> coleccionesMap = new HashMap<>();
