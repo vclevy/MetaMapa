@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.PaginatedResponseDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.RespuestaAPICatedra;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ public class ApiCatedraAdapter implements IApiAdapter {
     @Override
     public List<Hecho> obtenerHechos() {
         try {
-            PaginatedResponseDTO<HechoProxyDTO> respuesta = webClient.get()
+            RespuestaAPICatedra<HechoProxyDTO> respuesta = webClient.get()
                     .uri("/desastres")
                     .retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<PaginatedResponseDTO<HechoProxyDTO>>() {})
+                    .bodyToMono(new ParameterizedTypeReference<RespuestaAPICatedra<HechoProxyDTO>>() {})
                     .block();
 
             if (respuesta != null && respuesta.getData() != null) {
