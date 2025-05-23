@@ -7,9 +7,11 @@ import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
+import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -22,36 +24,40 @@ public class SolicitudesService implements ISolcitudesService {
 
     @Override
     public void registrarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador) {
-        // GUARDO SOLICITUD EN EL REPO DE SOLICITUDES
-        this.actualizarHistorialDe(unaSolicitud, usuarioModificador);
-        solicitudesRepository.save(unaSolicitud);
+        unaSolicitud.setVisitanteQueCargoLaSolicitud(usuarioModificador);
+        // VERIFICO QUE LA SOLICITUD NO SEA SPAM
+        if (!this.verificacionDeSpam(unaSolicitud)) {
+            // GUARDO SOLICITUD EN EL REPO DE SOLICITUDES
+            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
+            this.actualizarHistorialDe(unaSolicitud, usuarioModificador);
+            solicitudesRepository.save(unaSolicitud);
 
-        // GUARDO EN EL HISTORIAL DE SOLICITUDES DEL HECHO EN EL REPO DE HECHOS
-        Hecho hechoPersistido = hechosRepository.findById(unaSolicitud.getHecho().getId());
-        if (hechoPersistido != null) {
-            hechoPersistido.getSolicitudesDeEliminacion().add(unaSolicitud);
-            hechosRepository.save(hechoPersistido);
+            // GUARDO EN EL HISTORIAL DE SOLICITUDES DEL HECHO EN EL REPO DE HECHOS
+            Hecho hechoPersistido = hechosRepository.findById(unaSolicitud.getHecho().getId());
+            if (hechoPersistido != null) {
+                hechoPersistido.getSolicitudesDeEliminacion().add(unaSolicitud);
+                hechosRepository.save(hechoPersistido);
+            }
+        } else {
+            unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
+            throw new RuntimeException("La solicitud no puede ser registrada porque es Spam.");
         }
     }
 
-    @Override // todo: actualizar hechos si es que se aceptan las solicitudes
+    @Override
     public void procesarSolicitudes(List<Solicitud> unasSolicitudes, Usuario usuarioModificador) {
         for (Solicitud solicitudIndice : unasSolicitudes) {
-            boolean esSpam = verificacionDeSpam(solicitudIndice);
-            if (esSpam) { // TODO: SI ES SPAM, NO SE NECESITA UN USUARIO QUE LA RECHAZE
-                solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
-                this.actualizarHistorialDe(solicitudIndice, usuarioModificador);
-                solicitudesRepository.save(solicitudIndice);
-            }
-
+            solicitudIndice.setFechaDeEvaluacionDeSolicitud(LocalDateTime.now());
+            // APRUEBO SOLICITUD
             if(solicitudIndice.getJustificacionDeEliminacion().length() > 500) {
                 solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
                 this.actualizarHistorialDe(solicitudIndice, usuarioModificador);
-            } else {
+            } else { // RECHAZO SOLICITUD
                 solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
                 this.actualizarHistorialDe(solicitudIndice, usuarioModificador);
             }
 
+            // ACTUALIZO EL REPO DE SOLICITUDES
             solicitudesRepository.save(solicitudIndice);
         }
     }
@@ -70,5 +76,12 @@ public class SolicitudesService implements ISolcitudesService {
                 unaSolicitud.getEstado(),
                 usuarioModificador
         );
+    }
+
+    public Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho) {
+        return new Solicitud(
+                    unHecho,
+                    unaJustificacion
+                );
     }
 }

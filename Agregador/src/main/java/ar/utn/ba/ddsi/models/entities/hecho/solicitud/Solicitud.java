@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Solicitud {
     private Integer id;
     private String justificacionDeEliminacion;
     private Hecho hecho;
-    private EstadoDeSolicitudDeEliminacion estado = EstadoDeSolicitudDeEliminacion.PENDIENTE;
+    private EstadoDeSolicitudDeEliminacion estado;
     private LocalDateTime fechaSolicitud;
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
     private Usuario visitanteQueCargoLaSolicitud;
@@ -26,5 +27,7 @@ public class Solicitud {
     public Solicitud (Hecho unHecho, String unaJustificacion) {
         this.justificacionDeEliminacion = unaJustificacion;
         this.hecho = unHecho;
+        this.fechaSolicitud = LocalDateTime.now();
+
     }
 }
