@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services;
+package ar.utn.ba.ddsi.schedulers;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class RefrescadorDeColecciones {
         this.coleccionService = coleccionService;
     }
 
-    @Scheduled(fixedRate = 3600000) // cada 1 hora
+    @Scheduled(cron = "0 0 * * * *")
     public void refrescar() {
         coleccionService.actualizarColecciones();
     }

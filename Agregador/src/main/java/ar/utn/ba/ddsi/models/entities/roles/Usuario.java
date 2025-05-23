@@ -15,27 +15,31 @@ public class Usuario {
     private String nombre;
     private IRol rol;
 
-    private final ISolcitudesService solcitudesService;
+    private final ISolcitudesService solicitudesService;
 
     public Usuario(ISolcitudesService solcitudesService) {
-        this.solcitudesService = solcitudesService;
+        this.solicitudesService = solcitudesService;
     }
 
     public void solicitarEliminacionDeUnHecho(String unaJustificacion, Hecho unHecho) {
         if (rol.tenesPermiso(Permisos.SOLICITAR_ELIMINACION)) {
             // CREO LA SOLICITUD RECIBIENDO LA JUSTIFICACION Y EL HECHO POR PARTE DEL USUARIO
-            Solicitud nuevaSolicitud = solcitudesService.crearSolicitud(unaJustificacion, unHecho);
+            Solicitud nuevaSolicitud = solicitudesService.crearSolicitud(unaJustificacion, unHecho);
 
             // REGISTRO LA SOLICITUD UNA VEZ CREADA
-            solcitudesService.registrarSolicitud(nuevaSolicitud, this);
+            solicitudesService.registrarSolicitud(nuevaSolicitud, this);
         }
     }
 
-    public void gestionarSolicitudes(List<Solicitud> unasSolicitudes) {
+    public void aprobarSolicitud(Solicitud unaSolicitud) {
         if (rol.tenesPermiso(Permisos.GESTIONAR_SOLICITUDES)) {
-            List<Solicitud> solicitudesPendientes = unasSolicitudes.stream()
-                    .filter(s -> s.getEstado() == EstadoDeSolicitudDeEliminacion.PENDIENTE).toList();
-            this.solcitudesService.procesarSolicitudes(unasSolicitudes, this);
+            this.solicitudesService.aprobarSolicitud(unaSolicitud, this);
+        }
+    }
+
+    public void rechazarSolicitud(Solicitud unaSolicitud) {
+        if (rol.tenesPermiso(Permisos.GESTIONAR_SOLICITUDES)) {
+            solicitudesService.rechazarSolicitud(unaSolicitud, this);
         }
     }
 }

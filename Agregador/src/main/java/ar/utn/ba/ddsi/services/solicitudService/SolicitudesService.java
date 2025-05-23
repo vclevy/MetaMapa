@@ -45,21 +45,17 @@ public class SolicitudesService implements ISolcitudesService {
     }
 
     @Override
-    public void procesarSolicitudes(List<Solicitud> unasSolicitudes, Usuario usuarioModificador) {
-        for (Solicitud solicitudIndice : unasSolicitudes) {
-            solicitudIndice.setFechaDeEvaluacionDeSolicitud(LocalDateTime.now());
-            // APRUEBO SOLICITUD
-            if(solicitudIndice.getJustificacionDeEliminacion().length() > 500) {
-                solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
-                this.actualizarHistorialDe(solicitudIndice, usuarioModificador);
-            } else { // RECHAZO SOLICITUD
-                solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
-                this.actualizarHistorialDe(solicitudIndice, usuarioModificador);
-            }
+    public void aprobarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador) {
+        unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
+        this.actualizarHistorialDe(unaSolicitud, usuarioModificador);
+        this.solicitudesRepository.save(unaSolicitud);
+    }
 
-            // ACTUALIZO EL REPO DE SOLICITUDES
-            solicitudesRepository.save(solicitudIndice);
-        }
+    @Override
+    public void rechazarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador) {
+        unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
+        this.actualizarHistorialDe(unaSolicitud, usuarioModificador);
+        this.solicitudesRepository.save(unaSolicitud);
     }
 
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
@@ -76,6 +72,7 @@ public class SolicitudesService implements ISolcitudesService {
                 unaSolicitud.getEstado(),
                 usuarioModificador
         );
+        unaSolicitud.getHistorialSolicitud().add(historialSolicitud);
     }
 
     public Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho) {

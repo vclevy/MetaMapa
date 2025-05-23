@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ISolcitudesService {
     public void registrarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador);
-    public void procesarSolicitudes(List<Solicitud> unaSolicitudes, Usuario usuarioModificador);
-    Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho);
+    public Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho);
+    public void aprobarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador);
+    public void rechazarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador);
 }

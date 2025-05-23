@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -28,7 +29,6 @@ public class ColeccionService implements IColeccionService {
             this.coleccionesRepository.delete(coleccion);
         }
     }
-
 
     public static boolean agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
         if (hecho == null || hecho.getSolicitudesDeEliminacion().stream().anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA)) {
@@ -62,13 +62,18 @@ public class ColeccionService implements IColeccionService {
         this.coleccionesRepository.save(coleccion);
     }
 
-    @Scheduled(cron = "0 0 * * * *")
     public void actualizarColecciones() {
         for (Coleccion coleccion : coleccionesRepository.findAll()) {
             for (Hecho hecho : hechosRepository.findAll()) {
               agregarHechoAColeccion(coleccion, hecho, coleccion.getCriterioDePertenencia());
             }
         }
+    }
+
+    public List<Hecho> obtenerHechosFiltradosPorColeccion(Coleccion coleccion) {
+        return hechosRepository.findAll().stream()
+                .filter(hecho -> coleccion.cumpleCriterios(hecho,coleccion.getCriterioDePertenencia()))
+                .collect(Collectors.toList());
     }
 
     private ColeccionOutputDTO coleccionOutputDTO(Coleccion unaColeccion) {

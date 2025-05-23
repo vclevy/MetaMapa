@@ -56,7 +56,6 @@ public class HechosService implements IHechosService {
         return this.hechosRepository.findAll().stream().map(this::hechoOutputDTO).collect(Collectors.toList());
     }
 
-    @Scheduled(cron = "0 0 * * * *")
     public void actualizarHechosDeTodasLasFuentes() {
         List<Hecho> hechosActualizados = this.obtenerHechosDeTodasLasFuentes();
         hechosActualizados.forEach(unHecho -> hechosRepository.save(unHecho));

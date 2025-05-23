@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FuenteDinamica implements FuenteDeHechos {
-    private final IHechosRepository hechosRepo;
+    private final IHechosRepository hechosRepo; // hechos de fuente dinamica
     private final WebClient webClient;
 
     public FuenteDinamica(IHechosRepository hechosRepo, WebClient webClient) {
