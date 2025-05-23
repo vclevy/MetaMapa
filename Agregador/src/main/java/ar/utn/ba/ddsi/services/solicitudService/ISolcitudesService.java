@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services;
+package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.Usuario;

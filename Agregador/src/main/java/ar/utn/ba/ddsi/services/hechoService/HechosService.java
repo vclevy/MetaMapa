@@ -1,18 +1,13 @@
-package ar.utn.ba.ddsi.services.impl;
+package ar.utn.ba.ddsi.services.hechoService;
 
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
-import ar.utn.ba.ddsi.services.IHechosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +28,7 @@ public class HechosService implements IHechosService {
         this.fuenteEstaticaClient = WebClient.builder()
                 .baseUrl("http://localhost:8081") // fuente estática
                 .build();
-        this.fuenteDinamicaClient = WebClient.builder()
-                .baseUrl("http://localhost:8082") // fuente dinámica
-                .build();
+
         this.fuenteProxyClient = WebClient.builder()
                 .baseUrl("http://localhost:8083") // fuente proxy
                 .build();

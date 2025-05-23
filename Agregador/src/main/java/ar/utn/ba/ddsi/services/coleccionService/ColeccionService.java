@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services.impl;
+package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
@@ -8,15 +8,11 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
-import ar.utn.ba.ddsi.models.repositories.impl.ColeccionesRepository;
-import ar.utn.ba.ddsi.services.IColeccionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -33,12 +29,7 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
-    public static boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
-        for (Criterio c : criterios) {
-            if (!c.cumple(hecho)) return false;
-        }
-        return true;
-    }
+
     public static boolean agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
         if (hecho == null || hecho.getSolicitudesDeEliminacion().stream().anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA)) {
             return false;
@@ -73,11 +64,12 @@ public class ColeccionService implements IColeccionService {
 
     @Scheduled(cron = "0 0 * * * *")
     public void actualizarColecciones() {
-        for (Coleccion coleccion: ){
-            agregarHechoAColeccion(coleccion, )
+        for (Coleccion coleccion : coleccionesRepository.findAll()) {
+            for (Hecho hecho : hechosRepository.findAll()) {
+              agregarHechoAColeccion(coleccion, hecho, coleccion.getCriterioDePertenencia());
+            }
         }
     }
-
 
     private ColeccionOutputDTO coleccionOutputDTO(Coleccion unaColeccion) {
         ColeccionOutputDTO coleccionOutputDTO = new ColeccionOutputDTO();

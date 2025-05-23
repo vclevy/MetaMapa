@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
 
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ public class Coleccion {
     private String descripcion;
     private String handle;
     private List<Hecho> hechos;
+    private List<FuenteDeHechos> fuentesDeHechos;
     private List<Criterio> criterioDePertenencia;
 
     public Coleccion (String titulo, String descripcion) {
@@ -24,4 +26,10 @@ public class Coleccion {
         this.handle = UUID.randomUUID().toString();
     }
 
+    public static boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
+        for (Criterio c : criterios) {
+            if (!c.cumple(hecho)) return false;
+        }
+        return true;
+    }
 }

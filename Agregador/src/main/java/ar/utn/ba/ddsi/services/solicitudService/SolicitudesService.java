@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services.impl;
+package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
@@ -7,12 +7,10 @@ import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi.services.ISolcitudesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SolicitudesService implements ISolcitudesService {

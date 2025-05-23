@@ -4,11 +4,10 @@ import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeElimina
 import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.roleDefinition.IRol;
 import ar.utn.ba.ddsi.models.entities.roles.roleDefinition.Permisos;
-import ar.utn.ba.ddsi.services.ISolcitudesService;
+import ar.utn.ba.ddsi.services.solicitudService.ISolcitudesService;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class Usuario {

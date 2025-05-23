@@ -1,10 +1,7 @@
 package ar.utn.ba.ddsi.models.entities.roles;
 
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.roleDefinition.IRol;
 import ar.utn.ba.ddsi.models.entities.roles.roleDefinition.Permisos;
-import ar.utn.ba.ddsi.services.ISolcitudesService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
 import java.util.EnumSet;

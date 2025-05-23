@@ -1,7 +1,6 @@
-package ar.utn.ba.ddsi.services;
+package ar.utn.ba.ddsi.services.hechoService;
 
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import java.util.List;
 

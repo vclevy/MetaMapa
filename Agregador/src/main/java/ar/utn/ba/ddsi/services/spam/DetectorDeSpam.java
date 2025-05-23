@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.entities.hecho.solicitud;
+package ar.utn.ba.ddsi.services.spam;
 
 public interface DetectorDeSpam {
     public boolean esSpam(String texto);

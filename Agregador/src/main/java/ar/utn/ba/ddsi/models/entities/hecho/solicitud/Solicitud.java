@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.models.entities.hecho.solicitud;
 
 import ar.utn.ba.ddsi.models.entities.roles.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import lombok.Getter;
 import lombok.Setter;
 
