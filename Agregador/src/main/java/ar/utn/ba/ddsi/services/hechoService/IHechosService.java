@@ -8,5 +8,5 @@ public interface IHechosService {
     public HechoOutputDTO findById(Integer id);
     public void eliminar(Integer id);
     public List<HechoOutputDTO> findAll();
-    public void actualizarHechosDeTodasLasFuentes();
+    public void obtenerTodosLosHechosDeTodasLasFuentes();
 }

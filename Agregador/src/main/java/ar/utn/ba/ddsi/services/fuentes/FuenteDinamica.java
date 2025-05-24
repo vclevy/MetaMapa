@@ -10,19 +10,34 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FuenteDinamica implements FuenteDeHechos {
-    private final IHechosRepository hechosRepositoryFuenteDinamica; // hechos de fuente dinamica
     private final WebClient webClient;
 
-    @Override
-    public List<Hecho> obtenerHechos() {
-        return hechosRepositoryFuenteDinamica.findAll();
-    }
-
-    public FuenteDinamica(IHechosRepository hechosRepo, @Value("") String baseUrl /*va en properties el valueWebClient*/, WebClient webClient) {
-        this.hechosRepositoryFuenteDinamica = hechosRepo;
+    public FuenteDinamica(IHechosRepository hechosRepo, String baseUrl, WebClient webClient) {
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8080")
+                .baseUrl(baseUrl)
                 .build();
     }
 
+    @Override
+    public List<Hecho> obtenerHechos() {
+        return webClient
+                .get()
+                .uri("/hechos")
+                .retrieve()
+                .bodyToFlux(Hecho.class)
+                .collectList()
+                .block();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

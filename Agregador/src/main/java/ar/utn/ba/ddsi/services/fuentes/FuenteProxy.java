@@ -10,7 +10,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 @Component
 public class FuenteProxy implements FuenteDeHechos {
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String url = "https://otra-instancia.metamapa.org";
+    private final String url = "http://localhost:8080";
 
     @Override
     public List<Hecho> obtenerHechos() {

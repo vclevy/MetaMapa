@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.services.hechoService;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,21 +18,10 @@ import java.util.stream.Collectors;
 public class HechosService implements IHechosService {
     @Autowired
     private IHechosRepository hechosRepository;
+    private final List<FuenteDeHechos> fuentesDeHechos;
 
-    WebClient client = WebClient.create("http://localhost:8080");
-
-    private final WebClient fuenteEstaticaClient;
-    private final WebClient fuenteDinamicaClient;
-    private final WebClient fuenteProxyClient;
-
-    public HechosService() {
-        this.fuenteEstaticaClient = WebClient.builder()
-                .baseUrl("http://localhost:8081") // fuente estática
-                .build();
-
-        this.fuenteProxyClient = WebClient.builder()
-                .baseUrl("http://localhost:8083") // fuente proxy
-                .build();
+    public HechosService(List<FuenteDeHechos> fuentes) {
+        this.fuentesDeHechos = fuentes;
     }
 
     @Override
@@ -56,27 +46,13 @@ public class HechosService implements IHechosService {
         return this.hechosRepository.findAll().stream().map(this::hechoOutputDTO).collect(Collectors.toList());
     }
 
-    public void actualizarHechosDeTodasLasFuentes() {
-        List<Hecho> hechosActualizados = this.obtenerHechosDeTodasLasFuentes();
-        hechosActualizados.forEach(unHecho -> hechosRepository.save(unHecho));
-    }
-
-    public List<Hecho> obtenerHechosDeTodasLasFuentes() {
-        List<Hecho> hechos = new ArrayList<>();
-        hechos.addAll(obtenerHechosDesde(fuenteEstaticaClient));
-        hechos.addAll(obtenerHechosDesde(fuenteDinamicaClient));
-        hechos.addAll(obtenerHechosDesde(fuenteProxyClient));
-        return hechos;
-    }
-
-    private List<Hecho> obtenerHechosDesde(WebClient client) {
-        Mono<List<Hecho>> hechosMono = client.get()
-                .uri("/hechos")
-                .retrieve()
-                .bodyToFlux(Hecho.class)
-                .collectList();
-
-        return hechosMono.block();
+    public void obtenerTodosLosHechosDeTodasLasFuentes() {
+        for (FuenteDeHechos fuenteIndice : fuentesDeHechos) {
+            List<Hecho> hechos = fuenteIndice.obtenerHechos();
+            for (Hecho hechoIndice : hechos) {
+                this.hechosRepository.save(hechoIndice);
+            }
+        }
     }
 
     private HechoOutputDTO hechoOutputDTO(Hecho unHecho) {
@@ -92,5 +68,4 @@ public class HechosService implements IHechosService {
         hechoOutputDTO.setContribuyente(unHecho.getContribuyente());
         return hechoOutputDTO;
     }
-
 }

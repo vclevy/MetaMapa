@@ -10,23 +10,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AgregadorDeHechos {
-    private final List<FuenteDeHechos> fuentes;
     private final IHechosService hechosService;
 
     public AgregadorDeHechos(List<FuenteDeHechos> fuentes, IHechosService hechosService) {
-        this.fuentes = fuentes;
         this.hechosService = hechosService;
     }
 
     @Scheduled(cron = "0 0 * * * *")
-    public List<Hecho> obtenerTodosLosHechos() {
-        return fuentes.stream()
-                .flatMap(f -> f.obtenerHechos().stream())
-                .collect(Collectors.toList());
-    }
-
-    @Scheduled(cron = "0 0 * * * *")
-    public void actualizarHechosDeTodasLasFuentes() {
-        this.hechosService.actualizarHechosDeTodasLasFuentes();
+    public void obtenerTodosLosHechosActualizados() {
+        this.hechosService.obtenerTodosLosHechosDeTodasLasFuentes();
     }
 }
+
+
+
+
+
+
+
+
+
+
