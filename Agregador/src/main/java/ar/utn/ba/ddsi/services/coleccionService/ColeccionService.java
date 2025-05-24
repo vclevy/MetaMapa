@@ -64,8 +64,8 @@ public class ColeccionService implements IColeccionService {
 
     public void actualizarColecciones() {
         for (Coleccion coleccion : coleccionesRepository.findAll()) {
-            for (Hecho hecho : hechosRepository.findAll()) {
-              agregarHechoAColeccion(coleccion, hecho, coleccion.getCriterioDePertenencia());
+            for (Hecho hechoIndice : hechosRepository.findAll()) {
+              agregarHechoAColeccion(coleccion, hechoIndice, coleccion.getCriterioDePertenencia());
             }
         }
     }

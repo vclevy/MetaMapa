@@ -20,8 +20,9 @@ public class HechosService implements IHechosService {
     private IHechosRepository hechosRepository;
     private final List<FuenteDeHechos> fuentesDeHechos;
 
-    public HechosService(List<FuenteDeHechos> fuentes) {
+    public HechosService(List<FuenteDeHechos> fuentes, IHechosRepository hechosRepository) {
         this.fuentesDeHechos = fuentes;
+        this.hechosRepository = hechosRepository;
     }
 
     @Override
@@ -39,11 +40,6 @@ public class HechosService implements IHechosService {
         if(hecho != null){
             this.hechosRepository.delete(hecho);
         }
-    }
-
-    @Override
-    public List<HechoOutputDTO> findAll() {
-        return this.hechosRepository.findAll().stream().map(this::hechoOutputDTO).collect(Collectors.toList());
     }
 
     public void obtenerTodosLosHechosDeTodasLasFuentes() {

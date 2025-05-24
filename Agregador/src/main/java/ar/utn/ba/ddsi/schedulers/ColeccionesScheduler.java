@@ -5,11 +5,11 @@ import org.springframework.stereotype.Component;
 import ar.utn.ba.ddsi.services.coleccionService.ColeccionService;
 
 @Component
-public class RefrescadorDeColecciones {
+public class ColeccionesScheduler {
 
     private final ColeccionService coleccionService;
 
-    public RefrescadorDeColecciones(ColeccionService coleccionService) {
+    public ColeccionesScheduler(ColeccionService coleccionService) {
         this.coleccionService = coleccionService;
     }
 
