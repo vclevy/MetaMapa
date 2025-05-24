@@ -213,32 +213,49 @@ class ApiCatedraServices implements IApiCatedraServices {
     + List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw)
 }
 
-class MetaMapaServices implements IMetamapaServices {
-    - WebClient webClient;
-    - static DateTimeFormatter FORMATTER;
-    + List<Hecho> obtenerHechos()
-    + List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw)
-    + List<Coleccion> obtenerColecciones()
-    + List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros)
-    + boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion)
-}
 interface IApiCatedraServices {
     List<Hecho> obtenerHechosDesdeAPI();
     List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros);
 }
 
-interface IMetamapaServices {
-
-    List<Hecho> obtenerHechos();
-
-    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw);
-
-    List<Coleccion> obtenerColecciones();
-
-    List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
-
+interface ISolicitudesService {
     boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
 }
+
+interface IHechosService {
+    List<Hecho> obtenerHechos();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw);
+}
+
+interface IColeccionesService {
+    List<Coleccion> obtenerColecciones();
+    List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
+}
+
+class MetaMapaColeccionesServices implements IColeccionesService {
+    - webClient: WebClient
+
+    + MetaMapaColeccionesServices(webClient: WebClient)
+    + obtenerColecciones(): List<Coleccion>
+    + obtenerHechosDeColeccion(id: String, filtros: Map<String, String>): List<Hecho>
+    - convertirDTOaColeccion(dto: ColeccionDTO): Coleccion
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaHechosServices implements IHechosService {
+    - webClient: WebClient
+
+    + obtenerHechos(): List<Hecho>
+    + obtenerHechosConFiltros(filtrosRaw: Map<String, String>): List<Hecho>
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaSolicitudesServices implements ISolicitudesService {
+    - webClient: WebClient
+
+    + enviarSolicitudEliminacion(hecho: Hecho, justificacion: String): boolean
+}
+
 
 Hecho --> Categoria
 HechoController --> IApiCatedraServices
@@ -263,8 +280,10 @@ ApiCatedraAdapter --> HechoAdapter
 HechoAdapter ..> HechoProxyDTO
 IHechoAdapter ..> HechoProxyDTO
 ApiCatedraServices --> ApiCatedraAdapter
-MetaMapaServices ..> Hecho
-IMetamapaServices ..> Hecho
 ApiCatedraServices ..> RespuestaAPICatedra
+MetaMapaColeccionesServices --> "*"Coleccion
+MetaMapaColeccionesServices --> "*" Hecho
+MetaMapaHechosServices --> "*" Hecho
+MetaMapaSolicitudesServices --> Hecho
 
 @enduml
