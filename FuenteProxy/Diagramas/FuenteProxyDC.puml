@@ -54,38 +54,32 @@ interface IFiltroHecho {
 
 class FiltroCategoria implements IFiltroHecho {
   -categoriaBuscada: String
-  +FiltroCategoria(String)
   +aplica(Hecho): boolean
 }
 
 class FiltroFechaAcontecimientoDesde implements IFiltroHecho {
   -fechaDesde: LocalDateTime
-  +FiltroFechaAcontecimientoDesde(LocalDateTime)
   +aplica(Hecho): boolean
 }
 
 class FiltroFechaAcontecimientoHasta implements IFiltroHecho {
   -fechaHasta: LocalDateTime
-  +FiltroFechaAcontecimientoHasta(LocalDateTime)
   +aplica(Hecho): boolean
 }
 
 class FiltroFechaDesde implements IFiltroHecho{
   -fechaLimite: LocalDateTime
-  +FiltroFechaDesde(LocalDateTime)
   +aplica(Hecho): boolean
 }
 
 class FiltroFechaHasta implements IFiltroHecho {
   -fechaLimite: LocalDateTime
-  +FiltroFechaHasta(LocalDateTime)
   +aplica(Hecho): boolean
 }
 
 class FiltroUbicacion implements IFiltroHecho {
   -latitudEsperada: double
   -longitudEsperada: double
-  +FiltroUbicacion(double, double)
   +aplica(Hecho): boolean
 }
 
@@ -181,11 +175,8 @@ interface IHechosRepository {
 
 interface ISolicitudesRepository {
     List<SolicitudEliminacion> findAll();
-
     SolicitudEliminacion findById(UUID id);
-
     void save(SolicitudEliminacion solicitud);
-
     void delete(SolicitudEliminacion solicitud);
 }
 
