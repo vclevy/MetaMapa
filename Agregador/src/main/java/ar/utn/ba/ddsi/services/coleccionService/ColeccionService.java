@@ -1,18 +1,19 @@
-package ar.utn.ba.ddsi.services.impl;
+package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.coleccion.Criterio;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
-import ar.utn.ba.ddsi.services.IColeccionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -27,6 +28,21 @@ public class ColeccionService implements IColeccionService {
         if (coleccion != null) {
             this.coleccionesRepository.delete(coleccion);
         }
+    }
+
+    public static boolean agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
+        if (hecho == null || hecho.getSolicitudesDeEliminacion().stream().anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA)) {
+            return false;
+        }
+
+        for (Criterio criterio : criterios) {
+            if (!criterio.cumple(hecho)) {
+                return false;
+            }
+        }
+
+        coleccion.getHechos().add(hecho);
+        return true;
     }
 
     public ColeccionOutputDTO findByHandle(String unHandle) {
@@ -47,9 +63,18 @@ public class ColeccionService implements IColeccionService {
     }
 
     public void actualizarColecciones() {
-
+        for (Coleccion coleccion : coleccionesRepository.findAll()) {
+            for (Hecho hechoIndice : hechosRepository.findAll()) {
+              agregarHechoAColeccion(coleccion, hechoIndice, coleccion.getCriterioDePertenencia());
+            }
+        }
     }
 
+    public List<Hecho> obtenerHechosFiltradosPorColeccion(Coleccion coleccion) {
+        return hechosRepository.findAll().stream()
+                .filter(hecho -> coleccion.cumpleCriterios(hecho,coleccion.getCriterioDePertenencia()))
+                .collect(Collectors.toList());
+    }
 
     private ColeccionOutputDTO coleccionOutputDTO(Coleccion unaColeccion) {
         ColeccionOutputDTO coleccionOutputDTO = new ColeccionOutputDTO();
