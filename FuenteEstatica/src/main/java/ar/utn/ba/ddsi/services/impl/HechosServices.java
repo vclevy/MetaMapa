@@ -1,37 +1,50 @@
 package ar.utn.ba.ddsi.services.impl;
 
-import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
-import ar.utn.ba.ddsi.models.entities.Hecho;
-import ar.utn.ba.ddsi.models.fuentes.FuenteEstatica;
+import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
+import ar.utn.ba.ddsi.models.dtos.HechoOutputDTO;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.importador.ImportadorCSV;
+import ar.utn.ba.ddsi.models.entities.importador.LectorCSV;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
+import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HechosServices implements IHechosServices {
     @Autowired
     private IHechosRepository repositorioDeHechos;
 
-    public List<Hecho> importarCSV() {
-        FuenteEstatica fuenteEstatica = new FuenteEstatica();
-        return fuenteEstatica.importarHechos();
+    @Override
+    public void importarHechos(String archivo) throws IOException, CsvValidationException {
+        repositorioDeHechos.agregarHechos(ImportadorCSV.importarHechos(archivo));
+    }
+
+    @Override
+    public List<HechoOutputDTO> getHechos() {
+        return repositorioDeHechos.findAll()
+                .stream()
+                .map(this::hechoOutputDTO)
+                .collect(Collectors.toList());
     }
 
     private HechoOutputDTO hechoOutputDTO(Hecho hecho) {
-        HechoOutputDTO hechoOutputDTO = new HechoOutputDTO();
-        hechoOutputDTO.setId(hecho.getId());
-        hechoOutputDTO.setTitulo((hecho.getTitulo()));
-        hechoOutputDTO.setDescripcion(hecho.getDescripcion());
-        hechoOutputDTO.setCategoria(hecho.getCategoria());
-        hechoOutputDTO.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
-        hechoOutputDTO.setLugar(hecho.getLugar());
-        hechoOutputDTO.setOrigen(hecho.getOrigen());
-        hechoOutputDTO.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
-        hechoOutputDTO.setEtiquetas(hecho.getEtiquetas());
-        hechoOutputDTO.setFueEliminado(hecho.getFueEliminado());
+        HechoOutputDTO hechoOutputDTO = new HechoOutputDTO(
+                hecho.getTitulo(),
+                hecho.getDescripcion(),
+                hecho.getCategoria(),
+                hecho.getFechaDeAcontecimiento(),
+                hecho.getFechaDeCarga(),
+                hecho.getLugar(),
+                hecho.getMultimedia()
+        );
+
         return hechoOutputDTO;
     }
 }

@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
 
-import ar.utn.ba.ddsi.models.entities.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 
 import java.util.Collections;
@@ -11,8 +11,9 @@ public class HechosRepository implements IHechosRepository {
 
     private List<Hecho> hechosSubidos;
 
-    public void agregarHechos(Hecho ... unosHechos){
-        Collections.addAll(this.hechosSubidos, unosHechos);
+    @Override
+    public void agregarHechos(List<Hecho> hechos){
+        hechosSubidos.addAll(hechos);
     }
 
     @Override
@@ -34,4 +35,5 @@ public class HechosRepository implements IHechosRepository {
     public void delete(Hecho hecho) {
         hechosSubidos.removeIf(h -> h.getId() == hecho.getId());
     }
+
 }

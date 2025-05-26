@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.entities;
+package ar.utn.ba.ddsi.models.entities.hecho;
 
 import lombok.Getter;
 
