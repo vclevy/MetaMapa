@@ -1,0 +1,102 @@
+@startuml
+
+class HechoInputDTO {
+    - titulo : String
+    - descripcion : String
+    - categoria : String
+    - lugar : Lugar
+    - fechaDelHecho : LocalDate
+}
+
+class HechoOutputDTO {
+    - titulo : String
+    - descripcion : String
+    - categoria : String
+    - lugar : Lugar
+    - fechaDeAcontecimiento : LocalDate
+    - fechaDeCarga : LocalDate
+    - multimedia : List<Multimedia>
+}
+
+class Hecho {
+    - id : UUID
+    - titulo : String
+    - descripcion : String
+    - categoria : String
+    - lugar : Lugar
+    - fechaDeAcontecimiento : LocalDate
+    - fechaDeCarga : LocalDate
+    - multimedia : List<Multimedia>
+    - origen : OrigenDelHecho
+}
+
+class Lugar {
+    - latitud : Double
+    - longitud : Double
+}
+
+class Multimedia {
+    - rutaAlArchivo : String
+}
+
+enum OrigenDelHecho {
+    DATASET,
+    CARGA_MANUAL,
+    CONTRIBUYENTE
+}
+
+interface Importador{
+    +importarHechos(String archivo) : List<Hecho>
+}
+
+class LectorCSV{
+    + leerCSV(String archivo) : List<String[]>
+}
+
+class importadorCSV implements Importador{
+    + importarHechos(String archivo) : List<Hecho>
+    - convertirHechoInputEnHecho(HechoInputDTO hechoInputDTO):Hecho
+}
+
+class HechosService implements IHechosService{
+    + importarHechos(String unRutaAlArchivo) : void
+    + getHechos() : List<HechoOutputDTO>
+    - hechoOutputDTO(Hecho hecho) : HechoOutputDTO
+    - repositorioDeHechos : IHechosRepository
+}
+
+interface IHechosService{
+    + importarHechos(String unRutaAlArchivo) : void
+    + getHechos() : List<HechoOutputDTO>
+}
+
+interface IHechosRepository {
+    + findAll() : List<Hecho>
+    + findById(int id) : Hecho
+    + save(Hecho hecho) : void
+    + delete(Hecho hecho) : void
+    + agregarHechos(List<Hecho> hechos) : void
+}
+
+class HechosRepository implements IHechosRepository {
+     + findAll() : List<Hecho>
+     + findById(int id) : Hecho
+     + save(Hecho hecho) : void
+     + delete(Hecho hecho) : void
+     + agregarHechos(List<Hecho> hechos) : void
+}
+
+HechoInputDTO --> Lugar
+HechoOutputDTO --> Lugar
+HechoOutputDTO --> Multimedia
+Hecho --> Lugar : lugar
+Hecho --> Multimedia : multimedia *
+Hecho --> OrigenDelHecho
+HechosService --> IHechosRepository
+HechosRepository --> Hecho : *
+importadorCSV --> LectorCSV : usa
+importadorCSV --> HechoInputDTO
+
+
+
+@enduml

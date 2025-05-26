@@ -1,0 +1,685 @@
+@startuml
+package 'Agregador' {
+/'------------------------------------------------ PACKAGE MODELS -------------------------------------------------------------'/
+/'------------------------------------------ EMPIEZA PACKAGE ENTITIES -------------------------------------------------------------'/
+/'------------------------------------------------ PACKAGE HECHO -------------------------------------------------------------'/
+class Hecho {
+    - id : Integer
+    - titulo : String
+    - descripcion : String
+    - categoria : Categoria
+    - fechaDeAcontecimiento : LocalDate
+    - fechaDeCarga : LocalDateTime
+    - lugar : Lugar
+    - origen : OrigenDelHecho
+    - solicitudesDeEliminacion : List<Solicitud>
+    - esAnonimo : Boolean
+    - etiquetas : List<Etiqueta>
+    - multimedia : List<Multimedia>
+    - fueEliminado : Boolean
+    - contribuyente : Usuario
+    - revision : Revision
+}
+
+class Categoria {
+    - nombre : String
+}
+
+enum EstadoRevision {
+    PENDIENTE,
+    ACEPTADO,
+    RECHAZADO
+}
+
+class Etiqueta {
+    - nombre : String
+    - descripcion : String
+}
+
+class Lugar {
+    - latitud : Double
+    - longitud : Double
+}
+
+class Multimedia {
+    - rutaAlArchivo : String
+}
+
+enum OrigenDelHecho {
+    FUENTEDINAMICA,
+    FUENTEESTATICA,
+    FUENTEPROXY
+}
+
+class Revision {
+    - estado : EstadoRevision
+    - comentario : String
+
+    + estaPendiente() : boolean
+}
+
+/'------------------------------------------------ TERMINA PACKAGE HECHO -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE SOLICITUD -------------------------------------------------------------'/
+class Solicitud {
+    - id : Integer
+    - justificacionDeEliminacion : String
+    - hecho : Hecho
+    - estado : EstadoDeSolicitudDeEliminacion
+    - fechaSolicitud : LocalDateTime
+    - fechaDeEvaluacionDeSolicitud : LocalDateTime
+    - visitanteQueCargoSolicitud : Usuario
+    - historialSolicitud : List<HistorialSolicitud>
+}
+
+class HistorialSolicitud {
+    - estado : EstadoDeSolicitudDeEliminacion
+    - fechaModificacion : LocalDateTime
+    - usuarioModificador : Usuario
+}
+
+enum EstadoDeSolicitudDeEliminacion {
+    PENDIENTE,
+    RECHAZADA,
+    APROBADA
+}
+
+/'------------------------------------------------ TERMINA PACKAGE SOLICITUD -------------------------------------------------------------'/
+
+
+/'------------------------------------------------ EMPIEZA PACKAGE COLECCION -------------------------------------------------------------'/
+class Coleccion {
+    - titulo : String
+    - descripcion : String
+    - handle : String
+    - hechos : List<Hecho>
+}
+
+class VerificadorDeCriterios {
+    + cumpleCategoria(Hecho hecho, Categoria categoria) : boolean
+    + cumpleLugar(Hecho hecho, Lugar lugar) : boolean
+    + entreFechas(Hecho hecho, LocalDate desde, LocalDate hasta) : boolean
+}
+
+interface Criterio {
+    + cumple(Hecho hecho) : boolean
+}
+/'------------------------------------------------ TERMINA PACKAGE COLECCION -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE CRITERIOS -------------------------------------------------------------'/
+class CriterioCategoria implements Criterio {
+    - categoria : Categoria
+    + cumple(Hecho hecho) : boolean
+}
+
+class CriterioFechaEntre implements Criterio {
+    - desde : LocalDate
+    - hasta : LocalDate
+    + cumple(Hecho hecho) : boolean
+}
+
+class CriterioLugar implements Criterio {
+    - lugar : Lugar
+    + cumple(Hecho hecho) : boolean
+}
+
+/'------------------------------------------------ TERMINA PACKAGE CRITERIOS -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE ROLES -------------------------------------------------------------'/
+class Usuario {
+    - nombre : String
+    - rol : IRol
+    - solicitudesService : ISolicitudesService
+
+    + solicitarEliminacionDeUnHecho(String unaJustificacion, Hecho unHecho) : void
+    + aprobarSolicitud(Solicitud unaSolicitud) : void
+    + rechazarSolicitud(Solicitud unaSolicitud) : void
+}
+
+interface IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class Revisor implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class VisitanteAnonimo implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+class VisitanteRegistrado implements IRol {
+    + tenesPermiso(Permiso permiso) : boolean
+}
+
+enum Permisos {
+    VER_HECHOS,
+    SUBIR_HECHO,
+    EDITAR_HECHO,
+    ELIMINAR_HECHO,
+    REVISAR_HECHO,
+    IMPORTAR_HECHOS,
+    VER_COLECCIONES,
+    CREAR_COLECCION,
+    EDITAR_COLECCION,
+    ELIMINAR_COLECCION,
+    GESTIONAR_ETIQUETAS,
+    SOLICITAR_ELIMINACION,
+    VER_SOLICITUDES,
+    GESTIONAR_SOLICITUDES
+}
+/'------------------------------------------------ TERMINA PACKAGE ROLES -------------------------------------------------------------'/
+/'------------------------------------------------ TERMINA PACKAGE ENTITIES -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE REPOSITORY -------------------------------------------------------------'/
+interface IHechosRepository {
+    + findAll() : List<Hecho>
+    + findById(Int id) : Hecho
+    + save(Hecho hecho) : void
+    + delete(Hecho hecho) : void
+}
+
+interface ISolicitudesRepository {
+    + findAll() : List<Solicitud>
+    + findById(Int id) : Solicitud
+    + save(Solicitud solicitud) : void
+    + delete(Solicitud solicitud) : void
+}
+
+interface IColeccionesRepository {
+    + findAll() : List<Coleccion>
+    + findByHandle(String unHandle) : Coleccion
+    + save(Coleccion unaColeccion) : void
+    + delete(Coleccion unaColeccion) : void
+}
+
+/'------------------------------------------------ EMPIEZA PACKAGE IMPL -------------------------------------------------------------'/
+class SolicitudesRepository implements ISolicitudesRepository {
+     + findAll() : List<Solicitud>
+     + findById(Int id) : Solicitud
+     + save(Solicitud solicitud) : void
+     + delete(Solicitud solicitud) : void
+}
+
+class HechosRepository implements IHechosRepository {
+     + findAll() : List<Hecho>
+     + findById(Int id) : Hecho
+     + save(Hecho hecho) : void
+     + delete(Hecho hecho) : void
+}
+
+class ColeccionesRepository implements IColeccionesRepository{
+    + findAll():List<Coleccion>
+    + findByHandle(String handle):Coleccion
+    + save(Coleccion coleccion): void
+    + delete(String handle): void
+}
+
+
+
+/'------------------------------------------------ TERMINA PACKAGE IMPL -------------------------------------------------------------'/
+/'------------------------------------------------ TERMINA PACKAGE REPOSITORY -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE SCHEDULERS -------------------------------------------------------------'/
+class ColeccionesScheduler {
+    - coleccionService : IColeccionesService
+    + refrescar() : void
+}
+
+class HechosScheduler {
+    - hechosService() : IHechosService
+    + obtenerTodosLosHechosActualizados() : void
+}
+/'------------------------------------------------ TERMINA PACKAGE SCHEDULERS -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE SERVICES -------------------------------------------------------------'/
+/'------------------------------------------------ EMPIEZA PACKAGE COLECCIONSERVICE -------------------------------------------------------------'/
+interface IColeccionService {
+        + void delete(String unHandle):void
+        + void actualizarColecciones():void
+        + findByHandle (String unHandle):ColeccionOutputDTO
+        + crear(ColeccionInputDTO unaColeccionInputDTO):void
+        + obtenerHechosFiltradosPorColeccion(Coleccion coleccion):List<Hecho>
+}
+
+class ColeccionService implements IColeccionService{
+    +delete(String handle) : void
+    +agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) : void
+    +findByHandle(String handle):ColeccionOutputDTO
+    +crear(ColeccionInputDTO coleccionInputDTO):void
+    +actualizarColecciones():void
+    +obtenerHechosFiltradosPorColeccion(Coleccion coleccion):List<Hecho>
+}
+/'------------------------------------------------ TERMINA PACKAGE COLECCIONSERVICE -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE HECHOSERVICE -------------------------------------------------------------'/
+class HechosService implements IHechosService {
+    - hechosRepository : IHechosRepository
+    - fuenteDeHechos : List<FuenteDeHechos>
+
+    + findById(Integer id) : HechoOutputDTO
+    + eliminar(Integer id) : void
+    + obtenerTodosLosHechosDeTodasLasFuentes() : void
+}
+
+interface IHechosService {
+    + findById(Integer id) : HechoOutputDTO
+    + eliminar(Integer id) :void
+    + obtenerTodosLosHechosDeTodasLasFuentes() : void
+}
+
+/'------------------------------------------------ TERMINA PACKAGE HECHOSERVICE -------------------------------------------------------------'/
+
+
+
+/'------------------------------------------------ EMPIEZA PACKAGE FUENTES -------------------------------------------------------------'/
+interface FuenteDeHechos {
+    + obtenerHechos() : List<Hecho>
+}
+
+class FuenteDinamica implements FuenteDeHechos {
+    - webClient : WebClient
+    + obtenerHechos() : List<Hecho>
+}
+
+class FuenteEstatica implements FuenteDeHechos {
+    - webClient : WebClient
+    + obtenerHechos() : List<Hecho>
+}
+
+class FuenteProxy implements FuenteDeHechos {
+    - restTemplate : RestTemplate
+    - url : String
+    + obtenerHechos() : List<Hecho>
+}
+
+/'------------------------------------------------ TERMINA PACKAGE FUENTES -------------------------------------------------------------'/
+/'------------------------------------------------ EMPIEZA PACKAGE SOLICITUDSERVICE -------------------------------------------------------------'/
+class SolicitudesService implements ISolicitudesService{
+    - solicitudesRepository:ISolicitudesRepository
+    - hechosRepository:IHechosRepository
+    + registrarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+    + aprobarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+    + rechazarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+    + verificacionDeSpam(Solicitud solicitud):boolean
+    + actualizarHistorialDe(Solicitud solicitud, Usuario usuarioModificador):void
+    + crearSolicitud(String justifiacion, Hecho hecho):Solicitud
+}
+
+interface ISolicitudesService{
+    +registrarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+    +crearSolicitud(String justificacion, Hecho hecho)
+    +aprobarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+    +rechazarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
+}
+
+/'------------------------------------------------ TERMINA PACKAGE SOLICITUDSERVICE -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE SPAM -------------------------------------------------------------'/
+interface DetectorDeSpam {
+    + esSpam(String texto) : boolean
+}
+
+class DetectorDeSpamImpl implements DetectorDeSpam {
+    + esSpam(String texto) : boolean
+}
+/'------------------------------------------------ TERMINA PACKAGE SPAM -------------------------------------------------------------'/
+/'------------------------------------------------ TERMINA PACKAGE SERVICES -------------------------------------------------------------'/
+
+
+/'------------------------------------------------ RELACIONES -------------------------------------------------------------'/
+
+'------------------------- RELACIONES ENTRE CLASES -------------------------'
+
+' Relaciones del paquete HECHO
+Hecho --> Categoria : categoria
+Hecho --> Lugar : lugar
+Hecho --> OrigenDelHecho : origen
+Hecho --> Usuario : contribuyente
+Hecho --> Revision : revision
+Hecho --> Etiqueta : etiquetas *
+Hecho --> Multimedia : multimedia *
+Hecho --> Solicitud : solicitudesDeEliminacion *
+
+' Relaciones del paquete SOLICITUD
+Solicitud --> Hecho : hecho
+Solicitud --> Usuario : visitanteQueCargoSolicitud
+Solicitud --> HistorialSolicitud : historialSolicitud *
+
+HistorialSolicitud --> Usuario : usuarioModificador
+HistorialSolicitud --> EstadoDeSolicitudDeEliminacion : estado
+
+' Relaciones del paquete COLECCION
+Coleccion --> Hecho : hechos *
+ColeccionService --> IColeccionesRepository : coleccionRepository
+
+VerificadorDeCriterios --> Hecho
+VerificadorDeCriterios --> Categoria
+VerificadorDeCriterios --> Lugar
+
+CriterioCategoria --> Categoria : categoria
+CriterioLugar --> Lugar : lugar
+
+' Relaciones del paquete ROLES
+Usuario --> IRol : rol
+Usuario --> ISolicitudesService : solicitudesService
+
+SolicitudesService --> ISolicitudesRepository : solicitudesRepository
+SolicitudesService --> IHechosRepository : hechosRepository
+SolicitudesService --> DetectorDeSpam : detectorDeSpamImpl
+
+HechosService --> IHechosRepository : hechosRepository
+HechosService --> FuenteDeHechos : fuenteDeHechos *
+
+
+
+
+' Relaciones de los Schedulers
+ColeccionesScheduler --> IColeccionService : coleccionService
+HechosScheduler --> IHechosService : hechosService
+
+' Relaciones DTO (si las usás externamente, podés agregar más si querés detallar los flujos)
+ColeccionService --> ColeccionInputDTO
+ColeccionService --> ColeccionOutputDTO
+HechosService --> HechoOutputDTO
+
+VisitanteAnonimo --> Permisos
+VisitanteRegistrado --> Permisos
+Revisor --> Permisos
+
+Hecho --> EstadoRevision
+}
+
+package 'FuenteProxy' {
+
+
+class HechoController {
+    - IApiCatedraServices proxyServices;
+    + List<Hecho> obtenerHechos(Map<String, String> filtrosRaw)
+    }
+
+class ColeccionRespuesta {
+    - List<ColeccionDTO> data;
+}
+
+class HechoRespuesta {
+    - List<HechoProxyDTO> data;
+}
+
+class ColeccionDTO {
+    - String titulo;
+    - String descripcion;
+    - List<HechoProxyDTO> hechosOutputDtos;
+}
+
+class HechoProxyDTO {
+    - int id;
+    - String titulo;
+    - String descripcion;
+    - String categoria;
+    - LocalDateTime fechaHecho;
+    - LocalDateTime createdAt;
+    - LocalDateTime updatedAt;
+    - double latitud;
+    - double longitud;
+}
+
+class RespuestaAPICatedra {
+    - int current_page;
+    - List<T> data;
+    - String first_page_url;
+    - int last_page;
+    - String last_page_url;
+    - String next_page_url;
+    - String prev_page_url;
+    - int per_page;
+    - int total;
+}
+
+class SolicitudEliminacionInputDTO {
+    - String justificacionDeEliminacion;
+    - Hecho hecho;
+}
+
+interface IFiltroHecho {
+  +aplica(Hecho): boolean
+}
+
+class FiltroCategoria implements IFiltroHecho {
+  -categoriaBuscada: String
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoDesde implements IFiltroHecho {
+  -fechaDesde: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoHasta implements IFiltroHecho {
+  -fechaHasta: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaDesde implements IFiltroHecho{
+  -fechaLimite: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaHasta implements IFiltroHecho {
+  -fechaLimite: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroUbicacion implements IFiltroHecho {
+  -latitudEsperada: double
+  -longitudEsperada: double
+  +aplica(Hecho): boolean
+}
+
+class Categoria {
+    - String nombre;
+}
+
+class Coleccion {
+    - String titulo;
+    - String descripcion;
+    - String handle;
+    - List<Hecho> hechos;
+    - List<Criterio> criterioDePertenencia;
+}
+
+interface Criterio {
+    + boolean cumple(Hecho unHecho);
+}
+
+enum EstadoSolicitudEliminacion {
+    PENDIENTE,
+    APROBADA,
+    RECHAZADA,
+}
+
+class Hecho {
+    - Integer id;
+    - String titulo;
+    - String descripcion;
+    - Categoria categoria;
+    - LocalDateTime fechaHecho;
+    - LocalDateTime createdAt;
+    - LocalDateTime updatedAt;
+    - double latitud;
+    - double longitud;
+}
+
+class SolicitudEliminacion {
+    - UUID id;
+    - String justificacionDeEliminacion;
+    - Hecho hecho;
+    - EstadoSolicitudEliminacion estado;
+    - LocalDateTime fechaSolicitud;
+}
+
+class ColeccionesRepository implements IColeccionesRepository {
+    - List<Coleccion> colecciones;
+    + List<Coleccion> findAll()
+    + Coleccion findByHandle(String handle)
+    + void save(Coleccion coleccion)
+    + void delete(Coleccion coleccion)
+}
+
+class HechosRepository implements IHechosRepository {
+    - Map<String, Hecho> hechosMap;
+    - Map<String, List<Hecho>> coleccionesMap;
+    + List<Hecho> findAll()
+    + Hecho findById(int id)
+    + void save(Hecho hecho)
+    + void delete(Hecho hecho)
+    + List<Hecho> obtenerHechosDeColeccion(String identificadorColeccion, Map<String, String> filtros)
+    + List<Hecho> obtenerHechos(Map<String, String> filtros)
+}
+
+class SolicitudesRepository implements ISolicitudesRepository {
+    - Map<UUID, SolicitudEliminacion> solicitudes;
+    + List<SolicitudEliminacion> findAll()
+    + SolicitudEliminacion findById(UUID id)
+    + void save(SolicitudEliminacion solicitud)
+    + void delete(SolicitudEliminacion solicitud)
+}
+
+interface IColeccionesRepository {
+    + List<Coleccion> findAll();
+    + Coleccion findByHandle(String handle);
+    + void save(Coleccion coleccion);
+    + void delete(Coleccion coleccion);
+}
+
+interface IHechosRepository {
+        List<Hecho> findAll();
+
+        Hecho findById(int id);
+
+        void save(Hecho hecho);
+
+        void delete(Hecho hecho);
+
+        List<Hecho> obtenerHechosDeColeccion(String identificadorColeccion, Map<String, String> filtros);
+
+        List<Hecho> obtenerHechos(Map<String, String> filtros);
+}
+
+interface ISolicitudesRepository {
+    List<SolicitudEliminacion> findAll();
+    SolicitudEliminacion findById(UUID id);
+    void save(SolicitudEliminacion solicitud);
+    void delete(SolicitudEliminacion solicitud);
+}
+
+class ApiCatedraAdapter implements IApiAdapter {
+    - WebClient webClient;
+    - HechoAdapter hechoAdapter;
+    + List<Hecho> obtenerHechos()
+}
+
+class HechoAdapter implements IHechoAdapter {
+    + Hecho adaptar(HechoProxyDTO dto)
+}
+
+interface IApiAdapter {
+    List<Hecho> obtenerHechos();
+}
+
+interface IHechoAdapter {
+    Hecho adaptar(HechoProxyDTO dto);
+}
+
+class ApiCatedraServices implements IApiCatedraServices {
+    - IApiAdapter apiAdapter;
+    + List<Hecho> obtenerHechosDesdeAPI()
+    + List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw)
+}
+
+interface IApiCatedraServices {
+    List<Hecho> obtenerHechosDesdeAPI();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros);
+}
+
+interface ISolicitudesService {
+    boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
+}
+
+interface IHechosService {
+    List<Hecho> obtenerHechos();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw);
+}
+
+interface IColeccionesService {
+    List<Coleccion> obtenerColecciones();
+    List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
+}
+
+class MetaMapaColeccionesServices implements IColeccionesService {
+    - webClient: WebClient
+
+    + MetaMapaColeccionesServices(webClient: WebClient)
+    + obtenerColecciones(): List<Coleccion>
+    + obtenerHechosDeColeccion(id: String, filtros: Map<String, String>): List<Hecho>
+    - convertirDTOaColeccion(dto: ColeccionDTO): Coleccion
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaHechosServices implements IHechosService {
+    - webClient: WebClient
+
+    + obtenerHechos(): List<Hecho>
+    + obtenerHechosConFiltros(filtrosRaw: Map<String, String>): List<Hecho>
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaSolicitudesServices implements ISolicitudesService {
+    - webClient: WebClient
+
+    + enviarSolicitudEliminacion(hecho: Hecho, justificacion: String): boolean
+}
+
+
+Hecho --> Categoria
+HechoController --> IApiCatedraServices
+HechoController --> "*" Hecho
+ColeccionRespuesta --> "*" ColeccionDTO
+HechoRespuesta --> "*" HechoProxyDTO
+ColeccionDTO --> "*" HechoProxyDTO
+SolicitudEliminacionInputDTO --> Hecho
+IFiltroHecho ..> Hecho
+Coleccion --> "*" Hecho
+Coleccion --> "*" Criterio
+Criterio ..> Hecho
+SolicitudEliminacion --> EstadoSolicitudEliminacion
+SolicitudEliminacion--> Hecho
+ColeccionesRepository --> "*" Coleccion
+HechosRepository --> "*" Hecho
+SolicitudesRepository --> "*"SolicitudEliminacion
+IColeccionesRepository ..> Coleccion
+IHechosRepository ..> Hecho
+ISolicitudesRepository ..> SolicitudEliminacion
+ApiCatedraAdapter --> HechoAdapter
+HechoAdapter ..> HechoProxyDTO
+IHechoAdapter ..> HechoProxyDTO
+ApiCatedraServices --> ApiCatedraAdapter
+ApiCatedraServices ..> RespuestaAPICatedra
+MetaMapaColeccionesServices --> "*"Coleccion
+MetaMapaColeccionesServices --> "*" Hecho
+MetaMapaHechosServices --> "*" Hecho
+MetaMapaSolicitudesServices --> Hecho
+
+
+}
+
+
+package 'FuenteEstatica' {}
+
+package 'FuenteDinamica' {}
+
+
+
+
+
+@enduml

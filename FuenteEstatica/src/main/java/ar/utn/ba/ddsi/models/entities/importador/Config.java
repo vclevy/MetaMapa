@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.importador;
+package ar.utn.ba.ddsi.models.entities.importador;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.importador;
+package ar.utn.ba.ddsi.models.entities.importador;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
