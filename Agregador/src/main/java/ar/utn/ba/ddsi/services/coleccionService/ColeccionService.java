@@ -23,26 +23,25 @@ public class ColeccionService implements IColeccionService {
     @Autowired
     private IHechosRepository hechosRepository;
 
-    public void eliminar(String unHandle) {
+    public void delete(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
-            this.coleccionesRepository.delete(coleccion);
+            this.coleccionesRepository.delete(unHandle);
         }
     }
 
-    public static boolean agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
+    public static void agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
         if (hecho == null || hecho.getSolicitudesDeEliminacion().stream().anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA)) {
-            return false;
+            return;
         }
 
         for (Criterio criterio : criterios) {
             if (!criterio.cumple(hecho)) {
-                return false;
+                return;
             }
         }
 
         coleccion.getHechos().add(hecho);
-        return true;
     }
 
     public ColeccionOutputDTO findByHandle(String unHandle) {
@@ -62,6 +61,7 @@ public class ColeccionService implements IColeccionService {
         this.coleccionesRepository.save(coleccion);
     }
 
+    @Override
     public void actualizarColecciones() {
         for (Coleccion coleccion : coleccionesRepository.findAll()) {
             for (Hecho hechoIndice : hechosRepository.findAll()) {

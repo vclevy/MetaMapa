@@ -8,5 +8,5 @@ public interface IColeccionesRepository {
     public List<Coleccion> findAll();
     public Coleccion findByHandle(String handle);
     public void save(Coleccion coleccion);
-    public void delete(Coleccion coleccion);
+    public void delete(String handle);
 }
