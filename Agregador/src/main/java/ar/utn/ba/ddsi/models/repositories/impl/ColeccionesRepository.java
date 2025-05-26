@@ -33,7 +33,7 @@ public class ColeccionesRepository implements IColeccionesRepository {
     }
 
     @Override
-    public void delete(Coleccion coleccion) {
-        this.colecciones.remove(coleccion);
+    public void delete(String handle) {
+        this.colecciones.remove(handle);
     }
 }

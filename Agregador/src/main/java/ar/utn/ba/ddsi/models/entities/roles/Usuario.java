@@ -14,7 +14,6 @@ import java.util.List;
 public class Usuario {
     private String nombre;
     private IRol rol;
-
     private final ISolcitudesService solicitudesService;
 
     public Usuario(ISolcitudesService solcitudesService) {
