@@ -1,0 +1,38 @@
+package ar.utn.ba.ddsi.models.dtos.output;
+
+import ar.utn.ba.ddsi.models.entities.Usuario;
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
+import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
+import ar.utn.ba.ddsi.models.entities.roles.Permisos;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+
+@Data
+
+@Getter
+@Setter
+public class HechoOutputDTO {
+    private Integer id;
+    private String titulo;
+    private String descripcion;
+    private Categoria categoria;
+    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeCarga;
+    private Lugar lugar;
+    private OrigenDelHecho origen;
+    private List<Solicitud> solicitudesDeEliminacion;
+    private List<Etiqueta> etiquetas;
+    private Boolean fueEliminado = false;
+    private Usuario contribuyente;
+    private Boolean esEditable;
+
+}

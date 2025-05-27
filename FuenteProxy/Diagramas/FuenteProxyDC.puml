@@ -1,0 +1,280 @@
+@startuml
+
+class HechoController {
+    - IApiCatedraServices proxyServices;
+    + List<Hecho> obtenerHechos(Map<String, String> filtrosRaw)
+    }
+
+class ColeccionRespuesta {
+    - List<ColeccionDTO> data;
+}
+
+class HechoRespuesta {
+    - List<HechoProxyDTO> data;
+}
+
+class ColeccionDTO {
+    - String titulo;
+    - String descripcion;
+    - List<HechoProxyDTO> hechosOutputDtos;
+}
+
+class HechoProxyDTO {
+    - int id;
+    - String titulo;
+    - String descripcion;
+    - String categoria;
+    - LocalDateTime fechaHecho;
+    - LocalDateTime createdAt;
+    - LocalDateTime updatedAt;
+    - double latitud;
+    - double longitud;
+}
+
+class RespuestaAPICatedra {
+    - int current_page;
+    - List<T> data;
+    - String first_page_url;
+    - int last_page;
+    - String last_page_url;
+    - String next_page_url;
+    - String prev_page_url;
+    - int per_page;
+    - int total;
+}
+
+class SolicitudEliminacionInputDTO {
+    - String justificacionDeEliminacion;
+    - Hecho hecho;
+}
+
+interface IFiltroHecho {
+  +aplica(Hecho): boolean
+}
+
+class FiltroCategoria implements IFiltroHecho {
+  -categoriaBuscada: String
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoDesde implements IFiltroHecho {
+  -fechaDesde: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaAcontecimientoHasta implements IFiltroHecho {
+  -fechaHasta: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaDesde implements IFiltroHecho{
+  -fechaLimite: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroFechaHasta implements IFiltroHecho {
+  -fechaLimite: LocalDateTime
+  +aplica(Hecho): boolean
+}
+
+class FiltroUbicacion implements IFiltroHecho {
+  -latitudEsperada: double
+  -longitudEsperada: double
+  +aplica(Hecho): boolean
+}
+
+class Categoria {
+    - String nombre;
+}
+
+class Coleccion {
+    - String titulo;
+    - String descripcion;
+    - String handle;
+    - List<Hecho> hechos;
+    - List<Criterio> criterioDePertenencia;
+}
+
+interface Criterio {
+    + boolean cumple(Hecho unHecho);
+}
+
+enum EstadoSolicitudEliminacion {
+    PENDIENTE,
+    APROBADA,
+    RECHAZADA,
+}
+
+class Hecho {
+    - Integer id;
+    - String titulo;
+    - String descripcion;
+    - Categoria categoria;
+    - LocalDateTime fechaHecho;
+    - LocalDateTime createdAt;
+    - LocalDateTime updatedAt;
+    - double latitud;
+    - double longitud;
+}
+
+class SolicitudEliminacion {
+    - UUID id;
+    - String justificacionDeEliminacion;
+    - Hecho hecho;
+    - EstadoSolicitudEliminacion estado;
+    - LocalDateTime fechaSolicitud;
+}
+
+class ColeccionesRepository implements IColeccionesRepository {
+    - List<Coleccion> colecciones;
+    + List<Coleccion> findAll()
+    + Coleccion findByHandle(String handle)
+    + void save(Coleccion coleccion)
+    + void delete(Coleccion coleccion)
+}
+
+class HechosRepository implements IHechosRepository {
+    - Map<String, Hecho> hechosMap;
+    - Map<String, List<Hecho>> coleccionesMap;
+    + List<Hecho> findAll()
+    + Hecho findById(int id)
+    + void save(Hecho hecho)
+    + void delete(Hecho hecho)
+    + List<Hecho> obtenerHechosDeColeccion(String identificadorColeccion, Map<String, String> filtros)
+    + List<Hecho> obtenerHechos(Map<String, String> filtros)
+}
+
+class SolicitudesRepository implements ISolicitudesRepository {
+    - Map<UUID, SolicitudEliminacion> solicitudes;
+    + List<SolicitudEliminacion> findAll()
+    + SolicitudEliminacion findById(UUID id)
+    + void save(SolicitudEliminacion solicitud)
+    + void delete(SolicitudEliminacion solicitud)
+}
+
+interface IColeccionesRepository {
+    + List<Coleccion> findAll();
+    + Coleccion findByHandle(String handle);
+    + void save(Coleccion coleccion);
+    + void delete(Coleccion coleccion);
+}
+
+interface IHechosRepository {
+        List<Hecho> findAll();
+
+        Hecho findById(int id);
+
+        void save(Hecho hecho);
+
+        void delete(Hecho hecho);
+
+        List<Hecho> obtenerHechosDeColeccion(String identificadorColeccion, Map<String, String> filtros);
+
+        List<Hecho> obtenerHechos(Map<String, String> filtros);
+}
+
+interface ISolicitudesRepository {
+    List<SolicitudEliminacion> findAll();
+    SolicitudEliminacion findById(UUID id);
+    void save(SolicitudEliminacion solicitud);
+    void delete(SolicitudEliminacion solicitud);
+}
+
+class ApiCatedraAdapter implements IApiAdapter {
+    - WebClient webClient;
+    - HechoAdapter hechoAdapter;
+    + List<Hecho> obtenerHechos()
+}
+
+class HechoAdapter implements IHechoAdapter {
+    + Hecho adaptar(HechoProxyDTO dto)
+}
+
+interface IApiAdapter {
+    List<Hecho> obtenerHechos();
+}
+
+interface IHechoAdapter {
+    Hecho adaptar(HechoProxyDTO dto);
+}
+
+class ApiCatedraServices implements IApiCatedraServices {
+    - IApiAdapter apiAdapter;
+    + List<Hecho> obtenerHechosDesdeAPI()
+    + List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw)
+}
+
+interface IApiCatedraServices {
+    List<Hecho> obtenerHechosDesdeAPI();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtros);
+}
+
+interface ISolicitudesService {
+    boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
+}
+
+interface IHechosService {
+    List<Hecho> obtenerHechos();
+    List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw);
+}
+
+interface IColeccionesService {
+    List<Coleccion> obtenerColecciones();
+    List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
+}
+
+class MetaMapaColeccionesServices implements IColeccionesService {
+    - webClient: WebClient
+
+    + MetaMapaColeccionesServices(webClient: WebClient)
+    + obtenerColecciones(): List<Coleccion>
+    + obtenerHechosDeColeccion(id: String, filtros: Map<String, String>): List<Hecho>
+    - convertirDTOaColeccion(dto: ColeccionDTO): Coleccion
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaHechosServices implements IHechosService {
+    - webClient: WebClient
+
+    + obtenerHechos(): List<Hecho>
+    + obtenerHechosConFiltros(filtrosRaw: Map<String, String>): List<Hecho>
+    - convertirDTOaHecho(dto: HechoProxyDTO): Hecho
+}
+
+class MetaMapaSolicitudesServices implements ISolicitudesService {
+    - webClient: WebClient
+
+    + enviarSolicitudEliminacion(hecho: Hecho, justificacion: String): boolean
+}
+
+
+Hecho --> Categoria
+HechoController --> IApiCatedraServices
+HechoController --> "*" Hecho
+ColeccionRespuesta --> "*" ColeccionDTO
+HechoRespuesta --> "*" HechoProxyDTO
+ColeccionDTO --> "*" HechoProxyDTO
+SolicitudEliminacionInputDTO --> Hecho
+IFiltroHecho ..> Hecho
+Coleccion --> "*" Hecho
+Coleccion --> "*" Criterio
+Criterio ..> Hecho
+SolicitudEliminacion --> EstadoSolicitudEliminacion
+SolicitudEliminacion--> Hecho
+ColeccionesRepository --> "*" Coleccion
+HechosRepository --> "*" Hecho
+SolicitudesRepository --> "*"SolicitudEliminacion
+IColeccionesRepository ..> Coleccion
+IHechosRepository ..> Hecho
+ISolicitudesRepository ..> SolicitudEliminacion
+ApiCatedraAdapter --> HechoAdapter
+HechoAdapter ..> HechoProxyDTO
+IHechoAdapter ..> HechoProxyDTO
+ApiCatedraServices --> ApiCatedraAdapter
+ApiCatedraServices ..> RespuestaAPICatedra
+MetaMapaColeccionesServices --> "*"Coleccion
+MetaMapaColeccionesServices --> "*" Hecho
+MetaMapaHechosServices --> "*" Hecho
+MetaMapaSolicitudesServices --> Hecho
+
+@enduml
