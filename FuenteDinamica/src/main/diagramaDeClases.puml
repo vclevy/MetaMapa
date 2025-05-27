@@ -229,4 +229,6 @@ HechosServices --> SolicitudOutputDTO
 
 HechosServices --> ISolicitudesRepository
 HechosServices --> IHechosRepository
+
+HechosController --> HechosServices
 @enduml
