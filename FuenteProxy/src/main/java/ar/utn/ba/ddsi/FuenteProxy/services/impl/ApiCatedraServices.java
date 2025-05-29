@@ -2,14 +2,10 @@ package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
-import ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl.ApiCatedraAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

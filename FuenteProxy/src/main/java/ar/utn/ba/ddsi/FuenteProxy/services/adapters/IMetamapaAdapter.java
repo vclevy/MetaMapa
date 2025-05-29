@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteProxy.services;
+package ar.utn.ba.ddsi.FuenteProxy.services.adapters;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
@@ -6,9 +6,10 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import java.util.List;
 import java.util.Map;
 
-public interface IMetamapaServices {
+public interface IMetamapaAdapter {
     List<Hecho> obtenerHechos();
     List<Coleccion> obtenerColecciones();
     List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros);
     boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
 }
+

@@ -1,16 +1,11 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.RespuestaAPICatedra;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.connectors.ApiCatedraConnector;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
