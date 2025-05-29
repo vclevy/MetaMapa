@@ -54,8 +54,14 @@ public class SolicitudesService implements ISolcitudesService {
         this.solicitudesRepository.save(unaSolicitud);
     }
 
+    // todo: cuando se aprueba la solicitud, eliminar el hecho de la coleccion y de la fuente
+    public void eliminarHechoDeFuenteEnCasoDeAprobacionDeSolicitud(Solicitud unaSolicitud) {
+        Hecho unHecho = unaSolicitud.getHecho();
+        hechosRepository.delete(unHecho);
+    }
+
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
-        if (unaSolicitud.getDetectorDeSpam().esSpam("TEXTO DE SPAM")) {
+        if (unaSolicitud.getDetectorDeSpam().esSpam(unaSolicitud.getJustificacionDeEliminacion())) {
             return true;
         } else {
             return false;
