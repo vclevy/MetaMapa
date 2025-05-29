@@ -44,37 +44,6 @@ public class MetamapaAdapter implements IMetamapaAdapter {
     }
 
     @Override
-    public List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw) {
-        List<IFiltroHecho> filtros = new ArrayList<>();
-
-        if (filtrosRaw == null || filtrosRaw.isEmpty()) {
-            return obtenerHechos();
-        }
-
-        if (filtrosRaw.containsKey("categoria")) {
-            filtros.add(new FiltroCategoria(filtrosRaw.get("categoria")));
-        }
-
-        try {
-            String desdeStr = filtrosRaw.get("fecha_acontecimiento_desde");
-            if (desdeStr != null && !desdeStr.isBlank()) {
-                filtros.add(new FiltroFechaAcontecimientoDesde(LocalDateTime.parse(desdeStr)));
-            }
-
-            String hastaStr = filtrosRaw.get("fecha_acontecimiento_hasta");
-            if (hastaStr != null && !hastaStr.isBlank()) {
-                filtros.add(new FiltroFechaAcontecimientoHasta(LocalDateTime.parse(hastaStr)));
-            }
-        } catch (DateTimeParseException e) {
-            System.err.println("Error al parsear fechas: " + e.getMessage());
-        }
-
-        return obtenerHechos().stream()
-                .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho)))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Coleccion> obtenerColecciones() {
         List<ColeccionDTO> externos = connector.obtenerColecciones();
         return externos.stream().map(this::convertirDTOaColeccion).collect(Collectors.toList());

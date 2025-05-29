@@ -6,11 +6,7 @@ import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,33 +25,10 @@ public class ApiCatedraServices implements IApiCatedraServices {
     }
 
     @Override
-    public List<Hecho> obtenerHechosConFiltros(Map<String, String> filtrosRaw) {
-        List<IFiltroHecho> filtros = new ArrayList<>();
-
-        if (filtrosRaw == null || filtrosRaw.isEmpty()) {
-            return obtenerHechosDesdeAPI();
-        }
-
-        if (filtrosRaw.containsKey("categoria")) {
-            filtros.add(new FiltroCategoria(filtrosRaw.get("categoria")));
-        }
-
-        try {
-            String desdeStr = filtrosRaw.get("fecha_acontecimiento_desde");
-            if (desdeStr != null && !desdeStr.isBlank()) {
-                filtros.add(new FiltroFechaAcontecimientoDesde(LocalDateTime.parse(desdeStr)));
-            }
-
-            String hastaStr = filtrosRaw.get("fecha_acontecimiento_hasta");
-            if (hastaStr != null && !hastaStr.isBlank()) {
-                filtros.add(new FiltroFechaAcontecimientoHasta(LocalDateTime.parse(hastaStr)));
-            }
-        } catch (DateTimeParseException e) {
-            System.err.println("Error al parsear fechas: " + e.getMessage());
-        }
-
+    public List<Hecho> obtenerHechosConFiltros(List<IFiltroHecho> filtros) {
         return obtenerHechosDesdeAPI().stream()
                 .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho)))
                 .collect(Collectors.toList());
     }
+
 }
