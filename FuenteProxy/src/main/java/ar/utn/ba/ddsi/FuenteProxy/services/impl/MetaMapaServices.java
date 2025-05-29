@@ -11,6 +11,8 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.FiltroFechaAcontec
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.IMetamapaServices;
+import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IHechoAdapter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.FuenteProxy.services.connectors.MetaMapaConnector;
 import java.time.LocalDateTime;
@@ -24,30 +26,20 @@ import java.util.stream.Collectors;
 @Service
 public class MetaMapaServices implements IMetamapaServices {
 
-    private MetaMapaConnector connector;
+    private final MetaMapaConnector connector;
+    private final IHechoAdapter hechoAdapter;
 
-    public MetaMapaServices(MetaMapaConnector connector) {
+    public MetaMapaServices(MetaMapaConnector connector, IHechoAdapter hechoAdapter) {
         this.connector = connector;
+        this.hechoAdapter = hechoAdapter;
     }
 
     @Override
     public List<Hecho> obtenerHechos() {
         List<HechoProxyDTO> externos = connector.obtenerHechos();
-        return externos.stream().map(this::convertirDTOaHecho).collect(Collectors.toList());
-    }
-
-    private Hecho convertirDTOaHecho(HechoProxyDTO dto) {
-        return new Hecho(
-                dto.getId(),
-                dto.getTitulo(),
-                dto.getDescripcion(),
-                new Categoria(dto.getCategoria()),
-                dto.getFechaHecho(),
-                dto.getCreatedAt(),
-                dto.getUpdatedAt(),
-                dto.getLatitud(),
-                dto.getLongitud()
-        );
+        return externos.stream()
+                .map(hechoAdapter::adaptar)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -90,7 +82,7 @@ public class MetaMapaServices implements IMetamapaServices {
     private Coleccion convertirDTOaColeccion(ColeccionDTO dto) {
         Coleccion coleccion = new Coleccion(dto.getTitulo(), dto.getDescripcion());
         List<Hecho> hechos = dto.getHechosOutputDtos() != null
-                ? dto.getHechosOutputDtos().stream().map(this::convertirDTOaHecho).collect(Collectors.toList())
+                ? dto.getHechosOutputDtos().stream().map(hechoAdapter::adaptar).collect(Collectors.toList())
                 : Collections.emptyList();
         coleccion.setHechos(hechos);
         coleccion.setCriterioDePertenencia(Collections.emptyList());
@@ -100,7 +92,7 @@ public class MetaMapaServices implements IMetamapaServices {
     @Override
     public List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
         List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccion(identificador, filtros);
-        return externos.stream().map(this::convertirDTOaHecho).collect(Collectors.toList());
+        return externos.stream().map(hechoAdapter::adaptar).collect(Collectors.toList());
     }
 
     @Override

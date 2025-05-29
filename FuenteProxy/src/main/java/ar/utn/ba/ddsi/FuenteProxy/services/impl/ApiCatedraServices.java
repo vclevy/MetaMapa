@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.FuenteProxy.services.IApiCatedraServices;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl.ApiCatedraAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,14 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class ApiCatedraServices implements IApiCatedraServices {
 
-    private final IApiAdapter apiAdapter;
+    private IApiAdapter apiAdapter;
 
-    public ApiCatedraServices(WebClient.Builder webClientBuilder, IHechosRepository proxyRepository) {
-        WebClient webClient = webClientBuilder
-                .baseUrl("https://api-ddsi.disilab.ar/public/api")
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer rY3j0CD1b4hpJBNWwZvJkva2NhsGEukeS2pFQkjE2yMBmk6sdlGQ5ATQkpYo")
-                .build();
-        this.apiAdapter = new ApiCatedraAdapter(webClientBuilder);
+    @Autowired
+    public ApiCatedraServices(IApiAdapter apiAdapter) {
+        this.apiAdapter = apiAdapter;
     }
 
     @Override
@@ -46,24 +44,18 @@ public class ApiCatedraServices implements IApiCatedraServices {
             filtros.add(new FiltroCategoria(filtrosRaw.get("categoria")));
         }
 
-        String desdeStr = filtrosRaw.get("fecha_acontecimiento_desde");
-        if (desdeStr != null && !desdeStr.isBlank()) {
-            try {
-                LocalDateTime desde = LocalDateTime.parse(desdeStr);
-                filtros.add(new FiltroFechaAcontecimientoDesde(desde));
-            } catch (DateTimeParseException e) {
-                System.err.println("Formato inválido para fecha_acontecimiento_desde: " + desdeStr);
+        try {
+            String desdeStr = filtrosRaw.get("fecha_acontecimiento_desde");
+            if (desdeStr != null && !desdeStr.isBlank()) {
+                filtros.add(new FiltroFechaAcontecimientoDesde(LocalDateTime.parse(desdeStr)));
             }
-        }
 
-        String hasta = filtrosRaw.get("fecha_acontecimiento_hasta");
-        if (hasta != null && !hasta.isBlank()) {
-            try {
-                LocalDateTime fechaHasta = LocalDateTime.parse(hasta);
-                filtros.add(new FiltroFechaAcontecimientoHasta(fechaHasta));
-            } catch (DateTimeParseException e) {
-                System.err.println("Error al parsear fecha_acontecimiento_hasta: " + e.getMessage());
+            String hastaStr = filtrosRaw.get("fecha_acontecimiento_hasta");
+            if (hastaStr != null && !hastaStr.isBlank()) {
+                filtros.add(new FiltroFechaAcontecimientoHasta(LocalDateTime.parse(hastaStr)));
             }
+        } catch (DateTimeParseException e) {
+            System.err.println("Error al parsear fechas: " + e.getMessage());
         }
 
         return obtenerHechosDesdeAPI().stream()
