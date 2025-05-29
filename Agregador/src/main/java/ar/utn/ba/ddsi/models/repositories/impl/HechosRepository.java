@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +22,7 @@ public class HechosRepository implements IHechosRepository {
 
     @Override
     public Hecho findById(Integer id) {
-        return this.hechos.stream().filter(unHecho -> unHecho.getId() == id).findFirst().orElse(null);
+        return this.hechos.stream().filter(unHecho -> unHecho.getIdAgregador() == id).findFirst().orElse(null);
     }
 
     @Override

@@ -1,18 +1,14 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.HistorialSolicitud;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.roles.Usuario;
+import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class SolicitudesService implements ISolcitudesService {
@@ -23,17 +19,17 @@ public class SolicitudesService implements ISolcitudesService {
     private IHechosRepository hechosRepository;
 
     @Override
-    public void registrarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador) {
-        unaSolicitud.setVisitanteQueCargoLaSolicitud(usuarioModificador);
+    public void registrarSolicitud(String unaJustificacion, Hecho unHecho, Usuario unUsuario) {
+        Solicitud unaSolicitud = this.crearSolicitud(unaJustificacion, unHecho, unUsuario);
         // VERIFICO QUE LA SOLICITUD NO SEA SPAM
         if (!this.verificacionDeSpam(unaSolicitud)) {
             // GUARDO SOLICITUD EN EL REPO DE SOLICITUDES
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
-            this.actualizarHistorialDe(unaSolicitud, usuarioModificador);
+            this.actualizarHistorialDe(unaSolicitud, unUsuario);
             solicitudesRepository.save(unaSolicitud);
 
             // GUARDO EN EL HISTORIAL DE SOLICITUDES DEL HECHO EN EL REPO DE HECHOS
-            Hecho hechoPersistido = hechosRepository.findById(unaSolicitud.getHecho().getId());
+            Hecho hechoPersistido = hechosRepository.findById(unaSolicitud.getHecho().getIdAgregador());
             if (hechoPersistido != null) {
                 hechoPersistido.getSolicitudesDeEliminacion().add(unaSolicitud);
                 hechosRepository.save(hechoPersistido);
@@ -75,10 +71,7 @@ public class SolicitudesService implements ISolcitudesService {
         unaSolicitud.getHistorialSolicitud().add(historialSolicitud);
     }
 
-    public Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho) {
-        return new Solicitud(
-                    unHecho,
-                    unaJustificacion
-                );
+    public Solicitud crearSolicitud(String unaJustificacion, Hecho unHecho, Usuario unUsuario) {
+        return new Solicitud (unaJustificacion, unHecho, unUsuario);
     }
 }

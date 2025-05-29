@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.models.repositories;
 
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 
 import java.util.List;
 

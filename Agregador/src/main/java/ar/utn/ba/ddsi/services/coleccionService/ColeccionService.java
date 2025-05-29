@@ -5,11 +5,10 @@ import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.coleccion.Criterio;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +22,31 @@ public class ColeccionService implements IColeccionService {
     @Autowired
     private IHechosRepository hechosRepository;
 
+    @Override
     public void delete(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
             this.coleccionesRepository.delete(unHandle);
         }
+    }
+
+    @Override
+    public ColeccionOutputDTO findByHandle(String unHandle) {
+        var coleccion = this.coleccionesRepository.findByHandle(unHandle);
+        if (coleccion != null) {
+            return null;
+        }
+        return this.coleccionOutputDTO(coleccion);
+    }
+
+    @Override
+    public void crear(ColeccionInputDTO unaColeccionInputDTO) {
+        var coleccion = new Coleccion(
+                unaColeccionInputDTO.getTitulo(),
+                unaColeccionInputDTO.getDescripcion()
+        );
+
+        this.coleccionesRepository.save(coleccion);
     }
 
     public static void agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) {
@@ -42,23 +61,6 @@ public class ColeccionService implements IColeccionService {
         }
 
         coleccion.getHechos().add(hecho);
-    }
-
-    public ColeccionOutputDTO findByHandle(String unHandle) {
-        var coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        if (coleccion != null) {
-            return null;
-        }
-        return this.coleccionOutputDTO(coleccion);
-    }
-
-    public void crear(ColeccionInputDTO unaColeccionInputDTO) {
-        var coleccion = new Coleccion(
-                unaColeccionInputDTO.getTitulo(),
-                unaColeccionInputDTO.getDescripcion()
-        );
-
-        this.coleccionesRepository.save(coleccion);
     }
 
     @Override

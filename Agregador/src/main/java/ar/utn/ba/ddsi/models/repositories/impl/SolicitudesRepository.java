@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
 import org.springframework.stereotype.Repository;
 

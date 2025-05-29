@@ -170,107 +170,6 @@ enum Permisos {
 /'------------------------------------------------ TERMINA PACKAGE ROLES -------------------------------------------------------------'/
 /'------------------------------------------------ TERMINA PACKAGE ENTITIES -------------------------------------------------------------'/
 
-/'------------------------------------------------ EMPIEZA PACKAGE REPOSITORY -------------------------------------------------------------'/
-interface IHechosRepository {
-    + findAll() : List<Hecho>
-    + findById(Int id) : Hecho
-    + save(Hecho hecho) : void
-    + delete(Hecho hecho) : void
-}
-
-interface ISolicitudesRepository {
-    + findAll() : List<Solicitud>
-    + findById(Int id) : Solicitud
-    + save(Solicitud solicitud) : void
-    + delete(Solicitud solicitud) : void
-}
-
-interface IColeccionesRepository {
-    + findAll() : List<Coleccion>
-    + findByHandle(String unHandle) : Coleccion
-    + save(Coleccion unaColeccion) : void
-    + delete(Coleccion unaColeccion) : void
-}
-
-/'------------------------------------------------ EMPIEZA PACKAGE IMPL -------------------------------------------------------------'/
-class SolicitudesRepository implements ISolicitudesRepository {
-     + findAll() : List<Solicitud>
-     + findById(Int id) : Solicitud
-     + save(Solicitud solicitud) : void
-     + delete(Solicitud solicitud) : void
-}
-
-class HechosRepository implements IHechosRepository {
-     + findAll() : List<Hecho>
-     + findById(Int id) : Hecho
-     + save(Hecho hecho) : void
-     + delete(Hecho hecho) : void
-}
-
-class ColeccionesRepository implements IColeccionesRepository{
-    + findAll():List<Coleccion>
-    + findByHandle(String handle):Coleccion
-    + save(Coleccion coleccion): void
-    + delete(String handle): void
-}
-
-
-
-/'------------------------------------------------ TERMINA PACKAGE IMPL -------------------------------------------------------------'/
-/'------------------------------------------------ TERMINA PACKAGE REPOSITORY -------------------------------------------------------------'/
-
-/'------------------------------------------------ EMPIEZA PACKAGE SCHEDULERS -------------------------------------------------------------'/
-class ColeccionesScheduler {
-    - coleccionService : IColeccionesService
-    + refrescar() : void
-}
-
-class HechosScheduler {
-    - hechosService() : IHechosService
-    + obtenerTodosLosHechosActualizados() : void
-}
-/'------------------------------------------------ TERMINA PACKAGE SCHEDULERS -------------------------------------------------------------'/
-
-/'------------------------------------------------ EMPIEZA PACKAGE SERVICES -------------------------------------------------------------'/
-/'------------------------------------------------ EMPIEZA PACKAGE COLECCIONSERVICE -------------------------------------------------------------'/
-interface IColeccionService {
-        + void delete(String unHandle):void
-        + void actualizarColecciones():void
-        + findByHandle (String unHandle):ColeccionOutputDTO
-        + crear(ColeccionInputDTO unaColeccionInputDTO):void
-        + obtenerHechosFiltradosPorColeccion(Coleccion coleccion):List<Hecho>
-}
-
-class ColeccionService implements IColeccionService{
-    +delete(String handle) : void
-    +agregarHechoAColeccion(Coleccion coleccion, Hecho hecho, List<Criterio> criterios) : void
-    +findByHandle(String handle):ColeccionOutputDTO
-    +crear(ColeccionInputDTO coleccionInputDTO):void
-    +actualizarColecciones():void
-    +obtenerHechosFiltradosPorColeccion(Coleccion coleccion):List<Hecho>
-}
-/'------------------------------------------------ TERMINA PACKAGE COLECCIONSERVICE -------------------------------------------------------------'/
-
-/'------------------------------------------------ EMPIEZA PACKAGE HECHOSERVICE -------------------------------------------------------------'/
-class HechosService implements IHechosService {
-    - hechosRepository : IHechosRepository
-    - fuenteDeHechos : List<FuenteDeHechos>
-
-    + findById(Integer id) : HechoOutputDTO
-    + eliminar(Integer id) : void
-    + obtenerTodosLosHechosDeTodasLasFuentes() : void
-}
-
-interface IHechosService {
-    + findById(Integer id) : HechoOutputDTO
-    + eliminar(Integer id) :void
-    + obtenerTodosLosHechosDeTodasLasFuentes() : void
-}
-
-/'------------------------------------------------ TERMINA PACKAGE HECHOSERVICE -------------------------------------------------------------'/
-
-
-
 /'------------------------------------------------ EMPIEZA PACKAGE FUENTES -------------------------------------------------------------'/
 interface FuenteDeHechos {
     + obtenerHechos() : List<Hecho>
@@ -293,27 +192,6 @@ class FuenteProxy implements FuenteDeHechos {
 }
 
 /'------------------------------------------------ TERMINA PACKAGE FUENTES -------------------------------------------------------------'/
-/'------------------------------------------------ EMPIEZA PACKAGE SOLICITUDSERVICE -------------------------------------------------------------'/
-class SolicitudesService implements ISolicitudesService{
-    - solicitudesRepository:ISolicitudesRepository
-    - hechosRepository:IHechosRepository
-    + registrarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-    + aprobarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-    + rechazarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-    + verificacionDeSpam(Solicitud solicitud):boolean
-    + actualizarHistorialDe(Solicitud solicitud, Usuario usuarioModificador):void
-    + crearSolicitud(String justifiacion, Hecho hecho):Solicitud
-}
-
-interface ISolicitudesService{
-    +registrarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-    +crearSolicitud(String justificacion, Hecho hecho)
-    +aprobarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-    +rechazarSolicitud(Solicitud solicitud, Usuario usuarioModificador):void
-}
-
-/'------------------------------------------------ TERMINA PACKAGE SOLICITUDSERVICE -------------------------------------------------------------'/
-
 /'------------------------------------------------ EMPIEZA PACKAGE SPAM -------------------------------------------------------------'/
 interface DetectorDeSpam {
     + esSpam(String texto) : boolean
@@ -323,7 +201,6 @@ class DetectorDeSpamImpl implements DetectorDeSpam {
     + esSpam(String texto) : boolean
 }
 /'------------------------------------------------ TERMINA PACKAGE SPAM -------------------------------------------------------------'/
-/'------------------------------------------------ TERMINA PACKAGE SERVICES -------------------------------------------------------------'/
 
 
 /'------------------------------------------------ RELACIONES -------------------------------------------------------------'/
@@ -350,7 +227,6 @@ HistorialSolicitud --> EstadoDeSolicitudDeEliminacion : estado
 
 ' Relaciones del paquete COLECCION
 Coleccion --> Hecho : hechos *
-ColeccionService --> IColeccionesRepository : coleccionRepository
 
 VerificadorDeCriterios --> Hecho
 VerificadorDeCriterios --> Categoria
@@ -361,26 +237,7 @@ CriterioLugar --> Lugar : lugar
 
 ' Relaciones del paquete ROLES
 Usuario --> IRol : rol
-Usuario --> ISolicitudesService : solicitudesService
 
-SolicitudesService --> ISolicitudesRepository : solicitudesRepository
-SolicitudesService --> IHechosRepository : hechosRepository
-SolicitudesService --> DetectorDeSpam : detectorDeSpamImpl
-
-HechosService --> IHechosRepository : hechosRepository
-HechosService --> FuenteDeHechos : fuenteDeHechos *
-
-
-
-
-' Relaciones de los Schedulers
-ColeccionesScheduler --> IColeccionService : coleccionService
-HechosScheduler --> IHechosService : hechosService
-
-' Relaciones DTO (si las usás externamente, podés agregar más si querés detallar los flujos)
-ColeccionService --> ColeccionInputDTO
-ColeccionService --> ColeccionOutputDTO
-HechosService --> HechoOutputDTO
 
 VisitanteAnonimo --> Permisos
 VisitanteRegistrado --> Permisos

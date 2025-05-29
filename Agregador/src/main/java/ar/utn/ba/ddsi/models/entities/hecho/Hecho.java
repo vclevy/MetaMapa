@@ -1,11 +1,10 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
-import ar.utn.ba.ddsi.models.entities.roles.Usuario;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,45 +14,40 @@ import java.util.UUID;
 @Setter
 @Getter
 public class Hecho {
-    private Integer id;
+    private Integer idEnFuente;
     private String titulo;
     private String descripcion;
     private Categoria categoria;
     private LocalDate fechaDeAcontecimiento;
-    private LocalDateTime fechaDeCarga;
     private Lugar lugar;
+    private List<Multimedia> multimedia;
+    private Usuario usuarioContribuyente;
+
+    private Integer idAgregador;
+    private LocalDateTime fechaDeCargaDelHecho;
     private OrigenDelHecho origen;
     private List<Solicitud> solicitudesDeEliminacion;
     private Boolean esAnonimo = true;
     private List<Etiqueta> etiquetas;
-    private List<Multimedia> multimedia;
     private Boolean fueEliminado = false;
-    private Usuario contribuyente;
-    private Revision revision;
 
 
-    public Hecho(
-            String titulo,
-            String descripcion,
-            Categoria categoria,
-            double latitud,
-            double longitud,
-            LocalDate fechaAcontecimiento,
-            OrigenDelHecho origen,
-            Usuario usuario
-            ) {
-        this.id = UUID.randomUUID().hashCode();
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.lugar.setLatitud(latitud);
-        this.lugar.setLongitud(longitud);
-        this.fechaDeAcontecimiento = fechaAcontecimiento;
-        this.origen = origen;
-        this.fechaDeCarga = LocalDateTime.now();
+    public Hecho(Integer unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
+        // VARIABLES QUE LLEGAN DE INPUT
+        this.idEnFuente = unIdEnFuente;
+        this.titulo = unTitulo;
+        this.descripcion = unaDescripcion;
+        this.categoria = unaCategoria;
+        this.fechaDeAcontecimiento = unaFechaDeAcontecimiento;
+        this.lugar = new Lugar(unaLatitud, unaLongitud);
+        // this.multimedia =
+        this.usuarioContribuyente = unUsuario;
+
+        // VARIABLES QUE INICIALIZO UNA VEZ QUE SE CREA EL HECHO
+        this.idAgregador = UUID.randomUUID().hashCode();
+        this.fechaDeCargaDelHecho = LocalDateTime.now();
+        // ORIGEN LO SETEO SEGUN LA FUENTE
         this.solicitudesDeEliminacion = new ArrayList<>();
         this.etiquetas = new ArrayList<>();
-        this.multimedia = new ArrayList<>();
-        this.contribuyente = usuario;
     }
 }

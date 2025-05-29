@@ -31,7 +31,7 @@ public class HechosService implements IHechosService {
         if(hecho == null) {
             return null;
         }
-        return hechoOutputDTO(hecho);
+        return convertirHechoEnHechoOutputDTO(hecho);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class HechosService implements IHechosService {
         }
     }
 
-    private HechoOutputDTO hechoOutputDTO(Hecho unHecho) {
+    private HechoOutputDTO convertirHechoEnHechoOutputDTO(Hecho unHecho) {
         HechoOutputDTO hechoOutputDTO = new HechoOutputDTO();
         hechoOutputDTO.setTitulo(unHecho.getTitulo());
         hechoOutputDTO.setDescripcion(unHecho.getDescripcion());
@@ -61,7 +61,7 @@ public class HechosService implements IHechosService {
         hechoOutputDTO.setSolicitudesDeEliminacion(unHecho.getSolicitudesDeEliminacion());
         hechoOutputDTO.setEtiquetas(unHecho.getEtiquetas());
         hechoOutputDTO.setMultimedia(unHecho.getMultimedia());
-        hechoOutputDTO.setContribuyente(unHecho.getContribuyente());
+        hechoOutputDTO.setContribuyente(unHecho.getUsuarioContribuyente());
         return hechoOutputDTO;
     }
 }
