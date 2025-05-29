@@ -57,7 +57,6 @@ public class SolicitudesService implements ISolcitudesService {
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
         if (unaSolicitud.getDetectorDeSpam().esSpam("TEXTO DE SPAM")) {
             return true;
-            // TODO: VER ALGORITMO TF-IDF
         } else {
             return false;
         }

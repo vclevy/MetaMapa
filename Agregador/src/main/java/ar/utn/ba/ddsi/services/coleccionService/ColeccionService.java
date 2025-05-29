@@ -8,9 +8,11 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +66,7 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void actualizarColecciones() {
+    public void actualizarColecciones() { // todo
         for (Coleccion coleccion : coleccionesRepository.findAll()) {
             for (Hecho hechoIndice : hechosRepository.findAll()) {
               agregarHechoAColeccion(coleccion, hechoIndice, coleccion.getCriterioDePertenencia());
@@ -85,5 +87,25 @@ public class ColeccionService implements IColeccionService {
         //coleccionOutputDTO.setHandle(unaColeccion.getHandle());
         // TODO: VER QUE LOS HECHOS TAMBIEN SEAN OUTPUTS: coleccionOutputDTO.setHechosOutputDtos(new ArrayList<>());
         return coleccionOutputDTO;
+    }
+
+    public List<Hecho> obtenerHechosDeLaListaDeFuentes() {
+        List<Hecho> hechosDeColeccion = new ArrayList<>();
+        List<Coleccion> colecciones = coleccionesRepository.findAll();
+
+        for (Coleccion coleccionIndice : colecciones) {
+            coleccionIndice
+                    .getFuentesDeHechos()
+                    .forEach(unaFuenteDeHechos -> {
+                        List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
+                        hechosDeColeccionDeUnaFuente
+                                .forEach(unHecho -> {
+                                    hechosRepository.save(unHecho);
+                                    hechosDeColeccion.add(unHecho);
+                                });
+                    });
+        }
+
+        return hechosDeColeccion;
     }
 }
