@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Solicitud {
-    private Integer id;
+    private Long id;
     private String justificacionDeEliminacion;
     private Hecho hecho;
     private EstadoDeSolicitudDeEliminacion estado;
@@ -25,13 +25,17 @@ public class Solicitud {
     private DetectorDeSpam detectorDeSpam;
 
     public Solicitud (String unaJustificacion, Hecho unHecho, Usuario unUsuario) {
-        // VARIABLES QUE ME LLEGAN POR PARAMETRO
         this.justificacionDeEliminacion = unaJustificacion;
         this.hecho = unHecho;
         this.visitanteQueCargoLaSolicitud = unUsuario;
-
-        // VARIABLES QUE INCILIZO UNA VEZ QUE SE CREA LA SOLICITUD
-        this.id = UUID.randomUUID().hashCode();
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
+    }
+
+    public void actualizarHistorialDe(Solicitud unaSolicitud, Usuario usuarioModificador) {
+        HistorialSolicitud historialSolicitud = new HistorialSolicitud(
+                unaSolicitud.getEstado(),
+                usuarioModificador
+        );
+        unaSolicitud.getHistorialSolicitud().add(historialSolicitud);
     }
 }

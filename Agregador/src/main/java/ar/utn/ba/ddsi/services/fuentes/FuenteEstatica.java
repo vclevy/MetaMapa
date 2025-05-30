@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.services.fuentes;
 import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
-import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 public class FuenteEstatica implements FuenteDeHechos {
     private final WebClient webClient;
 
-    public FuenteEstatica(IHechosRepository hechosRepo, String baseUrl, WebClient webClient) {
+    public FuenteEstatica(String baseUrl, WebClient webClient) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

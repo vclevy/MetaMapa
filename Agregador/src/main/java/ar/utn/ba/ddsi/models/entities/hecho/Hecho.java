@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class Hecho {
-    private Integer idEnFuente;
+    private Long idEnFuente;
     private String titulo;
     private String descripcion;
     private Categoria categoria;
@@ -23,7 +23,7 @@ public class Hecho {
     private List<Multimedia> multimedia;
     private Usuario usuarioContribuyente;
 
-    private Integer idAgregador;
+    private Long idAgregador;
     private LocalDateTime fechaDeCargaDelHecho;
     private OrigenDelHecho origen;
     private List<Solicitud> solicitudesDeEliminacion;
@@ -32,7 +32,7 @@ public class Hecho {
     private Boolean fueEliminado = false;
 
 
-    public Hecho(Integer unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
+    public Hecho(Long unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
         // VARIABLES QUE LLEGAN DE INPUT
         this.idEnFuente = unIdEnFuente;
         this.titulo = unTitulo;
@@ -44,7 +44,6 @@ public class Hecho {
         this.usuarioContribuyente = unUsuario;
 
         // VARIABLES QUE INICIALIZO UNA VEZ QUE SE CREA EL HECHO
-        this.idAgregador = UUID.randomUUID().hashCode();
         this.fechaDeCargaDelHecho = LocalDateTime.now();
         // ORIGEN LO SETEO SEGUN LA FUENTE
         this.solicitudesDeEliminacion = new ArrayList<>();

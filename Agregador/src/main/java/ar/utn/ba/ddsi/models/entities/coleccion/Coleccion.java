@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
+import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,10 +26,36 @@ public class Coleccion {
         this.handle = UUID.randomUUID().toString();
     }
 
-    public static boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
-        for (Criterio c : criterios) {
-            if (!c.cumple(hecho)) return false;
+    public boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
+        for (Criterio criterioIndice : criterios) {
+            if (!criterioIndice.cumple(hecho)) return false;
         }
         return true;
+    }
+
+    public void refrescarColecciones() {
+        this.fuentesDeHechos
+                .forEach(unaFuenteDeHechos -> {
+                    List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
+                    if (this.verificadorDeAgregadorDeHechos(hechosDeColeccionDeUnaFuente)) {
+                        this.hechos.addAll(hechosDeColeccionDeUnaFuente);
+                    }
+                });
+    }
+
+    public boolean verificadorDeAgregadorDeHechos(List<Hecho> unosHechos) {
+        for (Hecho hechoIndice : unosHechos) {
+            if (!this.cumpleCriterios(hechoIndice, this.criterioDePertenencia) || this.contieneAlgunaSolicitudAprobada(hechoIndice)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contieneAlgunaSolicitudAprobada(Hecho unHecho) {
+        return unHecho
+                .getSolicitudesDeEliminacion()
+                .stream()
+                .anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
 }

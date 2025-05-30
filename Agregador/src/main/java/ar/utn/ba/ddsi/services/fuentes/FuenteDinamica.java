@@ -6,18 +6,19 @@ import java.util.List;
 import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
-import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
-import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.reactive.function.client.WebClient;
-import lombok.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Getter
+@Setter
 public class FuenteDinamica implements FuenteDeHechos {
     private final WebClient webClient;
 
-    public FuenteDinamica(String baseUrl, WebClient webClient) {
+    public FuenteDinamica(String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();

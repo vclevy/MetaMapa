@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class HechoInputDTO {
-    private Integer idEnFuente;
+    private Long idEnFuente;
     private String titulo;
     private String descripcion;
     private Categoria categoria;

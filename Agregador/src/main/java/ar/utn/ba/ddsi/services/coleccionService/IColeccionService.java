@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface IColeccionService {
     public void delete(String unHandle);
-    public void actualizarColecciones();
-    public ColeccionOutputDTO findByHandle (String unHandle);
+    public Coleccion findByHandle (String unHandle);
     public void crear(ColeccionInputDTO unaColeccionInputDTO);
-    public List<Hecho> obtenerHechosFiltradosPorColeccion(Coleccion coleccion);
+    public void obtenerHechosDeLaListaDeFuentesDeLasColecciones();
 }
