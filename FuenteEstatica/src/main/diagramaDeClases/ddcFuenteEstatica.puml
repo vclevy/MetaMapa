@@ -1,33 +1,18 @@
 @startuml
-
-class HechoInputDTO {
-    - titulo : String
-    - descripcion : String
-    - categoria : String
-    - lugar : Lugar
-    - fechaDelHecho : LocalDate
-}
-
-class HechoOutputDTO {
-    - titulo : String
-    - descripcion : String
-    - categoria : String
-    - lugar : Lugar
-    - fechaDeAcontecimiento : LocalDate
-    - fechaDeCarga : LocalDate
-    - multimedia : List<Multimedia>
-}
-
 class Hecho {
-    - id : UUID
+    - id : Long
     - titulo : String
     - descripcion : String
-    - categoria : String
+    - categoria : Categoria
     - lugar : Lugar
     - fechaDeAcontecimiento : LocalDate
-    - fechaDeCarga : LocalDate
+    - fechaDeCarga : LocalDateTime
     - multimedia : List<Multimedia>
     - origen : OrigenDelHecho
+}
+
+class Categoria {
+    - nombre : String
 }
 
 class Lugar {
@@ -45,8 +30,8 @@ enum OrigenDelHecho {
     CONTRIBUYENTE
 }
 
-interface Importador{
-    +importarHechos(String archivo) : List<Hecho>
+interface Importador {
+    + importarHechos(String archivo) : List<Hecho>
 }
 
 class LectorCSV{
@@ -54,48 +39,18 @@ class LectorCSV{
 }
 
 class importadorCSV implements Importador{
-    + importarHechos(String archivo) : List<Hecho>
-    - convertirHechoInputEnHecho(HechoInputDTO hechoInputDTO):Hecho
+    - lectorCSV : LectorCSV
+
+    + importarHechos(String archivo) : List<HechoInputDTO>
 }
 
-class HechosService implements IHechosService{
-    + importarHechos(String unRutaAlArchivo) : void
-    + getHechos() : List<HechoOutputDTO>
-    - hechoOutputDTO(Hecho hecho) : HechoOutputDTO
-    - repositorioDeHechos : IHechosRepository
-}
 
-interface IHechosService{
-    + importarHechos(String unRutaAlArchivo) : void
-    + getHechos() : List<HechoOutputDTO>
-}
 
-interface IHechosRepository {
-    + findAll() : List<Hecho>
-    + findById(int id) : Hecho
-    + save(Hecho hecho) : void
-    + delete(Hecho hecho) : void
-    + agregarHechos(List<Hecho> hechos) : void
-}
-
-class HechosRepository implements IHechosRepository {
-     + findAll() : List<Hecho>
-     + findById(int id) : Hecho
-     + save(Hecho hecho) : void
-     + delete(Hecho hecho) : void
-     + agregarHechos(List<Hecho> hechos) : void
-}
-
-HechoInputDTO --> Lugar
-HechoOutputDTO --> Lugar
-HechoOutputDTO --> Multimedia
-Hecho --> Lugar : lugar
-Hecho --> Multimedia : multimedia *
+Hecho --> Lugar
+Hecho --> Multimedia
 Hecho --> OrigenDelHecho
-HechosService --> IHechosRepository
-HechosRepository --> Hecho : *
-importadorCSV --> LectorCSV : usa
-importadorCSV --> HechoInputDTO
+Hecho --> Categoria
+importadorCSV --> LectorCSV
 
 
 
