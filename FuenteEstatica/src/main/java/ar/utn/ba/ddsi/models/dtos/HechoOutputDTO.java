@@ -15,16 +15,18 @@ import java.util.List;
 @Getter
 @Setter
 public class HechoOutputDTO {
+    private Long id;
     private String titulo;
     private String descripcion;
-    private String categoria;
+    private Categoria categoria;
     private LocalDate fechaDeAcontecimiento;
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private List<Multimedia> multimedia;
 
 
-    public HechoOutputDTO(String titulo, String descripcion, String categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, List<Multimedia> multimedia) {
+    public HechoOutputDTO(Long id, String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, List<Multimedia> multimedia) {
+        this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;

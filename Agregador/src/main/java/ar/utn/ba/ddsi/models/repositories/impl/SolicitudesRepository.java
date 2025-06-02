@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class SolicitudesRepository implements ISolicitudesRepository {
     }
 
     @Override
-    public Solicitud findById(Integer id) {
+    public Solicitud findById(Long id) {
         return this.solicitudesDeEliminacion.stream().filter(unaSolicitud -> unaSolicitud.getId().equals(id)).findFirst().orElse(null);
     }
 

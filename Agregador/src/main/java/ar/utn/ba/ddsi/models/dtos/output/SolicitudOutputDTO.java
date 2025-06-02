@@ -1,9 +1,9 @@
 package ar.utn.ba.ddsi.models.dtos.output;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.EstadoDeSolicitudDeEliminacion;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.HistorialSolicitud;
-import ar.utn.ba.ddsi.models.entities.roles.Usuario;
+import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
+import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

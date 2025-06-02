@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/diagramaDeClases/ddcModuloAgregador.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/diagramaDeClases/ddcAgregador.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagramas/Arquitectura.puml" beforeDir="false" afterPath="$PROJECT_DIR$/DiagramaArquitectura/Arquitectura.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagramas/diagramaDeClases.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/diagramaDeClases.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/diagramaDeClases/ddcFuenteDinamica.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/diagramaDeClases/diagramaFuenteEstatica.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/diagramaDeClases/ddcFuenteEstatica.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/Diagramas/FuenteProxyDC.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/diagramaDeClases/ddcFuenteProxy.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +52,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "ENTREGA__2__CORRECIONES__AG",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Usuario/Desktop/2025-tpa-ma-ma-grupo-4",
     "node.js.detected.package.eslint": "true",
@@ -73,6 +67,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
+      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\diagramaDeClases" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -139,7 +139,8 @@
       <workItem from="1748287032232" duration="546000" />
       <workItem from="1748310384992" duration="640000" />
       <workItem from="1748459278582" duration="41000" />
-      <workItem from="1748459520593" duration="303000" />
+      <workItem from="1748459520593" duration="561000" />
+      <workItem from="1748542408176" duration="101000" />
     </task>
     <servers />
   </component>

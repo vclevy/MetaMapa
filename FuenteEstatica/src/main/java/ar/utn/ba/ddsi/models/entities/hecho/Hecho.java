@@ -14,23 +14,20 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Hecho {
-    private UUID id;
+    private Long id;
     private String titulo;
     private String descripcion;
-    private String categoria;
+    private Categoria categoria;
     private LocalDate fechaDeAcontecimiento;
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private OrigenDelHecho origen;
     private List<Multimedia> multimedia;
 
-    public Hecho(String titulo, String descripcion, String categoria, LocalDate fechaDeAcontecimiento, Lugar lugar) {
-        this.id = UUID.randomUUID();
+    public Hecho(String titulo, String descripcion, LocalDate fechaDeAcontecimiento, Lugar lugar) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.categoria = categoria;
         this.fechaDeAcontecimiento = fechaDeAcontecimiento;
         this.fechaDeCarga = LocalDateTime.now();
         this.lugar = lugar;

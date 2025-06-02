@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.entities.hecho.solicitud;
+package ar.utn.ba.ddsi.models.entities.solicitud;
 
 public enum EstadoDeSolicitudDeEliminacion {
     PENDIENTE,
