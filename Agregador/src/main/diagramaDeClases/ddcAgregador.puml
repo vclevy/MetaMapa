@@ -3,12 +3,12 @@
 /'------------------------------------------ EMPIEZA PACKAGE ENTITIES -------------------------------------------------------------'/
 /'------------------------------------------------ PACKAGE HECHO -------------------------------------------------------------'/
 class Hecho {
-    - id : Integer
+    - idEnFuente : Long
     - titulo : String
     - descripcion : String
     - categoria : Categoria
     - fechaDeAcontecimiento : LocalDate
-    - fechaDeCarga : LocalDateTime
+    - fechaDeCargaDelHecho : LocalDateTime
     - lugar : Lugar
     - origen : OrigenDelHecho
     - solicitudesDeEliminacion : List<Solicitud>
@@ -16,18 +16,12 @@ class Hecho {
     - etiquetas : List<Etiqueta>
     - multimedia : List<Multimedia>
     - fueEliminado : Boolean
-    - contribuyente : Usuario
-    - revision : Revision
+    - usuarioContribuyente : Usuario
+    - idAgregador : Long
 }
 
 class Categoria {
     - nombre : String
-}
-
-enum EstadoRevision {
-    PENDIENTE,
-    ACEPTADO,
-    RECHAZADO
 }
 
 class Etiqueta {
@@ -50,25 +44,21 @@ enum OrigenDelHecho {
     FUENTEPROXY
 }
 
-class Revision {
-    - estado : EstadoRevision
-    - comentario : String
-
-    + estaPendiente() : boolean
-}
-
 /'------------------------------------------------ TERMINA PACKAGE HECHO -------------------------------------------------------------'/
 
 /'------------------------------------------------ EMPIEZA PACKAGE SOLICITUD -------------------------------------------------------------'/
 class Solicitud {
-    - id : Integer
+    - id : Long
     - justificacionDeEliminacion : String
     - hecho : Hecho
     - estado : EstadoDeSolicitudDeEliminacion
-    - fechaSolicitud : LocalDateTime
+    - fechaDeCargaDeSolicitud : LocalDateTime
     - fechaDeEvaluacionDeSolicitud : LocalDateTime
-    - visitanteQueCargoSolicitud : Usuario
+    - visitanteQueCargoLaSolicitud : Usuario
     - historialSolicitud : List<HistorialSolicitud>
+    - detectorDeSpam : DetectorDeSpam
+
+    + actualizarHistorialDe(Solicitud unaSolicitud, Usuario usuarioModificador) : void
 }
 
 class HistorialSolicitud {
@@ -85,13 +75,18 @@ enum EstadoDeSolicitudDeEliminacion {
 
 /'------------------------------------------------ TERMINA PACKAGE SOLICITUD -------------------------------------------------------------'/
 
-
 /'------------------------------------------------ EMPIEZA PACKAGE COLECCION -------------------------------------------------------------'/
 class Coleccion {
     - titulo : String
     - descripcion : String
     - handle : String
     - hechos : List<Hecho>
+    - fuentesDeHechos : List<FuenteDeHechos>
+    - criterioDePertenencia : List<Criterio>
+
+    + cumpleCriterios(Hecho unHecho, List<Criterio> criterios) : boolean
+    + verificadorDeAgregadorDeHechos(Hecho unHecho) : boolean
+    + contieneAlgunaSolicitudAprobada(Hecho unHecho) : boolean
 }
 
 class VerificadorDeCriterios {
@@ -121,53 +116,16 @@ class CriterioLugar implements Criterio {
     - lugar : Lugar
     + cumple(Hecho hecho) : boolean
 }
-
 /'------------------------------------------------ TERMINA PACKAGE CRITERIOS -------------------------------------------------------------'/
+/'------------------------------------------------ TERMINA PACKAGE COLECCION -------------------------------------------------------------'/
 
-/'------------------------------------------------ EMPIEZA PACKAGE ROLES -------------------------------------------------------------'/
+
+/'------------------------------------------------ EMPIEZA PACKAGE USUARIO -------------------------------------------------------------'/
 class Usuario {
     - nombre : String
-    - rol : IRol
-    - solicitudesService : ISolicitudesService
-
-    + solicitarEliminacionDeUnHecho(String unaJustificacion, Hecho unHecho) : void
-    + aprobarSolicitud(Solicitud unaSolicitud) : void
-    + rechazarSolicitud(Solicitud unaSolicitud) : void
+    - idUsuario : Long
 }
-
-interface IRol {
-    + tenesPermiso(Permiso permiso) : boolean
-}
-
-class Revisor implements IRol {
-    + tenesPermiso(Permiso permiso) : boolean
-}
-
-class VisitanteAnonimo implements IRol {
-    + tenesPermiso(Permiso permiso) : boolean
-}
-
-class VisitanteRegistrado implements IRol {
-    + tenesPermiso(Permiso permiso) : boolean
-}
-
-enum Permisos {
-    VER_HECHOS,
-    SUBIR_HECHO,
-    EDITAR_HECHO,
-    ELIMINAR_HECHO,
-    REVISAR_HECHO,
-    IMPORTAR_HECHOS,
-    VER_COLECCIONES,
-    CREAR_COLECCION,
-    EDITAR_COLECCION,
-    ELIMINAR_COLECCION,
-    GESTIONAR_ETIQUETAS,
-    SOLICITAR_ELIMINACION,
-    VER_SOLICITUDES,
-    GESTIONAR_SOLICITUDES
-}
-/'------------------------------------------------ TERMINA PACKAGE ROLES -------------------------------------------------------------'/
+/'------------------------------------------------ TERMINA PACKAGE USUARIO -------------------------------------------------------------'/
 /'------------------------------------------------ TERMINA PACKAGE ENTITIES -------------------------------------------------------------'/
 
 /'------------------------------------------------ EMPIEZA PACKAGE FUENTES -------------------------------------------------------------'/
@@ -186,8 +144,9 @@ class FuenteEstatica implements FuenteDeHechos {
 }
 
 class FuenteProxy implements FuenteDeHechos {
-    - restTemplate : RestTemplate
-    - url : String
+    - urlHechos : String
+    - pathUrl : String
+    - webClient : WebClient
     + obtenerHechos() : List<Hecho>
 }
 
@@ -198,52 +157,49 @@ interface DetectorDeSpam {
 }
 
 class DetectorDeSpamImpl implements DetectorDeSpam {
-    + esSpam(String texto) : boolean
+    - PALABRAS_SPAM : List<String>
+    - LONGITUD_MAXIMA_PARA_REVISION : Int
+    - REPETICIONES_MAXIMAS_PERMITIDAS : Int
+    + esSpam(String unaJustificacion) : boolean
+    + esRepeticionExcesiva(String unTexto) : boolean
+
 }
 /'------------------------------------------------ TERMINA PACKAGE SPAM -------------------------------------------------------------'/
 
 
-/'------------------------------------------------ RELACIONES -------------------------------------------------------------'/
-
-'------------------------- RELACIONES ENTRE CLASES -------------------------'
-
-' Relaciones del paquete HECHO
-Hecho --> Categoria : categoria
-Hecho --> Lugar : lugar
-Hecho --> OrigenDelHecho : origen
-Hecho --> Usuario : contribuyente
-Hecho --> Revision : revision
-Hecho --> Etiqueta : etiquetas *
-Hecho --> Multimedia : multimedia *
-Hecho --> Solicitud : solicitudesDeEliminacion *
-
-' Relaciones del paquete SOLICITUD
-Solicitud --> Hecho : hecho
-Solicitud --> Usuario : visitanteQueCargoSolicitud
-Solicitud --> HistorialSolicitud : historialSolicitud *
-
-HistorialSolicitud --> Usuario : usuarioModificador
-HistorialSolicitud --> EstadoDeSolicitudDeEliminacion : estado
-
-' Relaciones del paquete COLECCION
-Coleccion --> Hecho : hechos *
-
-VerificadorDeCriterios --> Hecho
-VerificadorDeCriterios --> Categoria
-VerificadorDeCriterios --> Lugar
-
-CriterioCategoria --> Categoria : categoria
-CriterioLugar --> Lugar : lugar
-
-' Relaciones del paquete ROLES
-Usuario --> IRol : rol
+/'----------------------------------------------------- RELACIONES -------------------------------------------------------------'/
+Hecho -r-> Categoria
+Hecho -r-> Lugar
+Hecho -r-> OrigenDelHecho
+Hecho -d-> Usuario
+Hecho -d-> Solicitud
+Hecho -d-> Etiqueta
+Hecho -d-> Multimedia
 
 
-VisitanteAnonimo --> Permisos
-VisitanteRegistrado --> Permisos
-Revisor --> Permisos
+' ========== SOLICITUD ==========
+Solicitud -r-> Hecho
+Solicitud -r-> EstadoDeSolicitudDeEliminacion
+Solicitud -r-> Usuario
+Solicitud -d-> HistorialSolicitud
+Solicitud -r-> DetectorDeSpam
 
-Hecho --> EstadoRevision
+HistorialSolicitud -r-> EstadoDeSolicitudDeEliminacion
+HistorialSolicitud -r-> Usuario
+
+' ========== COLECCION ==========
+Coleccion -d-> Hecho
+Coleccion -r-> FuenteDeHechos
+Coleccion -r-> Criterio
+
+' ========== CRITERIOS ==========
+CriterioCategoria -r-> Categoria
+CriterioLugar -r-> Lugar
+
+' ========== VERIFICADOR ==========
+VerificadorDeCriterios -r-> Hecho
+VerificadorDeCriterios -r-> Categoria
+VerificadorDeCriterios -r-> Lugar
 
 
 

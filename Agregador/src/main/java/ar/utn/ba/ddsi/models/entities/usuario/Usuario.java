@@ -7,9 +7,10 @@ import java.util.UUID;
 @Getter
 public class Usuario {
     private String nombre;
-    private Integer idUsuario;
+    private Long idUsuario;
 
     public Usuario(String nombre) {
-        this.idUsuario = UUID.randomUUID().hashCode();
+        this.nombre = nombre;
+        this.idUsuario = UUID.randomUUID().getMostSignificantBits();
     }
 }
