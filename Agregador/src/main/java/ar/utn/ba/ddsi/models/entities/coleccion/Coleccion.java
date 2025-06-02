@@ -33,23 +33,8 @@ public class Coleccion {
         return true;
     }
 
-    public void refrescarColecciones() {
-        this.fuentesDeHechos
-                .forEach(unaFuenteDeHechos -> {
-                    List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
-                    if (this.verificadorDeAgregadorDeHechos(hechosDeColeccionDeUnaFuente)) {
-                        this.hechos.addAll(hechosDeColeccionDeUnaFuente);
-                    }
-                });
-    }
-
-    public boolean verificadorDeAgregadorDeHechos(List<Hecho> unosHechos) {
-        for (Hecho hechoIndice : unosHechos) {
-            if (!this.cumpleCriterios(hechoIndice, this.criterioDePertenencia) || this.contieneAlgunaSolicitudAprobada(hechoIndice)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean verificadorDeAgregadorDeHechos(Hecho unHecho) {
+        return !this.cumpleCriterios(unHecho, this.criterioDePertenencia) || this.contieneAlgunaSolicitudAprobada(unHecho);
     }
 
     public boolean contieneAlgunaSolicitudAprobada(Hecho unHecho) {

@@ -22,9 +22,7 @@ public class DetectorDeSpamImpl implements DetectorDeSpam {
             }
         }
 
-        // Revisión por longitud excesiva + contenido sospechoso
         if (normalizada.length() > LONGITUD_MAXIMA_PARA_REVISION) {
-            // Verificamos si son muchas repeticiones de un solo carácter
             if (esRepeticionExcesiva(normalizada)) {
                 return true;
             }
@@ -34,7 +32,6 @@ public class DetectorDeSpamImpl implements DetectorDeSpam {
     }
 
     private boolean esRepeticionExcesiva(String texto) {
-        // Buscamos si hay más de X repeticiones consecutivas del mismo carácter
         char anterior = '\0';
         int contador = 0;
 

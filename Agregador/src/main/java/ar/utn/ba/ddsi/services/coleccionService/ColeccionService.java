@@ -2,8 +2,10 @@ package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ public class ColeccionService implements IColeccionService {
     private IColeccionesRepository coleccionesRepository;
 
     @Autowired
-    private IHechosRepository hechosRepository;
+    private IHechoService hechoService;
 
     @Override
     public void delete(String unHandle) {
@@ -43,11 +45,21 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void obtenerHechosDeLaListaDeFuentesDeLasColecciones() {
+    public void refrescarColecciones() {
         List<Coleccion> colecciones = coleccionesRepository.findAll();
 
-        for (Coleccion coleccionIndice : colecciones) {
-            coleccionIndice.refrescarColecciones();
+        for(Coleccion coleccionIndice : colecciones) {
+            coleccionIndice.
+                    getFuentesDeHechos()
+                    .forEach(unaFuenteDeHechos -> {
+                        List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
+                        for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
+                            if (coleccionIndice.verificadorDeAgregadorDeHechos(hechoIndice)) {
+                                coleccionIndice.getHechos().add(hechoIndice);
+                                this.hechoService.registrarHechoDesdeFuente(hechoIndice);
+                            }
+                        }
+                    });
         }
     }
 }

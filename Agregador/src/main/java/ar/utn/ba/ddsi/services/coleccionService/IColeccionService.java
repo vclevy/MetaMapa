@@ -11,5 +11,5 @@ public interface IColeccionService {
     public void delete(String unHandle);
     public Coleccion findByHandle (String unHandle);
     public void crear(ColeccionInputDTO unaColeccionInputDTO);
-    public void obtenerHechosDeLaListaDeFuentesDeLasColecciones();
+    public void refrescarColecciones();
 }
