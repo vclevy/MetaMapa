@@ -1,108 +1,5 @@
 @startuml
-skinparam classAttributeIconSize 0
-interface IHechosRepository {
-}
 
-class HechosRepository {
-  - hechosSubidos : List<Hecho>
-  + agregarHechos(Hecho ... unosHechos) : void
-  + findAll() : List<Hecho>
-  + findById(int id) : Hecho
-  + save(Hecho hecho) : void
-  + delete(Hecho hecho) : void
-}
-
-interface ISolicitudesRepository {
-}
-class SolicitudesRepository {
-  + findAll() : List<Solicitud>
-  + findById(int id) : Solicitud
-  + save(Solicitud solicitud) : void
-  + delete(Solicitud solicitud) : void
-}
-
-
-class HechoInputDTO {
-  - titulo : String
-  - descripcion : String
-  - fechaDeAcontecimiento : LocalDate
-  - lugar : Lugar
-  - etiquetas : List<Etiqueta>
-  - multimedia : List<String>
-}
-class HechoOutputDTO {
-  - id : Integer
-  - titulo : String
-  - descripcion : String
-  - categoria : Categoria
-  - fechaDeAcontecimiento : LocalDate
-  - fechaDeCarga : LocalDateTime
-  - lugar : Lugar
-  - origen : OrigenDelHecho
-  - solicitudesDeEliminacion : List<Solicitud>
-  - etiquetas : List<Etiqueta>
-  - contribuyente : Usuario
-  - esEditable : Boolean
-}
-class SolicitudOutputDTO {
-  - id : Integer
-  - justificacionDeEliminacion : String
-  - idHecho : Integer
-  - estado : String
-  - fechaSolicitud : LocalDateTime
-  - fechaDeEvaluacionDeSolicitud : LocalDateTime
-  - visitante : String
-  - historialSolicitud : List<HistorialSolicitudOutputDTO>
-}
-class HistorialSolicitudOutputDTO {
-  - id : Integer
-  - estado : String
-  - fechaModificacion : LocalDateTime
-  - administrador : String
-}
-class ColeccionOutputDTO {
-  - id : Integer
-  - titulo : String
-  - descripcion : String
-  - hechos : List<HechoOutputDTO>
-}
-class Usuario {
-  - nombre : String
-  - rol : Rol
-}
-interface Rol {
-  + tenesPermiso(Permisos permiso) : Boolean
-}
-class VisitanteRegistrado {
-  + tenesPermiso(Permisos permiso) : Boolean
-}
-class Revisor {
-  + tenesPermiso(Permisos permiso) : Boolean
-}
-class VisitanteAnonimo {
-  + tenesPermiso(Permisos permiso) : Boolean
-}
-
-enum Permisos {
-    VER_HECHOS,
-    SUBIR_HECHO,
-    EDITAR_HECHO,
-    ELIMINAR_HECHO,
-    REVISAR_HECHO,
-
-    IMPORTAR_HECHOS,
-
-    VER_COLECCIONES,
-    CREAR_COLECCION,
-    EDITAR_COLECCION,
-    ELIMINAR_COLECCION,
-
-    GESTIONAR_ETIQUETAS,
-
-    SOLICITAR_ELIMINACION,
-    VER_SOLICITUDES,
-    GESTIONAR_SOLICITUDES
-}
 class Revision {
   - estado : EstadoRevision
   - comentario : String
@@ -175,35 +72,12 @@ class FiltroPorEtiqueta {
 interface FiltroHecho {
 }
 
-interface IHechosServices {
-  + subirHecho(HechoInputDTO hecho) : void
-  + editarHecho(int id,  HechoInputDTO hechoModificado) : void
-}
-class HechosServices {
-  - repositorioDeHechos : IHechosRepository
-  + hechoInputDTO(Hecho hecho) : HechoInputDTO
-  + findById(Integer id) : HechoOutputDTO
-  + inputDTOAHecho(HechoInputDTO dto) : Hecho
-  + subirHecho(HechoInputDTO hecho,  MultipartFile[] archivos) : void
-  + editarHecho(int id,  HechoInputDTO hechoModificado) : void
-  + revisarHecho(int id,  EstadoRevision nuevoEstado,  String comentario,  Usuario admin) : void
-}
 
-class HechosController {
-  - hechosServices : IHechosServices
-}
-
-HechosServices ..|> IHechosServices
-
-SolicitudesRepository ..|> ISolicitudesRepository
-HechosRepository ..|> IHechosRepository
-VisitanteRegistrado ..|> Rol
-Revisor ..|> Rol
-VisitanteAnonimo ..|> Rol
 FiltroPorLugar ..|> FiltroHecho
 FiltroPorAnonimato ..|> FiltroHecho
 FiltroPorCategoria ..|> FiltroHecho
 FiltroPorEtiqueta ..|> FiltroHecho
+FiltroHecho ..> Hecho
 
 Hecho --> Categoria
 Hecho --> Lugar
@@ -212,23 +86,7 @@ Hecho --> Revision
 Hecho --> Multimedia
 
 
-VisitanteAnonimo --> Permisos
-VisitanteRegistrado --> Permisos
-Revisor --> Permisos
-
-
 Solicitud --> Hecho
-Solicitud --> Usuario
 Solicitud --> HistorialSolicitud
 
-HechosServices --> ColeccionOutputDTO
-HechosServices --> HechoInputDTO
-HechosServices --> HechoOutputDTO
-HechosServices --> HistorialSolicitudOutputDTO
-HechosServices --> SolicitudOutputDTO
-
-HechosServices --> ISolicitudesRepository
-HechosServices --> IHechosRepository
-
-HechosController --> HechosServices
 @enduml

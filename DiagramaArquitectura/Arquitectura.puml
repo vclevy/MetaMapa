@@ -1,13 +1,15 @@
 @startuml
 
-  component "Servicio de Agregación" as Agregador
-  database "Repo de Hechos General" as DBHechosGeneral
-
-  component "Servicio de Fuente Dinámica" as FuenteDinamica
-  component "Servicio de Fuente Estática" as FuenteEstatica
-  component "Servicio de Fuente Proxy" as FuenteProxy
+component "Servicio de Agregación" as Agregador {
   component "Servicio de Solicitudes" as ServicioSolicitudes
-  component "Detector de Spam" as DetectorSpam
+  component "Servicio de Fuente Estática" as FuenteEstatica
+}
+
+database "Repo de Hechos General" as DBHechosGeneral
+
+component "Servicio de Fuente Dinámica" as FuenteDinamica
+component "Servicio de Fuente Proxy" as FuenteProxy
+component "Detector de Spam" as DetectorSpam
 
 package "Fuentes Externas" {
   database "Dataset CSV" as CSV
@@ -27,6 +29,7 @@ Agregador --> FuenteProxy : Consulta hechos en tiempo real
 Agregador --> DBSolicitudes : Consulta solicitudes
 Agregador --> DBColecciones : Consulta colecciones
 Agregador --> DBHechosGeneral
+
 FuenteDinamica --> DBHechosDinamicos : Persistencia en memoria
 FuenteEstatica --> DBHechosEstaticos : Lectura desde CSV
 ServicioSolicitudes --> DBSolicitudes : Guarda solicitudes

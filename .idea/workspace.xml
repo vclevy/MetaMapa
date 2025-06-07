@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/diagramaDeClases/ddcModuloAgregador.puml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/diagramaDeClases/ddcAgregador.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagramas/Arquitectura.puml" beforeDir="false" afterPath="$PROJECT_DIR$/DiagramaArquitectura/Arquitectura.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Diagramas/diagramaDeClases.puml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/diagramaDeClases.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/diagramaDeClases/ddcFuenteDinamica.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/diagramaDeClases/diagramaFuenteEstatica.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/diagramaDeClases/ddcFuenteEstatica.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/Diagramas/FuenteProxyDC.puml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/diagramaDeClases/ddcFuenteProxy.puml" afterDir="false" />
+<change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+<change beforePath="$PROJECT_DIR$/DiagramaArquitectura/Arquitectura.puml" beforeDir="false" afterPath="$PROJECT_DIR$/DiagramaArquitectura/Arquitectura.puml" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +28,12 @@
     &quot;assignee&quot;: &quot;delfisartorio&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
-    &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git",
+    "accountId": "e97f65a5-06a1-4279-a72b-b5634ad3a1a6"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -58,9 +54,9 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "ENTREGA__2__CORRECCIONES__VDL",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Usuario/Desktop/2025-tpa-ma-ma-grupo-4",
+    "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,6 +69,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
+      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\diagramaDeClases" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -116,8 +118,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -140,6 +142,7 @@
       <workItem from="1748310384992" duration="640000" />
       <workItem from="1748459278582" duration="41000" />
       <workItem from="1748459520593" duration="303000" />
+      <workItem from="1748897090666" duration="338000" />
     </task>
     <servers />
   </component>

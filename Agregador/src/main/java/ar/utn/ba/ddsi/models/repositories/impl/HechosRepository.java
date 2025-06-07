@@ -1,20 +1,15 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class HechosRepository implements IHechosRepository {
     private List<Hecho> hechos;
-
-    public HechosRepository() {
-        this.hechos = new ArrayList<>();
-    }
 
     @Override
     public List<Hecho> findAll() {
@@ -22,17 +17,17 @@ public class HechosRepository implements IHechosRepository {
     }
 
     @Override
-    public Hecho findById(Integer id) {
-        return this.hechos.stream().filter(unHecho -> unHecho.getId() == id).findFirst().orElse(null);
+    public Hecho findById(Long id) {
+        return this.hechos.stream().filter(unHecho -> unHecho.getIdAgregador().equals(id)).findFirst().orElse(null);
     }
 
     @Override
-    public void save(Hecho hecho) {
-        this.hechos.add(hecho);
+    public void save(Hecho unHecho) {
+        hechos.add(unHecho);
     }
 
     @Override
-    public void delete(Hecho hecho) {
-        this.hechos.remove(hecho);
+    public void delete(Hecho unHecho) {
+        this.hechos.remove(unHecho);
     }
 }

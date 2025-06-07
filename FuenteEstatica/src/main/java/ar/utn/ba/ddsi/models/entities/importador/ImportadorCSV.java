@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class ImportadorCSV implements Importador {
     private static LectorCSV lectorCSV = new LectorCSV();
 
-    public List<Hecho> importarHechos(String archivo) throws CsvValidationException, IOException {
+    public List<HechoInputDTO> importarHechos(String archivo) throws CsvValidationException, IOException {
         List<String[]> filas = lectorCSV.leerCSV(archivo);
-        List<Hecho> hechosPorImportar = new ArrayList<>();
+        List<HechoInputDTO> hechosPorImportar = new ArrayList<>();
 
         for (String[] campos : filas) {
             try {
@@ -30,26 +30,14 @@ public class ImportadorCSV implements Importador {
                 LocalDate fecha = LocalDate.parse(campos[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
                 HechoInputDTO unHechoInput = new HechoInputDTO(titulo, descripcion, categoria, new Lugar(latitud, longitud), fecha);
-                Hecho hechoConvertido = convertirHechoInputEnHecho(unHechoInput);
-
-                hechosPorImportar.add(hechoConvertido);
-            } catch (Exception e) {
+                hechosPorImportar.add(unHechoInput);
+            }
+            catch (Exception e) {
                 System.err.println("Error al procesar una fila del CSV:");
                 e.printStackTrace();
             }
         }
 
         return hechosPorImportar;
-    }
-
-    private static Hecho convertirHechoInputEnHecho(HechoInputDTO hechoInputDTO) {
-        Hecho unHecho = new Hecho (
-                hechoInputDTO.getTitulo(),
-                hechoInputDTO.getDescripcion(),
-                hechoInputDTO.getCategoria(),
-                hechoInputDTO.getFechaDelHecho(),
-                hechoInputDTO.getLugar()
-        );
-        return unHecho;
     }
 }
