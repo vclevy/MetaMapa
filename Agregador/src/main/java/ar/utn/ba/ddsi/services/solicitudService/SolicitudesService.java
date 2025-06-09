@@ -18,6 +18,11 @@ public class SolicitudesService implements ISolcitudesService {
 
     @Override
     public void registrarSolicitud(String unaJustificacion, Hecho unHecho, Usuario unUsuario) {
+
+        if (!this.justificacionTieneLongitudValida(unaJustificacion)) {
+            return;
+        }
+
         Solicitud unaSolicitud = new Solicitud(unaJustificacion, unHecho, unUsuario);
         unaSolicitud.setId(this.definirId());
 
@@ -77,5 +82,10 @@ public class SolicitudesService implements ISolcitudesService {
                 .orElse(0L);
 
         return maxId + 1;
+    }
+
+    @Override
+    public boolean justificacionTieneLongitudValida(String unaJustificacion) {
+        return unaJustificacion != null && unaJustificacion.length() >= 500;
     }
 }

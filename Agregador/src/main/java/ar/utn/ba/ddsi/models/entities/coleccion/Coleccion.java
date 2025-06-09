@@ -34,10 +34,10 @@ public class Coleccion {
     }
 
     public boolean verificadorDeAgregadorDeHechos(Hecho unHecho) {
-        return !this.cumpleCriterios(unHecho, this.criterioDePertenencia) || this.contieneAlgunaSolicitudAprobada(unHecho);
+        return !this.cumpleCriterios(unHecho, this.criterioDePertenencia) || this.tieneSolicitudDeEliminacionAprobada(unHecho);
     }
 
-    public boolean contieneAlgunaSolicitudAprobada(Hecho unHecho) {
+    public boolean tieneSolicitudDeEliminacionAprobada(Hecho unHecho) {
         return unHecho
                 .getSolicitudesDeEliminacion()
                 .stream()

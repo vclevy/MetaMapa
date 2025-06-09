@@ -10,4 +10,5 @@ public interface ISolcitudesService {
     public void rechazarSolicitud(Solicitud unaSolicitud, Usuario usuarioModificador);
     public boolean verificacionDeSpam(Solicitud unaSolicitud);
     public Long definirId();
+    public boolean justificacionTieneLongitudValida(String unaJustificacion);
 }
