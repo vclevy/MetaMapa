@@ -8,7 +8,6 @@ import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IMetamapaAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,8 +37,11 @@ public class MetaMapaServices implements IMetamapaServices {
     }
 
     @Override
-    public List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
-        return metamapaAdapter.obtenerHechosDeColeccion(identificador, filtros);
+    public List<Hecho> obtenerHechosDeColeccionConFiltro(String identificador, List<IFiltroHecho> filtros) {
+        List<Hecho> hechos = metamapaAdapter.obtenerHechosDeColeccion(identificador);
+        return hechos.stream()
+                .filter(hecho -> filtros.stream().allMatch(f -> f.aplica(hecho)))
+                .collect(Collectors.toList());
     }
 
     @Override

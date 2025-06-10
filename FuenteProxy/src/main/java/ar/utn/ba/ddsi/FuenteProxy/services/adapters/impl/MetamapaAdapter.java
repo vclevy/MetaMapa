@@ -4,23 +4,14 @@ import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.FiltroCategoria;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.FiltroFechaAcontecimientoDesde;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.FiltroFechaAcontecimientoHasta;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IHechoAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IMetamapaAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.connectors.MetaMapaConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -60,10 +51,14 @@ public class MetamapaAdapter implements IMetamapaAdapter {
     }
 
     @Override
-    public List<Hecho> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
-        List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccion(identificador, filtros);
-        return externos.stream().map(hechoAdapter::adaptar).collect(Collectors.toList());
+    public List<Hecho> obtenerHechosDeColeccion(String identificador) {
+        List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccion(identificador);
+        List<Hecho> hechos = externos.stream()
+                .map(hechoAdapter::adaptar)
+                .collect(Collectors.toList());
+        return hechos;
     }
+
 
     @Override
     public boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion) {

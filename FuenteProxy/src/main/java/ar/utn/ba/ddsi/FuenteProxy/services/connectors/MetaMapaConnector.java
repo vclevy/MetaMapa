@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.ColeccionRespuesta;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.HechoRespuesta;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -40,23 +41,21 @@ public class MetaMapaConnector {
         }
     }
 
-    public List<HechoProxyDTO> obtenerHechosDeColeccion(String identificador, Map<String, String> filtros) {
+    public List<HechoProxyDTO> obtenerHechosDeColeccion(String identificador) {
         try {
             HechoRespuesta respuesta = webClient.get()
-                    .uri(uriBuilder -> {
-                        UriBuilder builder = uriBuilder.path("/colecciones/" + identificador + "/hechos");
-                        if (filtros != null) {
-                            filtros.forEach(builder::queryParam);
-                        }
-                        return builder.build();
-                    })
+                    .uri(uriBuilder ->
+                            uriBuilder
+                                    .path("/colecciones/" + identificador + "/hechos")
+                                    .build()
+                    )
                     .retrieve()
                     .bodyToMono(HechoRespuesta.class)
                     .block();
 
-            return (respuesta != null && respuesta.getData() != null) ?
-                    respuesta.getData() :
-                    Collections.emptyList();
+            return (respuesta != null && respuesta.getData() != null)
+                    ? respuesta.getData()
+                    : Collections.emptyList();
 
         } catch (Exception e) {
             System.err.println("Error al obtener hechos de colección: " + e.getMessage());
