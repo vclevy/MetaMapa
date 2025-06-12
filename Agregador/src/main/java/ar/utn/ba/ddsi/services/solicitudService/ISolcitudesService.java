@@ -6,8 +6,7 @@ import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 
 public interface ISolcitudesService {
     public void registrarSolicitud(String unaJustificacion, Long idHecho, Usuario unUsuario);
-    public void aprobarSolicitud(Long idSolicitud, Usuario usuarioModificador);
-    public void rechazarSolicitud(Long idSolicitud, Usuario usuarioModificador);
+    public void cambiarEstadoDeSolicitud(Long idSolicitud, Usuario usuarioModificador, String unaAccion);
     public boolean verificacionDeSpam(Solicitud unaSolicitud);
     public Long definirId();
     public boolean justificacionTieneLongitudValida(String unaJustificacion);

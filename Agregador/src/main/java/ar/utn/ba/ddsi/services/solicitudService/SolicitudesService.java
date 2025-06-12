@@ -43,24 +43,19 @@ public class SolicitudesService implements ISolcitudesService {
     }
 
     @Override
-    public void aprobarSolicitud(Long idSolicitud, Usuario usuarioModificador) {
+    public void cambiarEstadoDeSolicitud(Long idSolicitud, Usuario usuarioModificador, String unaAccion) {
         List<Solicitud> solcicitudes = solicitudesRepository.findAll();
 
         for (Solicitud solicitudIndice : solcicitudes) {
             if (solicitudIndice.getId() == idSolicitud) {
-                solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
-                this.actualizarHistorialDe(idSolicitud, usuarioModificador);
-            }
-        }
-    }
-
-    @Override
-    public void rechazarSolicitud(Long idSolicitud, Usuario usuarioModificador) {
-        List<Solicitud> solcicitudes = solicitudesRepository.findAll();
-
-        for (Solicitud solicitudIndice : solcicitudes) {
-            if (solicitudIndice.getId() == idSolicitud) {
-                solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
+                switch (unaAccion.toLowerCase()) {
+                    case "aprobar":
+                        solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
+                        break;
+                    case "rechazar":
+                        solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
+                        break;
+                }
                 this.actualizarHistorialDe(idSolicitud, usuarioModificador);
             }
         }
