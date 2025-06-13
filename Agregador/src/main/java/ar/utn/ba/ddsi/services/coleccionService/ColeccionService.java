@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -62,4 +63,36 @@ public class ColeccionService implements IColeccionService {
                     });
         }
     }
+
+    @Override // TODO
+    public List<Hecho> aplicarConsenso(String unHandle, List<Hecho> unosHechos, String unAlgoritmoConsenso) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+
+        switch (unAlgoritmoConsenso) {
+            case "mencionMultiple":
+                return aplicarMencionMultiple(unHandle, unosHechos);
+            case "mayoriaSimple":
+                return aplicarMayoriaSimple(unHandle, unosHechos);
+            case "absoluto":
+                return aplicarAbsoluto(unHandle, unosHechos);
+            default:
+                throw new IllegalArgumentException("Algoritmo de consenso no válido: " + unAlgoritmoConsenso);
+        }
+    }
+
+    @Override
+    public List<Hecho> aplicarMencionMultiple(String unHandle, List<Hecho> unosHechos) {
+        return unosHechos;
+    }
+
+    @Override
+    public List<Hecho> aplicarMayoriaSimple(String unHandle, List<Hecho> unosHechos) {
+        return unosHechos;
+    }
+
+    @Override
+    public List<Hecho> aplicarAbsoluto(String unHandle, List<Hecho> unosHechos) {
+        return unosHechos;
+    }
 }
+
