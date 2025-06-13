@@ -40,6 +40,7 @@ public class FuenteDinamica implements FuenteDeHechos {
                                 hechoResponeIndice.getDescripcion(),
                                 hechoResponeIndice.getCategoria(),
                                 hechoResponeIndice.getFechaAcontecimiento(),
+                                hechoResponeIndice.getFechaDeCargaDelHecho(),
                                 hechoResponeIndice.getLatitud(),
                                 hechoResponeIndice.getLongitud(),
                                 null, // multimedia todavía no se mapea

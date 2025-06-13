@@ -32,19 +32,18 @@ public class Hecho {
     private Boolean fueEliminado = false;
 
 
-    public Hecho(Long unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
+    public Hecho(Long unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, LocalDateTime fechaDeCargaDelHecho, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
         // VARIABLES QUE LLEGAN DE INPUT
         this.idEnFuente = unIdEnFuente;
         this.titulo = unTitulo;
         this.descripcion = unaDescripcion;
         this.categoria = unaCategoria;
         this.fechaDeAcontecimiento = unaFechaDeAcontecimiento;
+        this.fechaDeCargaDelHecho = fechaDeCargaDelHecho;
         this.lugar = new Lugar(unaLatitud, unaLongitud);
         // this.multimedia =
         this.usuarioContribuyente = unUsuario;
 
-        // VARIABLES QUE INICIALIZO UNA VEZ QUE SE CREA EL HECHO
-        this.fechaDeCargaDelHecho = LocalDateTime.now();
         // ORIGEN LO SETEO SEGUN LA FUENTE
         this.solicitudesDeEliminacion = new ArrayList<>();
         this.etiquetas = new ArrayList<>();
