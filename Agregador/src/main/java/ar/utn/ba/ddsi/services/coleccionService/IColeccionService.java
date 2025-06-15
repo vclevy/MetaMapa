@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,6 +14,7 @@ public interface IColeccionService {
     public Coleccion findByHandle (String unHandle);
     public void crear(ColeccionInputDTO unaColeccionInputDTO);
     public void refrescarColecciones();
+    public List<Hecho> modoDeNavegacion(String unHandle, String unModoDeNavegacion, String unAlgoritmoConsenso);
     public List<Hecho> aplicarConsenso(String unHandle, List <Hecho> unosHechos, String algoritmoConsenso);
     public List<Hecho> aplicarMencionMultiple(String unHandle, List<Hecho> unosHechos);
     public List<Hecho> aplicarMayoriaSimple(String unHandle, List<Hecho> unosHechos);

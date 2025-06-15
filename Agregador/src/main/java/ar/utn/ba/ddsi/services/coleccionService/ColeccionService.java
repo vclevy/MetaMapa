@@ -5,12 +5,12 @@ import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -64,10 +64,25 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
-    @Override // TODO
-    public List<Hecho> aplicarConsenso(String unHandle, List<Hecho> unosHechos, String unAlgoritmoConsenso) {
+    @Override
+    public List<Hecho> modoDeNavegacion(String unHandle, String unModoDeNavegacion, String unAlgoritmoConsenso) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
 
+        if (coleccion == null) {
+            throw new IllegalArgumentException("Colección no encontrada: " + unHandle);
+        }
+
+        if (unModoDeNavegacion.equalsIgnoreCase("irrestricto")) {
+            return coleccion.getHechos();
+        } else if (unModoDeNavegacion.equalsIgnoreCase("curado")) {
+            return aplicarConsenso(unHandle, coleccion.getHechos(), unAlgoritmoConsenso);
+        } else {
+            throw new IllegalArgumentException("Modo de navegacion no existente: " + unModoDeNavegacion);
+        }
+    }
+
+    @Override // TODO
+    public List<Hecho> aplicarConsenso(String unHandle, List<Hecho> unosHechos, String unAlgoritmoConsenso) {
         switch (unAlgoritmoConsenso) {
             case "mencionMultiple":
                 return aplicarMencionMultiple(unHandle, unosHechos);
@@ -82,6 +97,7 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public List<Hecho> aplicarMencionMultiple(String unHandle, List<Hecho> unosHechos) {
+
         return unosHechos;
     }
 
