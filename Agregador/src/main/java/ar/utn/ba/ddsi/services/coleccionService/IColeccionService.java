@@ -15,8 +15,8 @@ public interface IColeccionService {
     public void crear(ColeccionInputDTO unaColeccionInputDTO);
     public void refrescarColecciones();
     public List<Hecho> modoDeNavegacion(String unHandle, String unModoDeNavegacion, String unAlgoritmoConsenso);
-    public List<Hecho> aplicarConsenso(String unHandle, List <Hecho> unosHechos, String algoritmoConsenso);
-    public List<Hecho> aplicarMencionMultiple(String unHandle, List<Hecho> unosHechos);
-    public List<Hecho> aplicarMayoriaSimple(String unHandle, List<Hecho> unosHechos);
-    public List<Hecho> aplicarAbsoluto(String unHandle, List<Hecho> unosHechos);
+    public List<Hecho> aplicarConsenso(String unHandle, String algoritmoConsenso);
+    public List<Hecho> aplicarMencionMultiple(String unHandle);
+    public List<Hecho> aplicarMayoriaSimple(String unHandle);
+    public List<Hecho> aplicarAbsoluto(String unHandle);
 }

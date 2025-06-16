@@ -3,14 +3,13 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

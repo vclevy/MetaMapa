@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,42 +74,115 @@ public class ColeccionService implements IColeccionService {
         }
 
         if (unModoDeNavegacion.equalsIgnoreCase("irrestricto")) {
-            return coleccion.getHechos();
+            return this.coleccionesRepository.findByHandle(unHandle).getHechos();
         } else if (unModoDeNavegacion.equalsIgnoreCase("curado")) {
-            return aplicarConsenso(unHandle, coleccion.getHechos(), unAlgoritmoConsenso);
+            return aplicarConsenso(unHandle, unAlgoritmoConsenso);
         } else {
             throw new IllegalArgumentException("Modo de navegacion no existente: " + unModoDeNavegacion);
         }
     }
 
     @Override // TODO
-    public List<Hecho> aplicarConsenso(String unHandle, List<Hecho> unosHechos, String unAlgoritmoConsenso) {
+    public List<Hecho> aplicarConsenso(String unHandle, String unAlgoritmoConsenso) {
         switch (unAlgoritmoConsenso) {
             case "mencionMultiple":
-                return aplicarMencionMultiple(unHandle, unosHechos);
+                return aplicarMencionMultiple(unHandle);
             case "mayoriaSimple":
-                return aplicarMayoriaSimple(unHandle, unosHechos);
+                return aplicarMayoriaSimple(unHandle);
             case "absoluto":
-                return aplicarAbsoluto(unHandle, unosHechos);
+                return aplicarAbsoluto(unHandle);
             default:
                 throw new IllegalArgumentException("Algoritmo de consenso no válido: " + unAlgoritmoConsenso);
         }
     }
 
     @Override
-    public List<Hecho> aplicarMencionMultiple(String unHandle, List<Hecho> unosHechos) {
+    public List<Hecho> aplicarMencionMultiple(String unHandle) {
+        List<FuenteDeHechos> fuentes = coleccionesRepository.findByHandle(unHandle).getFuentesDeHechos();
 
-        return unosHechos;
+        Map<Hecho, List<FuenteDeHechos>> mapaHechos = new HashMap<>();
+
+        for (FuenteDeHechos fuente : fuentes) {
+            List<Hecho> hechos = fuente.obtenerHechos();
+
+            for (Hecho hecho : hechos) {
+                mapaHechos
+                        .computeIfAbsent(hecho, unHecho -> new ArrayList<>()) // SI EL HECHO YA ESTA EN EL MAPA, NO HACE NADA, SI NO EXISTE, HACE UN ARRAY ASOCIADO AL HECHO
+                        .add(fuente); // AGREGA A LA FUENTE EL ARRAY ASOCIADO
+            }
+        }
+
+        List<Hecho> hechosConsensuados = new ArrayList<>();
+
+        for (Map.Entry<Hecho, List<FuenteDeHechos>> entrada : mapaHechos.entrySet()) {
+            Hecho hecho = entrada.getKey();
+            List<FuenteDeHechos> fuentesQueLoMencionan = entrada.getValue();
+
+            if (fuentesQueLoMencionan.size() >= 2) {
+
+                boolean existeConflicto = fuentes.stream()
+                        .flatMap(unaFuente -> unaFuente.obtenerHechos().stream())
+                        .anyMatch(unHecho ->
+                                unHecho.getTitulo().equals(hecho.getTitulo()) && !unHecho.equals(hecho)
+                        ); // SI EXISTE UN HECHO CON EL MISMO TITULO Y NO ES IGUAL AL HECHO QUE ESTOY COMPARANDO, HAY CONFLICTO
+
+                if (!existeConflicto) {
+                    hechosConsensuados.add(hecho);
+                }
+            }
+        }
+
+        return hechosConsensuados;
     }
 
     @Override
-    public List<Hecho> aplicarMayoriaSimple(String unHandle, List<Hecho> unosHechos) {
-        return unosHechos;
+    public List<Hecho> aplicarMayoriaSimple(String unHandle) {
+        List<FuenteDeHechos> fuentes = coleccionesRepository.findByHandle(unHandle).getFuentesDeHechos();
+
+        Map<Hecho, Integer> conteoHechos = new HashMap<>();
+
+        for (FuenteDeHechos fuente : fuentes) {
+            for (Hecho hecho : fuente.obtenerHechos()) {
+                conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
+            }
+        }
+
+        List<Hecho> hechosConsensuados = new ArrayList<>();
+
+        for (Map.Entry<Hecho, Integer> entrada : conteoHechos.entrySet()) {
+            Hecho hecho = entrada.getKey();
+            int cantidadMenciones = entrada.getValue();
+
+            if (cantidadMenciones >= Math.ceil(fuentes.size() / 2.0)) {
+                hechosConsensuados.add(hecho);
+            }
+        }
+
+        return hechosConsensuados;
     }
 
     @Override
-    public List<Hecho> aplicarAbsoluto(String unHandle, List<Hecho> unosHechos) {
-        return unosHechos;
+    public List<Hecho> aplicarAbsoluto(String unHandle) {
+        List<FuenteDeHechos> fuentes = coleccionesRepository.findByHandle(unHandle).getFuentesDeHechos();
+
+        Map<Hecho, Integer> conteoHechos = new HashMap<>();
+
+        for (FuenteDeHechos fuente : fuentes) {
+            for (Hecho hecho : fuente.obtenerHechos()) {
+                conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
+            }
+        }
+
+        List<Hecho> hechosConsensuados = new ArrayList<>();
+
+        for (Map.Entry<Hecho, Integer> entrada : conteoHechos.entrySet()) {
+            if (entrada.getValue() == fuentes.size()) {
+                hechosConsensuados.add(entrada.getKey());
+            }
+        }
+
+        return hechosConsensuados;
     }
+
 }
 
