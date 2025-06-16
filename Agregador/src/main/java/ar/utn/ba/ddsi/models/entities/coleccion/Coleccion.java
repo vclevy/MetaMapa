@@ -20,6 +20,7 @@ public class Coleccion {
     private List<Hecho> hechos;
     private List<FuenteDeHechos> fuentesDeHechos;
     private List<Criterio> criterioDePertenencia;
+    private IAlgoritmo algoritmoDeConsenso;
 
     public Coleccion (String titulo, String descripcion) {
         this.titulo = titulo;
