@@ -67,4 +67,13 @@ public class MetamapaAdapter implements IMetamapaAdapter {
         dto.setJustificacionDeEliminacion(justificacion);
         return connector.enviarSolicitudEliminacion(dto);
     }
+
+    @Override
+    public List<Hecho> obtenerHechosDeColeccionConModo(String identificador, String modoNavegacion) {
+        List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccionConModo(identificador, modoNavegacion);
+        return externos.stream()
+                .map(hechoAdapter::adaptar)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -10,5 +10,7 @@ public interface IMetamapaAdapter {
     List<Coleccion> obtenerColecciones();
     List<Hecho> obtenerHechosDeColeccion(String identificador);
     boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
+    List<Hecho> obtenerHechosDeColeccionConModo(String idColeccion, String modoNavegacion);
+
 }
 

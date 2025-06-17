@@ -48,4 +48,14 @@ public class MetaMapaServices implements IMetamapaServices {
     public boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion) {
         return metamapaAdapter.enviarSolicitudEliminacion(unHecho, justificacion);
     }
+
+    @Override
+    public List<Hecho> navegarHechosDeColeccionConModo(String idColeccion, String modoNavegacion) {
+        return metamapaAdapter.obtenerHechosDeColeccionConModo(idColeccion, modoNavegacion);
+    }
+}
+
+
+
+
 }

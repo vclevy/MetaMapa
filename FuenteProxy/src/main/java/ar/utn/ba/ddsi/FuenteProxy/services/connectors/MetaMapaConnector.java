@@ -95,4 +95,26 @@ public class MetaMapaConnector {
             return false;
         }
     }
+
+    public List<HechoProxyDTO> obtenerHechosDeColeccionConModo(String identificador, String modoNavegacion) {
+        try {
+            HechoRespuesta respuesta = webClient.get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/colecciones/" + identificador + "/hechos")
+                            .queryParam("modo", modoNavegacion)
+                            .build()
+                    )
+                    .retrieve()
+                    .bodyToMono(HechoRespuesta.class)
+                    .block();
+
+            return (respuesta != null && respuesta.getData() != null)
+                    ? respuesta.getData()
+                    : Collections.emptyList();
+
+        } catch (Exception e) {
+            System.err.println("Error al obtener hechos de colección con modo: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 }

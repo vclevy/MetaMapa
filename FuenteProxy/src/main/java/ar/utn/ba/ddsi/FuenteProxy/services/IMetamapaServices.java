@@ -11,4 +11,5 @@ public interface IMetamapaServices {
     List<Coleccion> obtenerColecciones();
     List<Hecho> obtenerHechosDeColeccionConFiltro(String identificador, List<IFiltroHecho> filtros);
     boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion);
+    List<Hecho> navegarHechosDeColeccionConModo(String idColeccion, String modoNavegacion);
 }
