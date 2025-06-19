@@ -12,5 +12,4 @@ import java.util.List;
 public class ColeccionInputDTO {
     private String titulo;
     private String descripcion;
-    private List<HechoInputDTO> hechosInputDtos;
 }
