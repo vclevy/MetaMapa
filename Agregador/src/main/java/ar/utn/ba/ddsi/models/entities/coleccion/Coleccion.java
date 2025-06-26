@@ -22,10 +22,11 @@ public class Coleccion {
     private List<Criterio> criterioDePertenencia;
     private IAlgoritmo algoritmoDeConsenso;
 
-    public Coleccion (String titulo, String descripcion) {
+    public Coleccion (String titulo, String descripcion,IAlgoritmo algoritmoDeConsenso) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
+        this.algoritmoDeConsenso=algoritmoDeConsenso;
     }
 
     public boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {

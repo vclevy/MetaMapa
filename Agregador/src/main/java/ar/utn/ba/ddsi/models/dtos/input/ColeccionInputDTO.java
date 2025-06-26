@@ -12,4 +12,6 @@ import java.util.List;
 public class ColeccionInputDTO {
     private String titulo;
     private String descripcion;
+    private String algoritmo;
+    private String modoDeNavegacion;
 }

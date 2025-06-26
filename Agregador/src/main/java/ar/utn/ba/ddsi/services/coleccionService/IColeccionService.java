@@ -13,7 +13,8 @@ import java.util.UUID;
 public interface IColeccionService {
     public void delete(String unHandle);
     public Coleccion findByHandle (String unHandle);
-    public void crear(ColeccionInputDTO unaColeccionInputDTO, String unModoDeNavegacion, IAlgoritmo unAlgoritmo);
+    public void crear(ColeccionInputDTO unaColeccionInputDTO);
     public void refrescarColecciones();
     public void modoDeNavegacion(Coleccion unaColeccion, String unModoDeNavegacion, IAlgoritmo unAlgoritmoDeConsenso);
+    public List<Coleccion> findAll();
 }

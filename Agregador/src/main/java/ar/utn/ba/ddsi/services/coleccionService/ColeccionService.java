@@ -10,6 +10,7 @@ import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
 
 import java.util.*;
 
@@ -17,9 +18,13 @@ import java.util.*;
 public class ColeccionService implements IColeccionService {
     @Autowired
     private IColeccionesRepository coleccionesRepository;
-
+    private final AlgoritmoFactory algoritmoFactory;
     @Autowired
     private IHechoService hechoService;
+
+    public ColeccionService(AlgoritmoFactory algoritmoFactory) {
+        this.algoritmoFactory = algoritmoFactory;
+    }
 
     @Override
     public void delete(String unHandle) {
@@ -30,6 +35,11 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
+    public List<Coleccion> findAll() {
+        return this.coleccionesRepository.findAll();
+    }
+
+    @Override
     public Coleccion findByHandle(String unHandle) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
 
@@ -37,13 +47,14 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void crear(ColeccionInputDTO unaColeccionInputDTO, String unModoDeNavegacion, IAlgoritmo unAlgoritmo) {
+    public void crear(ColeccionInputDTO unaColeccionInputDTO) {
+        IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccionInputDTO.getAlgoritmo());
         var coleccion = new Coleccion(
                 unaColeccionInputDTO.getTitulo(),
-                unaColeccionInputDTO.getDescripcion()
+                unaColeccionInputDTO.getDescripcion(),
+                algoritmo
         );
-
-        this.modoDeNavegacion(coleccion, unModoDeNavegacion, unAlgoritmo);
+    this.modoDeNavegacion(coleccion, unaColeccionInputDTO.getModoDeNavegacion(), algoritmo);
     }
 
     @Override
