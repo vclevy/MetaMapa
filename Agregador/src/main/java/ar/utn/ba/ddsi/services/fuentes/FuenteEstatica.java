@@ -10,6 +10,7 @@ import java.util.List;
 
 public class FuenteEstatica implements FuenteDeHechos {
     private final WebClient webClient;
+    private Long id;
 
     public FuenteEstatica(String baseUrl, WebClient webClient) {
         this.webClient = WebClient.builder()

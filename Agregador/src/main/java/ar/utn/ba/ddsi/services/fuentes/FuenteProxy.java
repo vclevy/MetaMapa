@@ -20,6 +20,7 @@ public class FuenteProxy implements FuenteDeHechos {
     private final String urlHechos;
     private final String pathUrl;
     private final WebClient webClient;
+    private Long id;
 
     public FuenteProxy(String urlHechos, @Value("${fuente-proxy-url}") String baseUrl, @Value("${fuente-proxy-path}") String pathUrl) {
         this.urlHechos = urlHechos;

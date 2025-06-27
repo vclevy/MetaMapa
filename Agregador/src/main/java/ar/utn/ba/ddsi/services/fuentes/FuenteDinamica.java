@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class FuenteDinamica implements FuenteDeHechos {
     private final WebClient webClient;
+    private Long id;
 
     public FuenteDinamica(String baseUrl) {
         this.webClient = WebClient.builder()

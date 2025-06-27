@@ -1,6 +1,7 @@
 package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
@@ -17,4 +18,5 @@ public interface IColeccionService {
     public void refrescarColecciones();
     public void modoDeNavegacion(Coleccion unaColeccion, String unModoDeNavegacion, IAlgoritmo unAlgoritmoDeConsenso);
     public List<Coleccion> findAll();
+    public void modificarAtributo(String unHandle, ColeccionPatchDTO patch);
 }

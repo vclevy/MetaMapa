@@ -1,6 +1,7 @@
 package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
@@ -87,6 +88,18 @@ public class ColeccionService implements IColeccionService {
 
         } else {
             throw new IllegalArgumentException("Modo de navegacion no existente: " + unModoDeNavegacion);
+        }
+    }
+
+    @Override
+    public void modificarAtributo(String unHandle, ColeccionPatchDTO patch) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+
+        switch (patch.getCampo().toLowerCase()) {
+            case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
+            case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
+            case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoValor()));
+            default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
         }
     }
 }

@@ -1,6 +1,7 @@
 package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
@@ -45,7 +46,15 @@ public class ColeccionController {
         return ResponseEntity.ok(coleccionService.findAll());
     }
 
-    //TODO: Implementar el endpint para modificar colecciones
+    @PatchMapping("/{handle}")
+    public ResponseEntity<Void> modificarAtributo(@PathVariable String unHandle, @RequestBody ColeccionPatchDTO patchDTO) {
+        coleccionService.modificarAtributo(unHandle, patchDTO);
+        return ResponseEntity.noContent().build();
+    }
 
-
+    @PatchMapping("/{handle}")
+    public ResponseEntity<Void> modificarFuentes(@PathVariable String unHandle, @RequestBody ColeccionPatchDTO patchDTO) {
+        coleccionService.modificarAtributo(unHandle, patchDTO);
+        return ResponseEntity.noContent().build();
+    }
 }
