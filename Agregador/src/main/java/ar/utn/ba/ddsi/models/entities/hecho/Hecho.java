@@ -19,34 +19,16 @@ public class Hecho {
     private String descripcion;
     private Categoria categoria;
     private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeCargaDelHecho;
     private Lugar lugar;
     private List<Multimedia> multimedia;
     private Usuario usuarioContribuyente;
+    private List<Etiqueta> etiquetas;
+    private List<Solicitud> solicitudesDeEliminacion;
+
 
     private Long idAgregador;
-    private LocalDateTime fechaDeCargaDelHecho;
     private OrigenDelHecho origen;
-    private List<Solicitud> solicitudesDeEliminacion;
     private Boolean esAnonimo = true;
-    private List<Etiqueta> etiquetas;
     private Boolean fueEliminado = false;
-
-
-    public Hecho(Long unIdEnFuente, String unTitulo, String unaDescripcion, Categoria unaCategoria, LocalDate unaFechaDeAcontecimiento, Double unaLatitud, Double unaLongitud, Multimedia unaMultimedia, Usuario unUsuario) {
-        // VARIABLES QUE LLEGAN DE INPUT
-        this.idEnFuente = unIdEnFuente;
-        this.titulo = unTitulo;
-        this.descripcion = unaDescripcion;
-        this.categoria = unaCategoria;
-        this.fechaDeAcontecimiento = unaFechaDeAcontecimiento;
-        this.lugar = new Lugar(unaLatitud, unaLongitud);
-        // this.multimedia =
-        this.usuarioContribuyente = unUsuario;
-
-        // VARIABLES QUE INICIALIZO UNA VEZ QUE SE CREA EL HECHO
-        this.fechaDeCargaDelHecho = LocalDateTime.now();
-        // ORIGEN LO SETEO SEGUN LA FUENTE
-        this.solicitudesDeEliminacion = new ArrayList<>();
-        this.etiquetas = new ArrayList<>();
-    }
 }

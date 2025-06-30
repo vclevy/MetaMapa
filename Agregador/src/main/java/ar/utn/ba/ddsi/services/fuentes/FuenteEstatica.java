@@ -10,6 +10,7 @@ import java.util.List;
 
 public class FuenteEstatica implements FuenteDeHechos {
     private final WebClient webClient;
+    private Long id;
 
     public FuenteEstatica(String baseUrl, WebClient webClient) {
         this.webClient = WebClient.builder()
@@ -33,6 +34,7 @@ public class FuenteEstatica implements FuenteDeHechos {
                                 hechoResponeIndice.getDescripcion(),
                                 hechoResponeIndice.getCategoria(),
                                 hechoResponeIndice.getFechaAcontecimiento(),
+                                hechoResponeIndice.getFechaDeCargaDelHecho(),
                                 hechoResponeIndice.getLatitud(),
                                 hechoResponeIndice.getLongitud(),
                                 null, // multimedia todavía no se mapea

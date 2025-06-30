@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class FuenteDinamica implements FuenteDeHechos {
     private final WebClient webClient;
+    private Long id;
 
     public FuenteDinamica(String baseUrl) {
         this.webClient = WebClient.builder()
@@ -29,23 +31,25 @@ public class FuenteDinamica implements FuenteDeHechos {
         return webClient.get()
                 .uri("/hechos")
                 .retrieve()
-                .bodyToFlux(HechoInputDTO.class)
+                .bodyToFlux(HechoInputDinamicaDTO.class)
                 .collectList()
                 .map(unosHechosResponse -> {
                     List<Hecho> hechos = new ArrayList<>();
-                    for (HechoInputDTO hechoResponeIndice : unosHechosResponse) {
-                        Hecho unHecho = new Hecho(
-                                hechoResponeIndice.getIdEnFuente(),
-                                hechoResponeIndice.getTitulo(),
-                                hechoResponeIndice.getDescripcion(),
-                                hechoResponeIndice.getCategoria(),
-                                hechoResponeIndice.getFechaAcontecimiento(),
-                                hechoResponeIndice.getLatitud(),
-                                hechoResponeIndice.getLongitud(),
-                                null, // multimedia todavía no se mapea
-                                hechoResponeIndice.getUsuario()
-                        );
+                    for (HechoInputDinamicaDTO hechoResponeIndice : unosHechosResponse) {
+                        Hecho unHecho = new Hecho();
+                        unHecho.setIdEnFuente(Integer.toUnsignedLong(hechoResponeIndice.getIdEnFuente()));
+                        unHecho.setTitulo(hechoResponeIndice.getTitulo());
+                        unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
+                        unHecho.setCategoria(hechoResponeIndice.getCategoria());
+                        unHecho.setFechaDeAcontecimiento(hechoResponeIndice.getFechaDeAcontecimiento());
+                        unHecho.setFechaDeCargaDelHecho(hechoResponeIndice.getFechaDeCarga());
+                        unHecho.getLugar().setLatitud(hechoResponeIndice.getLugar().getLatitud());
+                        unHecho.getLugar().setLongitud(hechoResponeIndice.getLugar().getLongitud());
+                        unHecho.setUsuarioContribuyente(hechoResponeIndice.getContribuyente());
+                        unHecho.setEtiquetas(hechoResponeIndice.getEtiquetas());
+                        unHecho.setSolicitudesDeEliminacion(hechoResponeIndice.getSolicitudesDeEliminacion());
                         unHecho.setOrigen(OrigenDelHecho.FUENTEDINAMICA);
+
                         hechos.add(unHecho);
                     }
                     return hechos;
