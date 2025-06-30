@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Solicitud {
     private Long id;
     private String justificacionDeEliminacion;
-    private Hecho hecho;
+    private Long idHecho;
     private EstadoDeSolicitudDeEliminacion estado;
     private LocalDateTime fechaDeCargaDeSolicitud;
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
@@ -24,18 +24,12 @@ public class Solicitud {
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
     private DetectorDeSpam detectorDeSpam;
 
-    public Solicitud (String unaJustificacion, Hecho unHecho, Usuario unUsuario) {
+    public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
-        this.hecho = unHecho;
+        this.idHecho = idHecho;
         this.visitanteQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
     }
 
-    public void actualizarHistorialDe(Solicitud unaSolicitud, Usuario usuarioModificador) {
-        HistorialSolicitud historialSolicitud = new HistorialSolicitud(
-                unaSolicitud.getEstado(),
-                usuarioModificador
-        );
-        unaSolicitud.getHistorialSolicitud().add(historialSolicitud);
-    }
+
 }

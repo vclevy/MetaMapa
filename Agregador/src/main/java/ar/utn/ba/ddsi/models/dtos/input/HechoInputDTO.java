@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -19,6 +20,7 @@ public class HechoInputDTO {
     private double longitud;
     private double latitud;
     private LocalDate fechaAcontecimiento;
+    private LocalDateTime fechaDeCargaDelHecho;
     private List<Multimedia> multimedia;
     private Usuario usuario;
 }

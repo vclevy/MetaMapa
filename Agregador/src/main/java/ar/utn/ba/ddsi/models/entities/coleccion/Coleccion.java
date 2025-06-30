@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +20,13 @@ public class Coleccion {
     private List<Hecho> hechos;
     private List<FuenteDeHechos> fuentesDeHechos;
     private List<Criterio> criterioDePertenencia;
+    private IAlgoritmo algoritmoDeConsenso;
 
-    public Coleccion (String titulo, String descripcion) {
+    public Coleccion (String titulo, String descripcion,IAlgoritmo algoritmoDeConsenso) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
+        this.algoritmoDeConsenso=algoritmoDeConsenso;
     }
 
     public boolean cumpleCriterios(Hecho hecho, List<Criterio> criterios) {
@@ -43,4 +46,5 @@ public class Coleccion {
                 .stream()
                 .anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
+
 }

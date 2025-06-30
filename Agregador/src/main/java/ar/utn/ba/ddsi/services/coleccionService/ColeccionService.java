@@ -1,23 +1,31 @@
 package ar.utn.ba.ddsi.services.coleccionService;
 
 import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ColeccionService implements IColeccionService {
     @Autowired
     private IColeccionesRepository coleccionesRepository;
-
+    private final AlgoritmoFactory algoritmoFactory;
     @Autowired
     private IHechoService hechoService;
+
+    public ColeccionService(AlgoritmoFactory algoritmoFactory) {
+        this.algoritmoFactory = algoritmoFactory;
+    }
 
     @Override
     public void delete(String unHandle) {
@@ -25,6 +33,11 @@ public class ColeccionService implements IColeccionService {
         if (coleccion != null) {
             this.coleccionesRepository.delete(unHandle);
         }
+    }
+
+    @Override
+    public List<Coleccion> findAll() {
+        return this.coleccionesRepository.findAll();
     }
 
     @Override
@@ -36,12 +49,13 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public void crear(ColeccionInputDTO unaColeccionInputDTO) {
+        IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccionInputDTO.getAlgoritmo());
         var coleccion = new Coleccion(
                 unaColeccionInputDTO.getTitulo(),
-                unaColeccionInputDTO.getDescripcion()
+                unaColeccionInputDTO.getDescripcion(),
+                algoritmo
         );
-
-        this.coleccionesRepository.save(coleccion);
+    this.modoDeNavegacion(coleccion, unaColeccionInputDTO.getModoDeNavegacion(), algoritmo);
     }
 
     @Override
@@ -62,4 +76,31 @@ public class ColeccionService implements IColeccionService {
                     });
         }
     }
+
+    @Override
+    public void modoDeNavegacion(Coleccion unaColeccion, String unModoDeNavegacion, IAlgoritmo unAlgoritmoConsenso) {
+        if (unModoDeNavegacion.equalsIgnoreCase("irrestricto")) {
+            this.coleccionesRepository.save(unaColeccion);
+
+        } else if (unModoDeNavegacion.equalsIgnoreCase("curado")) {
+            Coleccion coleccionConAlgoritmoAplicado = unAlgoritmoConsenso.aplicarConsenso(unaColeccion);
+            this.coleccionesRepository.save(coleccionConAlgoritmoAplicado);
+
+        } else {
+            throw new IllegalArgumentException("Modo de navegacion no existente: " + unModoDeNavegacion);
+        }
+    }
+
+    @Override
+    public void modificarAtributo(String unHandle, ColeccionPatchDTO patch) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+
+        switch (patch.getCampo().toLowerCase()) {
+            case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
+            case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
+            case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoValor()));
+            default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
+        }
+    }
 }
+
