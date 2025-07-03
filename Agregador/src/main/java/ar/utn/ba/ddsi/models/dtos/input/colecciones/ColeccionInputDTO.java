@@ -1,11 +1,7 @@
-package ar.utn.ba.ddsi.models.dtos.input;
+package ar.utn.ba.ddsi.models.dtos.input.colecciones;
 
-import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
-import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

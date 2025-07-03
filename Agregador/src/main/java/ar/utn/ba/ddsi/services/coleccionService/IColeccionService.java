@@ -1,15 +1,12 @@
 package ar.utn.ba.ddsi.services.coleccionService;
 
-import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
-import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
-import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
+import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
-import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface IColeccionService {
     public void delete(String unHandle);
@@ -19,4 +16,6 @@ public interface IColeccionService {
     public void modoDeNavegacion(Coleccion unaColeccion, String unModoDeNavegacion, IAlgoritmo unAlgoritmoDeConsenso);
     public List<Coleccion> findAll();
     public void modificarAtributo(String unHandle, ColeccionPatchDTO patch);
+    public void eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id);
+    public void agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
 }

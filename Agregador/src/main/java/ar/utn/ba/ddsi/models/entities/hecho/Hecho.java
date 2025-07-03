@@ -26,7 +26,6 @@ public class Hecho {
     private List<Etiqueta> etiquetas;
     private List<Solicitud> solicitudesDeEliminacion;
 
-
     private Long idAgregador;
     private OrigenDelHecho origen;
     private Boolean esAnonimo = true;

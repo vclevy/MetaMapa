@@ -3,8 +3,7 @@ package ar.utn.ba.ddsi.services.fuentes;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDinamicaDTO;
+import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;

@@ -1,17 +1,21 @@
 package ar.utn.ba.ddsi.services.coleccionService;
 
-import ar.utn.ba.ddsi.models.dtos.input.ColeccionInputDTO;
-import ar.utn.ba.ddsi.models.dtos.input.ColeccionPatchDTO;
+import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
+import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
-import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
+import ar.utn.ba.ddsi.services.fuentes.FuenteDinamica;
+import ar.utn.ba.ddsi.services.fuentes.FuenteEstatica;
+import ar.utn.ba.ddsi.services.fuentes.FuenteProxy;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.*;
 
@@ -19,9 +23,12 @@ import java.util.*;
 public class ColeccionService implements IColeccionService {
     @Autowired
     private IColeccionesRepository coleccionesRepository;
-    private final AlgoritmoFactory algoritmoFactory;
+
     @Autowired
     private IHechoService hechoService;
+
+    private final AlgoritmoFactory algoritmoFactory;
+
 
     public ColeccionService(AlgoritmoFactory algoritmoFactory) {
         this.algoritmoFactory = algoritmoFactory;
@@ -101,6 +108,25 @@ public class ColeccionService implements IColeccionService {
             case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoValor()));
             default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
         }
+    }
+
+    @Override
+    public void eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id) {
+        this.coleccionesRepository.findByHandle(unHandle).getFuentesDeHechos().removeIf(unId -> unId.equals(Id));
+    }
+
+    @Override
+    public void agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+
+        FuenteDeHechos nuevaFuente = switch (fuenteDTO.getTipo().toUpperCase()) {
+            case "DINAMICA" -> new FuenteDinamica(fuenteDTO.getUrlBase());
+            case "ESTATICA" -> new FuenteEstatica(fuenteDTO.getUrlBase());
+            case "PROXY" -> new FuenteProxy(fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
+            default -> null;
+        };
+
+        coleccion.getFuentesDeHechos().add(nuevaFuente);
     }
 }
 
