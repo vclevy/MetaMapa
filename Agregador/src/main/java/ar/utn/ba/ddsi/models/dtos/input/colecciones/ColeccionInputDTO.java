@@ -8,6 +8,6 @@ import lombok.Setter;
 public class ColeccionInputDTO {
     private String titulo;
     private String descripcion;
-    private String algoritmo;
+    private String algoritmo; // todo: convertirlo a un enum
     private String modoDeNavegacion;
 }

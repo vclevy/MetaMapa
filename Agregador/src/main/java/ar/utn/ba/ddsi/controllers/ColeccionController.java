@@ -22,12 +22,15 @@ public class ColeccionController {
         this.coleccionService = coleccionService;
     }
 
+    // todo: devolver coleccion creada
     @PostMapping
     public ResponseEntity<Void> crearColeccion(@RequestBody ColeccionInputDTO dto) {
         coleccionService.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
+    // todo: devolver algo para verificar que se borro ; devolver 500 si mal 200 si bien ; funcion que devuelve errores
     @DeleteMapping
     public ResponseEntity<Void> borrarColeccion(@RequestParam String handle) {
         coleccionService.delete(handle);
