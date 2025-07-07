@@ -12,6 +12,8 @@ import ar.utn.ba.ddsi.services.fuentes.FuenteDinamica;
 import ar.utn.ba.ddsi.services.fuentes.FuenteEstatica;
 import ar.utn.ba.ddsi.services.fuentes.FuenteProxy;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
+import ar.utn.ba.ddsi.services.modosDeNavegacion.IModoDeNavegacion;
+import ar.utn.ba.ddsi.services.modosDeNavegacion.ModoDeNavegacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
@@ -28,17 +30,22 @@ public class ColeccionService implements IColeccionService {
     private IHechoService hechoService;
 
     private final AlgoritmoFactory algoritmoFactory;
+    private final IModoDeNavegacion modoDeNavegacion;
 
 
-    public ColeccionService(AlgoritmoFactory algoritmoFactory) {
+    public ColeccionService(AlgoritmoFactory algoritmoFactory, IModoDeNavegacion modoDeNavegacion) {
         this.algoritmoFactory = algoritmoFactory;
+        this.modoDeNavegacion = modoDeNavegacion;
     }
 
     @Override
-    public void delete(String unHandle) {
+    public boolean delete(String unHandle) {
         var coleccion = this.coleccionesRepository.findByHandle(unHandle);
         if (coleccion != null) {
             this.coleccionesRepository.delete(unHandle);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -55,14 +62,16 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void crear(ColeccionInputDTO unaColeccionInputDTO) {
+    public Coleccion crear(ColeccionInputDTO unaColeccionInputDTO) {
         IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccionInputDTO.getAlgoritmo());
         var coleccion = new Coleccion(
                 unaColeccionInputDTO.getTitulo(),
                 unaColeccionInputDTO.getDescripcion(),
                 algoritmo
         );
-    this.modoDeNavegacion(coleccion, unaColeccionInputDTO.getModoDeNavegacion(), algoritmo);
+
+        this.coleccionesRepository.save(coleccion);
+        return coleccion;
     }
 
     @Override
@@ -85,27 +94,13 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void modoDeNavegacion(Coleccion unaColeccion, String unModoDeNavegacion, IAlgoritmo unAlgoritmoConsenso) {
-        if (unModoDeNavegacion.equalsIgnoreCase("irrestricto")) {
-            this.coleccionesRepository.save(unaColeccion);
-
-        } else if (unModoDeNavegacion.equalsIgnoreCase("curado")) {
-            Coleccion coleccionConAlgoritmoAplicado = unAlgoritmoConsenso.aplicarConsenso(unaColeccion);
-            this.coleccionesRepository.save(coleccionConAlgoritmoAplicado);
-
-        } else {
-            throw new IllegalArgumentException("Modo de navegacion no existente: " + unModoDeNavegacion);
-        }
-    }
-
-    @Override
     public void modificarAtributo(String unHandle, ColeccionPatchDTO patch) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
 
         switch (patch.getCampo().toLowerCase()) {
             case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
             case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
-            case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoValor()));
+            case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
             default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
         }
     }
@@ -127,6 +122,20 @@ public class ColeccionService implements IColeccionService {
         };
 
         coleccion.getFuentesDeHechos().add(nuevaFuente);
+    }
+
+    @Override
+    public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, ModoDeNavegacion unModoDeNavegacion) {
+        var coleccion = coleccionesRepository.findByHandle(unHandle);
+
+        if (coleccion == null) {
+            throw new NoSuchElementException("No se encontró la colección con handle: " + unHandle);
+        }
+
+        return switch (unModoDeNavegacion) {
+            case CURADO -> coleccion.getHechosConAlgotimoAplicado();
+            case IRRESTRICTO -> coleccion.getHechos();
+        };
     }
 }
 

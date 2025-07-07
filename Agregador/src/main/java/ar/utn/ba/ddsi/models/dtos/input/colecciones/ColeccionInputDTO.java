@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.dtos.input.colecciones;
 
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.AlgoritmoDeConsenso;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,5 @@ import lombok.Setter;
 public class ColeccionInputDTO {
     private String titulo;
     private String descripcion;
-    private String algoritmo; // todo: convertirlo a un enum
-    private String modoDeNavegacion;
+    private AlgoritmoDeConsenso algoritmo;
 }

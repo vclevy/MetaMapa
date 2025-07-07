@@ -7,11 +7,14 @@ import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteDeleteDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
+import ar.utn.ba.ddsi.services.modosDeNavegacion.ModoDeNavegacion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/coleccion")
@@ -22,28 +25,39 @@ public class ColeccionController {
         this.coleccionService = coleccionService;
     }
 
-    // todo: devolver coleccion creada
     @PostMapping
-    public ResponseEntity<Void> crearColeccion(@RequestBody ColeccionInputDTO dto) {
-        coleccionService.crear(dto);
+    public ResponseEntity<Coleccion> crearColeccion(@RequestBody ColeccionInputDTO dto) {
+        Coleccion unaColeccion = coleccionService.crear(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
-    // todo: devolver algo para verificar que se borro ; devolver 500 si mal 200 si bien ; funcion que devuelve errores
     @DeleteMapping
-    public ResponseEntity<Void> borrarColeccion(@RequestParam String handle) {
-        coleccionService.delete(handle);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<?> borrarColeccion(@RequestParam String handle) {
+        try {
+            boolean eliminada = coleccionService.delete(handle);
+
+            if (eliminada) {
+                return ResponseEntity.ok("Colección eliminada correctamente");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No se encontró ninguna colección con el handle: " + handle);
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al intentar eliminar la colección");
+        }
     }
 
     @GetMapping("/{handle}")
-    public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(@PathVariable String handle) {
-        var coleccion = coleccionService.findByHandle(handle);
-        if (coleccion == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(@PathVariable String handle, @RequestParam (defaultValue = "IRRESTRICTO") ModoDeNavegacion modoDeNavegacion) {
+        try {
+            List<Hecho> hechos = coleccionService.obtenerHechosDeColeccionSegunModoDeNavegacion(handle, modoDeNavegacion);
+            return ResponseEntity.ok(hechos);
         }
-        return ResponseEntity.ok(coleccion.getHechos());
+        catch (NoSuchElementException error) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
     }
 
     @GetMapping
@@ -51,13 +65,13 @@ public class ColeccionController {
         return ResponseEntity.ok(coleccionService.findAll());
     }
 
-    @PatchMapping("/{handle}")
+    @PatchMapping("/{handle}/atributo")
     public ResponseEntity<Void> modificarAtributo(@PathVariable String handle, @RequestBody ColeccionPatchDTO patchDTO) {
         coleccionService.modificarAtributo(handle, patchDTO);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{handle}")
+    @PatchMapping("/{handle}/fuentes")
     public ResponseEntity<Void> modificarFuentes(@PathVariable String handle, @RequestBody ColeccionPatchDTO patchDTO) {
         coleccionService.modificarAtributo(handle, patchDTO);
         return ResponseEntity.noContent().build();

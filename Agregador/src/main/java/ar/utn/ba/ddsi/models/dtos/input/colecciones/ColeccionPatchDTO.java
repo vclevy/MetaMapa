@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.dtos.input.colecciones;
 
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.AlgoritmoDeConsenso;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,4 +9,5 @@ import lombok.Setter;
 public class ColeccionPatchDTO {
     private String campo;
     private String nuevoValor;
+    private AlgoritmoDeConsenso nuevoAlgoritmoDeConsenso;
 }

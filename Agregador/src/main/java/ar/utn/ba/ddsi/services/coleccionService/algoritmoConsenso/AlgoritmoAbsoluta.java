@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class AlgoritmoAbsoluta implements IAlgoritmo {
     @Override
-    public Coleccion aplicarConsenso(Coleccion unaColeccion) {
+    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
         List<FuenteDeHechos> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, Integer> conteoHechos = new HashMap<>();
@@ -31,7 +31,7 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
         }
 
         unaColeccion.setHechos(hechosConsensuados);
-        return unaColeccion;
+        return unaColeccion.getHechos();
     }
 
 }

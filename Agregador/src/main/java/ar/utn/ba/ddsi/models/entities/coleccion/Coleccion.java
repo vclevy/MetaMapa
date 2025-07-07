@@ -21,6 +21,7 @@ public class Coleccion {
     private List<FuenteDeHechos> fuentesDeHechos;
     private List<Criterio> criterioDePertenencia;
     private IAlgoritmo algoritmoDeConsenso;
+    private List<Hecho> hechosConAlgotimoAplicado;
 
     public Coleccion (String titulo, String descripcion,IAlgoritmo algoritmoDeConsenso) {
         this.titulo = titulo;
@@ -47,4 +48,7 @@ public class Coleccion {
                 .anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
 
+    public void aplicarAlgoritmoDeConsenso() {
+        this.hechosConAlgotimoAplicado = this.algoritmoDeConsenso.aplicarConsenso(this);
+    }
 }
