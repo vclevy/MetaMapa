@@ -4,10 +4,11 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteDeleteDTO;
+import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
-import ar.utn.ba.ddsi.services.modosDeNavegacion.ModoDeNavegacion;
+import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +27,8 @@ public class ColeccionController {
     }
 
     @PostMapping
-    public ResponseEntity<Coleccion> crearColeccion(@RequestBody ColeccionInputDTO dto) {
-        Coleccion unaColeccion = coleccionService.crear(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ColeccionOutputDTO> crearColeccion(@RequestBody ColeccionInputDTO dto) {
+        return ResponseEntity.ok(coleccionService.crear(dto));
     }
 
     @DeleteMapping
@@ -50,7 +50,7 @@ public class ColeccionController {
     }
 
     @GetMapping("/{handle}")
-    public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(@PathVariable String handle, @RequestParam (defaultValue = "IRRESTRICTO") ModoDeNavegacion modoDeNavegacion) {
+    public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(@PathVariable String handle, @RequestParam (defaultValue = "IRRESTRICTO") String modoDeNavegacion) {
         try {
             List<Hecho> hechos = coleccionService.obtenerHechosDeColeccionSegunModoDeNavegacion(handle, modoDeNavegacion);
             return ResponseEntity.ok(hechos);
@@ -66,9 +66,8 @@ public class ColeccionController {
     }
 
     @PatchMapping("/{handle}/atributo")
-    public ResponseEntity<Void> modificarAtributo(@PathVariable String handle, @RequestBody ColeccionPatchDTO patchDTO) {
-        coleccionService.modificarAtributo(handle, patchDTO);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ColeccionOutputDTO> modificarAtributo(@PathVariable String handle, @RequestBody ColeccionPatchDTO patchDTO) {
+        return ResponseEntity.ok(this.coleccionService.modificarAtributo(handle, patchDTO));
     }
 
     @PatchMapping("/{handle}/fuentes")
@@ -78,14 +77,12 @@ public class ColeccionController {
     }
 
     @DeleteMapping("/{handle}/fuentes")
-    public ResponseEntity<Void> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
-        coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getId());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
+        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getId()));
     }
 
     @PostMapping("/{handle}/fuentes")
-    public ResponseEntity<Void> crearFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
-        this.coleccionService.agregarUnaFuenteDeUnaColeccion(handle, fuenteDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<ColeccionOutputDTO> crearFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
+        return ResponseEntity.ok(this.coleccionService.agregarUnaFuenteDeUnaColeccion(handle, fuenteDTO));
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FuenteEstatica implements FuenteDeHechos {
+public class FuenteEstatica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
 

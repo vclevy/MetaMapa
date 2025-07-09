@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
-public class FuenteDinamica implements FuenteDeHechos {
+public class FuenteDinamica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
 
