@@ -61,7 +61,7 @@ public class ColeccionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Coleccion>> obtenerColecciones() {
+    public ResponseEntity<List<ColeccionOutputDTO>> obtenerColecciones() {
         return ResponseEntity.ok(coleccionService.findAll());
     }
 
@@ -70,19 +70,13 @@ public class ColeccionController {
         return ResponseEntity.ok(this.coleccionService.modificarAtributo(handle, patchDTO));
     }
 
-    @PatchMapping("/{handle}/fuentes")
-    public ResponseEntity<Void> modificarFuentes(@PathVariable String handle, @RequestBody ColeccionPatchDTO patchDTO) {
-        coleccionService.modificarAtributo(handle, patchDTO);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/{handle}/fuentes")
+    @DeleteMapping("/{handle}/eliminateFuentes")
     public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
         return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getId()));
     }
 
-    @PostMapping("/{handle}/fuentes")
-    public ResponseEntity<ColeccionOutputDTO> crearFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
+    @PostMapping("/{handle}/addFuentes")
+    public ResponseEntity<ColeccionOutputDTO> agregarFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
         return ResponseEntity.ok(this.coleccionService.agregarUnaFuenteDeUnaColeccion(handle, fuenteDTO));
     }
 }

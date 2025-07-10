@@ -8,7 +8,7 @@ import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
-import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
+import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 import ar.utn.ba.ddsi.services.fuentes.FuenteDinamica;
 import ar.utn.ba.ddsi.services.fuentes.FuenteEstatica;
 import ar.utn.ba.ddsi.services.fuentes.FuenteProxy;
@@ -48,8 +48,14 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public List<Coleccion> findAll() {
-        return this.coleccionesRepository.findAll();
+    public List<ColeccionOutputDTO> findAll() {
+        List<ColeccionOutputDTO> coleccionOutputDTOS = new ArrayList<>();
+
+        for (Coleccion coleccionIndice : this.coleccionesRepository.findAll()) {
+            coleccionOutputDTOS.add(this.coleccionMapper.toDTO(coleccionIndice));
+        }
+
+        return coleccionOutputDTOS;
     }
 
     @Override
@@ -67,6 +73,7 @@ public class ColeccionService implements IColeccionService {
                 unaColeccionInputDTO.getDescripcion(),
                 algoritmo
         );
+        coleccion.aplicarAlgoritmoDeConsenso();
 
         this.coleccionesRepository.save(coleccion);
         return this.coleccionMapper.toDTO(coleccion);
@@ -116,7 +123,7 @@ public class ColeccionService implements IColeccionService {
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
 
-        FuenteDeHechos nuevaFuente = switch (fuenteDTO.getTipo().toUpperCase()) {
+        IFuenteDeHechos nuevaFuente = switch (fuenteDTO.getTipo().toUpperCase()) {
             case "DINAMICA" -> new FuenteDinamica(fuenteDTO.getUrlBase());
             case "ESTATICA" -> new FuenteEstatica(fuenteDTO.getUrlBase());
             case "PROXY" -> new FuenteProxy(fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
@@ -140,6 +147,15 @@ public class ColeccionService implements IColeccionService {
         }
         else {
             return coleccion.getHechos();
+        }
+    }
+
+    @Override
+    public void aplicarAlgoritmosAColecciones() {
+        List<Coleccion> colecciones = this.coleccionesRepository.findAll();
+
+        for(Coleccion coleccionIndice : colecciones) {
+            coleccionIndice.aplicarAlgoritmoDeConsenso();
         }
     }
 }

@@ -6,4 +6,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 
 public interface IFuenteDeHechos {
     List<Hecho> obtenerHechos();
+    Long getId();
+    TipoDeFuente getTipoDeFuente();
+    void setId(Long id);
 }

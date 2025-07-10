@@ -17,11 +17,27 @@ public class FuenteProxy implements IFuenteDeHechos {
     private final String pathUrl;
     private final WebClient webClient;
     private Long id;
+    private final TipoDeFuente tipoDeFuente = TipoDeFuente.PROXY;
 
     public FuenteProxy(String urlHechos, @Value("${fuente-proxy-url}") String baseUrl, @Value("${fuente-proxy-path}") String pathUrl) {
         this.urlHechos = urlHechos;
         this.pathUrl = pathUrl;
         this.webClient = WebClient.builder().baseUrl(baseUrl).build();
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public TipoDeFuente getTipoDeFuente() {
+        return tipoDeFuente;
     }
 
     @Override

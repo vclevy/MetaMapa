@@ -12,11 +12,27 @@ import java.util.List;
 public class FuenteEstatica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
+    private final TipoDeFuente tipoDeFuente = TipoDeFuente.ESTATICA;
 
     public FuenteEstatica(String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public TipoDeFuente getTipoDeFuente() {
+        return tipoDeFuente;
     }
 
     @Override

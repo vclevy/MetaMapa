@@ -14,9 +14,10 @@ public interface IColeccionService {
     public Coleccion findByHandle (String unHandle);
     public ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO);
     public void refrescarColecciones();
-    public List<Coleccion> findAll();
+    public List<ColeccionOutputDTO> findAll();
     public ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch);
     public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id);
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
+    public void aplicarAlgoritmosAColecciones();
 }
