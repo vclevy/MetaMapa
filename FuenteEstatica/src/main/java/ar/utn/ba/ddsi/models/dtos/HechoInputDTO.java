@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.models.dtos;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Getter

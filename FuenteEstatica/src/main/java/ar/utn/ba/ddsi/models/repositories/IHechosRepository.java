@@ -1,4 +1,5 @@
 package ar.utn.ba.ddsi.models.repositories;
+
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import org.springframework.stereotype.Repository;
 
