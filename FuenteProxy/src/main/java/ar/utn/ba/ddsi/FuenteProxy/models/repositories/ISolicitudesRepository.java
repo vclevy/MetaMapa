@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.repositories;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.SolicitudEliminacion;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.solicitudEliminacion.SolicitudEliminacion;
 
 import java.util.List;
 import java.util.UUID;

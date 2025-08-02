@@ -1,9 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.repositories.impl;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.SolicitudEliminacion;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.solicitudEliminacion.SolicitudEliminacion;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.ISolicitudesRepository;
-import jdk.jfr.Percentage;
 
 import java.util.List;
 import java.util.Map;

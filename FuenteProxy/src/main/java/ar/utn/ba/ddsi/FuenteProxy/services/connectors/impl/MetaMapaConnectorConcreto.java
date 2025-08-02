@@ -1,25 +1,23 @@
-package ar.utn.ba.ddsi.FuenteProxy.services.connectors;
+package ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.ColeccionRespuesta;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.HechoRespuesta;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
+import ar.utn.ba.ddsi.FuenteProxy.services.connectors.IMetaMapaConnector;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Component
-public class MetaMapaConnector {
+public class MetaMapaConnectorConcreto implements IMetaMapaConnector {
 
     private final WebClient webClient;
 
-    public MetaMapaConnector(WebClient.Builder builder, @Value("${instanciaMetamapa}") String baseUrl) {
+    public MetaMapaConnectorConcreto(WebClient.Builder builder, @Value("${instanciaMetamapa}") String baseUrl) {
         this.webClient = builder.baseUrl(baseUrl).build();
     }
 

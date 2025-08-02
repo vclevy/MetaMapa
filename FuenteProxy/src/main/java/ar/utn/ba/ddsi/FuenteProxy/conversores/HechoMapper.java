@@ -1,15 +1,13 @@
-package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
+package ar.utn.ba.ddsi.FuenteProxy.conversores;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IHechoAdapter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HechoAdapter implements IHechoAdapter {
+public class HechoMapper {
 
-    @Override
     public Hecho adaptar(HechoProxyDTO dto) {
         return new Hecho(
                 dto.getId(),

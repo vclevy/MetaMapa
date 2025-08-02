@@ -1,13 +1,13 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
 
+import ar.utn.ba.ddsi.FuenteProxy.conversores.HechoMapper;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
-import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IHechoAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IMetamapaAdapter;
-import ar.utn.ba.ddsi.FuenteProxy.services.connectors.MetaMapaConnector;
+import ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl.MetaMapaConnectorConcreto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Collections;
@@ -17,20 +17,20 @@ import java.util.stream.Collectors;
 @Component
 public class MetamapaAdapter implements IMetamapaAdapter {
 
-    private final MetaMapaConnector connector;
-    private final IHechoAdapter hechoAdapter;
+    private final MetaMapaConnectorConcreto connector;
+    private final HechoMapper hechoMapper;
 
     @Autowired
-    public MetamapaAdapter(MetaMapaConnector connector, IHechoAdapter hechoAdapter) {
+    public MetamapaAdapter(MetaMapaConnectorConcreto connector, HechoMapper hechoMapper) {
         this.connector = connector;
-        this.hechoAdapter = hechoAdapter;
+        this.hechoMapper = hechoMapper;
     }
 
     @Override
     public List<Hecho> obtenerHechos() {
         List<HechoProxyDTO> externos = connector.obtenerHechos();
         return externos.stream()
-                .map(hechoAdapter::adaptar)
+                .map(hechoMapper::adaptar)
                 .collect(Collectors.toList());
     }
 
@@ -43,7 +43,7 @@ public class MetamapaAdapter implements IMetamapaAdapter {
     private Coleccion convertirDTOaColeccion(ColeccionDTO dto) {
         Coleccion coleccion = new Coleccion(dto.getTitulo(), dto.getDescripcion());
         List<Hecho> hechos = dto.getHechosOutputDtos() != null
-                ? dto.getHechosOutputDtos().stream().map(hechoAdapter::adaptar).collect(Collectors.toList())
+                ? dto.getHechosOutputDtos().stream().map(hechoMapper::adaptar).collect(Collectors.toList())
                 : Collections.emptyList();
         coleccion.setHechos(hechos);
         coleccion.setCriterioDePertenencia(Collections.emptyList());
@@ -53,12 +53,10 @@ public class MetamapaAdapter implements IMetamapaAdapter {
     @Override
     public List<Hecho> obtenerHechosDeColeccion(String identificador) {
         List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccion(identificador);
-        List<Hecho> hechos = externos.stream()
-                .map(hechoAdapter::adaptar)
+        return externos.stream()
+                .map(hechoMapper::adaptar)
                 .collect(Collectors.toList());
-        return hechos;
     }
-
 
     @Override
     public boolean enviarSolicitudEliminacion(Hecho unHecho, String justificacion) {
@@ -72,8 +70,7 @@ public class MetamapaAdapter implements IMetamapaAdapter {
     public List<Hecho> obtenerHechosDeColeccionConModo(String identificador, String modoNavegacion) {
         List<HechoProxyDTO> externos = connector.obtenerHechosDeColeccionConModo(identificador, modoNavegacion);
         return externos.stream()
-                .map(hechoAdapter::adaptar)
+                .map(hechoMapper::adaptar)
                 .collect(Collectors.toList());
     }
-
 }

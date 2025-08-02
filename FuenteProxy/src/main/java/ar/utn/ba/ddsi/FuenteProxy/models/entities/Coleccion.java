@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.entities;
 
 import lombok.Data;
-
 import java.util.List;
 import java.util.UUID;
 

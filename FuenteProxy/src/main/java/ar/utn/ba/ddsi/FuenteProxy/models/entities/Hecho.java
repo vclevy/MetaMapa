@@ -3,8 +3,8 @@ package ar.utn.ba.ddsi.FuenteProxy.models.entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,4 +19,5 @@ public class Hecho {
     private LocalDateTime updatedAt;
     private double latitud;
     private double longitud;
+    private List<Multimedia> multimedia;
 }

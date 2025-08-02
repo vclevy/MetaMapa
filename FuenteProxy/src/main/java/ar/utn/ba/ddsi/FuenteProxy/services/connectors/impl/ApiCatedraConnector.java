@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteProxy.services.connectors;
+package ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.RespuestaAPICatedra;

@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
+package ar.utn.ba.ddsi.FuenteProxy.conversores;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.FiltroHechoDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class FiltroAdapter {
+public class FiltroMapper {
 
     public IFiltroHecho adaptar(FiltroHechoDTO dto) {
         try {
