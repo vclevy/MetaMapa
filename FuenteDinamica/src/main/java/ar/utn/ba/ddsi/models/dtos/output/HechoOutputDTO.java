@@ -6,18 +6,14 @@ import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
-import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Data
-
 @Getter
 @Setter
 public class HechoOutputDTO {
@@ -34,5 +30,4 @@ public class HechoOutputDTO {
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
     private Boolean esEditable;
-
 }

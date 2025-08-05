@@ -8,5 +8,5 @@ import java.util.Set;
 @Getter
 public class Usuario {
     private String nombre;
-    private Rol rol; //esto antes era un Set<Rol>
+    private Rol rol;
 }

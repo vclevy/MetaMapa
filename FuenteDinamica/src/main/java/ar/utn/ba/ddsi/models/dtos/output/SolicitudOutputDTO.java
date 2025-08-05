@@ -1,7 +1,6 @@
-package ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteDinamica.models.dtos.output;
+package ar.utn.ba.ddsi.models.dtos.output;
 
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.dtos.output.HistorialSolicitudOutputDTO;
-import ar.utn.ba.ddsi._tpa_ma_ma_grupo_4.FuenteEstatica.models.hecho.solicitudes.HistorialSolicitud;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.HistorialSolicitud;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,10 +12,10 @@ import java.util.List;
 public class SolicitudOutputDTO {
     private Integer id;
     private String justificacionDeEliminacion;
-    private Integer idHecho; // o el título si preferís
+    private Integer idHecho;
     private String estado;
     private LocalDateTime fechaSolicitud;
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
-    private String visitante; // puede ser nombre, email, etc.
-    private List<HistorialSolicitudOutputDTO> historialSolicitud;
+    private String visitante;
+    private List<HistorialSolicitud> historialSolicitud;
 }

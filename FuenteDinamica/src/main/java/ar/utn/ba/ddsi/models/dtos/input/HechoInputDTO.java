@@ -2,15 +2,13 @@ package ar.utn.ba.ddsi.models.dtos.input;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
-import ar.utn.ba.ddsi.models.entities.hecho.Multimedia;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.util.List;
-@Data
 
+@Data
 @Getter
 @Setter
 public class HechoInputDTO {

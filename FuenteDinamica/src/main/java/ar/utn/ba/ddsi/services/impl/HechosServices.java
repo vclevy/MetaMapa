@@ -10,7 +10,6 @@ import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,7 +75,6 @@ public class HechosServices implements IHechosServices {
         return hecho;
     }
 
-    @Override
     public void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos) {
         Hecho nuevoHecho = inputDTOAHecho(hecho);
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
@@ -108,8 +106,6 @@ public class HechosServices implements IHechosServices {
         repositorioDeHechos.save(nuevoHecho);
     }
 
-
-    @Override
     public void editarHecho(int id, HechoInputDTO hechoModificado) {
         Hecho hechoOriginal = repositorioDeHechos.findById(id);
         if (hechoOriginal == null) {
@@ -132,6 +128,7 @@ public class HechosServices implements IHechosServices {
         hechoOriginal.setMultimedia(hechoModificado.getMultimedia());
         repositorioDeHechos.save(hechoOriginal);
     }
+
     public void revisarHecho(int id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
         if (!admin.getRol().tenesPermiso(Permisos.REVISAR_HECHO)) {
             throw new RuntimeException("No tenés permiso para revisar hechos");
