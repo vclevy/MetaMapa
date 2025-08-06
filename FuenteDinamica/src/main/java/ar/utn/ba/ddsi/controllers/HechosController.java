@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @RestController
 @RequestMapping("/hechos")
 public class HechosController {
 
     @Autowired
     private IHechosServices hechosServices;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> crearHecho(
@@ -24,16 +28,15 @@ public class HechosController {
     ) {
         try {
             System.out.println("JSON recibido:");
-            System.out.println(hechoJson);  // 💥 Verificá que sea JSON válido
+            System.out.println(hechoJson);
 
-            ObjectMapper objectMapper = new ObjectMapper();
             HechoInputDTO hechoDTO = objectMapper.readValue(hechoJson, HechoInputDTO.class);
 
             hechosServices.subirHecho(hechoDTO, archivos);
             return ResponseEntity.status(HttpStatus.CREATED).build();
 
         } catch (Exception e) {
-            e.printStackTrace(); // 💥 Imprimí el error completo
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
