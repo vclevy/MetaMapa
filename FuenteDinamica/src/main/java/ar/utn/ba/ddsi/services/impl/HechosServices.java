@@ -5,10 +5,14 @@ import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.EstadoRevision;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.ModificacionHecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Revision;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -129,13 +133,37 @@ public class HechosServices implements IHechosServices {
             throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 
+        Hecho snapshot = clonarHecho(hechoOriginal);
+
+        ModificacionHecho modificacion = new ModificacionHecho(
+                LocalDateTime.now(),
+                hechoOriginal.getContribuyente(), // TODO : cómo sacaoms el user q edita??
+                snapshot
+        );
+
+        hechoOriginal.getHistorialDeModificaciones().add(modificacion);
+
         hechoOriginal.setTitulo(hechoModificado.getTitulo());
-        hechoOriginal.setDescripcion((hechoModificado.getDescripcion()));
+        hechoOriginal.setDescripcion(hechoModificado.getDescripcion());
         hechoOriginal.setFechaDeAcontecimiento(hechoModificado.getFechaDeAcontecimiento());
-        hechoOriginal.setLugar((hechoModificado.getLugar()));
+        hechoOriginal.setLugar(hechoModificado.getLugar());
         hechoOriginal.setEtiquetas(hechoModificado.getEtiquetas());
         hechoOriginal.setMultimedia(hechoModificado.getMultimedia());
+
         repositorioDeHechos.save(hechoOriginal);
+    }
+
+    public Hecho clonarHecho(Hecho original) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+            String json = mapper.writeValueAsString(original);
+            return mapper.readValue(json, Hecho.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Error al clonar el hecho", e);
+        }
     }
 
     public void revisarHecho(int id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
