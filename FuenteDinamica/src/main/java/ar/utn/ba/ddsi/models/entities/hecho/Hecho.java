@@ -4,10 +4,8 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

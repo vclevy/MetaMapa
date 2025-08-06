@@ -27,11 +27,7 @@ public class HechosController {
             @RequestPart(value = "archivos", required = false) MultipartFile[] archivos
     ) {
         try {
-            System.out.println("JSON recibido:");
-            System.out.println(hechoJson);
-
             HechoInputDTO hechoDTO = objectMapper.readValue(hechoJson, HechoInputDTO.class);
-
             hechosServices.subirHecho(hechoDTO, archivos);
             return ResponseEntity.status(HttpStatus.CREATED).build();
 
