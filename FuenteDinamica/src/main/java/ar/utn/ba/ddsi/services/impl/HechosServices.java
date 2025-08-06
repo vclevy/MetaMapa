@@ -10,6 +10,7 @@ import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,9 @@ import java.util.UUID;
 public class HechosServices implements IHechosServices {
     @Autowired
     private IHechosRepository repositorioDeHechos;
+
+    @Value("${hechos.upload.dir}")
+    private String uploadDir;
 
     private HechoOutputDTO hechoOutputDTO(Hecho hecho) {
         HechoOutputDTO hechoOutputDTO = new HechoOutputDTO();
@@ -78,32 +82,37 @@ public class HechosServices implements IHechosServices {
     public void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos) {
         Hecho nuevoHecho = inputDTOAHecho(hecho);
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
-        List<String> rutasMultimedia = new ArrayList<>();
 
-        if (archivos != null) {
-            for (MultipartFile archivo : archivos) {
-                if (!archivo.isEmpty()) {
-                    try {
-                        String nombreArchivo = UUID.randomUUID() + "_" + archivo.getOriginalFilename();
-                        Path destino = Paths.get("src/main/resources/static/images/" + nombreArchivo);
-                        Files.createDirectories(destino.getParent());
-                        Files.write(destino, archivo.getBytes());
-                        rutasMultimedia.add("/images/" + nombreArchivo); // URL relativa
-                    } catch (IOException e) {
-                        throw new RuntimeException("Error al guardar archivo multimedia", e);
-                    }
-                }
-            }
-        }
+        List<String> rutasMultimedia = guardarArchivos(archivos);
 
-        // Agregamos también lo que venga en el DTO, si hubiera
         if (hecho.getMultimedia() != null) {
             rutasMultimedia.addAll(hecho.getMultimedia());
         }
 
         nuevoHecho.setMultimedia(rutasMultimedia);
-        //nuevoHecho.setContribuyente(usuario);
         repositorioDeHechos.save(nuevoHecho);
+    }
+
+    private List<String> guardarArchivos(MultipartFile[] archivos) {
+        List<String> rutas = new ArrayList<>();
+
+        if (archivos == null) return rutas;
+
+        for (MultipartFile archivo : archivos) {
+            if (!archivo.isEmpty()) {
+                try {
+                    String nombreArchivo = UUID.randomUUID() + "_" + archivo.getOriginalFilename();
+                    Path destino = Paths.get(uploadDir).resolve(nombreArchivo);
+                    Files.createDirectories(destino.getParent());
+                    Files.write(destino, archivo.getBytes());
+                    rutas.add("/uploads/" + nombreArchivo); // Ruta accesible desde navegador
+                } catch (IOException e) {
+                    throw new RuntimeException("Error al guardar archivo multimedia", e);
+                }
+            }
+        }
+
+        return rutas;
     }
 
     public void editarHecho(int id, HechoInputDTO hechoModificado) {
