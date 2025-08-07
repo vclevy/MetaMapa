@@ -14,12 +14,14 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="FuenteEstatica" />
-        <module name="FuenteDinamica" />
-        <module name="Agregador" />
-        <module name="FuenteProxy" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Agregador" target="17" />
+      <module name="FuenteDinamica" target="17" />
+      <module name="FuenteEstatica" target="17" />
+      <module name="FuenteProxy" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -27,6 +29,7 @@
       <module name="FuenteDinamica" options="-parameters" />
       <module name="FuenteEstatica" options="-parameters" />
       <module name="FuenteProxy" options="-parameters" />
+      <module name="ejercicio" options="-parameters" />
       <module name="tp-multi-module" options="-parameters" />
     </option>
   </component>
