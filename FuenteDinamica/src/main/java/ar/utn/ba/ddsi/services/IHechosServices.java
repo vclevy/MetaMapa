@@ -8,5 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IHechosServices {
 
     public void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos);
-    public void editarHecho(int id, HechoInputDTO hechoModificado);
+    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario);
 }

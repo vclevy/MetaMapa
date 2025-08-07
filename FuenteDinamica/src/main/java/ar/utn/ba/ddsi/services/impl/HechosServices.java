@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -109,17 +110,61 @@ public class HechosServices implements IHechosServices {
                     Path destino = Paths.get(uploadDir).resolve(nombreArchivo);
                     Files.createDirectories(destino.getParent());
                     Files.write(destino, archivo.getBytes());
-                    rutas.add("/uploads/" + nombreArchivo); // Ruta accesible desde navegador
+                    rutas.add("/uploads/" + nombreArchivo);
                 } catch (IOException e) {
                     throw new RuntimeException("Error al guardar archivo multimedia", e);
                 }
             }
         }
-
         return rutas;
     }
 
-    public void editarHecho(int id, HechoInputDTO hechoModificado) {
+    private void compararYRegistrarCambios(Hecho hechoOriginal, HechoInputDTO modificado, Usuario editor) {
+        LocalDateTime ahora = LocalDateTime.now();
+
+        if (!Objects.equals(hechoOriginal.getTitulo(), modificado.getTitulo())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "titulo", modificado.getTitulo())
+            );
+            hechoOriginal.setTitulo(modificado.getTitulo());
+        }
+
+        if (!Objects.equals(hechoOriginal.getDescripcion(), modificado.getDescripcion())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "descripcion", modificado.getDescripcion())
+            );
+            hechoOriginal.setDescripcion(modificado.getDescripcion());
+        }
+
+        if (!Objects.equals(hechoOriginal.getFechaDeAcontecimiento(), modificado.getFechaDeAcontecimiento())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "fechaDeAcontecimiento", modificado.getFechaDeAcontecimiento().toString())
+            );
+            hechoOriginal.setFechaDeAcontecimiento(modificado.getFechaDeAcontecimiento());
+        }
+
+        if (!Objects.equals(hechoOriginal.getLugar(), modificado.getLugar())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "lugar", modificado.getLugar().toString())
+            );
+            hechoOriginal.setLugar(modificado.getLugar());
+        }
+
+        if (!Objects.equals(hechoOriginal.getEtiquetas(), modificado.getEtiquetas())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "etiquetas", modificado.getEtiquetas().toString())
+            );
+            hechoOriginal.setEtiquetas(modificado.getEtiquetas());
+        }
+
+        if (!Objects.equals(hechoOriginal.getMultimedia(), modificado.getMultimedia())) {
+            hechoOriginal.getHistorialDeModificaciones().add(
+                    new ModificacionHecho(ahora, editor, "multimedia", modificado.getMultimedia().toString())
+            );
+            hechoOriginal.setMultimedia(modificado.getMultimedia());
+        }
+    }
+    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario) {
         Hecho hechoOriginal = repositorioDeHechos.findById(id);
         if (hechoOriginal == null) {
             throw new RuntimeException("Hecho no encontrado");
@@ -133,37 +178,11 @@ public class HechosServices implements IHechosServices {
             throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 
-        Hecho snapshot = clonarHecho(hechoOriginal);
+        //TODO con springSecurity Usuario usuarioEditor = obtenerUsuarioActual(); // implementá esto según tu sistema
 
-        ModificacionHecho modificacion = new ModificacionHecho(
-                LocalDateTime.now(),
-                hechoOriginal.getContribuyente(), // TODO : cómo sacaoms el user q edita??
-                snapshot
-        );
-
-        hechoOriginal.getHistorialDeModificaciones().add(modificacion);
-
-        hechoOriginal.setTitulo(hechoModificado.getTitulo());
-        hechoOriginal.setDescripcion(hechoModificado.getDescripcion());
-        hechoOriginal.setFechaDeAcontecimiento(hechoModificado.getFechaDeAcontecimiento());
-        hechoOriginal.setLugar(hechoModificado.getLugar());
-        hechoOriginal.setEtiquetas(hechoModificado.getEtiquetas());
-        hechoOriginal.setMultimedia(hechoModificado.getMultimedia());
+        compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario); // el usuario probablemente no sea pasado como parametro
 
         repositorioDeHechos.save(hechoOriginal);
-    }
-
-    public Hecho clonarHecho(Hecho original) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.registerModule(new JavaTimeModule());
-            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-            String json = mapper.writeValueAsString(original);
-            return mapper.readValue(json, Hecho.class);
-        } catch (IOException e) {
-            throw new RuntimeException("Error al clonar el hecho", e);
-        }
     }
 
     public void revisarHecho(int id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {

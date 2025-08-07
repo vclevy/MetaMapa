@@ -14,6 +14,7 @@ public class ModificacionHecho {
 
     private LocalDateTime fecha;
     private Usuario editor; // nulleable
-    private Hecho hechoAnterior;
+    private String campoEditado;
+    private String nuevoValor;
 
 }
