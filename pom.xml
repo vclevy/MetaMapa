@@ -12,6 +12,7 @@
     <artifactId>tp-multi-module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>general</name>
+    <packaging>pom</packaging>
     <url/>
     <licenses>
         <license/>
@@ -36,7 +37,6 @@
         <module>FuenteDinamica</module>
         <module>FuenteEstatica</module>
         <module>FuenteProxy</module>
-
     </modules>
     <build>
         <plugins>
