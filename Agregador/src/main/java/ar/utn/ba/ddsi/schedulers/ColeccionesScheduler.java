@@ -16,6 +16,11 @@ public class ColeccionesScheduler {
 
     @Scheduled(cron = "0 0 * * * *")
     public void refrescar() {
-        coleccionService.refrescarColecciones();
+        this.coleccionService.refrescarColecciones();
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void aplicarAlgoritmos() {
+        this.coleccionService.aplicarAlgoritmosAColecciones();
     }
 }

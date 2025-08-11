@@ -3,8 +3,7 @@ package ar.utn.ba.ddsi.services.fuentes;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
-import ar.utn.ba.ddsi.models.dtos.input.HechoInputDinamicaDTO;
+import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
@@ -16,14 +15,30 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter
 @Setter
-public class FuenteDinamica implements FuenteDeHechos {
+public class FuenteDinamica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
+    private final TipoDeFuente tipoDeFuente = TipoDeFuente.DINAMICA;
 
     public FuenteDinamica(String baseUrl) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public TipoDeFuente getTipoDeFuente() {
+        return tipoDeFuente;
     }
 
     @Override
