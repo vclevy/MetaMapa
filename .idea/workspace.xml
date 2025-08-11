@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/ccs/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
     </list>
-    <list id="95b7fca1-37cd-4a72-bfc1-b1841c3436a9" name="Changes by Valentino" comment="">
-      <change beforePath="$PROJECT_DIR$/Justificaciones_Diseño_1era_Entrega.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/ccs/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" afterDir="false" />
-    </list>
+    <list id="95b7fca1-37cd-4a72-bfc1-b1841c3436a9" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,38 +44,6 @@
     &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
   }
 }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/css/estilos.css">
-      <ranges>
-        <range start1="0" end1="0" start2="0" end2="1" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="7" end1="9" start2="8" end2="9" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="11" end1="11" start2="11" end2="12" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="13" end1="13" start2="14" end2="15" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="16" end1="17" start2="18" end2="19" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="19" end1="19" start2="21" end2="22" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="20" end1="22" start2="23" end2="25" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="23" end1="23" start2="26" end2="35" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="25" end1="28" start2="37" end2="43" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="30" end1="32" start2="45" end2="49" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="34" end1="35" start2="51" end2="52" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="36" end1="37" start2="53" end2="54" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="38" end1="39" start2="55" end2="73" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="41" end1="43" start2="75" end2="80" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="45" end1="47" start2="82" end2="103" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="50" end1="50" start2="106" end2="123" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="51" end1="52" start2="124" end2="132" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="57" end1="58" start2="137" end2="138" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="62" end1="68" start2="142" end2="154" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="72" end1="74" start2="158" end2="173" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="76" end1="76" start2="175" end2="176" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="77" end1="79" start2="177" end2="191" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="81" end1="81" start2="193" end2="194" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="82" end1="84" start2="195" end2="197" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="85" end1="87" start2="198" end2="219" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="88" end1="88" start2="220" end2="230" changelist="95b7fca1-37cd-4a72-bfc1-b1841c3436a9" />
-      </ranges>
-    </file>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -93,27 +60,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ENTREGA__3",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/maquetadoUi/imgs",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ENTREGA__3&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/maquetadoUi/imgs&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4\maquetadoUi\imgs" />
@@ -194,7 +161,8 @@
       <workItem from="1748459520593" duration="303000" />
       <workItem from="1748897090666" duration="338000" />
       <workItem from="1749755831210" duration="277000" />
-      <workItem from="1754600425472" duration="4233000" />
+      <workItem from="1754600425472" duration="4468000" />
+      <workItem from="1754932231292" duration="1325000" />
     </task>
     <servers />
   </component>
