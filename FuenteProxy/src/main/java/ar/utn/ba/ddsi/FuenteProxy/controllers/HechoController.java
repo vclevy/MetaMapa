@@ -21,7 +21,7 @@ public class HechoController {
     @Autowired
     private FiltroMapper filtroAdapter;
 
-    @PostMapping("/hechos")
+    @GetMapping("/hechos")
     public List<Hecho> obtenerHechos(@RequestBody(required = false) List<FiltroHechoDTO> filtrosDto) {
         if (filtrosDto == null || filtrosDto.isEmpty()) {
             return proxyServices.obtenerHechosDeAPI();
