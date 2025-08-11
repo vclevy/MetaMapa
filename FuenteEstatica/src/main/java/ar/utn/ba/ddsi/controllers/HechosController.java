@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/obtenerHechos")
+@RequestMapping("/hechos")
 public class HechosController {
 
     private final IHechosServices hechosServices;

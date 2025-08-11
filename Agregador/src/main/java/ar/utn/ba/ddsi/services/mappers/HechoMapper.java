@@ -2,7 +2,9 @@ package ar.utn.ba.ddsi.services.mappers;
 
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HechoMapper {
     public HechoOutputDTO toDTO(Hecho hecho) {
         HechoOutputDTO dto = new HechoOutputDTO();

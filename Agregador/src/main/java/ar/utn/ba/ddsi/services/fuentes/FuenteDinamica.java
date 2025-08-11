@@ -12,7 +12,6 @@ import lombok.Setter;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.stereotype.Component;
 
-@Component
 @Getter
 @Setter
 public class FuenteDinamica implements IFuenteDeHechos {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import org.springframework.web.reactive.function.client.WebClient;
 
-@Component
 public class FuenteProxy implements IFuenteDeHechos {
     private final String urlHechos;
     private final String pathUrl;

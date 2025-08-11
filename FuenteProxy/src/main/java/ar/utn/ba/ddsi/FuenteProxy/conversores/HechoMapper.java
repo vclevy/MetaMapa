@@ -9,16 +9,17 @@ import org.springframework.stereotype.Component;
 public class HechoMapper {
 
     public Hecho adaptar(HechoProxyDTO dto) {
-        return new Hecho(
-                dto.getId(),
-                dto.getTitulo(),
-                dto.getDescripcion(),
-                new Categoria(dto.getCategoria()),
-                dto.getFechaHecho(),
-                dto.getCreatedAt(),
-                dto.getUpdatedAt(),
-                dto.getLatitud(),
-                dto.getLongitud()
-        );
+        Hecho hecho = new Hecho();
+        hecho.setId(dto.getId());
+        hecho.setTitulo(dto.getTitulo());
+        hecho.setDescripcion(dto.getDescripcion());
+        hecho.setCategoria(dto.getCategoria() != null ? new Categoria(dto.getCategoria()) : null);
+        hecho.setFechaHecho(dto.getFechaHecho());
+        hecho.setCreatedAt(dto.getCreatedAt());
+        hecho.setUpdatedAt(dto.getUpdatedAt());
+        hecho.setLatitud(dto.getLatitud());
+        hecho.setLongitud(dto.getLongitud());
+        return hecho;
     }
+
 }
