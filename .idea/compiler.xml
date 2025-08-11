@@ -37,7 +37,7 @@
       <module name="FuenteDinamica" options="-parameters" />
       <module name="FuenteEstatica" options="-parameters" />
       <module name="FuenteProxy" options="-parameters" />
-      <module name="tp-multi-module" options="-parameters" />
+      <module name="tp-multi-module" options="" />
     </option>
   </component>
 </project>

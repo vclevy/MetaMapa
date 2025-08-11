@@ -199,6 +199,14 @@ public class HechosServices implements IHechosServices {
         hecho.setRevision(nuevaRevision);
         repositorioDeHechos.save(hecho);
     }
+
+    public List<HechoOutputDTO> obtenerHechos() {
+        return repositorioDeHechos.findAll()
+                .stream()
+                .map(this::hechoOutputDTO)
+                .toList();
+    }
+
 }
 
 

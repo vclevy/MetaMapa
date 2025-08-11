@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
 @RequestMapping("/hechos")
 public class HechosController {
@@ -35,6 +34,11 @@ public class HechosController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> obtenerTodosLosHechos() {
+        return ResponseEntity.ok(hechosServices.obtenerHechos());
     }
 }
 
