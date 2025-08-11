@@ -2,7 +2,7 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
+import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class AlgoritmoAbsoluta implements IAlgoritmo {
     @Override
-    public Coleccion aplicarConsenso(Coleccion unaColeccion) {
-        List<FuenteDeHechos> fuentes = unaColeccion.getFuentesDeHechos();
+    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
+        List<IFuenteDeHechos> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, Integer> conteoHechos = new HashMap<>();
 
-        for (FuenteDeHechos fuente : fuentes) {
+        for (IFuenteDeHechos fuente : fuentes) {
             for (Hecho hecho : fuente.obtenerHechos()) {
                 conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
             }
@@ -31,7 +31,7 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
         }
 
         unaColeccion.setHechos(hechosConsensuados);
-        return unaColeccion;
+        return unaColeccion.getHechos();
     }
 
 }

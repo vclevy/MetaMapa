@@ -17,7 +17,7 @@ public class SolicitudController {
 
     // TODO: @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}/")
-    public void cambiarEstadoSolicitud(@PathVariable Long idSolicitud, @RequestBody Usuario usuario, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
+    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody Usuario usuario, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
         this.solcitudesService.cambiarEstadoDeSolicitud(idSolicitud, usuario, accion);
     }
 

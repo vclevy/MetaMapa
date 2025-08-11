@@ -2,7 +2,7 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.services.fuentes.FuenteDeHechos;
+import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class AlgoritmoMultipleMenciones implements IAlgoritmo {
     @Override
-    public Coleccion aplicarConsenso(Coleccion unaColeccion) {
-        List<FuenteDeHechos> fuentes = unaColeccion.getFuentesDeHechos();
+    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
+        List<IFuenteDeHechos> fuentes = unaColeccion.getFuentesDeHechos();
 
-        Map<Hecho, List<FuenteDeHechos>> mapaHechos = new HashMap<>();
+        Map<Hecho, List<IFuenteDeHechos>> mapaHechos = new HashMap<>();
 
-        for (FuenteDeHechos fuente : fuentes) {
+        for (IFuenteDeHechos fuente : fuentes) {
             List<Hecho> hechos = fuente.obtenerHechos();
 
             for (Hecho hecho : hechos) {
@@ -28,9 +28,9 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
 
         List<Hecho> hechosConsensuados = new ArrayList<>();
 
-        for (Map.Entry<Hecho, List<FuenteDeHechos>> entrada : mapaHechos.entrySet()) {
+        for (Map.Entry<Hecho, List<IFuenteDeHechos>> entrada : mapaHechos.entrySet()) {
             Hecho hecho = entrada.getKey();
-            List<FuenteDeHechos> fuentesQueLoMencionan = entrada.getValue();
+            List<IFuenteDeHechos> fuentesQueLoMencionan = entrada.getValue();
 
             if (fuentesQueLoMencionan.size() >= 2) {
 
@@ -47,6 +47,6 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
         }
 
         unaColeccion.setHechos(hechosConsensuados);
-        return unaColeccion;
+        return unaColeccion.getHechos();
     }
 }

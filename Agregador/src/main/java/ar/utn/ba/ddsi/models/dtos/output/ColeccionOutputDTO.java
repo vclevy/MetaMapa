@@ -11,5 +11,5 @@ import java.util.List;
 public class ColeccionOutputDTO {
     private String titulo;
     private String descripcion;
-    private List<HechoOutputDTO> hechosOutputDtos;
+    private List<HechoOutputDTO> hechosDeLaColeccion;
 }
