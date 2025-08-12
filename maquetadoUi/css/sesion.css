@@ -31,7 +31,7 @@ header {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;  /* solo arriba y abajo */
+    padding: 0.2rem 0;  /* solo arriba y abajo */
     color: white;
     position: sticky;
     top: 0;
@@ -49,11 +49,11 @@ header {
 .header-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* centra verticalmente */
     flex-wrap: wrap;
     gap: 1rem;
+    height: 110px; /* fija una altura para alinear */
 }
-
 
 .logo {
     font-size: 1.5rem;
@@ -63,9 +63,10 @@ header {
 }
 
 .logo img {
-    height: 70px; /* tamaño más consistente */
+    height: 150px; /* ajustá este valor para que encaje bien */
     width: auto;
     display: block;
+    object-fit: contain;
 }
 
 /* Navegación */

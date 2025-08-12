@@ -5,25 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/cielo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/logoMetamapa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoColecciones.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/subirHecho.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/header.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/logoMetaMapa.jpg" beforeDir="false" />
-    </list>
-    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-    </list>
-    <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/partials/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/partials/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
     </list>
+    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
+    <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
     <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="package.json" />
+        <option value="HTML File" />
         <option value="CSS File" />
       </list>
     </option>
@@ -60,30 +57,6 @@
         &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
         }
         }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/index.html">
-      <ranges>
-        <range start1="14" end1="14" start2="14" end2="15" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="15" end1="15" start2="16" end2="18" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="17" end1="18" start2="20" end2="21" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="20" end1="22" start2="23" end2="24" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="30" end1="31" start2="32" end2="34" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/maquetadoUi/css/index.css">
-      <ranges>
-        <range start1="32" end1="33" start2="32" end2="33" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="39" end1="41" start2="39" end2="39" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="66" end1="67" start2="64" end2="65" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="81" end1="82" start2="79" end2="80" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="223" end1="224" start2="221" end2="222" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="233" end1="234" start2="231" end2="232" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="238" end1="239" start2="236" end2="237" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="251" end1="252" start2="249" end2="252" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="343" end1="343" start2="343" end2="344" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -103,36 +76,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.AgregadorApplication (1).executor": "Run",
-    "Spring Boot.AgregadorApplication.executor": "Run",
-    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
-    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
-    "Spring Boot.FuenteProxyApplication.executor": "Run",
-    "git-widget-placeholder": "ENTREGA__3",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ENTREGA__3&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>

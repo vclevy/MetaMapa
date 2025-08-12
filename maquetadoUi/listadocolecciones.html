@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Colecciones — MetaMapa</title>
+    <link rel="stylesheet" href="css/listadoColecciones.css">
+</head>
+<body>
+<!-- Header reutilizable (opcional si usás Thymeleaf) -->
+<!-- <div class="site-header" th:replace="fragments/header :: siteHeader"></div> -->
+<div class="container header-container">
+    <a class="logo" href="index.html">
+        <img src="logoMetamapa.png" alt="Logo MetaMapa" />
+    </a>
+    <nav class="nav-links">
+        <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
+        <a class="btn btn-primary" href="registro.html">Registrarse</a>
+    </nav>
+</div>
+<main class="container colecciones">
+    <header class="colecciones-head">
+        <h1>Colecciones</h1>
+        <p>Explorá las colecciones creadas por la comunidad.</p>
+
+    </header>
+
+    <section class="colecciones-list">
+        <!-- Ejemplos estáticos -->
+        <a class="coleccion-item" href="/colecciones/1">
+            <div class="info">
+                <h3>Memoria barrial de La Boca</h3>
+                <p>Relatos, fotos y recortes de la historia del barrio.</p>
+            </div>
+            <span class="badge">128 hechos</span>
+        </a>
+
+        <a class="coleccion-item" href="/colecciones/2">
+            <div class="info">
+                <h3>Movilizaciones 2024</h3>
+                <p>Registro ciudadano de marchas y concentraciones.</p>
+            </div>
+            <span class="badge">56 hechos</span>
+        </a>
+
+        <a class="coleccion-item" href="/colecciones/3">
+            <div class="info">
+                <h3>Archivo de prensa</h3>
+                <p>Notas periodísticas relevadas y curadas por el equipo.</p>
+            </div>
+            <span class="badge">312 hechos</span>
+        </a>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

@@ -89,6 +89,138 @@ body { background:#f4f6fb; color:#333; font-family: system-ui, -apple-system, "S
 .page:hover { background:#f3f8ff; }
 .page.is-current { background:#2B7BD6; color:#fff; border-color:#2B7BD6; }
 
+
+
+
+
+/* Header */
+header {
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.2rem 0;  /* solo arriba y abajo */
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* centra verticalmente */
+    flex-wrap: wrap;
+    gap: 1rem;
+    height: 110px; /* fija una altura para alinear */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    flex: 0 0 auto;
+}
+
+.logo img {
+    height: 150px; /* ajustá este valor para que encaje bien */
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Navegación */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: blue;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #bad4ec;
+}
+
+/* Botones */
+.banner-botones {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn.btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn.btn-outline:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: white !important;
+    color: #2B7BD6 !important; /* celeste brillante */
+    border: 0px solid transparent !important;
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3) !important;
+}
+
+.btn-primary:hover {
+    background-color: #2B7BD6 !important;
+    color: rgba(248, 248, 248, 0.6) !important;
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.6) !important;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid rgba(13, 110, 253, 0.6);
+}
+
+.btn-outline:hover {
+    background-color: #2B7BD6;
+    color: white;
+    border-color: #2B7BD6;
+}
+
+
+
 /* Responsive */
 @media (max-width: 1000px){
     .filters-form { grid-template-columns: repeat(3, 1fr); }
@@ -101,3 +233,5 @@ body { background:#f4f6fb; color:#333; font-family: system-ui, -apple-system, "S
     .filter-actions { justify-content:stretch; }
 }
 footer { background:#133863; color:#f1faee; text-align:center; padding:1.2rem 0; margin-top:2rem; }
+
+
