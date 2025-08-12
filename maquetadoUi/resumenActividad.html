@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración - MetaMapa</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* === Estilos base (tu estilo) === */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        header {
+            background: #2B7BD6;
+            box-shadow: 0 4px 10px rgba(43, 123, 214, 0.5);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            font-family: 'Segoe UI Black', sans-serif;
+            font-size: 2.4rem;
+            color: #f1faee;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
+        .nav-main { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-link {
+            color: #f1faee;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: #a8dadc; }
+        .btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background-color: white;
+            color: #1a4f8b;
+            border: 2px solid #1a4f8b;
+            box-shadow: 0 4px 6px rgba(26, 79, 139, 0.3);
+        }
+        .btn-primary:hover {
+            background-color: #1a4f8b;
+            color: white;
+            box-shadow: 0 6px 12px rgba(26, 79, 139, 0.6);
+        }
+        .main-content { padding: 3rem 0; }
+        h2.section-title {
+            font-size: 2rem;
+            color: #2B7BD6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(43, 123, 214, 0.1);
+        }
+        canvas { max-width: 100%; height: auto; }
+        footer {
+            background: #133863;
+            color: #f1faee;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-container">
+        <a href="#" class="logo">MetaMapa Admin</a>
+        <nav class="nav-main">
+            <a href="#resumen" class="nav-link">Resumen</a>
+            <a href="#colecciones" class="nav-link">Colecciones</a>
+            <a href="#fuentes" class="nav-link">Fuentes</a>
+            <a href="#hechos" class="nav-link">Hechos</a>
+            <a href="#eliminacion" class="nav-link">Eliminaciones</a>
+            <a href="#importar" class="nav-link">Importar CSV</a>
+        </nav>
+    </div>
+</header>
+
+<main class="main-content container">
+    <!-- Resumen con gráficos -->
+    <section id="resumen">
+        <h2 class="section-title">Resumen de Actividad</h2>
+        <div class="chart-container">
+            <h3>Hechos por Colección</h3>
+            <canvas id="hechosPorColeccion"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Estado de Solicitudes de Eliminación</h3>
+            <canvas id="estadoEliminaciones"></canvas>
+        </div>
+        <div class="chart-container">
+            <h3>Actividad de Hechos por Mes</h3>
+            <canvas id="actividadHechos"></canvas>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 MetaMapa - Panel de Administración
+</footer>
+
+<script>
+    // === Gráfico de barras: hechos por colección ===
+    new Chart(document.getElementById('hechosPorColeccion'), {
+        type: 'bar',
+        data: {
+            labels: ['Colección A', 'Colección B', 'Colección C', 'Colección D'],
+            datasets: [{
+                label: 'Hechos',
+                data: [45, 30, 60, 25],
+                backgroundColor: '#2B7BD6'
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    // === Gráfico de torta: estado de eliminaciones ===
+    new Chart(document.getElementById('estadoEliminaciones'), {
+        type: 'pie',
+        data: {
+            labels: ['Pendientes', 'Aprobadas', 'Rechazadas'],
+            datasets: [{
+                data: [5, 12, 3],
+                backgroundColor: ['#ffca28', '#66bb6a', '#ef5350']
+            }]
+        },
+        options: { responsive: true }
+    });
+
+    // === Gráfico de línea: actividad por mes ===
+    new Chart(document.getElementById('actividadHechos'), {
+        type: 'line',
+        data: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: 'Hechos creados',
+                data: [12, 19, 14, 25, 22, 30, 28],
+                fill: false,
+                borderColor: '#2B7BD6',
+                tension: 0.1
+            }]
+        },
+        options: { responsive: true }
+    });
+</script>
+</body>
+</html>

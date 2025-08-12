@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -188,6 +189,8 @@
       <workItem from="1748897090666" duration="338000" />
       <workItem from="1749755831210" duration="277000" />
       <workItem from="1752195884498" duration="1887000" />
+      <workItem from="1754948630596" duration="244000" />
+      <workItem from="1755003545654" duration="704000" />
     </task>
     <servers />
   </component>
