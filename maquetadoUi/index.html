@@ -3,180 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css">
     <title>MetaMapa</title>
 
-    <!-- Estilos propios -->
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            background-color: #287bdb;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 1rem 0;
-            color: white;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a {
-            color: white;
-            margin-left: 1rem;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #bad4ec;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background-color: white;
-            color: #287bdb;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .intro {
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .intro h1 {
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
-            color: #133863;
-        }
-
-        .intro p {
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .destacados {
-            padding: 2rem 0;
-        }
-
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .card {
-            width: 300px;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.05);
-            background: white;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-body {
-            padding: 1rem;
-        }
-
-        .card-body h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .info {
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        footer {
-            background: #133863;
-            color: white;
-            text-align: center;
-            padding: 1rem 0;
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .cards {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* Estilo para el mapa */
-        #map {
-            height: 400px;
-            margin: 2rem auto;
-            border: 2px solid #287bdb;
-            border-radius: 8px;
-        }
-
-        .btn-primary {
-            background-color: white !important;
-            color: #2B7BD6 !important; /* celeste brillante */
-            border: 0px solid #0d6efd !important;
-            box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3) !important;
-        }
-
-        .btn-primary:hover {
-            background-color: #2B7BD6 !important;
-            color: white !important;
-            box-shadow: 0 6px 12px rgba(13, 110, 253, 0.6) !important;
-        }
-
-    </style>
 
     <!-- Leaflet (para el mapa) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -185,7 +14,9 @@
 <body>
 <header>
     <div class="container header-container">
-        <div class="logo">MetaMapa</div>
+        <div class="logo">
+            <img src="logoMetaMapa.jpg" alt="Logo MetaMapa" />
+        </div>
         <nav class="nav-links">
             <a href="#">Ver hechos</a>
             <a class="btn btn-outline" href="inicioSesion.html">Iniciar sesión</a>
@@ -194,11 +25,15 @@
     </div>
 </header>
 
-<section class="intro container">
-    <h1>Cartografiando la memoria colectiva</h1>
-    <p>MetaMapa es una plataforma abierta y descentralizada para mapear colectivamente información geolocalizada y multimedia, visibilizar problemáticas sociales y ambientales, y construir conocimiento confiable entre comunidades, protegiendo siempre la identidad de quienes participan.</p>
+<!-- Banner -->
+<div id="banner">
+    <div class="banner-texto">
+        <h1>Cartografiando la memoria colectiva</h1>
+    </div>
+</div>
 
-    <!-- Mapa insertado acá -->
+<!-- Mapa debajo del banner -->
+<section class="map-section container">
     <div id="map"></div>
 </section>
 
@@ -217,6 +52,34 @@
             <div class="card-body">
                 <h3>Imagen de ejemplo</h3>
                 <p>Otra descripción breve del hecho destacado...</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ejemplo3.jpg" alt="Imagen de ejemplo">
+            <div class="card-body">
+                <h3>Nuevo hecho 1</h3>
+                <p>Descripción corta para el hecho número tres.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
+            <div class="card-body">
+                <h3>Nuevo hecho 2</h3>
+                <p>Otra descripción breve para el hecho número cuatro.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
+            <div class="card-body">
+                <h3>Nuevo hecho 2</h3>
+                <p>Otra descripción breve para el hecho número cuatro.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
+            <div class="card-body">
+                <h3>Nuevo hecho 2</h3>
+                <p>Otra descripción breve para el hecho número cuatro.</p>
             </div>
         </div>
     </div>
