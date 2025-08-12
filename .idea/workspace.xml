@@ -5,18 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/banner.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/logoMetaMapa.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/cielo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/logoMetamapa.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/logoMetaMapa.jpg" beforeDir="false" />
+    </list>
+    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="">
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
     </list>
-    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/partials/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/partials/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
     </list>
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -30,6 +35,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="package.json" />
         <option value="CSS File" />
       </list>
     </option>
@@ -55,49 +61,26 @@
         }
         }</component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/css/estilos.css">
-      <ranges>
-        <range start1="8" end1="9" start2="8" end2="9" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="14" end1="15" start2="14" end2="14" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="19" end1="19" start2="18" end2="19" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="23" end1="26" start2="23" end2="26" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="29" end1="29" start2="29" end2="30" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="37" end1="44" start2="38" end2="41" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="46" end1="47" start2="43" end2="74" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="52" end1="54" start2="79" end2="81" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="60" end1="62" start2="87" end2="89" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="66" end1="67" start2="93" end2="94" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="69" end1="70" start2="96" end2="97" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="78" end1="79" start2="105" end2="106" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="91" end1="93" start2="118" end2="120" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="97" end1="99" start2="124" end2="125" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="108" end1="109" start2="134" end2="135" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="123" end1="124" start2="149" end2="150" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="126" end1="126" start2="152" end2="155" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="128" end1="129" start2="157" end2="158" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="133" end1="133" start2="162" end2="169" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="137" end1="140" start2="173" end2="179" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="143" end1="147" start2="182" end2="188" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="148" end1="150" start2="189" end2="189" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="156" end1="156" start2="195" end2="232" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="164" end1="165" start2="240" end2="241" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="168" end1="168" start2="244" end2="245" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="170" end1="171" start2="247" end2="248" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="176" end1="176" start2="253" end2="262" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="211" end1="212" start2="297" end2="298" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="229" end1="230" start2="315" end2="315" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="231" end1="269" start2="316" end2="316" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
     <file path="$PROJECT_DIR$/maquetadoUi/index.html">
       <ranges>
-        <range start1="5" end1="5" start2="5" end2="6" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="7" end1="179" start2="8" end2="8" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="187" end1="188" start2="16" end2="19" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="196" end1="199" start2="27" end2="33" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="200" end1="201" start2="34" end2="36" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="219" end1="219" start2="54" end2="68" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="221" end1="221" start2="70" end2="84" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="14" end1="14" start2="14" end2="15" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
+        <range start1="15" end1="15" start2="16" end2="18" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
+        <range start1="17" end1="18" start2="20" end2="21" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="20" end1="22" start2="23" end2="24" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
+        <range start1="30" end1="31" start2="32" end2="34" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/maquetadoUi/css/index.css">
+      <ranges>
+        <range start1="32" end1="33" start2="32" end2="33" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="39" end1="41" start2="39" end2="39" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="66" end1="67" start2="64" end2="65" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="81" end1="82" start2="79" end2="80" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
+        <range start1="223" end1="224" start2="221" end2="222" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="233" end1="234" start2="231" end2="232" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="238" end1="239" start2="236" end2="237" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="251" end1="252" start2="249" end2="252" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
+        <range start1="343" end1="343" start2="343" end2="344" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
       </ranges>
     </file>
   </component>
@@ -263,7 +246,7 @@
       <workItem from="1752195884498" duration="1887000" />
       <workItem from="1754948630596" duration="244000" />
       <workItem from="1755003545654" duration="1024000" />
-      <workItem from="1755018798738" duration="9577000" />
+      <workItem from="1755018798738" duration="13632000" />
     </task>
     <servers />
   </component>

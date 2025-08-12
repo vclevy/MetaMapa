@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MetaMapa — Hechos</title>
+    <link rel="stylesheet" href="css/listadoHechos.css"/>
+</head>
+<body>
+<header class="site-header">
+    <div class="container header-container">
+        <a href="/" class="logo">MetaMapa</a>
+        <nav class="nav-links">
+            <a href="/">Inicio</a>
+            <a href="/mapa">Mapa</a>
+            <a href="/hechos" class="is-active">Hechos</a>
+            <a class="btn btn-primary" href="/registro">Registrarse</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="intro container">
+        <h1>Hechos</h1>
+        <p>Explorá y filtrá los hechos reportados por la comunidad.</p>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filters container">
+        <form class="filters-form" method="get" action="/hechos">
+            <div class="filter-group">
+                <label for="fecha-desde">Fecha desde</label>
+                <input type="date" id="fecha-desde" name="desde">
+            </div>
+
+            <div class="filter-group">
+                <label for="fecha-hasta">Fecha hasta</label>
+                <input type="date" id="fecha-hasta" name="hasta">
+            </div>
+
+            <div class="filter-group">
+                <label for="ubicacion">Ubicación</label>
+                <input type="text" id="ubicacion" name="ubicacion" placeholder="Barrio, calle o ciudad">
+            </div>
+
+            <div class="filter-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" name="categoria">
+                    <option value="">Todas</option>
+                    <option value="memoria">Memoria</option>
+                    <option value="derechos">Derechos humanos</option>
+                    <option value="movilizacion">Movilización</option>
+                    <option value="cultura">Cultura</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="fuente">Fuente</label>
+                <select id="fuente" name="fuente">
+                    <option value="">Todas</option>
+                    <option value="ciudadana">Ciudadana</option>
+                    <option value="prensa">Prensa</option>
+                    <option value="archivo">Archivo</option>
+                    <option value="institucion">Institución</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a href="/hechos" class="btn btn-outline" role="button">Limpiar</a>
+            </div>
+        </form>
+    </section>
+
+    <!-- Listado -->
+    <section class="hechos-list container">
+        <div class="cards">
+            <!-- Card 1 -->
+            <article class="card">
+                <img src="img/ejemplo1.jpg" alt="Imagen del hecho">
+                <div class="card-body">
+                    <h3>Título del hecho</h3>
+                    <p class="meta"><span>12/06/2025 • Barracas</span> <span class="badge">Memoria</span> <span class="badge alt">Ciudadana</span></p>
+                    <p>Descripción breve del hecho destacado para dar contexto al usuario…</p>
+                    <a href="/hechos/1" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+
+            <!-- Duplicá / renderizá estas cards desde tu backend -->
+            <article class="card">
+                <img src="img/ejemplo2.jpg" alt="Imagen del hecho">
+                <div class="card-body">
+                    <h3>Nuevo hecho 2</h3>
+                    <p class="meta"><span>03/05/2025 • Palermo</span> <span class="badge">Cultura</span> <span class="badge alt">Prensa</span></p>
+                    <p>Otra descripción breve del hecho…</p>
+                    <a href="/hechos/2" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <img src="img/ejemplo3.jpg" alt="Imagen del hecho">
+                <div class="card-body">
+                    <h3>Nuevo hecho 3</h3>
+                    <p class="meta"><span>21/04/2025 • La Boca</span> <span class="badge">Movilización</span> <span class="badge alt">Archivo</span></p>
+                    <p>Descripción breve del hecho…</p>
+                    <a href="/hechos/3" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+
+            <!-- ... -->
+        </div>
+
+        <!-- Paginación (opcional) -->
+        <nav class="pagination" aria-label="Paginación">
+            <a class="page prev" href="?page=1">Anterior</a>
+            <a class="page is-current" href="?page=2">2</a>
+            <a class="page" href="?page=3">3</a>
+            <a class="page" href="?page=4">4</a>
+            <a class="page next" href="?page=3">Siguiente</a>
+        </nav>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

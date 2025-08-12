@@ -3,71 +3,98 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
 }
 
-/* Contenedores */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: visible;
+}
+
+/* Header */
+header {
+    background-color: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;  /* solo arriba y abajo */
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+}
+
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Header */
-header {
-    background: #2B7BD6;
-    box-shadow: 0 4px 10px rgba(43, 123, 214, 0.5);
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
+
 
 .logo {
-    font-family: 'Segoe UI Black', sans-serif;
-    font-size: 2.4rem;
-    color: #f1faee;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    flex: 0 0 auto;
 }
 
-.nav-main {
+.logo img {
+    height: 70px; /* tamaño más consistente */
+    width: auto;
+    display: block;
+}
+
+/* Navegación */
+.nav-links {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.nav-link {
-    color: #f1faee;
+.nav-links a {
+    color: blue;
     font-weight: 600;
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s ease;
 }
 
-.nav-link:hover {
-    color: #a8dadc;
+.nav-links a:hover {
+    color: #bad4ec;
 }
 
 /* Botones */
 .btn {
-    padding: 0.5rem 1.2rem;
-    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
@@ -75,38 +102,37 @@ header {
 }
 
 .btn-primary {
-    background-color: white;
-    color: #1a4f8b; /* celeste más oscuro */
-    border: 2px solid #1a4f8b;
-    box-shadow: 0 4px 6px rgba(26, 79, 139, 0.3);
+    background-color: white !important;
+    color: #2B7BD6 !important; /* celeste brillante */
+    border: 0px solid transparent !important;
+    box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3) !important;
 }
 
 .btn-primary:hover {
-    background-color: #1a4f8b;
-    color: white;
-    box-shadow: 0 6px 12px rgba(26, 79, 139, 0.6);
+    background-color: #2B7BD6 !important;
+    color: rgba(248, 248, 248, 0.6) !important;
+    box-shadow: 0 6px 12px rgba(13, 110, 253, 0.6) !important;
 }
 
 .btn-outline {
     background-color: transparent;
-    color: #66b2ff;
-    border-color: #66b2ff;
+    color: white;
+    border: 2px solid rgba(13, 110, 253, 0.6);
 }
 
 .btn-outline:hover {
     background-color: #2B7BD6;
-    color: #f1faee;
+    color: white;
     border-color: #2B7BD6;
 }
 
-/* Main */
-.main-content {
-    padding: 3rem 0;
+/* Intro */
+.intro {
     text-align: center;
+    padding: 2rem 0;
 }
 
-/* Intro */
-.intro h2 {
+.intro h1 {
     font-size: 2.4rem;
     margin-bottom: 1rem;
     color: #133863;
@@ -121,33 +147,47 @@ header {
     line-height: 1.7;
 }
 
-/* Destacados */
+/* Destacados con scroll horizontal */
 .destacados {
     margin-top: 4rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 1rem;
+    -ms-overflow-style: none;  /* IE y Edge */
+    scrollbar-width: none;     /* Firefox */
 }
 
-.destacados h3 {
+.destacados::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari y Opera */
+}
+
+.destacados h2 {
     font-size: 2rem;
     color: #2B7BD6;
     margin-bottom: 2rem;
     text-shadow: 1px 1px 2px rgba(43, 123, 214, 0.4);
+    padding-left: 1rem;
 }
 
+/* Cards */
 .cards {
     display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
+    gap: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    padding-bottom: 0.5rem;
 }
 
 .card {
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(43, 123, 214, 0.1);
-    width: 320px;
-    overflow: hidden;
+    flex: 0 0 auto;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 3px rgba(0,0,0,0.05);
+    background: white;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -162,21 +202,87 @@ header {
     border-bottom: 3px solid #2B7BD6;
 }
 
-.card h4 {
-    color: #2B7BD6;
-    font-size: 1.4rem;
-    margin: 1rem 0 0.5rem 0;
+.card-body {
+    padding: 1rem;
 }
 
-.card p {
-    padding: 0 1rem 1.5rem 1rem;
+.card-body h3 {
+    color: #2B7BD6;
+    font-size: 1.4rem;
+    margin: 1rem 0 0.5rem;
+}
+
+.card-body p {
     color: #666;
     font-size: 1rem;
+    padding: 0 1rem 1.5rem;
+}
+
+/* Banner con imagen de fondo */
+#banner, .intro-banner {
+    background: url('../cielo.jpg') center/cover no-repeat;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+#banner::before,
+.intro-banner::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* oscurece para contraste */
+    z-index: 0;
+}
+
+.intro-content, .banner-texto {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.banner-texto {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+}
+
+.banner-texto, .intro-content {
+    font-family: Inter, system-ui, Arial, Helvetica, sans-serif;
+}
+
+#banner h1, .intro-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+#banner p, .intro-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Info */
+.info {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #888;
 }
 
 /* Info legal */
 .info-legal {
     margin-top: 4rem;
+    text-align: center;
 }
 
 .info-legal a {
@@ -203,22 +309,40 @@ footer {
     letter-spacing: 1px;
 }
 
+/* Mapa */
+#map {
+    height: 400px;
+    margin: 3rem auto;
+    border-radius: 10px;
+    border: 2px solid #2B7BD6;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
         gap: 1rem;
     }
-    .nav-main {
+
+    .nav-links {
         flex-wrap: wrap;
         justify-content: center;
         gap: 1rem;
     }
+
     .cards {
         flex-direction: column;
         align-items: center;
+        overflow-x: visible;
+        white-space: normal;
+        padding-bottom: 0;
+    }
+
+    .card {
+        width: 100%;
     }
 }
+
 
 /* Mapa */
 #map {
