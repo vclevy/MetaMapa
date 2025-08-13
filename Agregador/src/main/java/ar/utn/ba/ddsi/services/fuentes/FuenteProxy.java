@@ -24,20 +24,6 @@ public class FuenteProxy implements IFuenteDeHechos {
         this.webClient = WebClient.builder().baseUrl(baseUrl).build();
     }
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public TipoDeFuente getTipoDeFuente() {
-        return tipoDeFuente;
-    }
 
     @Override
     public List<Hecho> obtenerHechos() {

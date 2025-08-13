@@ -26,21 +26,6 @@ public class FuenteDinamica implements IFuenteDeHechos {
     }
 
     @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public TipoDeFuente getTipoDeFuente() {
-        return tipoDeFuente;
-    }
-
-    @Override
     public List<Hecho> obtenerHechos() {
         return webClient.get()
                 .uri("/hechos")

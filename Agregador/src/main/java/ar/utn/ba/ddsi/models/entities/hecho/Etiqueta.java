@@ -1,11 +1,13 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
+import lombok.Data;
+
+@Data
 public class Etiqueta {
     private String nombre;
     private String descripcion;
 
-    public Etiqueta() {
-    }  // Necesario para la deserialización JSON
+    public Etiqueta() {}
 
     public Etiqueta(String nombre) {
         this.nombre = nombre;
