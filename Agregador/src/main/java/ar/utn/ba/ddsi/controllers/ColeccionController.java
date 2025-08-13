@@ -76,8 +76,6 @@ public class ColeccionController {
 
     @DeleteMapping("/{handle}/eliminateFuentes")
     public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
-        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getId()));
+        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getHandleDeFuente()));
     }
-
-
 }

@@ -118,9 +118,10 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        coleccion.getFuentesDeHechos().removeIf(unId -> unId.equals(Id));
+    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(handleColeccion);
+        coleccion.getFuentesDeHechos()
+                .removeIf(fuente -> handleFuente.equals(fuente.getHandleFuente()));
         return this.coleccionMapper.toDTO(coleccion);
     }
 

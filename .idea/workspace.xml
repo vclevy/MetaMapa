@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/FuenteDeHechoOutputDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/FuenteDeHechosMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/ColeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/ColeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/FuenteDeleteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/FuenteDeleteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/ColeccionOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/ColeccionOutputDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Coleccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/factory/AlgoritmoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/factory/AlgoritmoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
@@ -26,6 +31,7 @@
         <option value="HTML File" />
         <option value="package.json" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -37,18 +43,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-        &quot;lastFilter&quot;: {
-        &quot;state&quot;: &quot;OPEN&quot;,
-        &quot;assignee&quot;: &quot;delfisartorio&quot;
-        }
-        }</component>
-  <component name="GithubPullRequestsUISettings">{
-        &quot;selectedUrlAndAccountId&quot;: {
-        &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
-        &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
-        }
-        }</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "delfisartorio"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git",
+    "accountId": "318f196a-af48-422d-9b98-5460137261bc"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -68,36 +74,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.AgregadorApplication (1).executor": "Run",
-    "Spring Boot.AgregadorApplication.executor": "Run",
-    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
-    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
-    "Spring Boot.FuenteProxyApplication.executor": "Run",
-    "git-widget-placeholder": "PRUEBAS__AGREGADOR",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PRUEBAS__AGREGADOR&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -182,8 +188,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -212,6 +218,7 @@
       <workItem from="1754948630596" duration="244000" />
       <workItem from="1755003545654" duration="1024000" />
       <workItem from="1755018798738" duration="13632000" />
+      <workItem from="1755108289305" duration="2618000" />
     </task>
     <servers />
   </component>

@@ -62,6 +62,5 @@ public class Coleccion {
 
     public void agregarHecho(Hecho hecho) {
             this.hechos.add(hecho);
-
     }
 }
