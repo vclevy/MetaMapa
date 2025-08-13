@@ -49,6 +49,10 @@ public class Coleccion {
     }
 
     public void aplicarAlgoritmoDeConsenso() {
+        if (this.algoritmoDeConsenso == null) {
+            return;
+        }
+
         this.hechosConAlgotimoAplicado = this.algoritmoDeConsenso.aplicarConsenso(this);
     }
 }

@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/cielo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/logoMetamapa.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/logoMetaMapa.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/factory/AlgoritmoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/factory/AlgoritmoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" afterDir="false" />
     </list>
-    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-    </list>
-    <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/partials/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/partials/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
-    </list>
+    <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
+    <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
     <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="ENTREGA_3" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,30 +49,6 @@
         &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
         }
         }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/index.html">
-      <ranges>
-        <range start1="14" end1="14" start2="14" end2="15" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="15" end1="15" start2="16" end2="18" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="17" end1="18" start2="20" end2="21" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="20" end1="22" start2="23" end2="24" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="30" end1="31" start2="32" end2="34" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/maquetadoUi/css/index.css">
-      <ranges>
-        <range start1="32" end1="33" start2="32" end2="33" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="39" end1="41" start2="39" end2="39" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="66" end1="67" start2="64" end2="65" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="81" end1="82" start2="79" end2="80" changelist="1ff2e16e-5874-46bc-96f2-616049804fc6" />
-        <range start1="223" end1="224" start2="221" end2="222" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="233" end1="234" start2="231" end2="232" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="238" end1="239" start2="236" end2="237" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="251" end1="252" start2="249" end2="252" changelist="2da0947d-3a9f-4742-8479-19f5f156faff" />
-        <range start1="343" end1="343" start2="343" end2="344" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -117,7 +82,7 @@
     "Spring Boot.FuenteDinamicaApplication.executor": "Run",
     "Spring Boot.FuenteEstaticaApplication.executor": "Run",
     "Spring Boot.FuenteProxyApplication.executor": "Run",
-    "git-widget-placeholder": "ENTREGA__3",
+    "git-widget-placeholder": "PRUEBAS__AGREGADOR",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi",
     "list.type.of.created.stylesheet": "CSS",
@@ -156,7 +121,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.FuenteProxyApplication">
+  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="FuenteProxy" />
       <method v="2">

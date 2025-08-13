@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlgoritmoFactory {
     public IAlgoritmo crear(AlgoritmoDeConsenso unAlgoritmoDeConsenso) {
+        if (unAlgoritmoDeConsenso == null) {
+            return null;
+        }
+
         if (AlgoritmoDeConsenso.ABSOLUTA.equals(unAlgoritmoDeConsenso)) {
             return new AlgoritmoAbsoluta();
         }
