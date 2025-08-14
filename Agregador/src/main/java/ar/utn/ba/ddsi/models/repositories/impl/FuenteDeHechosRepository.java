@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.models.repositories.impl;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
+import ar.utn.ba.ddsi.services.fuentes.Fuente;
 import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 import org.springframework.stereotype.Repository;
 
@@ -11,40 +12,29 @@ import java.util.Objects;
 
 @Repository
 public class FuenteDeHechosRepository implements IFuenteDeHechosRepository {
-    private List<IFuenteDeHechos> fuentesDeHechos;
+    private List<Fuente> fuentesDeHechos;
 
     @Override
-    public List<IFuenteDeHechos> findAll() {
+    public List<Fuente> findAll() {
         return this.fuentesDeHechos;
     }
 
     @Override
-    public IFuenteDeHechos findById(Long id) {
-        return this.fuentesDeHechos.stream().filter(unaFuenteDeHechos -> unaFuenteDeHechos.getId().equals(id)).findFirst().orElse(null);
+    public Fuente findById(String handle) {
+        return this.fuentesDeHechos.stream()
+                .filter(fuente -> fuente.getHandleFuente().equals(handle))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
-    public void save(IFuenteDeHechos unaFuenteDeHecho) {
-        unaFuenteDeHecho.setId(this.definirId());
+    public void save(Fuente unaFuenteDeHecho) {
         fuentesDeHechos.add(unaFuenteDeHecho);
     }
 
     @Override
-    public void delete(IFuenteDeHechos unaFuenteDeHechos) {
+    public void delete(Fuente unaFuenteDeHechos) {
         this.fuentesDeHechos.remove(unaFuenteDeHechos);
     }
 
-    @Override
-    public Long definirId() {
-        List<IFuenteDeHechos> fuentesDeHechos = this.findAll();
-
-        Long maxId = fuentesDeHechos
-                .stream()
-                .map(IFuenteDeHechos::getId)
-                .filter(Objects::nonNull)
-                .max(Long::compareTo)
-                .orElse(0L);
-
-        return maxId + 1;
-    }
 }

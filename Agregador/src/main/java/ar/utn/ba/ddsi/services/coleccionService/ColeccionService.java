@@ -5,18 +5,23 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
+import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
-import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
-import ar.utn.ba.ddsi.services.fuentes.FuenteDinamica;
-import ar.utn.ba.ddsi.services.fuentes.FuenteEstatica;
-import ar.utn.ba.ddsi.services.fuentes.FuenteProxy;
+import ar.utn.ba.ddsi.services.fuentes.*;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -72,6 +77,7 @@ public class ColeccionService implements IColeccionService {
                 unaColeccionInputDTO.getDescripcion(),
                 algoritmo
         );
+
         coleccion.aplicarAlgoritmoDeConsenso();
 
         this.coleccionesRepository.save(coleccion);
@@ -104,7 +110,7 @@ public class ColeccionService implements IColeccionService {
         switch (patch.getCampo().toLowerCase()) {
             case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
             case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
-            case "algotirmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
+            case "algoritmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
             default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
         }
 
@@ -112,9 +118,10 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        coleccion.getFuentesDeHechos().removeIf(unId -> unId.equals(Id));
+    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(handleColeccion);
+        coleccion.getFuentesDeHechos()
+                .removeIf(fuente -> handleFuente.equals(fuente.getHandleFuente()));
         return this.coleccionMapper.toDTO(coleccion);
     }
 
@@ -122,13 +129,8 @@ public class ColeccionService implements IColeccionService {
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
 
-        IFuenteDeHechos nuevaFuente = switch (fuenteDTO.getTipo().toUpperCase()) {
-            case "DINAMICA" -> new FuenteDinamica(fuenteDTO.getUrlBase());
-            case "ESTATICA" -> new FuenteEstatica(fuenteDTO.getUrlBase());
-            case "PROXY" -> new FuenteProxy(fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
-            default -> null;
-        };
-
+        Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
+        
         coleccion.getFuentesDeHechos().add(nuevaFuente);
         return this.coleccionMapper.toDTO(coleccion);
     }
@@ -136,6 +138,39 @@ public class ColeccionService implements IColeccionService {
     @Override
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String unModoDeNavegacion) {
         var coleccion = coleccionesRepository.findByHandle(unHandle);
+        System.out.println("Colección encontrada: " + coleccion);
+
+
+        Etiqueta etiqueta1 = new Etiqueta("Importante");
+        Etiqueta etiqueta2 = new Etiqueta("Urgente");
+        List<Etiqueta> etiquetasList = Arrays.asList(etiqueta1, etiqueta2);
+
+        Usuario usuario = new Usuario("juan.perez");
+
+        Lugar lugar = new Lugar(-34.6037, -58.3816);
+
+        Solicitud solicitud = new Solicitud("Motivo de prueba", 1001L, usuario);
+        List<Solicitud> solicitudes = Arrays.asList(solicitud);
+
+        Hecho hecho = new Hecho();
+        hecho.setIdEnFuente(1001L);
+        hecho.setTitulo("Accidente en el centro");
+        hecho.setDescripcion("Se produjo un accidente en la intersección de Av. Corrientes y Florida.");
+        hecho.setCategoria(new Categoria("Accidente de Tránsito"));
+        hecho.setFechaDeAcontecimiento(LocalDate.of(2025, 8, 12));
+        hecho.setFechaDeCargaDelHecho(LocalDateTime.now());
+        hecho.setLugar(lugar);
+        hecho.setUsuarioContribuyente(usuario);
+        hecho.setEtiquetas(etiquetasList);
+        hecho.setIdAgregador(500L);
+        hecho.setEsAnonimo(false);
+        hecho.setFueEliminado(false);
+        hecho.setSolicitudesDeEliminacion(solicitudes);
+
+
+        coleccion.agregarHecho(hecho);
+
+        System.out.println("Cantidad de hechos: " + coleccion.getHechos().size());
 
         if (coleccion == null) {
             throw new NoSuchElementException("No se encontró la colección con handle: " + unHandle);
@@ -157,5 +192,7 @@ public class ColeccionService implements IColeccionService {
             coleccionIndice.aplicarAlgoritmoDeConsenso();
         }
     }
+
+
 }
 

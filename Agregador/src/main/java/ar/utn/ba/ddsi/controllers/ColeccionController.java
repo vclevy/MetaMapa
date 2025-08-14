@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteDeleteDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
+import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
 import org.springframework.http.HttpStatus;
@@ -68,13 +69,13 @@ public class ColeccionController {
         return ResponseEntity.ok(this.coleccionService.modificarAtributo(handle, patchDTO));
     }
 
-    @DeleteMapping("/{handle}/eliminateFuentes")
-    public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
-        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getId()));
-    }
-
     @PostMapping("/{handle}/addFuentes")
     public ResponseEntity<ColeccionOutputDTO> agregarFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
         return ResponseEntity.ok(this.coleccionService.agregarUnaFuenteDeUnaColeccion(handle, fuenteDTO));
+    }
+
+    @DeleteMapping("/{handle}/eliminateFuentes")
+    public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
+        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getHandleDeFuente()));
     }
 }

@@ -32,6 +32,13 @@ public class ColeccionesRepository implements IColeccionesRepository {
 
     @Override
     public void delete(String handle) {
-        this.colecciones.remove(handle);
+        Coleccion coleccionAEliminar = colecciones.stream()
+                .filter(c -> c.getHandle().equals(handle))
+                .findFirst()
+                .orElse(null);
+
+        if (coleccionAEliminar != null) {
+            colecciones.remove(coleccionAEliminar);
+        }
     }
 }

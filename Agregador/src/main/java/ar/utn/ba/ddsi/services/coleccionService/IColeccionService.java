@@ -16,7 +16,7 @@ public interface IColeccionService {
     public void refrescarColecciones();
     public List<ColeccionOutputDTO> findAll();
     public ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch);
-    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String unHandle, Long Id);
+    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente);
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
     public void aplicarAlgoritmosAColecciones();
