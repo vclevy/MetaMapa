@@ -30,7 +30,7 @@ header {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0;  /* solo arriba y abajo */
+    padding: 0.2rem 0;  /* solo arriba y abajo */
     color: white;
     position: sticky;
     top: 0;
@@ -48,11 +48,11 @@ header {
 .header-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* centra verticalmente */
     flex-wrap: wrap;
     gap: 1rem;
+    height: 110px; /* fija una altura para alinear */
 }
-
 
 .logo {
     font-size: 1.5rem;
@@ -62,9 +62,10 @@ header {
 }
 
 .logo img {
-    height: 80px; /* tamaño más consistente */
+    height: 150px; /* ajustá este valor para que encaje bien */
     width: auto;
     display: block;
+    object-fit: contain;
 }
 
 /* Navegación */
@@ -89,6 +90,30 @@ header {
 }
 
 /* Botones */
+.banner-botones {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn.btn-outline {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn.btn-outline:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
 .btn {
     padding: 0.5rem 1rem;
     border-radius: 20px;
