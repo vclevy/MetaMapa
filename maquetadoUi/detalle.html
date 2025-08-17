@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Metamapa – Hechos con Modal</title>
+    <link rel="stylesheet" href="css/detalle.css">
+</head>
+<body>
+<div class="wrap">
+    <h1>Hechos recientes</h1>
+
+    <div id="listaHechos" class="hechos">
+        <!-- Cada botón representa un hecho. Ajustá data-* con tus datos reales -->
+        <button class="hecho"
+                data-id="123"
+                data-titulo="Bache en Av. Rivadavia"
+                data-categoria="Infraestructura"
+                data-descripcion="Bache de ~1 m de diámetro frente al 4500. Dificulta el tránsito y hay riesgo para motos."
+                data-ubicacion='{"lat":-34.6179,"lng":-58.4422}'
+                data-fuente="https://ejemplo.gob.ar/reporte/123"
+                data-imagenes="https://images.unsplash.com/photo-1544829728-e5cb9eedcdf1?w=1200,https://images.unsplash.com/photo-1597004895289-74b87521a9ee?w=1200,https://images.unsplash.com/photo-1520975916090-3105956dac38?w=1200,https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=1200">
+            <span class="hecho-title">Bache en Av. Rivadavia</span>
+            <span class="hecho-meta">Infraestructura • 15/08/2025</span>
+        </button>
+
+        <button class="hecho"
+                data-id="124"
+                data-titulo="Semáforo intermitente"
+                data-categoria="Tránsito"
+                data-descripcion="Semáforo intermitente en esquina San Juan y Bolívar. Cruce peligroso peatonal."
+                data-ubicacion='{"lat":-34.6188,"lng":-58.3720}'
+                data-fuente=""
+                data-imagenes="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1200,https://images.unsplash.com/photo-1516575150278-77136aed6920?w=1200">
+            <span class="hecho-title">Semáforo intermitente</span>
+            <span class="hecho-meta">Tránsito • 16/08/2025</span>
+        </button>
+    </div>
+</div>
+
+<!-- Modal Detalle -->
+<dialog id="detalle" aria-labelledby="dlg-title">
+    <div class="dlg-header">
+        <div class="dlg-title">
+            <span id="dlg-title">Título</span>
+            <span class="chip" id="dlg-cat">Categoría</span>
+        </div>
+        <button class="btn-icon" aria-label="Cerrar" data-close>✕</button>
+    </div>
+
+    <div class="dlg-body">
+        <!-- Miniaturas estilo WhatsApp -->
+        <div class="row" id="row-thumbs" hidden>
+            <span class="label">Imágenes</span>
+            <div class="thumb-grid" id="thumbGrid"></div>
+        </div>
+
+        <div class="row">
+            <span class="label">Descripción</span>
+            <div class="value" id="dlg-desc">—</div>
+        </div>
+
+        <div class="row">
+            <span class="label">Ubicación</span>
+            <div class="value">
+                <button id="btnMapa" class="btn">Abrir en mapa</button>
+                <span id="coordTxt" class="label" style="margin-left:8px;"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <span class="label">Fuente</span>
+            <div class="value" id="dlg-fuente">—</div>
+        </div>
+
+        <div class="actions">
+            <button class="btn" id="btnCopiar">Copiar enlace</button>
+        </div>
+    </div>
+</dialog>
+
+<!-- Lightbox / Carrusel -->
+<dialog id="lightbox" aria-label="Galería de imágenes">
+    <div class="lb-header">
+        <div class="counter" id="lbCounter">1 / 1</div>
+        <div class="lb-controls">
+            <button class="icon-btn" data-lb-close>✕ Cerrar</button>
+            <a class="icon-btn" id="lbAbrir" href="#" target="_blank" rel="noopener">Abrir imagen</a>
+            <a class="icon-btn" id="lbDescargar" href="#" download>Descargar</a>
+        </div>
+    </div>
+    <div class="frame">
+        <img id="lbImg" alt="Imagen del hecho" />
+        <button class="arrow prev" data-lb-prev aria-label="Anterior">‹</button>
+        <button class="arrow next" data-lb-next aria-label="Siguiente">›</button>
+    </div>
+</dialog>
+
+<script>
+    (() => {
+        const lista = document.getElementById('listaHechos');
+        const dlg = document.getElementById('detalle');
+        const lb = document.getElementById('lightbox');
+
+        const ui = {
+            titulo: document.getElementById('dlg-title'),
+            cat: document.getElementById('dlg-cat'),
+            desc: document.getElementById('dlg-desc'),
+            fuente: document.getElementById('dlg-fuente'),
+            btnMapa: document.getElementById('btnMapa'),
+            coordTxt: document.getElementById('coordTxt'),
+            btnCopiar: document.getElementById('btnCopiar'),
+            rowThumbs: document.getElementById('row-thumbs'),
+            thumbGrid: document.getElementById('thumbGrid'),
+        };
+
+        const lbUI = {
+            img: document.getElementById('lbImg'),
+            counter: document.getElementById('lbCounter'),
+            abrir: document.getElementById('lbAbrir'),
+            descargar: document.getElementById('lbDescargar'),
+            prev: lb.querySelector('[data-lb-prev]'),
+            next: lb.querySelector('[data-lb-next]'),
+        };
+
+        let lastTrigger = null;
+        let imagenesActuales = [];
+        let idxActual = 0;
+        let ubicacionActual = null;
+        let idActual = null;
+
+        function parseImgs(attr) {
+            return (attr || '')
+                .split(',')
+                .map(s => s.trim())
+                .filter(Boolean);
+        }
+
+        function openDetalle(btn){
+            lastTrigger = btn;
+            idActual = btn.dataset.id || '';
+
+            // titulo / cat / desc
+            ui.titulo.textContent = btn.dataset.titulo || 'Hecho';
+            ui.cat.textContent = btn.dataset.categoria || '—';
+            ui.desc.textContent = btn.dataset.descripcion || '—';
+
+            // fuente
+            const fuente = btn.dataset.fuente || '';
+            ui.fuente.innerHTML = fuente
+                ? `<a href="${fuente}" target="_blank" rel="noopener">${fuente}</a>`
+                : '<span class="label">Sin fuente</span>';
+
+            // ubicación
+            try {
+                ubicacionActual = JSON.parse(btn.dataset.ubicacion || '{}');
+            } catch { ubicacionActual = null; }
+            if (ubicacionActual && typeof ubicacionActual.lat === 'number' && typeof ubicacionActual.lng === 'number') {
+                ui.coordTxt.textContent = `(${ubicacionActual.lat.toFixed(5)}, ${ubicacionActual.lng.toFixed(5)})`;
+                ui.btnMapa.disabled = false;
+            } else {
+                ui.coordTxt.textContent = 'Sin coordenadas';
+                ui.btnMapa.disabled = true;
+            }
+
+            // imágenes
+            imagenesActuales = parseImgs(btn.dataset.imagenes);
+            renderThumbs(imagenesActuales);
+
+            // copiar enlace
+            ui.btnCopiar.onclick = async () => {
+                const url = new URL(window.location);
+                url.hash = `hecho-${idActual}`;
+                try{
+                    await navigator.clipboard.writeText(url.toString());
+                    ui.btnCopiar.textContent = 'Copiado ✓';
+                    setTimeout(()=> ui.btnCopiar.textContent='Copiar enlace', 1400);
+                }catch{}
+            };
+
+            // abrir mapa
+            ui.btnMapa.onclick = () => {
+                if (!ubicacionActual) return;
+                const {lat,lng} = ubicacionActual;
+                // Podés cambiar a tu visor propio. Esto abre Google Maps.
+                const gmaps = `https://www.google.com/maps?q=${lat},${lng}`;
+                window.open(gmaps, '_blank', 'noopener');
+            };
+
+            // abrir modal
+            if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open','');
+        }
+
+        function renderThumbs(imgs){
+            ui.thumbGrid.innerHTML = '';
+            if (!imgs.length){
+                ui.rowThumbs.hidden = true;
+                return;
+            }
+            ui.rowThumbs.hidden = false;
+
+            const maxShow = 3;
+            const visibles = imgs.slice(0, maxShow);
+            const extra = imgs.length - visibles.length;
+
+            visibles.forEach((src, i) => {
+                const d = document.createElement('div');
+                d.className = 'thumb' + (i === maxShow-1 && extra>0 ? ' more' : '');
+                if (i === maxShow-1 && extra>0) d.setAttribute('data-count', `+${extra}`);
+                const img = new Image();
+                img.src = src; img.alt = `Miniatura ${i+1}`;
+                d.append(img);
+                d.addEventListener('click', () => openLightbox(i));
+                ui.thumbGrid.append(d);
+            });
+        }
+
+        function openLightbox(idx){
+            if (!imagenesActuales.length) return;
+            idxActual = Math.max(0, Math.min(idx, imagenesActuales.length-1));
+            updateLightbox();
+            if (typeof lb.showModal === 'function') lb.showModal(); else lb.setAttribute('open','');
+        }
+
+        function updateLightbox(){
+            const src = imagenesActuales[idxActual];
+            lbUI.img.src = src;
+            lbUI.img.alt = `Imagen ${idxActual+1} de ${imagenesActuales.length}`;
+            lbUI.counter.textContent = `${idxActual+1} / ${imagenesActuales.length}`;
+            lbUI.abrir.href = src;
+            lbUI.descargar.href = src;
+        }
+
+        function lbPrev(){ idxActual = (idxActual - 1 + imagenesActuales.length) % imagenesActuales.length; updateLightbox(); }
+        function lbNext(){ idxActual = (idxActual + 1) % imagenesActuales.length; updateLightbox(); }
+
+        // Delegación: abrir detalle al tocar un hecho
+        lista.addEventListener('click', (e) => {
+            const btn = e.target.closest('.hecho');
+            if (!btn) return;
+            openDetalle(btn);
+        });
+
+        // Cerrar modales
+        dlg.addEventListener('click', (e) => {
+            const rect = dlg.getBoundingClientRect();
+            const clickBackdrop = e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom;
+            if (e.target.matches('[data-close]') || clickBackdrop) dlg.close();
+        });
+        dlg.addEventListener('close', ()=> { if (lastTrigger) lastTrigger.focus(); });
+
+        lb.addEventListener('click', (e) => {
+            const rect = lb.getBoundingClientRect();
+            const clickBackdrop = e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom;
+            if (e.target.matches('[data-lb-close]') || clickBackdrop) lb.close();
+        });
+
+        // Controles carrusel
+        lbUI.prev.addEventListener('click', lbPrev);
+        lbUI.next.addEventListener('click', lbNext);
+        lb.addEventListener('keydown', (e)=>{
+            if (e.key === 'ArrowLeft') lbPrev();
+            if (e.key === 'ArrowRight') lbNext();
+        });
+
+        // Deep-link por hash: /hechos#hecho-123
+        function openFromHash(){
+            if (!location.hash.startsWith('#hecho-')) return;
+            const id = location.hash.replace('#hecho-','');
+            const btn = document.querySelector(`.hecho[data-id="${CSS.escape(id)}"]`);
+            if (btn) openDetalle(btn);
+        }
+        window.addEventListener('hashchange', openFromHash);
+        openFromHash();
+    })();
+</script>
+</body>
+</html>

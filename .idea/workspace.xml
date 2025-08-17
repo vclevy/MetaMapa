@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/detalle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/edicionHecho.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/detalle.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo4.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/partials/header.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -21,9 +34,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
+        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Class" />
       </list>
     </option>
   </component>
@@ -74,6 +87,7 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.AgregadorApplication (1).executor": "Run",
     "Spring Boot.AgregadorApplication.executor": "Run",
@@ -81,6 +95,7 @@
     "Spring Boot.FuenteEstaticaApplication.executor": "Run",
     "Spring Boot.FuenteProxyApplication.executor": "Run",
     "git-widget-placeholder": "ENTREGA__3",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi",
     "list.type.of.created.stylesheet": "CSS",
@@ -93,6 +108,7 @@
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
     "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -104,6 +120,7 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/maquetadoUi/img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
       <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
       <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\diagramaDeClases" />

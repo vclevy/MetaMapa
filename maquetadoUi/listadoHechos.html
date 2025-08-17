@@ -19,8 +19,6 @@
     </div>
 </header>
 
-
-
 <main>
     <section class="intro container">
         <h1>Hechos</h1>
@@ -77,39 +75,89 @@
     <!-- Listado -->
     <section class="hechos-list container">
         <div class="cards">
-            <!-- Card 1 -->
+            <!-- Card 1 (ejemplo) -->
+<!--            <article class="card">-->
+<!--                <a class="card-cover" href="#hecho-1" aria-label="Abrir detalle del hecho 1">-->
+<!--                    <img src="img/ejemplo1.jpg" alt="Imagen del hecho">-->
+<!--                </a>-->
+<!--                <div class="card-body">-->
+<!--                    <h3>Título del hecho</h3>-->
+<!--                    <p class="meta">-->
+<!--                        <span>12/06/2025 • Barracas</span>-->
+<!--                        <span class="badge">Memoria</span>-->
+<!--                        <span class="badge alt">Ciudadana</span>-->
+<!--                    </p>-->
+<!--                    <p>Descripción breve del hecho destacado para dar contexto al usuario…</p>-->
+<!--                    <a href="#hecho-1" class="card-link">Ver detalle</a>-->
+<!--                </div>-->
+<!--            </article>-->
+            <!-- EJEMPLO A -->
             <article class="card">
-                <img src="img/ejemplo1.jpg" alt="Imagen del hecho">
+                <a class="card-cover" href="#hecho-101" aria-label="Abrir detalle del hecho 101">
+                    <img src="img/ejemplo1.jpg" alt="Imagen del hecho A">
+                </a>
                 <div class="card-body">
-                    <h3>Título del hecho</h3>
-                    <p class="meta"><span>12/06/2025 • Barracas</span> <span class="badge">Memoria</span> <span class="badge alt">Ciudadana</span></p>
-                    <p>Descripción breve del hecho destacado para dar contexto al usuario…</p>
-                    <a href="/hechos/1" class="card-link">Ver detalle</a>
+                    <h3>Concentración en Plaza de Mayo</h3>
+                    <p class="meta">
+                        <span>10/08/2025 • Monserrat</span>
+                        <span class="badge">Movilización</span>
+                        <span class="badge alt">Prensa</span>
+                    </p>
+                    <p>Convocatoria por memoria y justicia. Asistencia de múltiples organizaciones…</p>
+                    <a href="#hecho-101" class="card-link">Ver detalle</a>
                 </div>
             </article>
 
-            <!-- Duplicá / renderizá estas cards desde tu backend -->
+            <!-- EJEMPLO B -->
             <article class="card">
-                <img src="img/ejemplo2.jpg" alt="Imagen del hecho">
+                <a class="card-cover" href="#hecho-102" aria-label="Abrir detalle del hecho 102">
+                    <img src="img/ejemplo2.jpg" alt="Imagen del hecho B">
+                </a>
+                <div class="card-body">
+                    <h3>Mural restaurado en La Boca</h3>
+                    <p class="meta">
+                        <span>04/08/2025 • La Boca</span>
+                        <span class="badge">Cultura</span>
+                        <span class="badge alt">Ciudadana</span>
+                    </p>
+                    <p>Vecinos restauraron un mural histórico con participación de artistas locales…</p>
+                    <a href="#hecho-102" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="card">
+                <a class="card-cover" href="#hecho-2" aria-label="Abrir detalle del hecho 2">
+                    <img src="img/ejemplo2.jpg" alt="Imagen del hecho">
+                </a>
                 <div class="card-body">
                     <h3>Nuevo hecho 2</h3>
-                    <p class="meta"><span>03/05/2025 • Palermo</span> <span class="badge">Cultura</span> <span class="badge alt">Prensa</span></p>
+                    <p class="meta">
+                        <span>03/05/2025 • Palermo</span>
+                        <span class="badge">Cultura</span>
+                        <span class="badge alt">Prensa</span>
+                    </p>
                     <p>Otra descripción breve del hecho…</p>
-                    <a href="/hechos/2" class="card-link">Ver detalle</a>
+                    <a href="#hecho-2" class="card-link">Ver detalle</a>
                 </div>
             </article>
 
+            <!-- Card 3 -->
             <article class="card">
-                <img src="img/ejemplo3.jpg" alt="Imagen del hecho">
+                <a class="card-cover" href="#hecho-3" aria-label="Abrir detalle del hecho 3">
+                    <img src="img/ejemplo3.jpg" alt="Imagen del hecho">
+                </a>
                 <div class="card-body">
                     <h3>Nuevo hecho 3</h3>
-                    <p class="meta"><span>21/04/2025 • La Boca</span> <span class="badge">Movilización</span> <span class="badge alt">Archivo</span></p>
+                    <p class="meta">
+                        <span>21/04/2025 • La Boca</span>
+                        <span class="badge">Movilización</span>
+                        <span class="badge alt">Archivo</span>
+                    </p>
                     <p>Descripción breve del hecho…</p>
-                    <a href="/hechos/3" class="card-link">Ver detalle</a>
+                    <a href="#hecho-3" class="card-link">Ver detalle</a>
                 </div>
             </article>
-
-            <!-- ... -->
         </div>
 
         <!-- Paginación (opcional) -->
@@ -126,5 +174,452 @@
 <footer>
     <p>© 2025 MetaMapa — Todos los derechos reservados</p>
 </footer>
+
+<!-- ===================================================== -->
+<!-- ==============  MODALES SIN JAVASCRIPT  ============== -->
+<!-- ===================================================== -->
+
+<!-- Hecho 1 -->
+<!--<section id="hecho-1" class="modal" aria-labelledby="t-hecho-1">-->
+<!--    <div class="modal-card">-->
+<!--        <header class="modal-header">-->
+<!--            <div class="title-wrap">-->
+<!--                <h2 id="t-hecho-1">Título del hecho</h2>-->
+<!--                <span class="chip">Memoria</span>-->
+<!--            </div>-->
+<!--            <a class="btn-icon" href="#" aria-label="Cerrar">✕</a>-->
+<!--        </header>-->
+
+<!--        <div class="modal-body">-->
+<!--            &lt;!&ndash; Miniaturas tipo WhatsApp (3 visibles +N) &ndash;&gt;-->
+<!--            <div class="row">-->
+<!--                <span class="label">Imágenes</span>-->
+<!--                <div class="thumb-grid">-->
+<!--                    <a class="thumb" href="#galeria-1-1"><img src="img/ejemplo1.jpg" alt="Miniatura 1"></a>-->
+<!--                    <a class="thumb" href="#galeria-1-2"><img src="img/ejemplo2.jpg" alt="Miniatura 2"></a>-->
+<!--                    &lt;!&ndash; la tercera muestra +N si hay más &ndash;&gt;-->
+<!--                    <a class="thumb more" href="#galeria-1-3" data-count="+2"><img src="img/ejemplo3.jpg" alt="Miniatura 3"></a>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <span class="label">Descripción</span>-->
+<!--                <div class="value">-->
+<!--                    Bache de ~1 m de diámetro frente al 4500. Dificulta el tránsito y hay riesgo para motos.-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <span class="label">Ubicación</span>-->
+<!--                <div class="value">-->
+<!--                    <a class="btn btn-outline" target="_blank" rel="noopener"-->
+<!--                       href="https://www.google.com/maps?q=-34.61790,-58.44220">Abrir en mapa</a>-->
+<!--                    <span class="coords">(-34.61790, -58.44220)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <span class="label">Fuente</span>-->
+<!--                <div class="value">-->
+<!--                    <a href="https://ejemplo.org/nota/abc" target="_blank" rel="noopener">https://ejemplo.org/nota/abc</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Galería/Carrusel Hecho 1, imagen 1 &ndash;&gt;-->
+<!--<section id="galeria-1-1" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">1 / 4</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-1">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo1.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo1.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo1.jpg" alt="Imagen 1 del hecho 1">-->
+<!--            <a class="arrow prev" href="#galeria-1-4" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-1-2" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Hecho 1, imagen 2 &ndash;&gt;-->
+<!--<section id="galeria-1-2" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">2 / 4</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-1">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo2.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo2.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo2.jpg" alt="Imagen 2 del hecho 1">-->
+<!--            <a class="arrow prev" href="#galeria-1-1" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-1-3" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Hecho 1, imagen 3 &ndash;&gt;-->
+<!--<section id="galeria-1-3" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">3 / 4</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-1">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo3.jpg" alt="Imagen 3 del hecho 1">-->
+<!--            <a class="arrow prev" href="#galeria-1-2" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-1-4" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Hecho 1, imagen 4 &ndash;&gt;-->
+<!--<section id="galeria-1-4" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">4 / 4</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-1">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo4.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo4.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo4.jpg" alt="Imagen 4 del hecho 1">-->
+<!--            <a class="arrow prev" href="#galeria-1-3" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-1-1" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Hecho 2 &ndash;&gt;-->
+<!--<section id="hecho-2" class="modal" aria-labelledby="t-hecho-2">-->
+<!--    <div class="modal-card">-->
+<!--        <header class="modal-header">-->
+<!--            <div class="title-wrap">-->
+<!--                <h2 id="t-hecho-2">Nuevo hecho 2</h2>-->
+<!--                <span class="chip">Cultura</span>-->
+<!--            </div>-->
+<!--            <a class="btn-icon" href="#" aria-label="Cerrar">✕</a>-->
+<!--        </header>-->
+<!--        <div class="modal-body">-->
+<!--            <div class="row">-->
+<!--                <span class="label">Imágenes</span>-->
+<!--                <div class="thumb-grid">-->
+<!--                    <a class="thumb" href="#galeria-2-1"><img src="img/ejemplo2.jpg" alt="Miniatura 1"></a>-->
+<!--                    <a class="thumb" href="#galeria-2-2"><img src="img/ejemplo3.jpg" alt="Miniatura 2"></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Descripción</span>-->
+<!--                <div class="value">Otra descripción breve del hecho…</div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Ubicación</span>-->
+<!--                <div class="value">-->
+<!--                    <a class="btn btn-outline" target="_blank" rel="noopener"-->
+<!--                       href="https://www.google.com/maps?q=-34.60370,-58.38160">Abrir en mapa</a>-->
+<!--                    <span class="coords">(-34.60370, -58.38160)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Fuente</span>-->
+<!--                <div class="value"><span class="label">Sin fuente</span></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section id="galeria-2-1" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">1 / 2</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-2">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo2.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo2.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo2.jpg" alt="Imagen 1 del hecho 2">-->
+<!--            <a class="arrow prev" href="#galeria-2-2" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-2-2" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section id="galeria-2-2" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">2 / 2</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-2">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo3.jpg" alt="Imagen 2 del hecho 2">-->
+<!--            <a class="arrow prev" href="#galeria-2-1" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#galeria-2-1" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--&lt;!&ndash; Hecho 3 &ndash;&gt;-->
+<!--<section id="hecho-3" class="modal" aria-labelledby="t-hecho-3">-->
+<!--    <div class="modal-card">-->
+<!--        <header class="modal-header">-->
+<!--            <div class="title-wrap">-->
+<!--                <h2 id="t-hecho-3">Nuevo hecho 3</h2>-->
+<!--                <span class="chip">Movilización</span>-->
+<!--            </div>-->
+<!--            <a class="btn-icon" href="#" aria-label="Cerrar">✕</a>-->
+<!--        </header>-->
+<!--        <div class="modal-body">-->
+<!--            <div class="row">-->
+<!--                <span class="label">Imágenes</span>-->
+<!--                <div class="thumb-grid">-->
+<!--                    <a class="thumb" href="#galeria-3-1"><img src="img/ejemplo3.jpg" alt="Miniatura 1"></a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Descripción</span>-->
+<!--                <div class="value">Descripción breve…</div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Ubicación</span>-->
+<!--                <div class="value">-->
+<!--                    <a class="btn btn-outline" target="_blank" rel="noopener"-->
+<!--                       href="https://www.google.com/maps?q=-34.63410,-58.36360">Abrir en mapa</a>-->
+<!--                    <span class="coords">(-34.63410, -58.36360)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row">-->
+<!--                <span class="label">Fuente</span>-->
+<!--                <div class="value"><a href="https://archivo.ejemplo/registro/3" target="_blank" rel="noopener">https://archivo.ejemplo/registro/3</a></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!--<section id="galeria-3-1" class="lightbox">-->
+<!--    <div class="lightbox-card">-->
+<!--        <header class="lb-header">-->
+<!--            <span class="counter">1 / 1</span>-->
+<!--            <nav class="lb-actions">-->
+<!--                <a class="icon-btn" href="#hecho-3">✕ Cerrar</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" target="_blank" rel="noopener">Abrir</a>-->
+<!--                <a class="icon-btn" href="img/ejemplo3.jpg" download>Descargar</a>-->
+<!--            </nav>-->
+<!--        </header>-->
+<!--        <figure class="lb-figure">-->
+<!--            <img src="img/ejemplo3.jpg" alt="Imagen del hecho 3">-->
+<!--            <a class="arrow prev" href="#hecho-3" aria-label="Anterior">‹</a>-->
+<!--            <a class="arrow next" href="#hecho-3" aria-label="Siguiente">›</a>-->
+<!--        </figure>-->
+<!--    </div>-->
+<!--</section>-->
+
+<!-- ========= Hecho 101 ========= -->
+<section id="hecho-101" class="modal" aria-labelledby="t-hecho-101">
+    <div class="modal-card">
+        <header class="modal-header">
+            <div class="title-wrap">
+                <h2 id="t-hecho-101">Concentración en Plaza de Mayo</h2>
+                <span class="chip">Movilización</span>
+            </div>
+            <a class="btn-icon" href="#" aria-label="Cerrar">✕</a>
+        </header>
+
+        <div class="modal-body">
+            <div class="row">
+                <span class="label">Imágenes</span>
+                <div class="thumb-grid">
+                    <a class="thumb" href="#galeria-101-1"><img src="img/ejemplo1.jpg" alt="Miniatura 1"></a>
+                    <a class="thumb" href="#galeria-101-2"><img src="img/ejemplo3.jpeg" alt="Miniatura 2"></a>
+                    <a class="thumb more" href="#galeria-101-3" data-count="+1"><img src="img/ejemplo4.jpeg" alt="Miniatura 3"></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Descripción</span>
+                <div class="value">
+                    Convocatoria por memoria y justicia. Asistencia de múltiples organizaciones y lectura de documentos.
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Ubicación</span>
+                <div class="value">
+                    <a class="btn btn-outline" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps?q=-34.60806,-58.37028">Abrir en mapa</a>
+                    <span class="coords">(-34.60806, -58.37028)</span>
+                    <div class="acciones">
+                        <a href="solicitarEliminacion.html" class="btn eliminar">🗑️ Solicitar eliminación</a>
+                        <a href="edicionHecho.html" class="btn editar">✏️ Editar hecho</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Fuente</span>
+                <div class="value">
+                    <a href="https://diario-ejemplo.com/nota/plaza" target="_blank" rel="noopener">diario-ejemplo.com/nota/plaza</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Galería Hecho 101 -->
+<section id="galeria-101-1" class="lightbox">
+    <div class="lightbox-card">
+        <header class="lb-header">
+            <span class="counter">1 / 3</span>
+            <nav class="lb-actions">
+                <a class="icon-btn" href="#hecho-101">✕ Cerrar</a>
+                <a class="icon-btn" href="img/ejemplo1.jpg" target="_blank" rel="noopener">Abrir</a>
+                <a class="icon-btn" href="img/ejemplo1.jpg" download>Descargar</a>
+            </nav>
+        </header>
+        <figure class="lb-figure">
+            <img src="img/ejemplo1.jpg" alt="Imagen 1 del hecho 101">
+            <a class="arrow prev" href="#galeria-101-3" aria-label="Anterior">‹</a>
+            <a class="arrow next" href="#galeria-101-2" aria-label="Siguiente">›</a>
+        </figure>
+    </div>
+</section>
+
+<section id="galeria-101-2" class="lightbox">
+    <div class="lightbox-card">
+        <header class="lb-header">
+            <span class="counter">2 / 3</span>
+            <nav class="lb-actions">
+                <a class="icon-btn" href="#hecho-101">✕ Cerrar</a>
+                <a class="icon-btn" href="img/ejemplo3.jpg" target="_blank" rel="noopener">Abrir</a>
+                <a class="icon-btn" href="img/ejemplo3.jpg" download>Descargar</a>
+            </nav>
+        </header>
+        <figure class="lb-figure">
+            <img src="img/ejemplo3.jpg" alt="Imagen 2 del hecho 101">
+            <a class="arrow prev" href="#galeria-101-1" aria-label="Anterior">‹</a>
+            <a class="arrow next" href="#galeria-101-3" aria-label="Siguiente">›</a>
+        </figure>
+    </div>
+</section>
+
+<section id="galeria-101-3" class="lightbox">
+    <div class="lightbox-card">
+        <header class="lb-header">
+            <span class="counter">3 / 3</span>
+            <nav class="lb-actions">
+                <a class="icon-btn" href="#hecho-101">✕ Cerrar</a>
+                <a class="icon-btn" href="img/ejemplo4.jpg" target="_blank" rel="noopener">Abrir</a>
+                <a class="icon-btn" href="img/ejemplo4.jpg" download>Descargar</a>
+            </nav>
+        </header>
+        <figure class="lb-figure">
+            <img src="img/ejemplo4.jpg" alt="Imagen 3 del hecho 101">
+            <a class="arrow prev" href="#galeria-101-2" aria-label="Anterior">‹</a>
+            <a class="arrow next" href="#galeria-101-1" aria-label="Siguiente">›</a>
+        </figure>
+    </div>
+</section>
+
+<!-- ========= Hecho 102 ========= -->
+<section id="hecho-102" class="modal" aria-labelledby="t-hecho-102">
+    <div class="modal-card">
+        <header class="modal-header">
+            <div class="title-wrap">
+                <h2 id="t-hecho-102">Mural restaurado en La Boca</h2>
+                <span class="chip">Cultura</span>
+            </div>
+            <a class="btn-icon" href="#" aria-label="Cerrar">✕</a>
+        </header>
+
+        <div class="modal-body">
+            <div class="row">
+                <span class="label">Imágenes</span>
+                <div class="thumb-grid">
+                    <a class="thumb" href="#galeria-102-1"><img src="img/ejemplo2.jpg" alt="Miniatura 1"></a>
+                    <a class="thumb" href="#galeria-102-2"><img src="img/ejemplo3.jpg" alt="Miniatura 2"></a>
+                    <!-- solo 2 imágenes en este ejemplo -->
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Descripción</span>
+                <div class="value">
+                    Vecinos y artistas restauraron un mural histórico con técnicas mixtas y talleres abiertos.
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Ubicación</span>
+                <div class="value">
+                    <a class="btn btn-outline" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps?q=-34.63410,-58.36360">Abrir en mapa</a>
+                    <span class="coords">(-34.63410, -58.36360)</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="label">Fuente</span>
+                <div class="value"><span class="label">Sin fuente</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Galería Hecho 102 -->
+<section id="galeria-102-1" class="lightbox">
+    <div class="lightbox-card">
+        <header class="lb-header">
+            <span class="counter">1 / 2</span>
+            <nav class="lb-actions">
+                <a class="icon-btn" href="#hecho-102">✕ Cerrar</a>
+                <a class="icon-btn" href="img/ejemplo2.jpg" target="_blank" rel="noopener">Abrir</a>
+                <a class="icon-btn" href="img/ejemplo2.jpg" download>Descargar</a>
+            </nav>
+        </header>
+        <figure class="lb-figure">
+            <img src="img/ejemplo2.jpg" alt="Imagen 1 del hecho 102">
+            <a class="arrow prev" href="#galeria-102-2" aria-label="Anterior">‹</a>
+            <a class="arrow next" href="#galeria-102-2" aria-label="Siguiente">›</a>
+        </figure>
+    </div>
+</section>
+
+<section id="galeria-102-2" class="lightbox">
+    <div class="lightbox-card">
+        <header class="lb-header">
+            <span class="counter">2 / 2</span>
+            <nav class="lb-actions">
+                <a class="icon-btn" href="#hecho-102">✕ Cerrar</a>
+                <a class="icon-btn" href="img/ejemplo3.jpg" target="_blank" rel="noopener">Abrir</a>
+                <a class="icon-btn" href="img/ejemplo3.jpg" download>Descargar</a>
+            </nav>
+        </header>
+        <figure class="lb-figure">
+            <img src="img/ejemplo3.jpg" alt="Imagen 2 del hecho 102">
+            <a class="arrow prev" href="#galeria-102-1" aria-label="Anterior">‹</a>
+            <a class="arrow next" href="#galeria-102-1" aria-label="Siguiente">›</a>
+        </figure>
+    </div>
+</section>
+
 </body>
 </html>
