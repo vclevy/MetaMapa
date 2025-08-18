@@ -25,18 +25,18 @@ body {
 }
 
 /* Header */
-header {
+header{
     background-color: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0.2rem 0;  /* solo arriba y abajo */
-    color: white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 0; /* sin padding extra */
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid #ddd;
     width: 100%;
+    height: 80px; /* altura total del header */
 }
 
 .container {
@@ -48,17 +48,16 @@ header {
 .header-container {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* centra verticalmente */
-    flex-wrap: wrap;
-    gap: 1rem;
-    height: 110px; /* fija una altura para alinear */
+    align-items: center;   /* centra verticalmente logo y botones */
+    height: 100%;
+    padding: 0 1rem;/* ocupa toda la altura del header */
 }
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    flex: 0 0 auto;
+.logo img {
+    height: 40px;  /* logo chico para que encaje */
+    width: auto;
+    display: block;
+    object-fit: contain;
+    margin-right: auto;
 }
 
 .logo img {
@@ -72,19 +71,17 @@ header {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+    margin-left: auto;
 }
+
 
 .nav-links a {
-    color: blue;
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
 }
-
 .nav-links a:hover {
     color: #bad4ec;
 }

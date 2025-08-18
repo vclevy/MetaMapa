@@ -5,26 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/detalle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/edicionHecho.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/detalle.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo3.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/img/ejemplo4.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/partials/header.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +53,22 @@
     &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
   }
 }</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/maquetadoUi/css/index.css">
+      <ranges>
+        <range start1="27" end1="28" start2="27" end2="28" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="31" end1="34" start2="31" end2="33" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="39" end1="39" start2="38" end2="39" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="50" end1="54" start2="50" end2="53" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="55" end1="61" start2="54" end2="60" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="74" end1="75" start2="73" end2="74" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="77" end1="77" start2="76" end2="77" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="79" end1="79" start2="79" end2="80" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="80" end1="85" start2="81" end2="83" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="86" end1="87" start2="84" end2="84" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+      </ranges>
+    </file>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -79,39 +88,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.AgregadorApplication (1).executor": "Run",
-    "Spring Boot.AgregadorApplication.executor": "Run",
-    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
-    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
-    "Spring Boot.FuenteProxyApplication.executor": "Run",
-    "git-widget-placeholder": "ENTREGA__3",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ENTREGA__3&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4/maquetadoUi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -186,8 +195,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -217,6 +226,7 @@
       <workItem from="1755003545654" duration="1024000" />
       <workItem from="1755018798738" duration="13632000" />
       <workItem from="1755108289305" duration="2618000" />
+      <workItem from="1755523859887" duration="3512000" />
     </task>
     <servers />
   </component>
