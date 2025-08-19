@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/HEADER.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/cielo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/img/cielo.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/listadoColecciones.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoColecciones.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -117,11 +109,11 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Valentino\OneDrive\Documents\DDSI\2025-tpa-ma-ma-grupo-4\maquetadoUi\img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi\img" />
       <recent name="$PROJECT_DIR$/maquetadoUi/img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
       <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
-      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\diagramaDeClases" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -216,11 +208,19 @@
       <workItem from="1755018798738" duration="13632000" />
       <workItem from="1755108289305" duration="2618000" />
       <workItem from="1755523859887" duration="3512000" />
+      <workItem from="1755603607340" duration="1584000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
