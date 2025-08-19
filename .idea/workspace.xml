@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/adminLanding.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/css/adminLanding.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -50,16 +51,6 @@
     &quot;accountId&quot;: &quot;e97f65a5-06a1-4279-a72b-b5634ad3a1a6&quot;
   }
 }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/listadoHechos.html">
-      <ranges>
-        <range start1="9" end1="9" start2="9" end2="10" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="10" end1="11" start2="11" end2="12" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="77" end1="94" start2="78" end2="79" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="176" end1="434" start2="161" end2="161" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-      </ranges>
-    </file>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
