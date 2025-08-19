@@ -5,20 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/maquetadoUi/HEADER.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/HEADER.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/cielo.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/img/cielo.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/header.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/solicitarEliminacion.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/logoMetamapa.png" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/img/logoMetamapa.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -53,12 +51,12 @@
     &quot;assignee&quot;: &quot;delfisartorio&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git",
-    "accountId": "e97f65a5-06a1-4279-a72b-b5634ad3a1a6"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
+    &quot;accountId&quot;: &quot;e97f65a5-06a1-4279-a72b-b5634ad3a1a6&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -186,8 +184,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-IU-252.23892.409" />
       </set>
     </attachedChunks>
   </component>
