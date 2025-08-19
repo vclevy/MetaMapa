@@ -10,12 +10,11 @@
 <header>
     <div class="container header-container">
         <div class="logo">
-            <img src="logoMetamapa.png" alt="Logo MetaMapa" />
+            <img src="img/logoMetamapa.png" alt="Logo MetaMapa" />
         </div>
         <nav class="nav-links">
             <a href="#resumen">Resumen</a>
             <a href="#colecciones">Colecciones</a>
-            <a href="#fuentes">Fuentes</a>
             <a href="#hechos">Hechos</a>
             <a href="#eliminacion">Eliminaciones</a>
             <a href="#importar">Importar CSV</a>
@@ -27,6 +26,14 @@
 <!-- Colecciones -->
 <section id="colecciones">
     <h2 class="section-title">Gestión de Colecciones</h2>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-bar">
+        <input type="text" placeholder="Buscar colección...">
+        <button class="btn btn-primary">Buscar</button>
+    </div>
+
+    <!-- Crear / editar colección -->
     <div class="form-card">
         <label>Nombre de la colección</label>
         <input type="text" placeholder="Nombre...">
@@ -42,12 +49,11 @@
         </select>
 
         <button class="btn btn-primary">Guardar colección</button>
+        <button class="btn btn-outline">Eliminar colección</button>
     </div>
-</section>
 
-<!-- Fuentes -->
-<section id="fuentes">
-    <h2 class="section-title">Configurar Fuentes</h2>
+    <!-- Fuentes asociadas a la colección -->
+    <h3>Fuentes de la colección</h3>
     <div class="form-card">
         <label>Tipo de fuente</label>
         <select>
@@ -59,14 +65,44 @@
         <label>URL / Ruta</label>
         <input type="text" placeholder="https://...">
 
-        <label>Colección asociada</label>
-        <select>
-            <option>Colección 1</option>
-            <option>Colección 2</option>
-        </select>
-
-        <button class="btn btn-primary">Guardar fuente</button>
+        <button class="btn btn-primary">Agregar fuente</button>
     </div>
+
+    <!-- Listado de colecciones existentes -->
+    <h3>Colecciones existentes</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Algoritmo</th>
+            <th>Fuentes</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Colección 1</td>
+            <td>Descripción breve...</td>
+            <td>Mayoría simple</td>
+            <td>3 fuentes</td>
+            <td>
+                <button class="btn btn-primary">Editar</button>
+                <button class="btn btn-outline">Eliminar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Colección 2</td>
+            <td>Otra descripción...</td>
+            <td>Unanimidad</td>
+            <td>1 fuente</td>
+            <td>
+                <button class="btn btn-primary">Editar</button>
+                <button class="btn btn-outline">Eliminar</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </section>
 
 <!-- Hechos -->
@@ -88,6 +124,7 @@
                 <td>
                     <button class="btn btn-primary">Aprobar</button>
                     <button class="btn btn-outline">Rechazar</button>
+                    <button class="btn btn-secondary">Aceptar con modificaciones</button>
                 </td>
             </tr>
             <tr>
@@ -96,6 +133,7 @@
                 <td>
                     <button class="btn btn-primary">Aprobar</button>
                     <button class="btn btn-outline">Rechazar</button>
+                    <button class="btn btn-secondary">Aceptar con modificaciones</button>
                 </td>
             </tr>
             </tbody>
@@ -138,7 +176,6 @@
         <button class="btn btn-primary">Importar</button>
     </div>
 </section>
-</main>
 
 <footer>
     © 2025 MetaMapa - Panel de Administración

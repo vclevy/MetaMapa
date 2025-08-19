@@ -5,19 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetadoUi/HEADER.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/admin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/listadoHechos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadoHechos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/listadocolecciones.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/logoMetamapa.png" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/img/logoMetamapa.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/registro.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/solicitarEliminacion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/banner.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/estilos.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/index.css" afterDir="false" />
-    </list>
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,28 +53,12 @@
     &quot;assignee&quot;: &quot;delfisartorio&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
-    &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git",
+    "accountId": "e97f65a5-06a1-4279-a72b-b5634ad3a1a6"
   }
-}</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/maquetadoUi/css/index.css">
-      <ranges>
-        <range start1="27" end1="28" start2="27" end2="28" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="31" end1="34" start2="31" end2="33" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="39" end1="39" start2="38" end2="39" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="50" end1="54" start2="50" end2="53" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="55" end1="61" start2="54" end2="60" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="74" end1="75" start2="73" end2="74" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="77" end1="77" start2="76" end2="77" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="79" end1="79" start2="79" end2="80" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="80" end1="85" start2="81" end2="83" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="86" end1="87" start2="84" end2="84" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
-  </component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -129,6 +119,7 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi\img" />
       <recent name="$PROJECT_DIR$/maquetadoUi/img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
       <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
