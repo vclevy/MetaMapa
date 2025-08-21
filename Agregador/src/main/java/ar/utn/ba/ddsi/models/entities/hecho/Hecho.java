@@ -24,7 +24,7 @@ public class Hecho {
     private List<Multimedia> multimedia;
     private Usuario usuarioContribuyente;
     private List<Etiqueta> etiquetas;
-    private List<Solicitud> solicitudesDeEliminacion;
+    private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
 
     private Long idAgregador;
     private OrigenDelHecho origen;

@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
+import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
@@ -8,6 +9,7 @@ import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
+import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,21 +24,25 @@ public class SolicitudesService implements ISolcitudesService {
     @Autowired
     private IHechosRepository hechosRepository;
 
-    @Override
-    public void registrarSolicitud(String unaJustificacion, Long idHecho, Usuario unUsuario) {
+    @Autowired
+    private DetectorDeSpam detectorDeSpam;
 
-        if (!this.justificacionTieneLongitudValida(unaJustificacion)) {
+    @Override
+    public void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Usuario unUsuario) {
+
+        if (!this.justificacionTieneLongitudValida(solicitudInputDTO.getJustificacion())) {
             return;
         }
 
-        Solicitud unaSolicitud = new Solicitud(unaJustificacion, idHecho, unUsuario);
-        unaSolicitud.setId(this.definirId());
+        unUsuario = new Usuario("Visitante");
+        Solicitud unaSolicitud = new Solicitud(solicitudInputDTO.getJustificacion(), solicitudInputDTO.getIdHecho(), unUsuario);
+        unaSolicitud.setIdSolicitud(this.definirId());
 
         if (!this.verificacionDeSpam(unaSolicitud)) {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
-            this.actualizarHistorialDe(unaSolicitud.getId(), unUsuario);
-            this.hechosRepository.findById(unaSolicitud.getIdHecho()).getSolicitudesDeEliminacion().add(unaSolicitud);
             solicitudesRepository.save(unaSolicitud);
+            this.actualizarHistorialDe(unaSolicitud.getIdSolicitud(), unUsuario);
+            this.hechosRepository.findById(unaSolicitud.getIdHecho()).getSolicitudesDeEliminacion().add(unaSolicitud);
         } else {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
         }
@@ -47,7 +53,7 @@ public class SolicitudesService implements ISolcitudesService {
         List<Solicitud> solcicitudes = solicitudesRepository.findAll();
 
         for (Solicitud solicitudIndice : solcicitudes) {
-            if (solicitudIndice.getId() == idSolicitud) {
+            if (solicitudIndice.getIdSolicitud() == idSolicitud) {
                 switch (unaAccion.toLowerCase()) {
                     case "aprobar":
                         solicitudIndice.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
@@ -63,11 +69,7 @@ public class SolicitudesService implements ISolcitudesService {
 
     @Override
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
-        if (unaSolicitud.getDetectorDeSpam().esSpam(unaSolicitud.getJustificacionDeEliminacion())) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.detectorDeSpam.esSpam(unaSolicitud.getJustificacionDeEliminacion());
     }
 
     @Override
@@ -76,7 +78,7 @@ public class SolicitudesService implements ISolcitudesService {
 
         Long maxId = solicitudesDeRepositorio
                 .stream()
-                .map(Solicitud::getId)
+                .map(Solicitud::getIdSolicitud)
                 .filter(Objects::nonNull)
                 .max(Long::compareTo)
                 .orElse(0L);
@@ -94,7 +96,7 @@ public class SolicitudesService implements ISolcitudesService {
         List<Solicitud> solcicitudes = solicitudesRepository.findAll();
 
         for (Solicitud solicitudIndice : solcicitudes) {
-            if (solicitudIndice.getId() == idSolicitud) {
+            if (solicitudIndice.getIdSolicitud() == idSolicitud) {
                 HistorialSolicitud historialSolicitud = new HistorialSolicitud(
                         solicitudIndice.getEstado(),
                         usuarioModificador

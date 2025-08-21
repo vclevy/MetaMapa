@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
+import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
@@ -20,4 +21,5 @@ public interface IColeccionService {
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
     public void aplicarAlgoritmosAColecciones();
+    public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle);
 }

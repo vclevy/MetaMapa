@@ -22,7 +22,7 @@ public class SolicitudesRepository implements ISolicitudesRepository {
 
     @Override
     public Solicitud findById(Long id) {
-        return this.solicitudesDeEliminacion.stream().filter(unaSolicitud -> unaSolicitud.getId().equals(id)).findFirst().orElse(null);
+        return this.solicitudesDeEliminacion.stream().filter(unaSolicitud -> unaSolicitud.getIdSolicitud().equals(id)).findFirst().orElse(null);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Solicitud {
-    private Long id;
+    private Long idSolicitud;
     private String justificacionDeEliminacion;
     private Long idHecho;
     private EstadoDeSolicitudDeEliminacion estado;
@@ -22,7 +22,7 @@ public class Solicitud {
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
     private Usuario visitanteQueCargoLaSolicitud;
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
-    private DetectorDeSpam detectorDeSpam;
+
 
     public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
