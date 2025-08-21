@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
+import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
@@ -12,6 +13,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+import ar.utn.ba.ddsi.models.repositories.impl.HechosRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.*;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
@@ -140,7 +142,7 @@ public class ColeccionService implements IColeccionService {
         var coleccion = coleccionesRepository.findByHandle(unHandle);
         System.out.println("Colección encontrada: " + coleccion);
 
-
+        //TODO: Borrar este código de prueba
         Etiqueta etiqueta1 = new Etiqueta("Importante");
         Etiqueta etiqueta2 = new Etiqueta("Urgente");
         List<Etiqueta> etiquetasList = Arrays.asList(etiqueta1, etiqueta2);
@@ -148,9 +150,6 @@ public class ColeccionService implements IColeccionService {
         Usuario usuario = new Usuario("juan.perez");
 
         Lugar lugar = new Lugar(-34.6037, -58.3816);
-
-        Solicitud solicitud = new Solicitud("Motivo de prueba", 1001L, usuario);
-        List<Solicitud> solicitudes = Arrays.asList(solicitud);
 
         Hecho hecho = new Hecho();
         hecho.setIdEnFuente(1001L);
@@ -165,12 +164,10 @@ public class ColeccionService implements IColeccionService {
         hecho.setIdAgregador(500L);
         hecho.setEsAnonimo(false);
         hecho.setFueEliminado(false);
-        hecho.setSolicitudesDeEliminacion(solicitudes);
 
 
         coleccion.agregarHecho(hecho);
-
-        System.out.println("Cantidad de hechos: " + coleccion.getHechos().size());
+        this.hechoService.registrarHechoDesdeFuente(hecho);
 
         if (coleccion == null) {
             throw new NoSuchElementException("No se encontró la colección con handle: " + unHandle);
@@ -193,6 +190,23 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
+    @Override
+    public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle) {
+        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+        List<FuenteDeHechoOutputDTO> fuentesDeHechoOutputDTOs = new ArrayList<>();
+
+        for (Fuente fuente : coleccion.getFuentesDeHechos()) {
+            FuenteDeHechoOutputDTO fuenteDTO = new FuenteDeHechoOutputDTO();
+            fuenteDTO.setHandle(fuente.getHandleFuente());
+            fuenteDTO.setTipo(fuente.getTipo());
+            fuenteDTO.setUrlBase(fuente.getUrlBase());
+            fuenteDTO.setUrlProxy(fuente.getUrlProxy());
+            fuenteDTO.setPathProxy(fuente.getPathProxy());
+            fuentesDeHechoOutputDTOs.add(fuenteDTO);
+        }
+
+        return fuentesDeHechoOutputDTOs;
+    }
 
 }
 

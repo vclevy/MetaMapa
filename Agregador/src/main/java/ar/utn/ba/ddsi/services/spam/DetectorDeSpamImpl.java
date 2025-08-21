@@ -1,8 +1,11 @@
 package ar.utn.ba.ddsi.services.spam;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 public class DetectorDeSpamImpl implements DetectorDeSpam {
     private static final List<String> PALABRAS_SPAM = Arrays.asList(
             "eliminar todo", "borrar ya", "urgente", "odio", "mentira", "basura"

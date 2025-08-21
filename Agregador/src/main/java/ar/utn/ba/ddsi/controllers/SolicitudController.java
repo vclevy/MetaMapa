@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.controllers;
 
+import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.services.solicitudService.ISolcitudesService;
@@ -16,13 +17,13 @@ public class SolicitudController {
     }
 
     // TODO: @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{id}/")
+    @PatchMapping("/{idSolicitud}")
     public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody Usuario usuario, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
         this.solcitudesService.cambiarEstadoDeSolicitud(idSolicitud, usuario, accion);
     }
 
     @PostMapping("/")
-    public void crearSolicitud(@RequestBody Solicitud solicitud, Usuario usuario) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
-        this.solcitudesService.registrarSolicitud(solicitud.getJustificacionDeEliminacion(), solicitud.getIdHecho(), usuario);
+    public void crearSolicitud(@RequestBody SolicitudInputDTO solicitud, Usuario usuario) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
+        this.solcitudesService.registrarSolicitud(solicitud, usuario);
     }
 }
