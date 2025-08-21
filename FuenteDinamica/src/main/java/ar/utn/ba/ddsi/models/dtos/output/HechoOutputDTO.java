@@ -30,4 +30,5 @@ public class HechoOutputDTO {
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
     private Boolean esEditable;
+    private List<String> multimedia;
 }

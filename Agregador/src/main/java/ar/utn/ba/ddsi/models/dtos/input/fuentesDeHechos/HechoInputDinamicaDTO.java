@@ -29,4 +29,5 @@ public class HechoInputDinamicaDTO {
     private Boolean fueEliminado = false;
     private Usuario contribuyente;
     private Boolean esEditable;
+    private List<String> multimedia;
 }

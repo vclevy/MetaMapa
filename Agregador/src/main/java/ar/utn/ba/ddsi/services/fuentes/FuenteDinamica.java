@@ -2,10 +2,12 @@ package ar.utn.ba.ddsi.services.fuentes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
+import ar.utn.ba.ddsi.models.entities.hecho.Multimedia;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,6 +50,16 @@ public class FuenteDinamica implements IFuenteDeHechos {
                         unHecho.setEtiquetas(hechoResponeIndice.getEtiquetas());
                         unHecho.setSolicitudesDeEliminacion(hechoResponeIndice.getSolicitudesDeEliminacion());
                         unHecho.setOrigen(OrigenDelHecho.FUENTEDINAMICA);
+                        List<Multimedia> multimediaList = hechoResponeIndice.getMultimedia()
+                                .stream()
+                                .map(ruta -> {
+                                    Multimedia m = new Multimedia();
+                                    m.setRutaAlArchivo(ruta);
+                                    return m;
+                                })
+                                .collect(Collectors.toList());
+
+                        unHecho.setMultimedia(multimediaList);
 
                         hechos.add(unHecho);
                     }
