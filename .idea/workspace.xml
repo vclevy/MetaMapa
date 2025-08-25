@@ -6,18 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputDinamicaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputDinamicaDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteDinamica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteDinamica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeriaEmpresas.uml/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/b6459dca-33c6-49b2-9dea-f0a603491320_GujYyjWW0AAHauU.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/uploads/bcceaf80-f8da-4be7-95db-a72f0aa1e7b9_GujYyjWW0AAHauU.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiagramaArquitectura/Arquitectura.puml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/admin.css" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />

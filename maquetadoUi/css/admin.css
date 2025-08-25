@@ -149,7 +149,7 @@ h2.section-title {
     font-size: 2rem;
     color: #2B7BD6;
     margin-bottom: 1.5rem;
-    text-align: center;
+    text-align: left;
 }
 .cards {
     display: flex;
