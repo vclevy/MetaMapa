@@ -1,5 +1,7 @@
 package ar.utn.ba.ddsi.models.entities.roles;
 
-public interface Rol {
-    public Boolean tenesPermiso(Permisos permiso);
+public enum Rol {
+    ADMIN,
+    VISITANTE,
+    ANONIMO
 }

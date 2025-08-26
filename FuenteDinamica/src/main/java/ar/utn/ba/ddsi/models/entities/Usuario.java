@@ -1,12 +1,24 @@
 package ar.utn.ba.ddsi.models.entities;
 
 import ar.utn.ba.ddsi.models.entities.roles.Rol;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.util.Set;
-
+@Entity
+@Table(name = "usuarios")
 @Getter
+@Setter
 public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
     private String nombre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Rol rol;
 }
