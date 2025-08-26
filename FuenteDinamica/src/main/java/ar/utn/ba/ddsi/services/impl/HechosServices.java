@@ -10,14 +10,10 @@ import ar.utn.ba.ddsi.models.entities.hecho.Revision;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,6 +45,7 @@ public class HechosServices implements IHechosServices {
         hechoOutputDTO.setEtiquetas(hecho.getEtiquetas());
         hechoOutputDTO.setFueEliminado(hecho.getFueEliminado());
         hechoOutputDTO.setEsEditable(hecho.esEditable());
+        hechoOutputDTO.setMultimedia(hecho.getMultimedia());
         return hechoOutputDTO;
     }
 
@@ -64,8 +61,10 @@ public class HechosServices implements IHechosServices {
         return dto;
     }
 
-    public HechoOutputDTO findById(Integer id) {
-        return hechoOutputDTO(repositorioDeHechos.findById(id));
+    public HechoOutputDTO findById(Long id) {
+        Hecho hecho = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
+        return hechoOutputDTO(hecho);
     }
 
     public Hecho inputDTOAHecho(HechoInputDTO dto) {
@@ -164,11 +163,9 @@ public class HechosServices implements IHechosServices {
             hechoOriginal.setMultimedia(modificado.getMultimedia());
         }
     }
-    public void editarHecho(int id, HechoInputDTO hechoModificado, Usuario usuario) {
-        Hecho hechoOriginal = repositorioDeHechos.findById(id);
-        if (hechoOriginal == null) {
-            throw new RuntimeException("Hecho no encontrado");
-        }
+    public void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario) {
+        Hecho hechoOriginal = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
 
         if (hechoOriginal.getContribuyente() == null) {
             throw new RuntimeException("Un usuario anónimo no puede editar hechos");
@@ -178,27 +175,27 @@ public class HechosServices implements IHechosServices {
             throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 
-        //TODO con springSecurity Usuario usuarioEditor = obtenerUsuarioActual(); // implementá esto según tu sistema
+        // TODO con springSecurity Usuario usuarioEditor = obtenerUsuarioActual();
 
-        compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario); // el usuario probablemente no sea pasado como parametro
+        compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
 
         repositorioDeHechos.save(hechoOriginal);
     }
 
-    public void revisarHecho(int id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
+    public void revisarHecho(Long id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
         if (!admin.getRol().tenesPermiso(Permisos.REVISAR_HECHO)) {
             throw new RuntimeException("No tenés permiso para revisar hechos");
         }
 
-        Hecho hecho = repositorioDeHechos.findById(id);
-        if (hecho == null) {
-            throw new RuntimeException("Hecho no encontrado");
-        }
+        Hecho hecho = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
 
         Revision nuevaRevision = new Revision(nuevoEstado, comentario);
         hecho.setRevision(nuevaRevision);
+
         repositorioDeHechos.save(hecho);
     }
+
 
     public List<HechoOutputDTO> obtenerHechos() {
         return repositorioDeHechos.findAll()

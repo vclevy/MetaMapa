@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
 import ar.utn.ba.ddsi.models.entities.roles.Permisos;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,36 +19,71 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
+
+@Entity
+@Table(name = "hechos")
 public class Hecho {
-    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "titulo", nullable = false, length = 255)
     private String titulo;
+
+    @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
     private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
+
+    @Column(name = "fecha_acontecimiento", nullable = false)
     private LocalDate fechaDeAcontecimiento;
+
+    @Column(name = "fecha_carga", nullable = false)
     private LocalDateTime fechaDeCarga;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lugar_id")
     private Lugar lugar;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "origen", nullable = false, length = 50)
     private OrigenDelHecho origen;
-    private List<Solicitud> solicitudesDeEliminacion;
+
+    @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
+
+    @Column(name = "es_anonimo", nullable = false)
     private Boolean esAnonimo = true;
-    private List<Etiqueta> etiquetas;
-    private List<String> multimedia;
+
+    @ManyToMany
+    @JoinTable(
+            name = "hecho_etiquetas",
+            joinColumns = @JoinColumn(name = "hecho_id"),
+            inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
+    )
+    private List<Etiqueta> etiquetas = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "hecho_multimedia", joinColumns = @JoinColumn(name = "hecho_id"))
+    @Column(name = "url")
+    private List<String> multimedia = new ArrayList<>();
+
+    @Column(name = "fue_eliminado", nullable = false)
     private Boolean fueEliminado = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contribuyente_id")
     private Usuario contribuyente;
+
+    @Embedded
     private Revision revision;
+
+    @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ModificacionHecho> historialDeModificaciones = new ArrayList<>();
 
-    public Hecho(String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, OrigenDelHecho origen, Boolean esAnonimo) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.fechaDeAcontecimiento = fechaDeAcontecimiento;
-        this.fechaDeCarga = fechaDeCarga;
-        this.lugar = lugar;
-        this.origen = origen;
-        this.esAnonimo = esAnonimo;
-        this.etiquetas = new ArrayList<>();
-        this.solicitudesDeEliminacion = new ArrayList<>();
-    }
 
     public boolean tieneMultimedia() {
         return multimedia != null && !multimedia.isEmpty();

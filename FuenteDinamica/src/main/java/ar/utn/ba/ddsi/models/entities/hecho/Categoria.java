@@ -1,14 +1,17 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Getter@Setter
+@Data
+@Entity
+@Table(name = "categorias")
 public class Categoria {
 
-    private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Categoria(String nombre) {
-        this.nombre = nombre;
-    }
+    @Column(name = "nombre", nullable = false, unique = true, length = 100)
+    private String nombre;
 }
