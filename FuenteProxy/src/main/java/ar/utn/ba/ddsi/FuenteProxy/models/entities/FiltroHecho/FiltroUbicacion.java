@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 
 public class FiltroUbicacion implements IFiltroHecho {
 
@@ -14,7 +14,7 @@ public class FiltroUbicacion implements IFiltroHecho {
 
     @Override
     public boolean aplica(Hecho hecho) {
-        return hecho.getLatitud() == latitudEsperada &&
-                hecho.getLongitud() == longitudEsperada;
+        return hecho.getLugar().getLatitud() == latitudEsperada &&
+                hecho.getLugar().getLongitud() == longitudEsperada;
     }
 }

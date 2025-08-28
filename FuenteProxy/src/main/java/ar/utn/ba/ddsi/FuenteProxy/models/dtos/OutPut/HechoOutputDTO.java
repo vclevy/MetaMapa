@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteProxy.models.dtos;
+package ar.utn.ba.ddsi.FuenteProxy.models.dtos.OutPut;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HechoProxyDTO {
-    private int id;
+
+public class HechoOutputDTO {
+    private Long id;
     private String titulo;
     private String descripcion;
     private String categoria;
@@ -29,6 +30,6 @@ public class HechoProxyDTO {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "UTC")
     private LocalDateTime updatedAt;
 
-    private double latitud;
-    private double longitud;
+    private Double latitud;
+    private Double longitud;
 }

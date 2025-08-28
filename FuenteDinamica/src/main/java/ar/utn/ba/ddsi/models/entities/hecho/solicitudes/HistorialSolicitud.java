@@ -18,7 +18,7 @@ public class HistorialSolicitud {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoDeSolicitudDeEliminacion estado;
+    private EstadoSolicitudEliminacion estado;
 
     @Column(name = "fecha_modificacion", nullable = false)
     private LocalDateTime fechaModificacion;
@@ -33,7 +33,7 @@ public class HistorialSolicitud {
 
     public HistorialSolicitud() {}
 
-    public HistorialSolicitud(EstadoDeSolicitudDeEliminacion nuevoEstado, Usuario admin) {
+    public HistorialSolicitud(EstadoSolicitudEliminacion nuevoEstado, Usuario admin) {
         this.estado = nuevoEstado;
         this.administradorModificador = admin;
         this.fechaModificacion = LocalDateTime.now();

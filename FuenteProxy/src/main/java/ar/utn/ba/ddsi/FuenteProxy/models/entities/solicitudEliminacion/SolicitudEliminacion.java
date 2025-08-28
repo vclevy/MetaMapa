@@ -1,23 +1,37 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.entities.solicitudEliminacion;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "solicitudes")
 @Getter
+@Setter
+
 public class SolicitudEliminacion {
-    private UUID id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "justificacion", columnDefinition = "TEXT", nullable = false)
     private String justificacionDeEliminacion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hecho_id", nullable = false)
     private Hecho hecho;
-    private EstadoSolicitudEliminacion estado;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoSolicitudEliminacion estado = EstadoSolicitudEliminacion.PENDIENTE;
+
+    @Column(name = "fecha_solicitud", nullable = false)
     private LocalDateTime fechaSolicitud;
 
-    public SolicitudEliminacion (Hecho unHecho, String unaJustificacion) {
-        this.id = UUID.randomUUID();
-        this.justificacionDeEliminacion = unaJustificacion;
-        this.hecho = unHecho;
-        this.estado = EstadoSolicitudEliminacion.PENDIENTE;
-        this.fechaSolicitud = LocalDateTime.now();
-    }
 }

@@ -21,6 +21,9 @@
         <module name="FuenteProxy" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -28,6 +31,7 @@
       <module name="FuenteDinamica" options="-parameters" />
       <module name="FuenteEstatica" options="-parameters" />
       <module name="FuenteProxy" options="-parameters" />
+      <module name="common" options="-parameters" />
       <module name="tp-multi-module" options="" />
     </option>
   </component>

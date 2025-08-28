@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.ColeccionRespuesta;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.external.HechoRespuesta;
@@ -21,7 +21,7 @@ public class MetaMapaConnectorConcreto implements IMetaMapaConnector {
         this.webClient = builder.baseUrl(baseUrl).build();
     }
 
-    public List<HechoProxyDTO> obtenerHechos() {
+    public List<HechoInputDTO> obtenerHechos() {
         try {
             HechoRespuesta respuesta = webClient.get()
                     .uri("/hechos")
@@ -39,7 +39,7 @@ public class MetaMapaConnectorConcreto implements IMetaMapaConnector {
         }
     }
 
-    public List<HechoProxyDTO> obtenerHechosDeColeccion(String identificador) {
+    public List<HechoInputDTO> obtenerHechosDeColeccion(String identificador) {
         try {
             HechoRespuesta respuesta = webClient.get()
                     .uri(uriBuilder ->
@@ -94,7 +94,7 @@ public class MetaMapaConnectorConcreto implements IMetaMapaConnector {
         }
     }
 
-    public List<HechoProxyDTO> obtenerHechosDeColeccionConModo(String identificador, String modoNavegacion) {
+    public List<HechoInputDTO> obtenerHechosDeColeccionConModo(String identificador, String modoNavegacion) {
         try {
             HechoRespuesta respuesta = webClient.get()
                     .uri(uriBuilder -> uriBuilder

@@ -1,9 +1,8 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
 import ar.utn.ba.ddsi.models.entities.Usuario;
-import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoSolicitudEliminacion;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
-import ar.utn.ba.ddsi.models.entities.roles.Permisos;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +17,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 
 @Entity
 @Table(name = "hechos")
@@ -83,11 +81,6 @@ public class Hecho {
     @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ModificacionHecho> historialDeModificaciones = new ArrayList<>();
 
-
-    public boolean tieneMultimedia() {
-        return multimedia != null && !multimedia.isEmpty();
-    }
-
     public void agregarEtiquetas(Etiqueta... unasEtiquetas) {
         Collections.addAll(this.etiquetas, unasEtiquetas);
     }
@@ -97,7 +90,7 @@ public class Hecho {
     }
 
     public boolean tieneSolicitudesDeEliminacionAprobada() {
-       return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
+       return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoSolicitudEliminacion.APROBADA);
     }
 
     public boolean esEditable(){

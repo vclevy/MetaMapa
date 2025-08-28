@@ -11,12 +11,12 @@ import java.util.*;
 public class NormalizadorHechos {
 
     private final Map<String, String> equivalenciasCategorias = Map.ofEntries(
-            Map.entry("incendio forestal", "INCENDIO_FORESTAL"),
-            Map.entry("fuego forestal", "INCENDIO_FORESTAL"),
-            Map.entry("quema", "INCENDIO_FORESTAL"),
+            Map.entry("incendio forestal", "Incendio Forestal"),
+            Map.entry("fuego forestal", "Incendio Forestal"),
+            Map.entry("quema", "Incendio Forestal"),
 
-            Map.entry("inundación", "INUNDACION"),
-            Map.entry("flood", "INUNDACION"),
+            Map.entry("inundación", "Inundacion"),
+            Map.entry("flood", "Inundacion"),
 
             Map.entry("sismo", "TERREMOTO"),
             Map.entry("temblor", "TERREMOTO"),

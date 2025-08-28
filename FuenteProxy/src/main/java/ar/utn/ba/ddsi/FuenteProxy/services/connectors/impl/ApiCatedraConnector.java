@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.HechoProxyDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.RespuestaAPICatedra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,12 +24,12 @@ public class ApiCatedraConnector{
                 .build();
     }
 
-    public List<HechoProxyDTO> obtenerHechos() {
+    public List<HechoInputDTO> obtenerHechos() {
         try {
-            RespuestaAPICatedra<HechoProxyDTO> respuesta = webClient.get()
+            RespuestaAPICatedra<HechoInputDTO> respuesta = webClient.get()
                     .uri("/desastres")
                     .retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<RespuestaAPICatedra<HechoProxyDTO>>() {})
+                    .bodyToMono(new ParameterizedTypeReference<RespuestaAPICatedra<HechoInputDTO>>() {})
                     .block();
 
             return (respuesta != null && respuesta.getData() != null)

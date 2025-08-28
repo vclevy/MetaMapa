@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.dtos;
 
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -8,5 +9,5 @@ import java.util.List;
 public class ColeccionDTO {
     private String titulo;
     private String descripcion;
-    private List<HechoProxyDTO> hechosOutputDtos;
+    private List<HechoInputDTO> hechosOutputDtos;
 }

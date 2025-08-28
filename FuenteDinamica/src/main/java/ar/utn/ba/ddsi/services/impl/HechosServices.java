@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,41 +26,38 @@ import java.util.UUID;
 
 @Service
 public class HechosServices implements IHechosServices {
+
     @Autowired
     private IHechosRepository repositorioDeHechos;
+
     @Autowired
     private ICategoriaRepository categoriaRepository;
+
+    @Autowired
+    private NormalizadorHechos normalizadorHechos;
 
     @Value("${hechos.upload.dir}")
     private String uploadDir;
 
     private HechoOutputDTO hechoOutputDTO(Hecho hecho) {
-        HechoOutputDTO hechoOutputDTO = new HechoOutputDTO();
-        hechoOutputDTO.setId(hecho.getId());
-        hechoOutputDTO.setTitulo((hecho.getTitulo()));
-        hechoOutputDTO.setDescripcion(hecho.getDescripcion());
-        hechoOutputDTO.setCategoria(hecho.getCategoria());
-        hechoOutputDTO.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
-        hechoOutputDTO.setLugar(hecho.getLugar());
-        hechoOutputDTO.setOrigen(hecho.getOrigen());
-        hechoOutputDTO.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
-        hechoOutputDTO.setEtiquetas(hecho.getEtiquetas());
-        hechoOutputDTO.setFueEliminado(hecho.getFueEliminado());
-        hechoOutputDTO.setEsEditable(hecho.esEditable());
-        return hechoOutputDTO;
+        HechoOutputDTO dto = new HechoOutputDTO();
+        dto.setId(hecho.getId());
+        dto.setTitulo(hecho.getTitulo());
+        dto.setDescripcion(hecho.getDescripcion());
+        dto.setCategoria(hecho.getCategoria());
+        dto.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
+        dto.setLugar(hecho.getLugar());
+        dto.setOrigen(hecho.getOrigen());
+        dto.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
+        dto.setEtiquetas(hecho.getEtiquetas());
+        dto.setFueEliminado(hecho.getFueEliminado());
+        dto.setEsEditable(hecho.esEditable());
+        return dto;
     }
 
     public Hecho inputDTOAHecho(HechoInputDTO dto) {
-        Hecho hecho = new Hecho();
-        Categoria categoriaPersistida = categoriaRepository
-                .findByNombre(dto.getCategoria().getNombre())
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
-        Lugar lugar = new Lugar();
-        lugar.setLatitud(dto.getLugar().getLatitud());
-        lugar.setLongitud(dto.getLugar().getLongitud());
 
-        hecho.setLugar(lugar);
-        hecho.setCategoria(categoriaPersistida);
+        Hecho hecho = new Hecho();
         hecho.setTitulo(dto.getTitulo());
         hecho.setDescripcion(dto.getDescripcion());
         hecho.setFechaDeAcontecimiento(dto.getFechaDeAcontecimiento());
@@ -67,27 +65,51 @@ public class HechosServices implements IHechosServices {
         hecho.setFueEliminado(false);
         hecho.setEsAnonimo(hecho.esAnonimo());
         hecho.setSolicitudesDeEliminacion(new ArrayList<>());
-        hecho.setContribuyente(null); //TODO no
+        hecho.setContribuyente(null); // TODO: asignar contribuyente real
+
+        Lugar lugar = new Lugar();
+        lugar.setLatitud(dto.getLugar().getLatitud());
+        lugar.setLongitud(dto.getLugar().getLongitud());
+        hecho.setLugar(lugar);
+
+        Categoria categoriaProvisional = new Categoria();
+        categoriaProvisional.setNombre(dto.getCategoria().getNombre());
+        hecho.setCategoria(categoriaProvisional);
+
+        hecho = normalizadorHechos.normalizar(hecho);
+        String nombreCategoria = hecho.getCategoria().getNombre();
+
+        Categoria categoriaPersistida = categoriaRepository
+                .findByNombre(hecho.getCategoria().getNombre())
+                .orElseGet(() -> {
+                    Categoria nueva = new Categoria();
+                    nueva.setNombre(nombreCategoria);
+                    return categoriaRepository.save(nueva);
+                });
+
+        hecho.setCategoria(categoriaPersistida);
+
         return hecho;
     }
 
-    public void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos) {
-        Hecho nuevoHecho = inputDTOAHecho(hecho);
+
+
+    public void subirHecho(HechoInputDTO hechoDto, MultipartFile[] archivos) {
+        Hecho nuevoHecho = inputDTOAHecho(hechoDto);
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
+        nuevoHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
 
         List<String> rutasMultimedia = guardarArchivos(archivos);
-
-        if (hecho.getMultimedia() != null) {
-            rutasMultimedia.addAll(hecho.getMultimedia());
+        if (hechoDto.getMultimedia() != null) {
+            rutasMultimedia.addAll(hechoDto.getMultimedia());
         }
-        nuevoHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
         nuevoHecho.setMultimedia(rutasMultimedia);
+
         repositorioDeHechos.save(nuevoHecho);
     }
 
     private List<String> guardarArchivos(MultipartFile[] archivos) {
         List<String> rutas = new ArrayList<>();
-
         if (archivos == null) return rutas;
 
         for (MultipartFile archivo : archivos) {
@@ -106,52 +128,6 @@ public class HechosServices implements IHechosServices {
         return rutas;
     }
 
-    //private void compararYRegistrarCambios(Hecho hechoOriginal, HechoInputDTO modificado, Usuario editor) {
-    //    LocalDateTime ahora = LocalDateTime.now();
-//
-    //    if (!Objects.equals(hechoOriginal.getTitulo(), modificado.getTitulo())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "titulo", modificado.getTitulo())
-    //        );
-    //        hechoOriginal.setTitulo(modificado.getTitulo());
-    //    }
-//
-    //    if (!Objects.equals(hechoOriginal.getDescripcion(), modificado.getDescripcion())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "descripcion", modificado.getDescripcion())
-    //        );
-    //        hechoOriginal.setDescripcion(modificado.getDescripcion());
-    //    }
-//
-    //    if (!Objects.equals(hechoOriginal.getFechaDeAcontecimiento(), modificado.getFechaDeAcontecimiento())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "fechaDeAcontecimiento", modificado.getFechaDeAcontecimiento().toString())
-    //        );
-    //        hechoOriginal.setFechaDeAcontecimiento(modificado.getFechaDeAcontecimiento());
-    //    }
-//
-    //    if (!Objects.equals(hechoOriginal.getLugar(), modificado.getLugar())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "lugar", modificado.getLugar().toString())
-    //        );
-    //        hechoOriginal.setLugar(modificado.getLugar());
-    //    }
-//
-    //    if (!Objects.equals(hechoOriginal.getEtiquetas(), modificado.getEtiquetas())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "etiquetas", modificado.getEtiquetas().toString())
-    //        );
-    //        hechoOriginal.setEtiquetas(modificado.getEtiquetas());
-    //    }
-//
-    //    if (!Objects.equals(hechoOriginal.getMultimedia(), modificado.getMultimedia())) {
-    //        hechoOriginal.getHistorialDeModificaciones().add(
-    //                new ModificacionHecho(ahora, editor, "multimedia", modificado.getMultimedia().toString())
-    //        );
-    //        hechoOriginal.setMultimedia(modificado.getMultimedia());
-    //    }
-    //}
-
     public void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario) {
         Hecho hechoOriginal = repositorioDeHechos.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
@@ -164,26 +140,11 @@ public class HechosServices implements IHechosServices {
             throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 
-        // TODO con springSecurity Usuario usuarioEditor = obtenerUsuarioActual();
-
-        //compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
+        // TODO: comparar cambios y registrar
+        // compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
 
         repositorioDeHechos.save(hechoOriginal);
     }
-
-//   public void revisarHecho(Long id, EstadoRevision nuevoEstado, String comentario, Usuario admin) {
-//       if (!admin.getRol().tenesPermiso(Permisos.REVISAR_HECHO)) {
-//           throw new RuntimeException("No tenés permiso para revisar hechos");
-//       }
-
-//       Hecho hecho = repositorioDeHechos.findById(id)
-//               .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
-
-//       Revision nuevaRevision = new Revision(nuevoEstado, comentario);
-//       hecho.setRevision(nuevaRevision);
-
-//       repositorioDeHechos.save(hecho);
-//   }
 
     public List<HechoOutputDTO> obtenerHechos() {
         return repositorioDeHechos.findAll()
@@ -191,9 +152,4 @@ public class HechosServices implements IHechosServices {
                 .map(this::hechoOutputDTO)
                 .toList();
     }
-
 }
-
-
-
-

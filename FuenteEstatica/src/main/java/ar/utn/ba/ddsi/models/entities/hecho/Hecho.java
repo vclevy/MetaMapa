@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Hecho {
     private Long id;
     private String titulo;

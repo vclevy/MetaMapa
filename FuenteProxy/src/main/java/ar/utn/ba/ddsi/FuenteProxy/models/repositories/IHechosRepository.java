@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.repositories;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 
 import java.util.List;
 import java.util.Map;

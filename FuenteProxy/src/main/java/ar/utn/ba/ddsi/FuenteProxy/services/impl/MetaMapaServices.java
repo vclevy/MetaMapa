@@ -2,7 +2,7 @@ package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.IFiltroHecho;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.IMetamapaServices;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IMetamapaAdapter;
 import org.springframework.beans.factory.annotation.Autowired;

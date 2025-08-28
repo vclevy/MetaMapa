@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.conversores.HechoMapper;
-import ar.utn.ba.ddsi.FuenteProxy.models.entities.Hecho;
+import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl.ApiCatedraConnector;
 import org.springframework.beans.factory.annotation.Autowired;

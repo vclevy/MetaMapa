@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface IHechosRepository extends JpaRepository<Hecho, Long> {
-    // Acá podés agregar métodos custom
 }
