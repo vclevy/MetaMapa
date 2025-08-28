@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MetaMapa · Solicitudes de eliminación</title>
+    <link rel="stylesheet" href="css/adminLanding.css" />
+</head>
+<body>
+<!-- Header -->
+<header role="banner">
+    <div class="header-container">
+        <a class="logo" href="index.html" aria-label="Ir al home">
+            <img src="img/logoMetamapa.png" alt="Logo MetaMapa" />
+        </a>
+        <nav class="admin-top-actions" aria-label="Acciones del admin"></nav>
+    </div>
+</header>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Menú lateral">
+        <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
+        <div class="sidebar__inner">
+            <nav class="menu">
+                <a class="menu__link" href="adminLanding.html">Resumen de actividad</a>
+                <a class="menu__link" href="adminColecciones.html">Gestionar colecciones</a>
+                <a class="menu__link" href="adminHechos.html">Gestionar hechos</a>
+                <a class="menu__link is-active" href="adminSolicitudes.html">Solicitudes de eliminación</a>
+                <a class="menu__link" href="adminImportar.html">Importar hechos</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title">Solicitudes de eliminación</h1>
+        </div>
+
+        <section class="solicitudes-grid" aria-label="Listado de solicitudes">
+            <!-- === Tarjeta 1 (más reciente) === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-robobicicleta" title="Ir al hecho">
+                    <span>Robo de bicicleta</span>
+                </a>
+
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque id viverra augue.
+                        Integer non efficitur mi. Donec imperdiet, dolor in facilisis imperdiet, augue eros interdum
+                        neque, vitae ultrices diam ligula quis leo. Vivamus iaculis, nunc a mollis gravida, felis nibh
+                        euismod odio, commodo consequat lectus augue et massa. Sed luctus, orci quis fringilla gravida,
+                        urna magna gravida ante, eget pulvinar nunc leo in mauris. Aenean fermentum, massa non sagittis
+                        lobortis, dui mi cursus libero, at finibus velit nisl nec arcu. Integer a sem in arcu maximus
+                        faucibus. Mauris et odio ac metus consequat dictum.
+                    </p>
+                </div>
+
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Mariana Gómez</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-12T10:15">12/03/2025 · 10:15</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 2 === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-grafitis" title="Ir al hecho">
+                    <span>Grafitis en fachada</span>
+                </a>
+
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc luctus hendrerit ligula,
+                        non tristique ipsum condimentum at. Vestibulum porta, sem sed tincidunt elementum, lacus
+                        arcu dictum velit, vitae tempus augue mi in purus. Quisque id pellentesque libero.
+                    </p>
+                </div>
+
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Anónimo</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-11T22:40">11/03/2025 · 22:40</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 3 === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-marcha" title="Ir al hecho">
+                    <span>Marcha en microcentro</span>
+                </a>
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et diam quis justo dictum
+                        venenatis. Praesent tristique, arcu quis fringilla gravida, lacus nisl viverra tortor,
+                        at posuere nisi sapien vitae magna.
+                    </p>
+                </div>
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Juan Pérez</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-11T16:05">11/03/2025 · 16:05</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 4 === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-incendio" title="Ir al hecho">
+                    <span>Incendio en depósito</span>
+                </a>
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non nibh sed mi
+                        eleifend euismod. Aenean posuere aliquet enim, et pretium tellus commodo quis.
+                    </p>
+                </div>
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Carla Ruiz</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-10T08:30">10/03/2025 · 08:30</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 5 === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-corte" title="Ir al hecho">
+                    <span>Corte de calle</span>
+                </a>
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet, odio in
+                        blandit mollis, ligula arcu faucibus turpis, a congue sem lorem ut dui.
+                    </p>
+                </div>
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Anónimo</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-09T18:10">09/03/2025 · 18:10</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 6 === -->
+            <article class="soli-card card">
+                <a class="hecho-link" href="./hechos.html#h-vandalismo" title="Ir al hecho">
+                    <span>Vandalismo en comercio</span>
+                </a>
+                <div class="soli__justif">
+                    <div class="soli__label">Justificación</div>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin, turpis
+                        ac pretium consequat, nibh erat accumsan risus, ut ullamcorper ante velit eget nunc.
+                    </p>
+                </div>
+                <div class="soli__footer">
+                    <div class="soli__meta">
+              <span class="author">
+                <svg class="avatar" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                <span class="author__name">Anónimo</span>
+              </span>
+                        <span class="date">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                <time datetime="2025-03-08T09:50">08/03/2025 · 09:50</time>
+              </span>
+                    </div>
+                    <div class="soli__actions">
+                        <button class="btn btn--approve" type="button">aprobar</button>
+                        <button class="btn btn--reject" type="button">rechazar</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+</div>
+
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+<!-- Toggle sidebar en mobile -->
+<script>
+    (function(){
+        const btn = document.querySelector('.sidebar__toggle');
+        const sidebar = document.querySelector('.sidebar');
+        if(!btn || !sidebar) return;
+        btn.addEventListener('click', () => {
+            const open = sidebar.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+</script>
+</body>
+</html>
