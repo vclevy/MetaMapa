@@ -17,4 +17,8 @@ public class Categoria {
 
     @Column(name = "nombre", nullable = false, unique = true, length = 100)
     private String nombre;
+
+    public Categoria(String categoria) {
+        this.nombre = categoria;
+    }
 }
