@@ -5,24 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/repositories/ICategoriaRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/ModificacionHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/ModificacionHecho.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Multimedia.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/HistorialSolicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/HistorialSolicitud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/Solicitud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Revisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Revisor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Rol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteAnonimo.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteAnonimo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteRegistrado.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteRegistrado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/NormalizadorHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/NormalizadorHechos.java" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/c634602c-ca85-42a9-83e9-8b6469bb673b_GujYyjWW0AAHauU.jpg" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,9 +29,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -58,6 +55,26 @@
     &quot;accountId&quot;: &quot;e97f65a5-06a1-4279-a72b-b5634ad3a1a6&quot;
   }
 }</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java">
+      <ranges>
+        <range start1="5" end1="5" start2="5" end2="6" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="6" end1="7" start2="7" end2="10" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="20" end1="21" start2="23" end2="23" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="27" end1="27" start2="29" end2="31" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="44" end1="45" start2="48" end2="48" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="48" end1="66" start2="51" end2="51" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="68" end1="68" start2="53" end2="59" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="69" end1="69" start2="60" end2="62" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="72" end1="74" start2="65" end2="65" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="78" end1="79" start2="69" end2="70" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="91" end1="92" start2="82" end2="83" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="117" end1="126" start2="108" end2="153" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="127" end1="162" start2="154" end2="154" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="176" end1="177" start2="168" end2="169" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+      </ranges>
+    </file>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -77,39 +94,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ENTREGA__3&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.AgregadorApplication (1).executor": "Run",
+    "Spring Boot.AgregadorApplication.executor": "Run",
+    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
+    "Spring Boot.FuenteProxyApplication.executor": "Run",
+    "git-widget-placeholder": "ENTREGA__4",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/valen/OneDrive/Documents/2025-tpa-ma-ma-grupo-4",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -221,6 +238,7 @@
       <workItem from="1755794719025" duration="3481000" />
       <workItem from="1756225639796" duration="1393000" />
       <workItem from="1756233815955" duration="2580000" />
+      <workItem from="1756400896700" duration="4976000" />
     </task>
     <servers />
   </component>

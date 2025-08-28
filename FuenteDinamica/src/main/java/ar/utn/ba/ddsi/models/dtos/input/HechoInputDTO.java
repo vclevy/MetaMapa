@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.dtos.input;
 
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import lombok.Data;
@@ -16,6 +17,6 @@ public class HechoInputDTO {
     private String descripcion;
     private LocalDate fechaDeAcontecimiento;
     private Lugar lugar;
-    private List<Etiqueta> etiquetas;
     private List<String> multimedia;
+    private Categoria categoria;
 }

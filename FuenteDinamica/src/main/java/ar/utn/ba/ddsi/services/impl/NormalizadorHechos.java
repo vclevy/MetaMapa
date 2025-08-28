@@ -10,9 +10,26 @@ import java.util.*;
 @Service
 public class NormalizadorHechos {
 
-    private final Map<String, String> equivalenciasCategorias = Map.of(
-            "incendio forestal", "INCENDIO_FORESTAL",
-            "fuego forestal", "INCENDIO_FORESTAL"
+    private final Map<String, String> equivalenciasCategorias = Map.ofEntries(
+            Map.entry("incendio forestal", "INCENDIO_FORESTAL"),
+            Map.entry("fuego forestal", "INCENDIO_FORESTAL"),
+            Map.entry("quema", "INCENDIO_FORESTAL"),
+
+            Map.entry("inundación", "INUNDACION"),
+            Map.entry("flood", "INUNDACION"),
+
+            Map.entry("sismo", "TERREMOTO"),
+            Map.entry("temblor", "TERREMOTO"),
+            Map.entry("earthquake", "TERREMOTO"),
+
+            Map.entry("apagón", "CORTE_DE_LUZ"),
+            Map.entry("corte eléctrico", "CORTE_DE_LUZ"),
+
+            Map.entry("marcha", "PROTESTA"),
+            Map.entry("piquete", "PROTESTA"),
+
+            Map.entry("choque", "ACCIDENTE_VIAL"),
+            Map.entry("colisión", "ACCIDENTE_VIAL")
     );
 
     private static final int UMBRAL_SIMILITUD = 3; // distancia máxima de edición permitida

@@ -3,8 +3,11 @@ package ar.utn.ba.ddsi.services.impl;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.Usuario;
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.ModificacionHecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
+import ar.utn.ba.ddsi.models.repositories.ICategoriaRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,14 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class HechosServices implements IHechosServices {
     @Autowired
     private IHechosRepository repositorioDeHechos;
+    @Autowired
+    private ICategoriaRepository categoriaRepository;
 
     @Value("${hechos.upload.dir}")
     private String uploadDir;
@@ -42,41 +46,28 @@ public class HechosServices implements IHechosServices {
         hechoOutputDTO.setEtiquetas(hecho.getEtiquetas());
         hechoOutputDTO.setFueEliminado(hecho.getFueEliminado());
         hechoOutputDTO.setEsEditable(hecho.esEditable());
-        hechoOutputDTO.setMultimedia(hecho.getMultimedia());
         return hechoOutputDTO;
-    }
-
-    public HechoInputDTO hechoInputDTO(Hecho hecho) {
-        HechoInputDTO dto = new HechoInputDTO();
-        dto.setTitulo(hecho.getTitulo());
-        dto.setDescripcion(hecho.getDescripcion());
-        dto.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
-        dto.setLugar(hecho.getLugar());
-        dto.setEtiquetas(hecho.getEtiquetas());
-        dto.setMultimedia(hecho.getMultimedia());
-
-        return dto;
-    }
-
-    public HechoOutputDTO findById(Long id) {
-        Hecho hecho = repositorioDeHechos.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
-        return hechoOutputDTO(hecho);
     }
 
     public Hecho inputDTOAHecho(HechoInputDTO dto) {
         Hecho hecho = new Hecho();
+        Categoria categoriaPersistida = categoriaRepository
+                .findByNombre(dto.getCategoria().getNombre())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+        Lugar lugar = new Lugar();
+        lugar.setLatitud(dto.getLugar().getLatitud());
+        lugar.setLongitud(dto.getLugar().getLongitud());
 
+        hecho.setLugar(lugar);
+        hecho.setCategoria(categoriaPersistida);
         hecho.setTitulo(dto.getTitulo());
         hecho.setDescripcion(dto.getDescripcion());
         hecho.setFechaDeAcontecimiento(dto.getFechaDeAcontecimiento());
-        hecho.setLugar(dto.getLugar());
-        hecho.setEtiquetas(dto.getEtiquetas());
         hecho.setMultimedia(dto.getMultimedia());
         hecho.setFueEliminado(false);
         hecho.setEsAnonimo(hecho.esAnonimo());
         hecho.setSolicitudesDeEliminacion(new ArrayList<>());
-        hecho.setContribuyente(null);
+        hecho.setContribuyente(null); //TODO no
         return hecho;
     }
 
@@ -89,7 +80,7 @@ public class HechosServices implements IHechosServices {
         if (hecho.getMultimedia() != null) {
             rutasMultimedia.addAll(hecho.getMultimedia());
         }
-
+        nuevoHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
         nuevoHecho.setMultimedia(rutasMultimedia);
         repositorioDeHechos.save(nuevoHecho);
     }
@@ -115,51 +106,52 @@ public class HechosServices implements IHechosServices {
         return rutas;
     }
 
-    private void compararYRegistrarCambios(Hecho hechoOriginal, HechoInputDTO modificado, Usuario editor) {
-        LocalDateTime ahora = LocalDateTime.now();
+    //private void compararYRegistrarCambios(Hecho hechoOriginal, HechoInputDTO modificado, Usuario editor) {
+    //    LocalDateTime ahora = LocalDateTime.now();
+//
+    //    if (!Objects.equals(hechoOriginal.getTitulo(), modificado.getTitulo())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "titulo", modificado.getTitulo())
+    //        );
+    //        hechoOriginal.setTitulo(modificado.getTitulo());
+    //    }
+//
+    //    if (!Objects.equals(hechoOriginal.getDescripcion(), modificado.getDescripcion())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "descripcion", modificado.getDescripcion())
+    //        );
+    //        hechoOriginal.setDescripcion(modificado.getDescripcion());
+    //    }
+//
+    //    if (!Objects.equals(hechoOriginal.getFechaDeAcontecimiento(), modificado.getFechaDeAcontecimiento())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "fechaDeAcontecimiento", modificado.getFechaDeAcontecimiento().toString())
+    //        );
+    //        hechoOriginal.setFechaDeAcontecimiento(modificado.getFechaDeAcontecimiento());
+    //    }
+//
+    //    if (!Objects.equals(hechoOriginal.getLugar(), modificado.getLugar())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "lugar", modificado.getLugar().toString())
+    //        );
+    //        hechoOriginal.setLugar(modificado.getLugar());
+    //    }
+//
+    //    if (!Objects.equals(hechoOriginal.getEtiquetas(), modificado.getEtiquetas())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "etiquetas", modificado.getEtiquetas().toString())
+    //        );
+    //        hechoOriginal.setEtiquetas(modificado.getEtiquetas());
+    //    }
+//
+    //    if (!Objects.equals(hechoOriginal.getMultimedia(), modificado.getMultimedia())) {
+    //        hechoOriginal.getHistorialDeModificaciones().add(
+    //                new ModificacionHecho(ahora, editor, "multimedia", modificado.getMultimedia().toString())
+    //        );
+    //        hechoOriginal.setMultimedia(modificado.getMultimedia());
+    //    }
+    //}
 
-        if (!Objects.equals(hechoOriginal.getTitulo(), modificado.getTitulo())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "titulo", modificado.getTitulo())
-            );
-            hechoOriginal.setTitulo(modificado.getTitulo());
-        }
-
-        if (!Objects.equals(hechoOriginal.getDescripcion(), modificado.getDescripcion())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "descripcion", modificado.getDescripcion())
-            );
-            hechoOriginal.setDescripcion(modificado.getDescripcion());
-        }
-
-        if (!Objects.equals(hechoOriginal.getFechaDeAcontecimiento(), modificado.getFechaDeAcontecimiento())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "fechaDeAcontecimiento", modificado.getFechaDeAcontecimiento().toString())
-            );
-            hechoOriginal.setFechaDeAcontecimiento(modificado.getFechaDeAcontecimiento());
-        }
-
-        if (!Objects.equals(hechoOriginal.getLugar(), modificado.getLugar())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "lugar", modificado.getLugar().toString())
-            );
-            hechoOriginal.setLugar(modificado.getLugar());
-        }
-
-        if (!Objects.equals(hechoOriginal.getEtiquetas(), modificado.getEtiquetas())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "etiquetas", modificado.getEtiquetas().toString())
-            );
-            hechoOriginal.setEtiquetas(modificado.getEtiquetas());
-        }
-
-        if (!Objects.equals(hechoOriginal.getMultimedia(), modificado.getMultimedia())) {
-            hechoOriginal.getHistorialDeModificaciones().add(
-                    new ModificacionHecho(ahora, editor, "multimedia", modificado.getMultimedia().toString())
-            );
-            hechoOriginal.setMultimedia(modificado.getMultimedia());
-        }
-    }
     public void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario) {
         Hecho hechoOriginal = repositorioDeHechos.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
@@ -174,7 +166,7 @@ public class HechosServices implements IHechosServices {
 
         // TODO con springSecurity Usuario usuarioEditor = obtenerUsuarioActual();
 
-        compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
+        //compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
 
         repositorioDeHechos.save(hechoOriginal);
     }

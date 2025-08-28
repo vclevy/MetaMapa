@@ -4,16 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-@Entity
-@Table(name="lugar")
+@Embeddable
+@Getter @Setter
 public class Lugar {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "latitud", nullable = false)
     private Double latitud;
-    @Column(name = "longitud", nullable = false)
     private Double longitud;
 }

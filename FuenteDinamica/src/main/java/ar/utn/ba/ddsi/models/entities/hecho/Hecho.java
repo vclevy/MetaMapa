@@ -44,8 +44,7 @@ public class Hecho {
     @Column(name = "fecha_carga", nullable = false)
     private LocalDateTime fechaDeCarga;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lugar_id")
+    @Embedded
     private Lugar lugar;
 
     @Enumerated(EnumType.STRING)
