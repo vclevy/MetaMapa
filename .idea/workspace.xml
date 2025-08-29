@@ -7,27 +7,10 @@
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FuenteEstatica/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/controllers/HechoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/controllers/HechoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/HechoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/HechoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/ColeccionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/ColeccionDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/FiltroHechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/FiltroHechoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/Input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/input/HechoInputDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/OutPut/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/HechoRespuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/HechoRespuesta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IApiExternaServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IApiExternaServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/MetamapaAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/MetamapaAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/IMetaMapaConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/IMetaMapaConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/MetaMapaConnectorConcreto.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/MetaMapaConnectorConcreto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/impl/ApiCatedraServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/impl/ApiCatedraServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/edicionHecho.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/edicionHecho.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/sesion.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/css/subirHecho.css" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/css/subirHecho.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/edicionHecho.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/inicioSesion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/maquetadoUi/subirHecho.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/hecho/Hecho.java" afterDir="false" />
     </list>
     <list id="2da0947d-3a9f-4742-8479-19f5f156faff" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -238,6 +221,7 @@
       <workItem from="1756411948502" duration="20000" />
       <workItem from="1756412036820" duration="30000" />
       <workItem from="1756413030324" duration="6725000" />
+      <workItem from="1756491450131" duration="3379000" />
     </task>
     <servers />
   </component>
