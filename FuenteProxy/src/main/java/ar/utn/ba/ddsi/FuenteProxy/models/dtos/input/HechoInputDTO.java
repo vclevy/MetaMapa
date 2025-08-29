@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input;
+package ar.utn.ba.ddsi.FuenteProxy.models.dtos.input;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

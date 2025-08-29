@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.dtos.external;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.input.HechoInputDTO;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.conversores;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.OutPut.HechoOutputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.input.HechoInputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Lugar;

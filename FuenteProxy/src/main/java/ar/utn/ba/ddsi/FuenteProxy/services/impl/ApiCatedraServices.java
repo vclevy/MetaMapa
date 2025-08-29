@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.conversores.HechoMapper;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.OutPut.HechoOutputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.services.IApiExternaServices;

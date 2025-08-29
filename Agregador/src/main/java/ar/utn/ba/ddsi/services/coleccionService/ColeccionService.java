@@ -30,10 +30,8 @@ import java.util.*;
 public class ColeccionService implements IColeccionService {
     @Autowired
     private IColeccionesRepository coleccionesRepository;
-
     @Autowired
     private IHechoService hechoService;
-
     private final AlgoritmoFactory algoritmoFactory;
     private final ColeccionMapper coleccionMapper;
 
@@ -67,7 +65,6 @@ public class ColeccionService implements IColeccionService {
     @Override
     public Coleccion findByHandle(String unHandle) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-
         return coleccion;
     }
 
@@ -81,7 +78,6 @@ public class ColeccionService implements IColeccionService {
         );
 
         coleccion.aplicarAlgoritmoDeConsenso();
-
         this.coleccionesRepository.save(coleccion);
         return this.coleccionMapper.toDTO(coleccion);
     }
@@ -103,6 +99,20 @@ public class ColeccionService implements IColeccionService {
                         }
                     });
         }
+    }
+
+    @Override
+    public void refrescarColeccion(Coleccion unaColeccion) {
+        unaColeccion.getFuentesDeHechos()
+                .forEach(unaFuenteDeHecho -> {
+                    List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHecho.obtenerHechos();
+                    for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
+                        if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) {
+                            unaColeccion.getHechos().add(hechoIndice);
+                            this.hechoService.registrarHechoDesdeFuente(hechoIndice);
+                        }
+                    }
+                });
     }
 
     @Override
@@ -130,10 +140,10 @@ public class ColeccionService implements IColeccionService {
     @Override
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-
         Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
-        
+
         coleccion.getFuentesDeHechos().add(nuevaFuente);
+        this.refrescarColeccion(coleccion);
         return this.coleccionMapper.toDTO(coleccion);
     }
 
@@ -209,4 +219,3 @@ public class ColeccionService implements IColeccionService {
     }
 
 }
-

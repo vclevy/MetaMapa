@@ -17,8 +17,8 @@
         </processorPath>
         <module name="FuenteEstatica" />
         <module name="FuenteDinamica" />
-        <module name="Agregador" />
         <module name="FuenteProxy" />
+        <module name="Agregador" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

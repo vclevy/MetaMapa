@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.connectors;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import java.util.List;
 

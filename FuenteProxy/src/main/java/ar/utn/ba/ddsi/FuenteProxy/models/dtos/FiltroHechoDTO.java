@@ -6,5 +6,4 @@ import lombok.Data;
 public class FiltroHechoDTO {
     private String tipo;
     private String valor;
-
 }

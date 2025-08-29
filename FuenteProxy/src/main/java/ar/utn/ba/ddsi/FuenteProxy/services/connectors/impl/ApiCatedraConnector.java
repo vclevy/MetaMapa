@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl;
 
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.RespuestaAPICatedra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;

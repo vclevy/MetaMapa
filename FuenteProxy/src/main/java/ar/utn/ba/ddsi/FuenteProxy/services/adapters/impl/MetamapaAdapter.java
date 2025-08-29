@@ -2,7 +2,7 @@ package ar.utn.ba.ddsi.FuenteProxy.services.adapters.impl;
 
 import ar.utn.ba.ddsi.FuenteProxy.conversores.HechoMapper;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.ColeccionDTO;
-import ar.utn.ba.ddsi.FuenteProxy.models.dtos.Input.HechoInputDTO;
+import ar.utn.ba.ddsi.FuenteProxy.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.dtos.SolicitudEliminacionInputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;

@@ -18,72 +18,49 @@ body {
     line-height: 1.6;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow-x: visible;
-}
-
 /* Header */
 header {
     background-color: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 0.2rem 0;  /* solo arriba y abajo */
-    color: white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid #ddd;
     width: 100%;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
+    height: 80px;
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* centra verticalmente */
-    flex-wrap: wrap;
-    gap: 1rem;
-    height: 110px; /* fija una altura para alinear */
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    flex: 0 0 auto;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+    margin-left: 40px;
+    margin-right: 100px;
 }
 
 .logo img {
-    height: 150px; /* ajustá este valor para que encaje bien */
+    height: 150px;
     width: auto;
     display: block;
     object-fit: contain;
 }
 
-/* Navegación */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    gap: 1rem;
 }
 
+/* Links */
 .nav-links a {
-    color: blue;
-    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -104,7 +81,7 @@ header {
 
 .btn-primary {
     background-color: white !important;
-    color: #2B7BD6 !important; /* celeste brillante */
+    color: #2B7BD6 !important;
     border: 0px solid transparent !important;
     box-shadow: 0 4px 6px rgba(13, 110, 253, 0.3) !important;
 }
@@ -113,18 +90,6 @@ header {
     background-color: #2B7BD6 !important;
     color: rgba(248, 248, 248, 0.6) !important;
     box-shadow: 0 6px 12px rgba(13, 110, 253, 0.6) !important;
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: white;
-    border: 2px solid rgba(13, 110, 253, 0.6);
-}
-
-.btn-outline:hover {
-    background-color: #2B7BD6;
-    color: white;
-    border-color: #2B7BD6;
 }
 
 /* Intro */

@@ -22,4 +22,5 @@ public interface IColeccionService {
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
     public void aplicarAlgoritmosAColecciones();
     public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle);
+    public void refrescarColeccion(Coleccion unaColeccion);
 }
