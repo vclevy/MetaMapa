@@ -148,7 +148,7 @@ input[type="file"]{
 .actions .btn-primary{ background:#2B7BD6 !important; color:#fff !important; }
 .actions .btn-primary:hover{ filter:brightness(.95); }
 
-/* Footer (tal cual nos pasaste) */
+
 footer {
     background: #133863; color: #f1faee; text-align: center;
     padding: 1.5rem 0; margin-top: 2rem; font-size: 0.9rem; letter-spacing: 1px;
