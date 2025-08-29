@@ -109,7 +109,10 @@ public class ColeccionService implements IColeccionService {
                     for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
                         if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) {
                             unaColeccion.getHechos().add(hechoIndice);
+
                             this.hechoService.registrarHechoDesdeFuente(hechoIndice);
+                            System.out.println("Se añadió el hecho: " + hechoIndice);
+
                         }
                     }
                 });
@@ -151,33 +154,6 @@ public class ColeccionService implements IColeccionService {
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String unModoDeNavegacion) {
         var coleccion = coleccionesRepository.findByHandle(unHandle);
         System.out.println("Colección encontrada: " + coleccion);
-
-        //TODO: Borrar este código de prueba
-        Etiqueta etiqueta1 = new Etiqueta("Importante");
-        Etiqueta etiqueta2 = new Etiqueta("Urgente");
-        List<Etiqueta> etiquetasList = Arrays.asList(etiqueta1, etiqueta2);
-
-        Usuario usuario = new Usuario("juan.perez");
-
-        Lugar lugar = new Lugar(-34.6037, -58.3816);
-
-        Hecho hecho = new Hecho();
-        hecho.setIdEnFuente(1001L);
-        hecho.setTitulo("Accidente en el centro");
-        hecho.setDescripcion("Se produjo un accidente en la intersección de Av. Corrientes y Florida.");
-        hecho.setCategoria(new Categoria("Accidente de Tránsito"));
-        hecho.setFechaDeAcontecimiento(LocalDate.of(2025, 8, 12));
-        hecho.setFechaDeCargaDelHecho(LocalDateTime.now());
-        hecho.setLugar(lugar);
-        hecho.setUsuarioContribuyente(usuario);
-        hecho.setEtiquetas(etiquetasList);
-        hecho.setIdAgregador(500L);
-        hecho.setEsAnonimo(false);
-        hecho.setFueEliminado(false);
-
-
-        coleccion.agregarHecho(hecho);
-        this.hechoService.registrarHechoDesdeFuente(hecho);
 
         if (coleccion == null) {
             throw new NoSuchElementException("No se encontró la colección con handle: " + unHandle);

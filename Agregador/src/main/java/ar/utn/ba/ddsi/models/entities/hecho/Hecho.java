@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Setter
 @Getter
+@ToString
 public class Hecho {
     private Long idEnFuente;
     private String titulo;
@@ -21,7 +23,7 @@ public class Hecho {
     private LocalDate fechaDeAcontecimiento;
     private LocalDateTime fechaDeCargaDelHecho;
     private Lugar lugar;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
     private Usuario usuarioContribuyente;
     private List<Etiqueta> etiquetas;
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();

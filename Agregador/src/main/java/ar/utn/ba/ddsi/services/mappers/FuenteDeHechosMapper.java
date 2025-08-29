@@ -1,8 +1,6 @@
 package ar.utn.ba.ddsi.services.mappers;
 
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
-import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.fuentes.Fuente;
 import org.springframework.stereotype.Component;
 

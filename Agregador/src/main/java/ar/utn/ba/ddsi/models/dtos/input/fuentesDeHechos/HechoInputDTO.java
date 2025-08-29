@@ -21,6 +21,6 @@ public class HechoInputDTO {
     private double latitud;
     private LocalDate fechaAcontecimiento;
     private LocalDateTime fechaDeCargaDelHecho;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
     private Usuario usuario;
 }

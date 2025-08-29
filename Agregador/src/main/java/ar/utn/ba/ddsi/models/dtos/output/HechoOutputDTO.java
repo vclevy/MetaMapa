@@ -17,6 +17,6 @@ public class HechoOutputDTO {
     private Lugar lugar;
     private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
     private Usuario contribuyente;
 }

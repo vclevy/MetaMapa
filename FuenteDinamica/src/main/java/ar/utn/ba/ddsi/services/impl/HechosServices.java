@@ -92,8 +92,6 @@ public class HechosServices implements IHechosServices {
         return hecho;
     }
 
-
-
     public void subirHecho(HechoInputDTO hechoDto, MultipartFile[] archivos) {
         Hecho nuevoHecho = inputDTOAHecho(hechoDto);
         nuevoHecho.setFechaDeCarga(LocalDateTime.now());
