@@ -111,7 +111,6 @@ public class ColeccionService implements IColeccionService {
                             unaColeccion.getHechos().add(hechoIndice);
 
                             this.hechoService.registrarHechoDesdeFuente(hechoIndice);
-                            System.out.println("Se añadió el hecho: " + hechoIndice);
 
                         }
                  //   }

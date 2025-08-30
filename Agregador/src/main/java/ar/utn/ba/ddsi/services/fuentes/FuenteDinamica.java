@@ -17,7 +17,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class FuenteDinamica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
-    private final TipoDeFuente tipoDeFuente = TipoDeFuente.DINAMICA;
 
     public FuenteDinamica(String baseUrl) {
         this.webClient = WebClient.builder()
@@ -34,21 +33,21 @@ public class FuenteDinamica implements IFuenteDeHechos {
                 .collectList()
                 .map(unosHechosResponse -> {
                     List<Hecho> hechos = new ArrayList<>();
-                    for (HechoInputDinamicaDTO hechoResponeIndice : unosHechosResponse) {
+                    for (HechoInputDinamicaDTO hechoResponseIndice : unosHechosResponse) {
                         Hecho unHecho = new Hecho();
-                        unHecho.setId((hechoResponeIndice.getIdEnFuente()));
-                        unHecho.setTitulo(hechoResponeIndice.getTitulo());
-                        unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
-                        unHecho.setCategoria(hechoResponeIndice.getCategoria());
-                        unHecho.setFechaDeAcontecimiento(hechoResponeIndice.getFechaDeAcontecimiento());
-                        Lugar lugarHecho = new Lugar(hechoResponeIndice.getLugar().getLatitud(), hechoResponeIndice.getLugar().getLongitud());
+                        unHecho.setId((hechoResponseIndice.getId()));
+                        unHecho.setTitulo(hechoResponseIndice.getTitulo());
+                        unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
+                        unHecho.setCategoria(hechoResponseIndice.getCategoria());
+                        unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
+                        Lugar lugarHecho = new Lugar(hechoResponseIndice.getLugar().getLatitud(), hechoResponseIndice.getLugar().getLongitud());
                         unHecho.setLugar(lugarHecho);
-                        unHecho.setFechaDeCargaDelHecho(hechoResponeIndice.getFechaDeCarga());
-                        unHecho.setUsuarioContribuyente(hechoResponeIndice.getContribuyente());
-                        unHecho.setEtiquetas(hechoResponeIndice.getEtiquetas());
-                        unHecho.setSolicitudesDeEliminacion(hechoResponeIndice.getSolicitudesDeEliminacion());
+                        unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
+                        unHecho.setUsuarioContribuyente(hechoResponseIndice.getContribuyente());
+                        unHecho.setEtiquetas(hechoResponseIndice.getEtiquetas());
+                        unHecho.setSolicitudesDeEliminacion(hechoResponseIndice.getSolicitudesDeEliminacion());
                         unHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
-                        unHecho.setMultimedia(hechoResponeIndice.getMultimedia());
+                        unHecho.setMultimedia(hechoResponseIndice.getMultimedia());
 
                         hechos.add(unHecho);
                     }

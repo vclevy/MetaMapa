@@ -2,9 +2,9 @@ package ar.utn.ba.ddsi.services.fuentes;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputEstaticaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,21 +27,25 @@ public class FuenteEstatica implements IFuenteDeHechos {
                 .collectList()
                 .map(unosHechosResponse -> {
                     List<Hecho> hechos = new ArrayList<>();
-                    for (HechoInputEstaticaDTO hechoResponeIndice : unosHechosResponse) {
+                    for (HechoInputEstaticaDTO hechoResponseIndice : unosHechosResponse) {
                         Hecho unHecho = new Hecho();
-                        unHecho.setId(hechoResponeIndice.getId());
-                        unHecho.setTitulo(hechoResponeIndice.getTitulo());
-                        unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
-                        unHecho.setCategoria(hechoResponeIndice.getCategoria());
-                        unHecho.setFechaDeAcontecimiento(hechoResponeIndice.getFechaDeAcontecimiento());
-                        unHecho.setFechaDeCargaDelHecho(hechoResponeIndice.getFechaDeCarga());
-                        unHecho.getLugar().setLatitud(hechoResponeIndice.getLugar().getLatitud());
-                        unHecho.getLugar().setLongitud(hechoResponeIndice.getLugar().getLongitud());
-                        unHecho.setMultimedia(hechoResponeIndice.getMultimedia());
-
-                        // todo: etiquetas, usuario contribuyente??
-
+                        unHecho.setId(hechoResponseIndice.getId());
+                        unHecho.setTitulo(hechoResponseIndice.getTitulo());
+                        unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
+                        unHecho.setCategoria(hechoResponseIndice.getCategoria());
+                        unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
+                        unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
+                        Lugar lugarHecho = null;
+                        if (hechoResponseIndice.getLugar() != null) {
+                            lugarHecho = new Lugar(
+                                    hechoResponseIndice.getLugar().getLatitud(),
+                                    hechoResponseIndice.getLugar().getLongitud()
+                            );
+                        }
+                        unHecho.setLugar(lugarHecho);
+                        unHecho.setMultimedia(hechoResponseIndice.getMultimedia());
                         unHecho.setOrigen(OrigenDelHecho.FUENTEESTATICA);
+
                         hechos.add(unHecho);
                     }
                     return hechos;

@@ -20,7 +20,7 @@ public class Hecho {
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private OrigenDelHecho origen;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
 
     public Hecho(String titulo, String descripcion, LocalDate fechaDeAcontecimiento, Lugar lugar) {
         this.titulo = titulo;

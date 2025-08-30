@@ -1,17 +1,14 @@
 package ar.utn.ba.ddsi.models.dtos;
 
-
 import ar.utn.ba.ddsi.models.entities.hecho.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-
 @Getter
 @Setter
 public class HechoOutputDTO {
@@ -22,10 +19,9 @@ public class HechoOutputDTO {
     private LocalDate fechaDeAcontecimiento;
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
-    private List<Multimedia> multimedia;
+    private List<String> multimedia;
 
-
-    public HechoOutputDTO(Long id, String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, List<Multimedia> multimedia) {
+    public HechoOutputDTO(Long id, String titulo, String descripcion, Categoria categoria, LocalDate fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, List<String> multimedia) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

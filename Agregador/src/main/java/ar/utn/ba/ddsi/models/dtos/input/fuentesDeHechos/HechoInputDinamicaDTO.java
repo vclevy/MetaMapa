@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 public class HechoInputDinamicaDTO {
-    private Long idEnFuente;
+    private Long id;
     private String titulo;
     private String descripcion;
     private Categoria categoria;
