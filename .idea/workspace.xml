@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/repositories/ICategoriaRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/impl/ColeccionesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/impl/ColeccionesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputProxyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputProxyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/Fuente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/Fuente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/HechoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/HechoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/ApiCatedraAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/ApiCatedraAdapter.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -26,6 +30,7 @@
         <option value="CSS File" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -227,7 +232,8 @@
       <workItem from="1756413030324" duration="6725000" />
       <workItem from="1756491450131" duration="3681000" />
       <workItem from="1756497460968" duration="5447000" />
-      <workItem from="1756557050577" duration="3555000" />
+      <workItem from="1756557050577" duration="8561000" />
+      <workItem from="1756579484894" duration="2888000" />
     </task>
     <servers />
   </component>

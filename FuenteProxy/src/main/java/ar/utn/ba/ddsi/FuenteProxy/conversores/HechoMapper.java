@@ -5,37 +5,38 @@ import ar.utn.ba.ddsi.FuenteProxy.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.Categoria;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.FuenteProxy.models.repositories.ICategoriaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HechoMapper {
+    @Autowired
+    private ICategoriaRepository categoriaRepository;
 
     public Hecho adaptar(HechoInputDTO dto) {
         Hecho hecho = new Hecho();
+
         hecho.setId(dto.getId());
         hecho.setTitulo(dto.getTitulo());
         hecho.setDescripcion(dto.getDescripcion());
-        hecho.setCategoria(dto.getCategoria() != null ? new Categoria(dto.getCategoria()) : null);
-        hecho.setFechaDeAcontecimiento(dto.getFechaHecho());
-        hecho.setCreatedAt(dto.getCreatedAt());
-        hecho.setUpdatedAt(dto.getUpdatedAt());
 
-        if (dto.getLatitud() != null || dto.getLongitud() != null) {
-            Lugar lugar = new Lugar();
-            lugar.setLatitud(dto.getLatitud());
-            lugar.setLongitud(dto.getLongitud());
-            hecho.setLugar(lugar);
+        //hecho = normalizadorHechos.normalizar(hecho); TODO
+
+        if (dto.getCategoria() != null && !dto.getCategoria().isBlank()) {
+            String nombreCategoria = dto.getCategoria().trim();
+
+            Categoria categoriaPersistida = categoriaRepository
+                    .findByNombre(nombreCategoria)
+                    .orElseGet(() -> {
+                        Categoria nueva = new Categoria();
+                        nueva.setNombre(nombreCategoria);
+                        return categoriaRepository.save(nueva);
+                    });
+
+            hecho.setCategoria(categoriaPersistida);
         }
 
-        return hecho;
-    }
-
-    public Hecho adaptar(HechoOutputDTO dto) {
-        Hecho hecho = new Hecho();
-        hecho.setId(dto.getId());
-        hecho.setTitulo(dto.getTitulo());
-        hecho.setDescripcion(dto.getDescripcion());
-        hecho.setCategoria(dto.getCategoria() != null ? new Categoria(dto.getCategoria()) : null);
         hecho.setFechaDeAcontecimiento(dto.getFechaHecho());
         hecho.setCreatedAt(dto.getCreatedAt());
         hecho.setUpdatedAt(dto.getUpdatedAt());

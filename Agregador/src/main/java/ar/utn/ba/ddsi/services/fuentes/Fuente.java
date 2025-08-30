@@ -43,7 +43,7 @@ public class Fuente {
                 fuenteDeHechos = new FuenteDinamica(urlBase);
                 break;
             case "PROXY":
-                fuenteDeHechos = new FuenteProxy(urlProxy, urlBase, pathProxy);
+                fuenteDeHechos = new FuenteProxy(urlBase);
                 break;
             // otros casos si existen
             default:

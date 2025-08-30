@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputProxyDTO;
+import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,41 +13,36 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class FuenteProxy implements IFuenteDeHechos {
-    private final String urlHechos;
-    private final String pathUrl;
     private final WebClient webClient;
     private Long id;
     private final TipoDeFuente tipoDeFuente = TipoDeFuente.PROXY;
 
-    public FuenteProxy(String urlHechos, @Value("${fuente-proxy-url}") String baseUrl, @Value("${fuente-proxy-path}") String pathUrl) {
-        this.urlHechos = urlHechos;
-        this.pathUrl = pathUrl;
-        this.webClient = WebClient.builder().baseUrl(baseUrl).build();
+    public FuenteProxy(String baseUrl) {
+        this.webClient = WebClient.builder()
+                .baseUrl(baseUrl)
+                .build();
     }
-
 
     @Override
     public List<Hecho> obtenerHechos() {
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path(pathUrl)
-                        .queryParam("url", urlHechos)
-                        .build())
+                .uri("/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputProxyDTO.class)
                 .collectList()
                 .map(
                         unosHechosResponse -> {
                             List<Hecho> hechos = new ArrayList<>();
-                            for (HechoInputProxyDTO hechoResponeIndice : unosHechosResponse) {
+                            for (HechoInputProxyDTO hechoResponseIndice : unosHechosResponse) {
                                 Hecho unHecho = new Hecho();
-                                unHecho.setIdEnFuente(Long.valueOf(hechoResponeIndice.getId()));
-                                unHecho.setTitulo(hechoResponeIndice.getTitulo());
-                                unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
-                                unHecho.getCategoria().setNombre(hechoResponeIndice.getCategoria());
-                                unHecho.setFechaDeAcontecimiento(hechoResponeIndice.getFechaHecho().toLocalDate());
-                                unHecho.getLugar().setLatitud(hechoResponeIndice.getLatitud());
-                                unHecho.getLugar().setLongitud(hechoResponeIndice.getLongitud());
+                                unHecho.setIdEnFuente(hechoResponseIndice.getId());
+                                unHecho.setTitulo(hechoResponseIndice.getTitulo());
+                                unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
+                                Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
+                                unHecho.setCategoria(categoria);
+                                unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
+                                unHecho.getLugar().setLatitud(hechoResponseIndice.getLatitud());
+                                unHecho.getLugar().setLongitud(hechoResponseIndice.getLongitud());
 
                                 unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
                                 unHecho.setEtiquetas(new ArrayList<>());

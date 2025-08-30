@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class HechoInputProxyDTO {
-    private int id;
+    private Long id;
     private String titulo;
     private String descripcion;
     private String categoria;
     private LocalDateTime fechaHecho;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private double latitud;
-    private double longitud;
+    private Double latitud;
+    private Double longitud;
 }

@@ -6,7 +6,6 @@ import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import ar.utn.ba.ddsi.FuenteProxy.services.connectors.impl.ApiCatedraConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,9 +16,9 @@ public class ApiCatedraAdapter implements IApiAdapter {
     private final HechoMapper hechoMapper;
 
     @Autowired
-    public ApiCatedraAdapter(ApiCatedraConnector connector) {
+    public ApiCatedraAdapter(ApiCatedraConnector connector, HechoMapper hechoMapper) {
         this.connector = connector;
-        this.hechoMapper = new HechoMapper();
+        this.hechoMapper = hechoMapper;
     }
 
     @Override
