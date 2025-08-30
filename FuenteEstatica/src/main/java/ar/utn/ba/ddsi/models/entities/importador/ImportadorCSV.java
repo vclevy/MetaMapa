@@ -1,24 +1,27 @@
 package ar.utn.ba.ddsi.models.entities.importador;
 
 import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
-import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import com.opencsv.exceptions.CsvValidationException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ImportadorCSV implements Importador {
-    private static LectorCSV lectorCSV = new LectorCSV();
 
-    public List<HechoInputDTO> importarHechos(String archivo) throws CsvValidationException, IOException {
-        List<String[]> filas = lectorCSV.leerCSV(archivo);
-        List<HechoInputDTO> hechosPorImportar = new ArrayList<>();
+    private static final LectorCSV lectorCSV = new LectorCSV();
+
+    @Override
+    public List<HechoInputDTO> importarHechos(String rutaArchivo)
+            throws IOException, CsvValidationException {
+
+        // Le delego a LectorCSV la carga de filas
+        List<String[]> filas = lectorCSV.leerCSV(rutaArchivo);
+        List<HechoInputDTO> hechos = new ArrayList<>();
 
         for (String[] campos : filas) {
             try {
@@ -27,17 +30,27 @@ public class ImportadorCSV implements Importador {
                 String categoria = campos[2].trim();
                 double latitud = Double.parseDouble(campos[3].trim());
                 double longitud = Double.parseDouble(campos[4].trim());
-                LocalDate fecha = LocalDate.parse(campos[5].trim(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                LocalDate fecha = LocalDate.parse(
+                        campos[5].trim(),
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                );
 
-                HechoInputDTO unHechoInput = new HechoInputDTO(titulo, descripcion, categoria, new Lugar(latitud, longitud), fecha);
-                hechosPorImportar.add(unHechoInput);
-            }
-            catch (Exception e) {
-                System.err.println("Error al procesar una fila del CSV:");
+                HechoInputDTO unHechoInput = new HechoInputDTO(
+                        titulo,
+                        descripcion,
+                        categoria,
+                        new Lugar(latitud, longitud),
+                        fecha
+                );
+
+                hechos.add(unHechoInput);
+
+            } catch (Exception e) {
+                System.err.println("⚠️ Error al procesar fila del CSV: " + Arrays.toString(campos));
                 e.printStackTrace();
             }
         }
 
-        return hechosPorImportar;
+        return hechos;
     }
 }

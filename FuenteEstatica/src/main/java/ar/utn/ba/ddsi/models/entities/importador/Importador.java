@@ -9,5 +9,5 @@ import java.io.IOException;
 import java.util.List;
 
 public interface Importador {
-    public List<HechoInputDTO> importarHechos(String archivo) throws CsvValidationException, IOException;
+    List<HechoInputDTO> importarHechos(String archivo) throws CsvValidationException, IOException;
 }
