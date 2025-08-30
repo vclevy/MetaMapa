@@ -143,7 +143,7 @@ public class ColeccionService implements IColeccionService {
     @Override
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
         Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), fuenteDTO.getUrlProxy(), fuenteDTO.getPathProxy());
+        Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase());
 
         coleccion.getFuentesDeHechos().add(nuevaFuente);
         this.refrescarColeccion(coleccion);
@@ -187,8 +187,6 @@ public class ColeccionService implements IColeccionService {
             fuenteDTO.setHandle(fuente.getHandleFuente());
             fuenteDTO.setTipo(fuente.getTipo());
             fuenteDTO.setUrlBase(fuente.getUrlBase());
-            fuenteDTO.setUrlProxy(fuente.getUrlProxy());
-            fuenteDTO.setPathProxy(fuente.getPathProxy());
             fuentesDeHechoOutputDTOs.add(fuenteDTO);
         }
 

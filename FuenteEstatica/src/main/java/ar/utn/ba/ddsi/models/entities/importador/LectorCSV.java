@@ -4,7 +4,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +15,8 @@ public class LectorCSV {
 
         File file = new File(archivo);
         if (file.exists()) {
-            // 📂 Si es una ruta en el sistema de archivos
             inputStream = new FileInputStream(file);
         } else {
-            // 📦 Si está en resources
             inputStream = getClass().getClassLoader().getResourceAsStream(archivo);
             if (inputStream == null) {
                 throw new FileNotFoundException("No se encontró el archivo ni en el sistema ni en resources: " + archivo);
@@ -29,7 +26,7 @@ public class LectorCSV {
         List<String[]> filas = new ArrayList<>();
         try (CSVReader reader = new CSVReaderBuilder(new InputStreamReader(inputStream))
                 .withCSVParser(new CSVParserBuilder()
-                        .withSeparator(',') // 👈 IMPORTANTE
+                        .withSeparator(',')
                         .build())
                 .build()) {
 
@@ -39,7 +36,7 @@ public class LectorCSV {
             while ((campos = reader.readNext()) != null) {
                 if (primeraLinea) {
                     primeraLinea = false;
-                    continue; // salteo cabecera
+                    continue;
                 }
                 filas.add(campos);
             }

@@ -1,6 +1,5 @@
 package ar.utn.ba.ddsi.services.fuentes;
 
-import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputEstaticaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
@@ -12,7 +11,6 @@ import java.util.List;
 public class FuenteEstatica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
-    private final TipoDeFuente tipoDeFuente = TipoDeFuente.ESTATICA;
 
     public FuenteEstatica(String baseUrl) {
         this.webClient = WebClient.builder()
@@ -31,7 +29,7 @@ public class FuenteEstatica implements IFuenteDeHechos {
                     List<Hecho> hechos = new ArrayList<>();
                     for (HechoInputEstaticaDTO hechoResponeIndice : unosHechosResponse) {
                         Hecho unHecho = new Hecho();
-                        unHecho.setIdEnFuente(hechoResponeIndice.getId());
+                        unHecho.setId(hechoResponeIndice.getId());
                         unHecho.setTitulo(hechoResponeIndice.getTitulo());
                         unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
                         unHecho.setCategoria(hechoResponeIndice.getCategoria());

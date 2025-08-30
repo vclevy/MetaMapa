@@ -14,16 +14,12 @@ public class Fuente {
     private String handleFuente;
     private String tipo;
     private String urlBase;
-    private String urlProxy;
-    private String pathProxy;
     private IFuenteDeHechos fuenteDeHechos;
 
-    public Fuente(String tipo, String urlBase, String urlProxy, String pathProxy) {
+    public Fuente(String tipo, String urlBase) {
         this.handleFuente = UUID.randomUUID().toString();
         this.tipo = tipo;
         this.urlBase = urlBase;
-        this.urlProxy = urlProxy;
-        this.pathProxy = pathProxy;
         inicializarFuenteDeHechos();
     }
 

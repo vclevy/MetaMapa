@@ -6,6 +6,7 @@ import java.util.List;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputProxyDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class FuenteProxy implements IFuenteDeHechos {
     @Override
     public List<Hecho> obtenerHechos() {
         return webClient.get()
-                .uri("/hechos")
+                .uri("/api/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputProxyDTO.class)
                 .collectList()
@@ -35,14 +36,15 @@ public class FuenteProxy implements IFuenteDeHechos {
                             List<Hecho> hechos = new ArrayList<>();
                             for (HechoInputProxyDTO hechoResponseIndice : unosHechosResponse) {
                                 Hecho unHecho = new Hecho();
-                                unHecho.setIdEnFuente(hechoResponseIndice.getId());
+                                unHecho.setId(hechoResponseIndice.getId());
                                 unHecho.setTitulo(hechoResponseIndice.getTitulo());
                                 unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
                                 Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
                                 unHecho.setCategoria(categoria);
                                 unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
-                                unHecho.getLugar().setLatitud(hechoResponseIndice.getLatitud());
-                                unHecho.getLugar().setLongitud(hechoResponseIndice.getLongitud());
+
+                                Lugar lugar = new Lugar(hechoResponseIndice.getLatitud(), hechoResponseIndice.getLongitud());
+                                unHecho.setLugar(lugar);
 
                                 unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
                                 unHecho.setEtiquetas(new ArrayList<>());

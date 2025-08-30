@@ -9,6 +9,4 @@ public class FuenteCreateDTO {
     private String nombre;
     private String tipo;
     private String urlBase;
-    private String urlProxy;
-    private String pathProxy;
 }

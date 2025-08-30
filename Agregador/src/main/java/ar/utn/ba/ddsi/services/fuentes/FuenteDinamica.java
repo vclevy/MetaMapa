@@ -2,7 +2,6 @@ package ar.utn.ba.ddsi.services.fuentes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
@@ -37,7 +36,7 @@ public class FuenteDinamica implements IFuenteDeHechos {
                     List<Hecho> hechos = new ArrayList<>();
                     for (HechoInputDinamicaDTO hechoResponeIndice : unosHechosResponse) {
                         Hecho unHecho = new Hecho();
-                        unHecho.setIdEnFuente((hechoResponeIndice.getIdEnFuente()));
+                        unHecho.setId((hechoResponeIndice.getIdEnFuente()));
                         unHecho.setTitulo(hechoResponeIndice.getTitulo());
                         unHecho.setDescripcion(hechoResponeIndice.getDescripcion());
                         unHecho.setCategoria(hechoResponeIndice.getCategoria());

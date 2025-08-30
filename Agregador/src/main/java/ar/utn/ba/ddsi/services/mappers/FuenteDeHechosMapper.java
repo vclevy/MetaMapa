@@ -12,8 +12,6 @@ public class FuenteDeHechosMapper {
         dto.setHandle(fuente.getHandleFuente());
         dto.setTipo(fuente.getTipo());
         dto.setUrlBase(fuente.getUrlBase());
-        dto.setUrlProxy(fuente.getUrlProxy());
-        dto.setPathProxy(fuente.getPathProxy());
         return dto;
     }
 }

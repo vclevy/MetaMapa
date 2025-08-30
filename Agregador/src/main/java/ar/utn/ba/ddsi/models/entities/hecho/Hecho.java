@@ -5,18 +5,17 @@ import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Setter
 @Getter
 @ToString
 public class Hecho {
-    private Long idEnFuente;
+    private Long id;
     private String titulo;
     private String descripcion;
     private Categoria categoria;
@@ -27,7 +26,6 @@ public class Hecho {
     private Usuario usuarioContribuyente;
     private List<Etiqueta> etiquetas;
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
-
     private Long idAgregador;
     private OrigenDelHecho origen;
     private Boolean esAnonimo = true;

@@ -9,6 +9,4 @@ public class FuenteDeHechoOutputDTO {
     private String handle;
     private String tipo;
     private String urlBase;
-    private String urlProxy;
-    private String pathProxy;
 }

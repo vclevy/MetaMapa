@@ -19,7 +19,6 @@ public class ImportadorCSV implements Importador {
     public List<HechoInputDTO> importarHechos(String rutaArchivo)
             throws IOException, CsvValidationException {
 
-        // Le delego a LectorCSV la carga de filas
         List<String[]> filas = lectorCSV.leerCSV(rutaArchivo);
         List<HechoInputDTO> hechos = new ArrayList<>();
 
@@ -46,7 +45,7 @@ public class ImportadorCSV implements Importador {
                 hechos.add(unHechoInput);
 
             } catch (Exception e) {
-                System.err.println("⚠️ Error al procesar fila del CSV: " + Arrays.toString(campos));
+                System.err.println("Error al procesar fila del CSV: " + Arrays.toString(campos));
                 e.printStackTrace();
             }
         }
