@@ -6,6 +6,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IHechosServices  {
-    public void importarHechos(List<String> unosArchivos) throws IOException, CsvValidationException;
-    public List<HechoOutputDTO> getHechos();
+    void importarHechos(List<String> unosArchivos) throws IOException, CsvValidationException;
+    List<HechoOutputDTO> getHechos();
 }
