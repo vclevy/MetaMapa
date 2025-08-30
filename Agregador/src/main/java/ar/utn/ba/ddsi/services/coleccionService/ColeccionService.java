@@ -107,14 +107,14 @@ public class ColeccionService implements IColeccionService {
                 .forEach(unaFuenteDeHecho -> {
                     List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHecho.obtenerHechos();
                     for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
-                        if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) {
+                        //if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) { TODO!!! @alan @gonzi lo marco para acordarme
                             unaColeccion.getHechos().add(hechoIndice);
 
                             this.hechoService.registrarHechoDesdeFuente(hechoIndice);
                             System.out.println("Se añadió el hecho: " + hechoIndice);
 
                         }
-                    }
+                 //   }
                 });
     }
 
@@ -147,6 +147,7 @@ public class ColeccionService implements IColeccionService {
 
         coleccion.getFuentesDeHechos().add(nuevaFuente);
         this.refrescarColeccion(coleccion);
+        this.coleccionesRepository.save(coleccion);
         return this.coleccionMapper.toDTO(coleccion);
     }
 

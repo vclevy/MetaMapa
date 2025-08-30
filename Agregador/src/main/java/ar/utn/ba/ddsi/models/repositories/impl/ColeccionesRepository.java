@@ -27,7 +27,19 @@ public class ColeccionesRepository implements IColeccionesRepository {
 
     @Override
     public void save(Coleccion coleccion) {
-        this.colecciones.add(coleccion);
+        int index = -1;
+        for (int i = 0; i < colecciones.size(); i++) {
+            if (colecciones.get(i).getHandle().equals(coleccion.getHandle())) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index >= 0) {
+            colecciones.set(index, coleccion);
+        } else {
+            colecciones.add(coleccion);
+        }
     }
 
     @Override

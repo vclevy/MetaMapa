@@ -4,9 +4,6 @@ import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
-import ar.utn.ba.ddsi.models.entities.hecho.*;
-import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import org.springframework.stereotype.Component;
 
 
@@ -39,9 +36,11 @@ public class ColeccionMapper {
         dto.setFuentesDeHechos(fuentesDTO);
 
 
-        //List<HechoOutputDTO> hechos = coleccion.getHechos().stream()
-          //      .map(hechoMapper::toDTO)
-          //      .collect(Collectors.toList());
+        List<HechoOutputDTO> hechos = coleccion.getHechos().stream()
+                .map(hechoMapper::toDTO)
+                .toList();
+        dto.setHechosDeLaColeccion(hechos);
+
         return dto;
     }
 }

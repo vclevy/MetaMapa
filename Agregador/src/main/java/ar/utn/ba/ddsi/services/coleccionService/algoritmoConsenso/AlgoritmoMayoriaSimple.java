@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.fuentes.Fuente;
-import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
