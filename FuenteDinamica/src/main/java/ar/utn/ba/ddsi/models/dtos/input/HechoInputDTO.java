@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.models.dtos.input;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
-import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import lombok.Data;
 import lombok.Getter;

@@ -1,11 +1,7 @@
 package ar.utn.ba.ddsi.models.dtos.output;
 
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.services.fuentes.Fuente;
-import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter

@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
-import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.services.solicitudService.ISolcitudesService;
 import org.springframework.web.bind.annotation.*;

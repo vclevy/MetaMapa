@@ -1,14 +1,10 @@
 package ar.utn.ba.ddsi.models.repositories.impl;
 
-
-import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Repository

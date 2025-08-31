@@ -2,12 +2,9 @@ package ar.utn.ba.ddsi.FuenteProxy.models.entities.solicitudEliminacion;
 
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "solicitudes")

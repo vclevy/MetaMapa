@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.services.spam;
 
 import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 

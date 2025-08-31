@@ -7,20 +7,19 @@ import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-
 import java.util.List;
 
 public interface IColeccionService {
-    public boolean delete(String unHandle);
-    public Coleccion findByHandle (String unHandle);
-    public ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO);
-    public void refrescarColecciones();
-    public List<ColeccionOutputDTO> findAll();
-    public ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch);
-    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente);
-    public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
-    public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
-    public void aplicarAlgoritmosAColecciones();
-    public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle);
-    public void refrescarColeccion(Coleccion unaColeccion);
+    boolean delete(String unHandle);
+    Coleccion findByHandle (String unHandle);
+    ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO);
+    void refrescarColecciones();
+    List<ColeccionOutputDTO> findAll();
+    ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch);
+    ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente);
+    ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
+    List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
+    void aplicarAlgoritmosAColecciones();
+    List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle);
+    void refrescarColeccion(Coleccion unaColeccion);
 }

@@ -3,9 +3,7 @@ package ar.utn.ba.ddsi.models.entities.hecho;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
-
+@Setter @Getter
 public class Revision {
 
     private EstadoRevision estado;

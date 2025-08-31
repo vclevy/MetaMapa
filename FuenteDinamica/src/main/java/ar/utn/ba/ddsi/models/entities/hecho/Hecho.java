@@ -5,7 +5,6 @@ import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.EstadoSolicitudEliminaci
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.Solicitud;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

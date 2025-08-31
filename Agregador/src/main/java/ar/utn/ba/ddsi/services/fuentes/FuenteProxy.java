@@ -3,13 +3,10 @@ package ar.utn.ba.ddsi.services.fuentes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputProxyDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import org.springframework.web.reactive.function.client.WebClient;
 

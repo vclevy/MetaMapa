@@ -1,7 +1,6 @@
 package ar.utn.ba.ddsi.models.entities.usuario;
 
 import lombok.Getter;
-
 import java.util.UUID;
 
 @Getter

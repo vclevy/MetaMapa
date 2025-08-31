@@ -6,14 +6,8 @@ import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
-import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
-import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
-import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
-import ar.utn.ba.ddsi.models.repositories.impl.HechosRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.fuentes.*;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
@@ -21,9 +15,6 @@ import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service

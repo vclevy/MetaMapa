@@ -1,18 +1,15 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
 

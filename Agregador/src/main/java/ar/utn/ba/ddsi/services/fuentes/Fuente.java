@@ -1,10 +1,8 @@
 package ar.utn.ba.ddsi.services.fuentes;
 
-
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 import java.util.UUID;
 

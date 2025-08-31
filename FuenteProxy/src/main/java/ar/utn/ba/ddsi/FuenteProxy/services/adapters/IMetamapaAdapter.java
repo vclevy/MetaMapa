@@ -4,7 +4,6 @@ import ar.utn.ba.ddsi.FuenteProxy.models.entities.Coleccion;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import java.util.List;
 
-
 public interface IMetamapaAdapter {
     List<Hecho> obtenerHechos();
     List<Coleccion> obtenerColecciones();

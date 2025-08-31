@@ -5,10 +5,7 @@ import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import org.springframework.stereotype.Component;
-
-
 import java.util.List;
-
 
 @Component
 public class ColeccionMapper {

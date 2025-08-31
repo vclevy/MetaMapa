@@ -1,13 +1,11 @@
 package ar.utn.ba.ddsi.controllers;
 
-import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import ar.utn.ba.ddsi.models.dtos.HechoOutputDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

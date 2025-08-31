@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
-
 import java.time.LocalDate;
 
 public class VerificadorDeCriterios {

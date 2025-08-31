@@ -2,7 +2,6 @@ package ar.utn.ba.ddsi.models.entities.hecho;
 
 import ar.utn.ba.ddsi.models.entities.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

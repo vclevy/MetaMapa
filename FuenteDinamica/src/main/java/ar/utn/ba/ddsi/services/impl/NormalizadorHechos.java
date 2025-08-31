@@ -2,9 +2,7 @@ package ar.utn.ba.ddsi.services.impl;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import org.springframework.stereotype.Service;
-
 import org.apache.commons.text.similarity.LevenshteinDistance;
-
 import java.util.*;
 
 @Service
@@ -55,9 +53,6 @@ public class NormalizadorHechos {
         }
         // else: lo dejamos como está → luego un curador lo revisa
     }
-
-    //Si hay algun atributo mas para normalizar es como el metodo de arriba
-
     private String buscarSimilar(String valor, Set<String> candidatos) {
         LevenshteinDistance levenshtein = new LevenshteinDistance();
         int mejorDistancia = Integer.MAX_VALUE;

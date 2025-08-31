@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.models.entities.solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Setter

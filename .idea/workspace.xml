@@ -6,13 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputDinamicaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/HechoInputDinamicaDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteDinamica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteDinamica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteEstatica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/fuentes/FuenteEstatica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/dtos/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/dtos/HechoOutputDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Multimedia.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/ColeccionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/ColeccionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/RespuestaAPICatedra.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/RespuestaAPICatedra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/ColeccionRespuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/ColeccionRespuesta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/HechoRespuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/HechoRespuesta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Criterio.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Criterio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoDesde.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoDesde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoHasta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoHasta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaDesde.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaDesde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaHasta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaHasta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/IFiltroHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/IFiltroHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/solicitudEliminacion/SolicitudEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/solicitudEliminacion/SolicitudEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IApiExternaServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IApiExternaServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IMetamapaServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IMetamapaServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/IMetamapaAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/IMetamapaAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uploads/a55ebade-3218-476b-9ed3-c8ddc5f755ca_41tMuVARtlL.jpg" beforeDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -132,7 +144,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
+  <component name="RunManager" selected="Spring Boot.FuenteDinamicaApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
@@ -233,6 +245,7 @@
       <workItem from="1756497460968" duration="5447000" />
       <workItem from="1756557050577" duration="3555000" />
       <workItem from="1756589560367" duration="5141000" />
+      <workItem from="1756598158499" duration="1198000" />
     </task>
     <servers />
   </component>

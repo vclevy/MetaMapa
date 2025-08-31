@@ -23,9 +23,7 @@ public class HechosServices implements IHechosServices {
 
     @Autowired
     private IHechosRepository repositorioDeHechos;
-
     private Importador importadorCSV = new ImportadorCSV();
-
     private List<Categoria> categoriasExistentes = new ArrayList<>();
 
     @Override
@@ -63,11 +61,7 @@ public class HechosServices implements IHechosServices {
         return toOutputDTO(hecho);
     }
 
-    public Hecho convertirHechoInputEnHecho(HechoInputDTO hechoInputDTO) {
-        return toHecho(hechoInputDTO);
-    }
-
-    public Long definirId() {
+    public Long definirId() { // vuelva con el jpa !
         List<Hecho> solicitudesDeRepositorio = this.repositorioDeHechos.findAll();
 
         Long maxId = solicitudesDeRepositorio

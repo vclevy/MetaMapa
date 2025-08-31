@@ -1,7 +1,7 @@
 package ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho;
+
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import java.time.LocalDateTime;
-
 
 public class FiltroFechaHasta implements IFiltroHecho {
 

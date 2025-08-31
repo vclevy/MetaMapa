@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.models.dtos.output;
 import ar.utn.ba.ddsi.models.entities.hecho.solicitudes.HistorialSolicitud;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
