@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import static ar.utn.ba.ddsi.conversores.HechoMapper.*;
 
@@ -68,16 +67,4 @@ public class HechosServices implements IHechosServices {
         return toOutputDTO(hecho);
     }
 
-    public Long definirId() { // vuelva con el jpa !
-        List<Hecho> solicitudesDeRepositorio = this.repositorioDeHechos.findAll();
-
-        Long maxId = solicitudesDeRepositorio
-                .stream()
-                .map(Hecho::getId)
-                .filter(Objects::nonNull)
-                .max(Long::compareTo)
-                .orElse(0L);
-
-        return maxId + 1;
-    }
 }
