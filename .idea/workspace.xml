@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/resources/application.properties" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -176,8 +177,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
+        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +230,7 @@
       <workItem from="1756557050577" duration="3555000" />
       <workItem from="1756589560367" duration="5141000" />
       <workItem from="1756598158499" duration="2116000" />
-      <workItem from="1756659145499" duration="5601000" />
+      <workItem from="1756659145499" duration="7470000" />
     </task>
     <servers />
   </component>

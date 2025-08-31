@@ -21,13 +21,8 @@ public class HechosController {
     }
 
     @GetMapping
-    public ResponseEntity<List<HechoOutputDTO>> obtenerTodosLosHechos() {
-        try {
-            List<HechoOutputDTO> hechos = hechosServices.getHechos();
-            return ResponseEntity.ok(hechos);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    public List<HechoOutputDTO> obtenerTodosLosHechos() {
+        return hechosServices.getHechos();
     }
 
     @PostMapping("/archivo")
