@@ -6,13 +6,13 @@ import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.importador.Importador;
 import ar.utn.ba.ddsi.models.entities.importador.ImportadorCSV;
+import ar.utn.ba.ddsi.models.repositories.ICategoriaRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -24,14 +24,14 @@ public class HechosServices implements IHechosServices {
     @Autowired
     private IHechosRepository repositorioDeHechos;
     private Importador importadorCSV = new ImportadorCSV();
-    private List<Categoria> categoriasExistentes = new ArrayList<>();
+    @Autowired
+    private ICategoriaRepository categoriaRepository;
 
     @Override
     public void importarHechos(List<String> unosArchivos) throws IOException, CsvValidationException {
         for (String archivoIndice : unosArchivos) {
             for (HechoInputDTO hechoInputIndice : importadorCSV.importarHechos(archivoIndice)) {
                 Hecho hechoConvertido = this.inputDTOAHecho(hechoInputIndice);
-                hechoConvertido.setId(this.definirId());
                 this.repositorioDeHechos.save(hechoConvertido);
             }
         }
@@ -40,11 +40,18 @@ public class HechosServices implements IHechosServices {
     public Hecho inputDTOAHecho(HechoInputDTO unHechoInput) {
         Hecho hecho = toHecho(unHechoInput);
 
-        if (this.categoriasExistentes.contains(unHechoInput.getCategoria())) {
-            hecho.getCategoria().setNombre(unHechoInput.getCategoria());
-        } else {
-            Categoria categoriaNueva = new Categoria(unHechoInput.getCategoria());
-            hecho.getCategoria().setNombre(categoriaNueva.getNombre());
+        if (unHechoInput.getCategoria() != null && !unHechoInput.getCategoria().isBlank()) {
+            String nombreCategoria = unHechoInput.getCategoria().trim();
+
+            Categoria categoriaPersistida = categoriaRepository
+                    .findByNombre(nombreCategoria)
+                    .orElseGet(() -> {
+                        Categoria nueva = new Categoria();
+                        nueva.setNombre(nombreCategoria);
+                        return categoriaRepository.save(nueva);
+                    });
+
+            hecho.setCategoria(categoriaPersistida);
         }
         return hecho;
     }

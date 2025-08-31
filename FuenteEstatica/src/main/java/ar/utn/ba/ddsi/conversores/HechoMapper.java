@@ -15,7 +15,8 @@ public class HechoMapper {
                 dto.getLugar()
         );
 
-        hecho.setCategoria(new Categoria(dto.getCategoria()));
+        Categoria categoria = new Categoria(dto.getCategoria());
+        hecho.setCategoria(categoria);
         return hecho;
     }
 
