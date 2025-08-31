@@ -15,6 +15,7 @@ import java.util.List;
 @ToString
 public class Hecho {
     private Long id;
+    private Long idEnFuente;
     private String titulo;
     private String descripcion;
     private Categoria categoria;

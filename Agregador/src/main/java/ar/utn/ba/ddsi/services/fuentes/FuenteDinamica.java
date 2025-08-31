@@ -33,7 +33,7 @@ public class FuenteDinamica implements IFuenteDeHechos {
                     List<Hecho> hechos = new ArrayList<>();
                     for (HechoInputDinamicaDTO hechoResponseIndice : unosHechosResponse) {
                         Hecho unHecho = new Hecho();
-                        unHecho.setId((hechoResponseIndice.getId()));
+                        unHecho.setIdEnFuente((hechoResponseIndice.getId()));
                         unHecho.setTitulo(hechoResponseIndice.getTitulo());
                         unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
                         unHecho.setCategoria(hechoResponseIndice.getCategoria());

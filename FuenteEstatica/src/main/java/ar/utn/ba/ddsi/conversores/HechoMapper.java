@@ -4,7 +4,9 @@ import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HechoMapper {
 
     public static Hecho toHecho(HechoInputDTO dto) {
@@ -20,7 +22,7 @@ public class HechoMapper {
         return hecho;
     }
 
-    public static HechoOutputDTO toOutputDTO(Hecho hecho) {
+    public HechoOutputDTO toOutputDTO(Hecho hecho) {
         return new HechoOutputDTO(
                 hecho.getId(),
                 hecho.getTitulo(),

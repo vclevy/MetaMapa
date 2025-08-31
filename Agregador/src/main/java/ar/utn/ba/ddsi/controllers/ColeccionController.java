@@ -57,12 +57,12 @@ public class ColeccionController {
         return ResponseEntity.ok(this.coleccionService.modificarAtributo(handle, patchDTO));
     }
 
-    @PostMapping("/{handle}/addFuentes")
+    @PostMapping("/{handle}/fuentes")
     public ResponseEntity<ColeccionOutputDTO> agregarFuentes(@PathVariable String handle, @RequestBody FuenteCreateDTO fuenteDTO) {
         return ResponseEntity.ok(this.coleccionService.agregarUnaFuenteDeUnaColeccion(handle, fuenteDTO));
     }
 
-    @DeleteMapping("/{handle}/eliminateFuentes")
+    @DeleteMapping("/{handle}/fuentes")
     public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable String handle, @RequestBody FuenteDeleteDTO fuenteDTO) {
         return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(handle, fuenteDTO.getHandleDeFuente()));
     }

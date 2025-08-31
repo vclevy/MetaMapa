@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.services.impl;
 
+import ar.utn.ba.ddsi.conversores.HechoMapper;
 import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
@@ -25,6 +26,8 @@ public class HechosServices implements IHechosServices {
     private Importador importadorCSV = new ImportadorCSV();
     @Autowired
     private ICategoriaRepository categoriaRepository;
+    @Autowired
+    private HechoMapper hechoMapper;
 
     @Override
     public void importarHechos(List<String> unosArchivos) throws IOException, CsvValidationException {
@@ -59,12 +62,7 @@ public class HechosServices implements IHechosServices {
     public List<HechoOutputDTO> getHechos() {
         return repositorioDeHechos.findAll()
                 .stream()
-                .map(this::hechoOutputDTO)
-                .collect(Collectors.toList());
+                .map(hechoMapper::toOutputDTO)
+                .toList();
     }
-
-    public HechoOutputDTO hechoOutputDTO(Hecho hecho) {
-        return toOutputDTO(hecho);
-    }
-
 }

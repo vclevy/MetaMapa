@@ -17,7 +17,7 @@ public class Coleccion {
     private String descripcion;
     private String handle;
     private List<Fuente> fuentesDeHechos = new ArrayList<>();
-    private List<Criterio> criterioDePertenencia;
+    private List<Criterio> criterioDePertenencia = new ArrayList<>();
     private IAlgoritmo algoritmoDeConsenso;
     private List<Hecho> hechos = new ArrayList<>();
     private List<Hecho> hechosConAlgotimoAplicado;

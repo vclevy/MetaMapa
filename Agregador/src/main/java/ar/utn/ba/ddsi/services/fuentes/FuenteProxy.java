@@ -33,7 +33,7 @@ public class FuenteProxy implements IFuenteDeHechos {
                             List<Hecho> hechos = new ArrayList<>();
                             for (HechoInputProxyDTO hechoResponseIndice : unosHechosResponse) {
                                 Hecho unHecho = new Hecho();
-                                unHecho.setId(hechoResponseIndice.getId());
+                                unHecho.setIdEnFuente(hechoResponseIndice.getId());
                                 unHecho.setTitulo(hechoResponseIndice.getTitulo());
                                 unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
                                 Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
