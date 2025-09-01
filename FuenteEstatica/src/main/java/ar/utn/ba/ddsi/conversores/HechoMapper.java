@@ -22,6 +22,8 @@ public class HechoMapper {
         return hecho;
     }
 
+
+
     public HechoOutputDTO toOutputDTO(Hecho hecho) {
         return new HechoOutputDTO(
                 hecho.getId(),

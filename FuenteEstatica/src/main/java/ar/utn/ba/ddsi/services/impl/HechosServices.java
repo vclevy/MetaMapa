@@ -9,13 +9,13 @@ import ar.utn.ba.ddsi.models.entities.importador.Importador;
 import ar.utn.ba.ddsi.models.entities.importador.ImportadorCSV;
 import ar.utn.ba.ddsi.models.repositories.ICategoriaRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.normalizador.NormalizadorHechos;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 import static ar.utn.ba.ddsi.conversores.HechoMapper.*;
 
 @Service
@@ -28,6 +28,8 @@ public class HechosServices implements IHechosServices {
     private ICategoriaRepository categoriaRepository;
     @Autowired
     private HechoMapper hechoMapper;
+    @Autowired
+    private NormalizadorHechos normalizadorHechos;
 
     @Override
     public void importarHechos(List<String> unosArchivos) throws IOException, CsvValidationException {
@@ -42,8 +44,10 @@ public class HechosServices implements IHechosServices {
     public Hecho inputDTOAHecho(HechoInputDTO unHechoInput) {
         Hecho hecho = toHecho(unHechoInput);
 
-        if (unHechoInput.getCategoria() != null && !unHechoInput.getCategoria().isBlank()) {
-            String nombreCategoria = unHechoInput.getCategoria().trim();
+        hecho = normalizadorHechos.normalizar(hecho);
+
+        if (hecho.getCategoria() != null && !hecho.getCategoria().getNombre().isBlank()) {
+            String nombreCategoria = hecho.getCategoria().getNombre().trim();
 
             Categoria categoriaPersistida = categoriaRepository
                     .findByNombre(nombreCategoria)

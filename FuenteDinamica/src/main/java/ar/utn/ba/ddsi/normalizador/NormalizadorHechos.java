@@ -1,9 +1,11 @@
-package ar.utn.ba.ddsi.services.impl;
+package ar.utn.ba.ddsi.normalizador;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import org.springframework.stereotype.Service;
 import org.apache.commons.text.similarity.LevenshteinDistance;
-import java.util.*;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class NormalizadorHechos {
@@ -12,25 +14,26 @@ public class NormalizadorHechos {
             Map.entry("incendio forestal", "Incendio Forestal"),
             Map.entry("fuego forestal", "Incendio Forestal"),
             Map.entry("quema", "Incendio Forestal"),
+            Map.entry("INCENDIO_FORESTAL", "Incendio Forestal"),
 
             Map.entry("inundación", "Inundacion"),
             Map.entry("flood", "Inundacion"),
 
-            Map.entry("sismo", "TERREMOTO"),
-            Map.entry("temblor", "TERREMOTO"),
-            Map.entry("earthquake", "TERREMOTO"),
+            Map.entry("sismo", "Terremoto"),
+            Map.entry("temblor", "Terremoto"),
+            Map.entry("earthquake", "Terremoto"),
 
-            Map.entry("apagón", "CORTE_DE_LUZ"),
-            Map.entry("corte eléctrico", "CORTE_DE_LUZ"),
+            Map.entry("apagón", "Corte de Luz"),
+            Map.entry("corte eléctrico", "Corte de Luz"),
 
-            Map.entry("marcha", "PROTESTA"),
-            Map.entry("piquete", "PROTESTA"),
+            Map.entry("marcha", "Protesta"),
+            Map.entry("piquete", "Protesta"),
 
-            Map.entry("choque", "ACCIDENTE_VIAL"),
-            Map.entry("colisión", "ACCIDENTE_VIAL")
+            Map.entry("choque", "Accidente Vial"),
+            Map.entry("colisión", "Accidente Vial")
     );
 
-    private static final int UMBRAL_SIMILITUD = 3; // distancia máxima de edición permitida
+    private static final int UMBRAL_SIMILITUD = 3;
 
     public Hecho normalizar(Hecho hecho) {
         normalizarCategoria(hecho);
@@ -40,18 +43,15 @@ public class NormalizadorHechos {
     private void normalizarCategoria(Hecho hecho) {
         String original = hecho.getCategoria().getNombre().toLowerCase();
 
-        // 1. Buscar en diccionario
         if (equivalenciasCategorias.containsKey(original)) {
             hecho.getCategoria().setNombre(equivalenciasCategorias.get(original));
             return;
         }
 
-        // 2. Fuzzy Matching
         String mejorMatch = buscarSimilar(original, equivalenciasCategorias.keySet());
         if (mejorMatch != null) {
             hecho.getCategoria().setNombre(equivalenciasCategorias.get(mejorMatch));
         }
-        // else: lo dejamos como está → luego un curador lo revisa
     }
     private String buscarSimilar(String valor, Set<String> candidatos) {
         LevenshteinDistance levenshtein = new LevenshteinDistance();

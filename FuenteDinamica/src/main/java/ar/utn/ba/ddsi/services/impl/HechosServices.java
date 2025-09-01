@@ -9,6 +9,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.repositories.ICategoriaRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.normalizador.NormalizadorHechos;
 import ar.utn.ba.ddsi.services.IHechosServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

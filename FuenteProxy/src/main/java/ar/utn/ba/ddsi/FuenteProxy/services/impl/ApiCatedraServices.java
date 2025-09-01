@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.FuenteProxy.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.FiltroHecho.*;
 import ar.utn.ba.ddsi.FuenteProxy.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.FuenteProxy.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.FuenteProxy.normalizador.NormalizadorHechos;
 import ar.utn.ba.ddsi.FuenteProxy.services.IApiExternaServices;
 import ar.utn.ba.ddsi.FuenteProxy.services.adapters.IApiAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,6 @@ public class ApiCatedraServices implements IApiExternaServices {
         List<Hecho> hechosApi= apiAdapter.obtenerHechos();
         hechosApi.forEach(h -> h.setId(null));
         hechosRepository.saveAll(hechosApi);
-        // normalizar TODO
         return hechosApi.stream()
                 .map(hechoMapper::aOutputDTO)
                 .collect(Collectors.toList());
