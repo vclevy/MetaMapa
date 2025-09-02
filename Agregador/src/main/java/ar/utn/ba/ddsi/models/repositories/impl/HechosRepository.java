@@ -18,8 +18,8 @@ public class HechosRepository implements IHechosRepository {
     }
 
     @Override
-    public static Hecho findById(Long id) {
-        return this.hechos.stream().filter(unHecho -> unHecho.getIdAgregador().equals(id)).findFirst().orElse(null);
+    public Hecho findById(Long id) {
+        return this.hechos.stream().filter(unHecho -> unHecho.getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override

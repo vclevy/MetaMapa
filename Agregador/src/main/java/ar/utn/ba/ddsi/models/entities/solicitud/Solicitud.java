@@ -47,7 +47,7 @@ public class Solicitud {
 
     public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
-        this.hecho = HechosRepository.findById(idHecho);
+        this.hecho = new HechosRepository().findById(idHecho);
         this.visitanteQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
     }

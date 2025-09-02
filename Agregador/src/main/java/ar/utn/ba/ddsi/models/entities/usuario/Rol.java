@@ -1,7 +1,3 @@
 package ar.utn.ba.ddsi.models.entities.usuario;
 
-public enum Rol {
-    ADMIN,
-    VISITANTE,
-    ANONIMO
-}
+public enum Rol {}

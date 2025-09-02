@@ -31,7 +31,7 @@ public class SolicitudesService implements ISolcitudesService {
             return;
         }
 
-        unUsuario = new Usuario("Visitante");
+        unUsuario = new Usuario();
         Solicitud unaSolicitud = new Solicitud(solicitudInputDTO.getJustificacion(), solicitudInputDTO.getIdHecho(), unUsuario);
         unaSolicitud.setIdSolicitud(this.definirId());
 
@@ -39,7 +39,7 @@ public class SolicitudesService implements ISolcitudesService {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
             solicitudesRepository.save(unaSolicitud);
             this.actualizarHistorialDe(unaSolicitud.getIdSolicitud(), unUsuario);
-            this.hechosRepository.findById(unaSolicitud.getIdHecho()).getSolicitudesDeEliminacion().add(unaSolicitud);
+            this.hechosRepository.findById(unaSolicitud.getHecho().getId()).getSolicitudesDeEliminacion().add(unaSolicitud);
         } else {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
         }
