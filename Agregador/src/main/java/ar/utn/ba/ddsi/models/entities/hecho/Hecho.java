@@ -47,12 +47,28 @@ public class Hecho {
     @CollectionTable(name = "hecho_multimedia", joinColumns = @JoinColumn(name = "hecho_id"))
     private List<String> multimedia;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_contribuyente_id")
     private Usuario usuarioContribuyente;
+
+    @ManyToMany
+    @JoinTable(
+            name = "hecho_etiquetas",
+            joinColumns = @JoinColumn(name = "hecho_id"),
+            inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
+    )
     private List<Etiqueta> etiquetas;
+
+    @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
-    private Long idAgregador;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "origen", nullable = false, length = 50)
     private OrigenDelHecho origen;
+
+    @Column(name = "es_anonimo", nullable = false)
     private Boolean esAnonimo = true;
+
+    @Column(name = "fue_eliminado", nullable = false)
     private Boolean fueEliminado = false;
 }

@@ -1,6 +1,10 @@
 package ar.utn.ba.ddsi.models.entities.solicitud;
 
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
+import ar.utn.ba.ddsi.models.repositories.impl.HechosRepository;
+import jakarta.persistence.*;
+import jdk.jfr.Enabled;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -9,23 +13,47 @@ import java.util.List;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "solicitudes")
 public class Solicitud {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSolicitud;
+
+    @Column(name = "justificacion", columnDefinition = "TEXT", nullable = false)
     private String justificacionDeEliminacion;
-    private Long idHecho;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hecho_id", nullable = false)
+    private Hecho hecho;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EstadoDeSolicitudDeEliminacion estado;
+
+    @Column(name = "fecha_de_carga", nullable = false)
     private LocalDateTime fechaDeCargaDeSolicitud;
+
+    @Column(name = "fecha_de_evaluacion")
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
     private Usuario visitanteQueCargoLaSolicitud;
+
+    @OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
 
 
     public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
-        this.idHecho = idHecho;
+        this.hecho = HechosRepository.findById(idHecho);
         this.visitanteQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
     }
 
 
+    public Solicitud() {
+
+    }
 }
