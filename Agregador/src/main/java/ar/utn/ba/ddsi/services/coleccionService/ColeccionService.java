@@ -6,10 +6,10 @@ import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
-import ar.utn.ba.ddsi.services.fuentes.*;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public boolean delete(String unHandle) {
-        var coleccion = this.coleccionesRepository.findByHandle(unHandle);
+    public boolean delete(Long id) {
+        var coleccion = this.coleccionesRepository.findById(id);
         if (coleccion != null) {
-            this.coleccionesRepository.delete(unHandle);
+            this.coleccionesRepository.deleteById(id);
             return true;
         } else {
             return false;
@@ -54,9 +54,12 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public Coleccion findByHandle(String unHandle) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        return coleccion;
+    public Coleccion findById(Long id) {
+        if (this.coleccionesRepository.existsById(id)) {
+            return this.coleccionesRepository.findById(id).get();
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -109,52 +112,59 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
+    public ColeccionOutputDTO modificarAtributo(Long id, ColeccionPatchDTO patch) {
+        if (this.coleccionesRepository.existsById(id)) {
+            Coleccion coleccion = this.coleccionesRepository.findById(id).get();
+            switch (patch.getCampo().toLowerCase()) {
+                case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
+                case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
+                case "algoritmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
+                default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
+            }
 
-        switch (patch.getCampo().toLowerCase()) {
-            case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
-            case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
-            case "algoritmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
-            default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
+            return this.coleccionMapper.toDTO(coleccion);
         }
-
-        return this.coleccionMapper.toDTO(coleccion);
+        return null;
     }
 
     @Override
-    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(handleColeccion);
-        coleccion.getFuentesDeHechos()
-                .removeIf(fuente -> handleFuente.equals(fuente.getHandleFuente()));
-        return this.coleccionMapper.toDTO(coleccion);
+    public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long id, String handleFuente) {
+        if (this.coleccionesRepository.existsById(id)) {
+            Coleccion coleccion = this.coleccionesRepository.findById(id).get();
+            coleccion.getFuentesDeHechos()
+                    .removeIf(fuente -> handleFuente.equals(fuente.getHandleFuente()));
+            return this.coleccionMapper.toDTO(coleccion);
+        }
+        return null;
     }
 
     @Override
-    public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase());
-
-        coleccion.getFuentesDeHechos().add(nuevaFuente);
-        this.refrescarColeccion(coleccion);
-        this.coleccionesRepository.save(coleccion);
-        return this.coleccionMapper.toDTO(coleccion);
+    public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO) {
+        if (this.coleccionesRepository.existsById(id)) {
+            Coleccion coleccion = this.coleccionesRepository.findById(id).get();
+            Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase());
+            coleccion.getFuentesDeHechos().add(nuevaFuente);
+            this.refrescarColeccion(coleccion);
+            this.coleccionesRepository.save(coleccion);
+            return this.coleccionMapper.toDTO(coleccion);
+        }
+        return null;
     }
 
     @Override
-    public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String unModoDeNavegacion) {
-        var coleccion = coleccionesRepository.findByHandle(unHandle);
+    public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String unModoDeNavegacion) {
+        var coleccion = coleccionesRepository.findById(id);
         System.out.println("Colección encontrada: " + coleccion);
 
         if (coleccion == null) {
-            throw new NoSuchElementException("No se encontró la colección con handle: " + unHandle);
+            throw new NoSuchElementException("No se encontró la colección con handle: " + id);
         }
 
         if(unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
-            return coleccion.getHechosConAlgotimoAplicado();
+            return coleccion.get().getHechosConAlgotimoAplicado();
         }
         else {
-            return coleccion.getHechos();
+            return coleccion.get().getHechos();
         }
     }
 
@@ -168,19 +178,22 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle) {
-        Coleccion coleccion = this.coleccionesRepository.findByHandle(unHandle);
-        List<FuenteDeHechoOutputDTO> fuentesDeHechoOutputDTOs = new ArrayList<>();
+    public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id) {
 
-        for (Fuente fuente : coleccion.getFuentesDeHechos()) {
-            FuenteDeHechoOutputDTO fuenteDTO = new FuenteDeHechoOutputDTO();
-            fuenteDTO.setHandle(fuente.getHandleFuente());
-            fuenteDTO.setTipo(fuente.getTipo());
-            fuenteDTO.setUrlBase(fuente.getUrlBase());
-            fuentesDeHechoOutputDTOs.add(fuenteDTO);
+        if(this.coleccionesRepository.existsById(id)) {
+            Coleccion coleccion = this.coleccionesRepository.findById(id).get();
+            List<FuenteDeHechoOutputDTO> fuentesDeHechoOutputDTOs = new ArrayList<>();
+
+            for (Fuente fuente : coleccion.getFuentesDeHechos()) {
+                FuenteDeHechoOutputDTO fuenteDTO = new FuenteDeHechoOutputDTO();
+                fuenteDTO.setHandle(fuente.getHandleFuente());
+                fuenteDTO.setTipo(fuente.getTipo());
+                fuenteDTO.setUrlBase(fuente.getUrlBase());
+                fuentesDeHechoOutputDTOs.add(fuenteDTO);
+            }
+
+            return fuentesDeHechoOutputDTOs;
         }
-
-        return fuentesDeHechoOutputDTOs;
+        return null;
     }
-
 }

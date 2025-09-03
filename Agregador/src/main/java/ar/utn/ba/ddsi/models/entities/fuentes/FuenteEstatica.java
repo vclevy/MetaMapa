@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services.fuentes;
+package ar.utn.ba.ddsi.models.entities.fuentes;
 
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputEstaticaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;

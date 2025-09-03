@@ -5,9 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface IColeccionesRepository {
-    public List<Coleccion> findAll();
-    public Coleccion findByHandle(String handle);
-    public void save(Coleccion coleccion);
-    public void delete(String handle);
+public interface IColeccionesRepository extends JpaRepository<Coleccion, Long> {
+
 }

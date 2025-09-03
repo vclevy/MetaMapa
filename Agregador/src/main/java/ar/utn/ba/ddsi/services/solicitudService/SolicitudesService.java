@@ -39,7 +39,7 @@ public class SolicitudesService implements ISolcitudesService {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
             solicitudesRepository.save(unaSolicitud);
             this.actualizarHistorialDe(unaSolicitud.getIdSolicitud(), unUsuario);
-            this.hechosRepository.findById(unaSolicitud.getHecho().getId()).getSolicitudesDeEliminacion().add(unaSolicitud);
+            this.hechosRepository.findById(unaSolicitud.getHecho().getId()).get().getSolicitudesDeEliminacion().add(unaSolicitud);
         } else {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
         }

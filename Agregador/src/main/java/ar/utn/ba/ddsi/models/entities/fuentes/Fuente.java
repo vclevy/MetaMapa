@@ -1,6 +1,7 @@
-package ar.utn.ba.ddsi.services.fuentes;
+package ar.utn.ba.ddsi.models.entities.fuentes;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
@@ -8,10 +9,23 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "fuente")
 public class Fuente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "handle_fuente", nullable = false)
     private String handleFuente;
+
+    @Column(name = "tipo_fuente", nullable = false)
     private String tipo;
+
+    @Column(name = "url_fuente", nullable = false)
     private String urlBase;
+
+    @Transient
     private IFuenteDeHechos fuenteDeHechos;
 
     public Fuente(String tipo, String urlBase) {
@@ -20,6 +34,8 @@ public class Fuente {
         this.urlBase = urlBase;
         inicializarFuenteDeHechos();
     }
+
+    public Fuente() {}
 
     public List<Hecho> obtenerHechos() {
         if (fuenteDeHechos == null) {

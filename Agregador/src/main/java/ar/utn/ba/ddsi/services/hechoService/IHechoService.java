@@ -4,5 +4,4 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 
 public interface IHechoService {
     void registrarHechoDesdeFuente(Hecho unHecho);
-    Long definirId();
 }
