@@ -71,4 +71,11 @@ public class Hecho {
 
     @Column(name = "fue_eliminado", nullable = false)
     private Boolean fueEliminado = false;
+
+    @PrePersist
+    public void prePersist() {
+        if (fechaDeCargaDelHecho == null) {
+            fechaDeCargaDelHecho = LocalDateTime.now();
+        }
+    }
 }
