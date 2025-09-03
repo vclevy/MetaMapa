@@ -14,21 +14,6 @@ public class HechoService implements IHechoService {
 
     @Override
     public void registrarHechoDesdeFuente(Hecho unHecho) {
-        unHecho.setIdAgregador(this.definirId());
         this.hechosRepository.save(unHecho);
-    }
-
-    @Override
-    public Long definirId() {
-        List<Hecho> hechosDeRepositorio = this.hechosRepository.findAll();
-
-        Long maxId = hechosDeRepositorio
-                .stream()
-                .map(Hecho::getIdAgregador)
-                .filter(Objects::nonNull)
-                .max(Long::compareTo)
-                .orElse(0L);
-
-        return maxId + 1;
     }
 }

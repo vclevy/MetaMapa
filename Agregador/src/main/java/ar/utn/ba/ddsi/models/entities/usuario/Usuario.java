@@ -12,14 +12,14 @@ import java.util.UUID;
 @Entity
 public class Usuario {
 
-    @Column(name = "nombre", nullable = false)
-    private String nombre;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "rol", nullable = false, length = 50)
     private Rol rol;
 }

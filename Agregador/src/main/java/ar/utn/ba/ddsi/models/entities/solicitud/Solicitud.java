@@ -2,7 +2,7 @@ package ar.utn.ba.ddsi.models.entities.solicitud;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
-import ar.utn.ba.ddsi.models.repositories.impl.HechosRepository;
+import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.Getter;
@@ -47,7 +47,7 @@ public class Solicitud {
 
     public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
-        this.hecho = new HechosRepository().findById(idHecho);
+        //this.hecho = new IHechosRepository().findById(idHecho); // TODO: HABLAR CON ALAN
         this.visitanteQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
     }

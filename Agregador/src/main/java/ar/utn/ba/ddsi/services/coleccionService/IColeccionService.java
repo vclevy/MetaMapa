@@ -10,16 +10,16 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import java.util.List;
 
 public interface IColeccionService {
-    boolean delete(String unHandle);
-    Coleccion findByHandle (String unHandle);
+    boolean delete(Long id);
+    Coleccion findById(Long id);
     ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO);
     void refrescarColecciones();
     List<ColeccionOutputDTO> findAll();
-    ColeccionOutputDTO modificarAtributo(String unHandle, ColeccionPatchDTO patch);
-    ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(String handleColeccion, String handleFuente);
-    ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(String unHandle, FuenteCreateDTO fuenteDTO);
-    List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(String unHandle, String modoDeNavegacion);
+    ColeccionOutputDTO modificarAtributo(Long id, ColeccionPatchDTO patch);
+    ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long id, String handleFuente);
+    ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO);
+    List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String modoDeNavegacion);
     void aplicarAlgoritmosAColecciones();
-    List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(String unHandle);
+    List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id);
     void refrescarColeccion(Coleccion unaColeccion);
 }

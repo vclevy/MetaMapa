@@ -1,14 +1,9 @@
 package ar.utn.ba.ddsi.models.repositories;
 
-import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.services.fuentes.Fuente;
-import ar.utn.ba.ddsi.services.fuentes.IFuenteDeHechos;
+import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface IFuenteDeHechosRepository {
-    public List<Fuente> findAll();
-    public Fuente findById(String handle);
-    public void save(Fuente unaFuente);
-    public void delete(Fuente unaFuente);
+public interface IFuenteDeHechosRepository extends JpaRepository<Fuente, Long> {
 }

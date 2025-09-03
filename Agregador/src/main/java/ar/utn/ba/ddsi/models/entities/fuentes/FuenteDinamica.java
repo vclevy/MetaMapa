@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.services.fuentes;
+package ar.utn.ba.ddsi.models.entities.fuentes;
 
 import java.util.ArrayList;
 import java.util.List;
