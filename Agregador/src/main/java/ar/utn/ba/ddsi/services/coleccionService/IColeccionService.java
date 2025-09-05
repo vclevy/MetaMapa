@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
+import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import java.util.List;
 
@@ -16,10 +17,11 @@ public interface IColeccionService {
     void refrescarColecciones();
     List<ColeccionOutputDTO> findAll();
     ColeccionOutputDTO modificarAtributo(Long id, ColeccionPatchDTO patch);
-    ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long id, String handleFuente);
+    ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long idColeccion, Long idFuente);
     ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO);
     List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String modoDeNavegacion);
     void aplicarAlgoritmosAColecciones();
     List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id);
-    void refrescarColeccion(Coleccion unaColeccion);
+    void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente);
+//    void reiniciarColeccion(Long id);
 }

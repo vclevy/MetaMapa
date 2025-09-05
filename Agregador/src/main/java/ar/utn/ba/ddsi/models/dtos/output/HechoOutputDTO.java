@@ -11,7 +11,7 @@ import java.util.List;
 public class HechoOutputDTO {
     private String titulo;
     private String descripcion;
-    private Categoria categoria;
+    private String categoriaNombre;
     private LocalDate fechaDeAcontecimiento;
     private Lugar lugar;
     private List<Solicitud> solicitudesDeEliminacion;

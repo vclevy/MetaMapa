@@ -30,7 +30,7 @@ public class Coleccion {
     @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "coleccion_id")
     private List<Fuente> fuentesDeHechos = new ArrayList<>();
 

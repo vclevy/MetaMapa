@@ -61,9 +61,9 @@ public class ColeccionController {
         return ResponseEntity.ok(this.coleccionService.agregarUnaFuenteDeUnaColeccion(id, fuenteDTO));
     }
 
-    @DeleteMapping("/{id}/fuentes")
-    public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable Long id, @RequestBody FuenteDeleteDTO fuenteDTO) {
-        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(id, fuenteDTO.getHandleDeFuente()));
+    @DeleteMapping("/{idColeccion}/fuentes")
+    public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable Long idColeccion, @RequestBody FuenteDeleteDTO fuenteDTO) {
+        return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(idColeccion, fuenteDTO.getIdFuente()));
     }
 
     @GetMapping("/{id}/fuentes")

@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FuenteDeleteDTO {
-    private String handleDeFuente;
+    private Long idFuente;
 }

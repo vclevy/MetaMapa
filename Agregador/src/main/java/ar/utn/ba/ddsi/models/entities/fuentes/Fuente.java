@@ -16,9 +16,6 @@ public class Fuente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "handle_fuente", nullable = false)
-    private String handleFuente;
-
     @Column(name = "tipo_fuente", nullable = false)
     private String tipo;
 
@@ -29,7 +26,6 @@ public class Fuente {
     private IFuenteDeHechos fuenteDeHechos;
 
     public Fuente(String tipo, String urlBase) {
-        this.handleFuente = UUID.randomUUID().toString();
         this.tipo = tipo;
         this.urlBase = urlBase;
         inicializarFuenteDeHechos();
@@ -43,7 +39,7 @@ public class Fuente {
         }
         return fuenteDeHechos.obtenerHechos();
     }
-
+    @PostLoad
     public void inicializarFuenteDeHechos() {
         switch (tipo) {
             case "ESTATICA":

@@ -10,7 +10,7 @@ public class HechoMapper {
         HechoOutputDTO dto = new HechoOutputDTO();
         dto.setTitulo(hecho.getTitulo());
         dto.setDescripcion(hecho.getDescripcion());
-        dto.setCategoria(hecho.getCategoria());
+        dto.setCategoriaNombre(hecho.getCategoria().getNombre());
         dto.setFechaDeAcontecimiento(hecho.getFechaDeAcontecimiento());
         dto.setLugar(hecho.getLugar());
         dto.setEtiquetas(hecho.getEtiquetas());
