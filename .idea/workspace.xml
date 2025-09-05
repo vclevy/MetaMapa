@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Diagramas/DER/DERFuenteProxy.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Diagramas/DER/DERAgregador.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -236,7 +237,7 @@
       <workItem from="1756659145499" duration="7470000" />
       <workItem from="1756822026555" duration="4025000" />
       <workItem from="1756902036319" duration="7960000" />
-      <workItem from="1757030874204" duration="3326000" />
+      <workItem from="1757030874204" duration="4185000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,114 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+entity hechos {
+  * id : INTEGER(11) «PK»
+ * categoria_id : INTEGER(11) «FK»
+  * coleccion_id : INTEGER(11) «FK»
+ * usuario_contribuyente_id :INTEGER(11) «FK»
+  --
+  id_en_fuente : TEXT
+  titulo: VARCHAR(255)
+  descripcion : TEXT
+  fecha_acontecimiento: DATE
+  fecha_carga: DATE
+  origen : ENUM(CONTRIBUYENTE,FUENTEESTATICA,FUENTEPROXY)
+  es_anonimo : BOOLEAN
+  fue_eliminado: BOOLEAN
+  contribuyente_id
+
+}
+
+entity "lugar"  {
+  * id : INTEGER(11) «PK»
+  --
+  fecha : date
+  total : decimal
+}
+
+entity "categorias"  {
+  *id : INTEGER(11) «PK»
+  --
+  nombre : VARCHAR(100)
+}
+
+entity coleccion  {
+  * id : INTEGER(11) «PK»
+  * hecho_id : INTEGER(11) «FK»
+    * usuario_id : INTEGER(11) «FK»
+--
+handle_coleccion: VARCHAR(255)
+titulo: VARCHAR(255)
+descripcion : VARCHAR(255)
+
+}
+
+
+entity "hecho_etiquetas" {
+  * hecho_id : INTEGER(11) «FK»
+ * etiqueta_id : INTEGER(11) «FK»
+}
+
+entity solicitudes  {
+  * id : INTEGER(11) «PK»
+  * hecho_id : INTEGER(11) «FK»
+    * usuario_id : INTEGER(11) «FK»
+--
+justifiacion: TEXT
+estado: ENUM(PENDIENTE,RECHAZADA,APROBADA)
+fecha_de_carga : DATE
+fecha_de_evaluacion: DATE
+}
+
+entity historial_solicitudes  {
+  * id : INTEGER(11) «PK»
+    * solicitud_id : INTEGER(11) «FK»
+    * administrador_id : INTEGER(11) «FK»
+--
+estado: ENUM(PENDIENTE,RECHAZADA,APROBADA)
+fecha_modificacion : DATE
+}
+
+entity "hecho_multimedia" {
+  * hecho_id : INTEGER(11) «FK»
+  --
+  url: VARCHAR(255)
+}
+
+entity etiqueta {
+  * id : INTEGER(11) «PK»
+  --
+  nombre: VARCHAR(255)
+}
+
+entity usuarios {
+  * id : INTEGER(11) «PK»
+  --
+  nombre: VARCHAR(255)
+  rol: ENUM(ADMIN,EDITOR, LECTOR)
+}
+
+/' FUENTES '/
+entity fuente {
+  * id : INTEGER(11) «PK»
+  --
+  tipo_fuente: VARCHAR(255)
+  url_fuente:  VARCHAR(255)
+}
+
+
+
+
+hechos ||--|| lugar
+hechos ||--|| revision
+categorias ||--o{ hechos
+coleccion  ||--o{ hechos
+hechos ||--o{ hecho_multimedia
+hechos ||--o{ solicitudes
+hechos ||--|{ "hecho_etiquetas"
+etiqueta ||--|{ "hecho_etiquetas"
+usuarios ||--o{ solicitudes
+solicitudes ||--|{ historial_solicitudes
+
+@enduml
+
