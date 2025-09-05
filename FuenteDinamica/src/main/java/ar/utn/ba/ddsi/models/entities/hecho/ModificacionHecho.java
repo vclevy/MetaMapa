@@ -24,10 +24,10 @@ public class ModificacionHecho {
     @JoinColumn(name = "editor_id")
     private Usuario editor; // puede ser null
 
-    @Column(nullable = false)
+    @Column(name="campo_editado", nullable = false)
     private String campoEditado;
 
-    @Column(nullable = false)
+    @Column(name="nuevo_valor",nullable = false)
     private String nuevoValor;
 
     @ManyToOne(fetch = FetchType.LAZY)

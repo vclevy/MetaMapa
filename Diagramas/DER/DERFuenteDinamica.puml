@@ -1,39 +1,108 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-entity "hecho" as hechos {
+entity hechos {
   * id : INTEGER(11) «PK»
  * categoria_id : INTEGER(11) «FK»
+ *   contribuyente_id :INTEGER(11) «FK»
   --
   titulo : VARCHAR(255)
   descripcion : TEXT
   fecha_acontecimiento: DATE
   fecha_carga: DATE
   origen : ENUM(DATASET, CARGA_MANUAL, CONTRIBUYENTE)
+  es_anonimo : BOOLEAN
+  fue_eliminado: BOOLEAN
+  contribuyente_id
+
 }
 
-entity "hecho_multimedia" as hechos_multimedia {
-  * hecho_id : INTEGER(11) «FK»
+
+entity revision  {
+  * id : INTEGER(11) «PK»
   --
-  url: VARCHAR(255)
+    estado: ENUM(PENDIENTE, ACEPTADO, RECHAZADO)
+    comentario: VARCHAR(255)
 }
 
-entity "lugar" as lugares {
+entity "lugar"  {
   * id : INTEGER(11) «PK»
   --
   fecha : date
   total : decimal
 }
 
-entity "categoria" as categorias {
+entity "categorias"  {
   *id : INTEGER(11) «PK»
   --
   nombre : VARCHAR(100)
 }
 
-hechos ||--|| lugares
-categorias ||--{ hechos
-hechos ||--o{ hechos_multimedia
+entity "hecho_etiquetas" {
+  * hecho_id : INTEGER(11) «FK»
+ * etiqueta_id : INTEGER(11) «FK»
+}
+
+entity solicitudes  {
+  * id : INTEGER(11) «PK»
+  * hecho_id : INTEGER(11) «FK»
+    * usuario_id : INTEGER(11) «FK»
+--
+justifiacion: TEXT
+estado: ENUM(PENDIENTE,RECHAZADA,APROBADA)
+fecha_solicitud : DATE
+fecha_evaluacion: DATE
+}
+
+entity historial_solicitudes  {
+  * id : INTEGER(11) «PK»
+    * solicitud_id : INTEGER(11) «FK»
+    * administrador_id : INTEGER(11) «FK»
+--
+estado: ENUM(PENDIENTE,RECHAZADA,APROBADA)
+fecha_modificacion : DATE
+}
+
+entity "modificaciones_hecho" {
+  * id : INTEGER(11) «PK»
+  * editor_id : INTEGER(11) «FK»
+    * hecho_id : INTEGER(11) «FK»
+  --
+  campo_editado : VARCHAR(255)
+  nuevo_valor: VARCHAR(255)
+
+}
+
+entity "hecho_multimedia" {
+  * hecho_id : INTEGER(11) «FK»
+  --
+  url: VARCHAR(255)
+}
+
+entity etiqueta {
+  * id : INTEGER(11) «PK»
+  --
+  nombre: VARCHAR(255)
+}
+
+entity usuarios {
+  * id : INTEGER(11) «PK»
+  --
+  nombre: VARCHAR(255)
+  rol: ENUM(ADMIN,VISITANTE, ANONIMO)
+}
+
+hechos ||--|| lugar
+hechos ||--|| revision
+categorias ||--o{ hechos
+hechos ||--o{ hecho_multimedia
+hechos ||--o{ solicitudes
+hechos ||--|{ "hecho_etiquetas"
+etiqueta ||--|{ "hecho_etiquetas"
+"modificaciones_hecho" ||--|| usuarios
+ hechos ||--o{ "modificaciones_hecho"
+usuarios ||--o{ solicitudes
+solicitudes ||--|{ historial_solicitudes
 
 @enduml
 
