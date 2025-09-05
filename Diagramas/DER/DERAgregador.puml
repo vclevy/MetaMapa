@@ -91,6 +91,7 @@ entity usuarios {
 /' FUENTES '/
 entity fuente {
   * id : INTEGER(11) «PK»
+    * coleccion_id : INTEGER(11) «PK»
   --
   tipo_fuente: VARCHAR(255)
   url_fuente:  VARCHAR(255)
@@ -100,7 +101,6 @@ entity fuente {
 
 
 hechos ||--|| lugar
-hechos ||--|| revision
 categorias ||--o{ hechos
 coleccion  ||--o{ hechos
 hechos ||--o{ hecho_multimedia
@@ -109,6 +109,7 @@ hechos ||--|{ "hecho_etiquetas"
 etiqueta ||--|{ "hecho_etiquetas"
 usuarios ||--o{ solicitudes
 solicitudes ||--|{ historial_solicitudes
+coleccion ||--o{ fuente
 
 @enduml
 
