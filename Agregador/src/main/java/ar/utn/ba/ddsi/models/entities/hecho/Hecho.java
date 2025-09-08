@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.entities.hecho;
 
+import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import jakarta.persistence.*;
@@ -65,6 +66,10 @@ public class Hecho {
     @Enumerated(EnumType.STRING)
     @Column(name = "origen", nullable = false, length = 50)
     private OrigenDelHecho origen;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fuente_id", nullable = false)
+    private Fuente fuente;
 
     @Column(name = "es_anonimo", nullable = false)
     private Boolean esAnonimo = true;

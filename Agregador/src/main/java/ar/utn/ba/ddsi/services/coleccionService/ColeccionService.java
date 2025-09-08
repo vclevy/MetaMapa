@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteDeleteDTO;
+import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
@@ -14,6 +15,7 @@ import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
@@ -25,6 +27,8 @@ public class ColeccionService implements IColeccionService {
     private IColeccionesRepository coleccionesRepository;
     @Autowired
     private IHechoService hechoService;
+    @Autowired
+    private IFuenteDeHechosRepository fuenteRepository;
     private final AlgoritmoFactory algoritmoFactory;
     private final ColeccionMapper coleccionMapper;
     @Autowired
@@ -101,9 +105,20 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente) {
-        System.out.println("Refrescando fuente: " + nuevaFuente.getId() + " de la colección: " + unaColeccion.getHandle());
-        List<Hecho> hechosDeColeccionDeUnaFuente = nuevaFuente.obtenerHechos();
+
+        Fuente fuentePersistida;
+        if (nuevaFuente.getId() == null) {
+            fuentePersistida = fuenteRepository.save(nuevaFuente); // la persiste si es nueva
+        } else {
+            fuentePersistida = fuenteRepository.findById(nuevaFuente.getId())
+                    .orElseThrow(() -> new IllegalArgumentException("Fuente inexistente con id " + nuevaFuente.getId()));
+        }
+
+        List<Hecho> hechosDeColeccionDeUnaFuente = fuentePersistida.obtenerHechos();
         for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
+            hechoIndice.setFuente(fuentePersistida);
+
+
             //if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) { TODO!!! @alan @gonzi lo marco para acordarme
             this.hechoService.registrarHechoDesdeFuente(hechoIndice);
             unaColeccion.getHechos().add(hechoIndice);
@@ -127,28 +142,27 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
+    @Transactional
     public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long idColeccion, Long idFuente) {
-        if (this.coleccionesRepository.existsById(idColeccion)) {
-            Coleccion coleccion = this.coleccionesRepository.findById(idColeccion).get();
-            coleccion.getFuentesDeHechos()
-                    .removeIf(fuente -> idFuente.equals(fuente.getId()));
-//            reiniciarColeccion(idColeccion);
-            return this.coleccionMapper.toDTO(coleccion);
-        }
-        return null;
-    }
+        return coleccionesRepository.findById(idColeccion)
+                .map(coleccion -> {
+                    // Saco los hechos de la coleccion que pertenezcan a la fuente
+                    List<Hecho> hechosAEliminar = coleccion.getHechos()
+                            .stream()
+                            .filter(h -> h.getFuente().getId().equals(idFuente))
+                            .toList();
+                    coleccion.getHechos().removeAll(hechosAEliminar);
 
-//    @Override
-//    public void reiniciarColeccion(Long id) {
-//        if (this.coleccionesRepository.existsById(id)) {
-//            Coleccion coleccion = this.coleccionesRepository.findById(id).get();
-//            coleccion.setHechos(new ArrayList<>());
-//            for (Fuente fuente : coleccion.getFuentesDeHechos()) {
-//                this.refrescarColeccion(coleccion, fuente);
-//            }
-//            this.coleccionesRepository.save(coleccion);
-//        }
-//    }
+                    // Saco la fuente de la coleccion
+                    coleccion.getFuentesDeHechos()
+                            .removeIf(fuente -> idFuente.equals(fuente.getId()));
+
+                    // Armo el DTO
+                    Coleccion actualizada = coleccionesRepository.save(coleccion);
+                    return coleccionMapper.toDTO(actualizada);
+                })
+                .orElse(null);
+    }
 
     @Override
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO) {

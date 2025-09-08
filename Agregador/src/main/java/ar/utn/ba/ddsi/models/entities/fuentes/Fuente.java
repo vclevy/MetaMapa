@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,9 @@ public class Fuente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "fuente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hecho> hechos = new ArrayList<>();
 
     @Column(name = "tipo_fuente", nullable = false)
     private String tipo;
