@@ -6,6 +6,8 @@ import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +38,23 @@ public class FuenteEstatica implements IFuenteDeHechos {
                         unHecho.setCategoria(hechoResponseIndice.getCategoria());
                         unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
                         unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
+
                         Lugar lugarHecho = null;
                         if (hechoResponseIndice.getLugar() != null) {
                             lugarHecho = new Lugar(
                                     hechoResponseIndice.getLugar().getLatitud(),
                                     hechoResponseIndice.getLugar().getLongitud()
-
                             );
-//                            if (lugarHecho != null) {
-//                                String provincia = lugarService.obtenerProvincia(
-//                                        lugarHecho.getLatitud(),
-//                                        lugarHecho.getLongitud()
-//                                );
-//                                lugarHecho.setProvincia(provincia);
-//                            }
+
+                          if (lugarHecho != null) {
+                               String provincia = String.valueOf(lugarService.obtenerProvincia(
+                                       lugarHecho.getLatitud(),
+                                       lugarHecho.getLongitud()
+                               ));
+                               lugarHecho.setProvincia(provincia);
+                           }
                         }
+
                         unHecho.setLugar(lugarHecho);
                         unHecho.setMultimedia(hechoResponseIndice.getMultimedia());
                         unHecho.setOrigen(OrigenDelHecho.FUENTEESTATICA);
@@ -61,4 +65,6 @@ public class FuenteEstatica implements IFuenteDeHechos {
                 })
                 .block();
     }
+
+
 }

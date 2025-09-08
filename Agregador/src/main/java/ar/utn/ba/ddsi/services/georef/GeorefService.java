@@ -14,8 +14,8 @@ public class GeorefService {
                 .baseUrl("https://apis.datos.gob.ar/georef/api")
                 .build();
     }
-    
-    public Mono<Object> obtenerProvincia(Double lat, Double lon) {
+
+    public String obtenerProvincia(Double lat, Double lon) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/ubicacion")
@@ -27,9 +27,11 @@ public class GeorefService {
                 .map(response -> {
                     if (response != null && response.getUbicacion() != null
                             && response.getUbicacion().getProvincia() != null) {
-                        return response.getUbicacion().getProvincia();
+                        return response.getUbicacion().getProvincia().getNombre();
                     }
                     return "Provincia desconocida";
-                });
+                })
+                .block(); // ⚠️ bloquea el hilo hasta recibir el String
     }
+
 }

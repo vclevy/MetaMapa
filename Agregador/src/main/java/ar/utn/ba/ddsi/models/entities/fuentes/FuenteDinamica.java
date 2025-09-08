@@ -9,7 +9,6 @@ import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Getter
@@ -28,42 +27,52 @@ public class FuenteDinamica implements IFuenteDeHechos {
 
     @Override
     public List<Hecho> obtenerHechos() {
-        return webClient.get()
+        // Obtener todos los DTOs de la fuente
+        List<HechoInputDinamicaDTO> hechosDTO = webClient.get()
                 .uri("/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputDinamicaDTO.class)
                 .collectList()
-                .map(unosHechosResponse -> {
-                    List<Hecho> hechos = new ArrayList<>();
-                    for (HechoInputDinamicaDTO hechoResponseIndice : unosHechosResponse) {
-                        Hecho unHecho = new Hecho();
-                        unHecho.setIdEnFuente((hechoResponseIndice.getId()));
-                        unHecho.setTitulo(hechoResponseIndice.getTitulo());
-                        unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
-                        unHecho.setCategoria(hechoResponseIndice.getCategoria());
-                        unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
-                        Lugar lugarHecho = new Lugar(hechoResponseIndice.getLugar().getLatitud(), hechoResponseIndice.getLugar().getLongitud());
-                        if (lugarHecho != null) {
-                            String provincia = String.valueOf(lugarService.obtenerProvincia(
-                                    lugarHecho.getLatitud(),
-                                    lugarHecho.getLongitud()
-                            ));
-                            lugarHecho.setProvincia(provincia);
-                        }
-                        unHecho.setLugar(lugarHecho);
-                        unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
-                        unHecho.setUsuarioContribuyente(hechoResponseIndice.getContribuyente());
-                        unHecho.setEtiquetas(hechoResponseIndice.getEtiquetas());
-                        unHecho.setSolicitudesDeEliminacion(hechoResponseIndice.getSolicitudesDeEliminacion());
-                        unHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
-                        unHecho.setMultimedia(hechoResponseIndice.getMultimedia());
+                .block(); // Bloqueamos para obtener la lista
 
-                        hechos.add(unHecho);
-                    }
-                    return hechos;
-                })
-                .block();
+        List<Hecho> hechos = new ArrayList<>();
+        if (hechosDTO != null) {
+            for (HechoInputDinamicaDTO dto : hechosDTO) {
+                Hecho unHecho = new Hecho();
+                unHecho.setIdEnFuente(dto.getId());
+                unHecho.setTitulo(dto.getTitulo());
+                unHecho.setDescripcion(dto.getDescripcion());
+                unHecho.setCategoria(dto.getCategoria());
+                unHecho.setFechaDeAcontecimiento(dto.getFechaDeAcontecimiento());
+                unHecho.setFechaDeCargaDelHecho(dto.getFechaDeCarga());
+                unHecho.setEtiquetas(dto.getEtiquetas());
+                unHecho.setSolicitudesDeEliminacion(dto.getSolicitudesDeEliminacion());
+                unHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
+                unHecho.setMultimedia(dto.getMultimedia());
+                unHecho.setUsuarioContribuyente(dto.getContribuyente());
+
+                // Crear el lugar
+                if (dto.getLugar() != null) {
+                    Lugar lugar = new Lugar(dto.getLugar().getLatitud(), dto.getLugar().getLongitud());
+
+                    // Obtenemos la provincia de manera sincrónica
+                    String provincia = lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud());
+                    lugar.setProvincia(provincia);
+
+                    unHecho.setLugar(lugar);
+                } else {
+                    unHecho.setLugar(null);
+                }
+
+                hechos.add(unHecho);
+            }
+        }
+
+        return hechos;
     }
+
+
+
 }
 
 

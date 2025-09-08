@@ -27,39 +27,42 @@ public class FuenteProxy implements IFuenteDeHechos {
 
     @Override
     public List<Hecho> obtenerHechos() {
-        return webClient.get()
+        List<HechoInputProxyDTO> hechosDTO = webClient.get()
                 .uri("/api/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputProxyDTO.class)
-                .flatMap(hechoResponseIndice -> {
-                    Hecho unHecho = new Hecho();
-                    unHecho.setIdEnFuente(hechoResponseIndice.getId());
-                    unHecho.setTitulo(hechoResponseIndice.getTitulo());
-                    unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
-                    Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
-                    unHecho.setCategoria(categoria);
-                    unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
-                    unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
-                    unHecho.setEtiquetas(new ArrayList<>());
-                    unHecho.setSolicitudesDeEliminacion(new ArrayList<>());
-                    unHecho.setOrigen(OrigenDelHecho.FUENTEPROXY);
-
-                    Lugar lugar = new Lugar(hechoResponseIndice.getLatitud(), hechoResponseIndice.getLongitud());
-
-                    if (lugar != null) {
-                        // Obtener provincia de manera reactiva
-                        return lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud())
-                                .map(provincia -> {
-                                    lugar.setProvincia((String) provincia);
-                                    unHecho.setLugar(lugar);
-                                    return unHecho;
-                                });
-                    } else {
-                        unHecho.setLugar(null);
-                        return Mono.just(unHecho);
-                    }
-                })
                 .collectList()
-                .block();
-    }
-}
+                .block(); // Obtenemos todos los hechos primero
+
+        List<Hecho> hechos = new ArrayList<>();
+        if (hechosDTO != null) {
+            for (HechoInputProxyDTO dto : hechosDTO) {
+                Hecho unHecho = new Hecho();
+                unHecho.setIdEnFuente(dto.getId());
+                unHecho.setTitulo(dto.getTitulo());
+                unHecho.setDescripcion(dto.getDescripcion());
+                unHecho.setCategoria(new Categoria(dto.getCategoria()));
+                unHecho.setFechaDeAcontecimiento(dto.getFechaHecho().toLocalDate());
+                unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
+                unHecho.setEtiquetas(new ArrayList<>());
+                unHecho.setSolicitudesDeEliminacion(new ArrayList<>());
+                unHecho.setOrigen(OrigenDelHecho.FUENTEPROXY);
+
+                if (dto.getLatitud() != null && dto.getLongitud() != null) {
+                    Lugar lugar = new Lugar(dto.getLatitud(), dto.getLongitud());
+
+                    // Obtenemos la provincia de manera sincrónica
+                    String provincia = lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud());
+                    lugar.setProvincia(provincia);
+
+                    unHecho.setLugar(lugar);
+                } else {
+                    unHecho.setLugar(null);
+                }
+
+                hechos.add(unHecho);
+            }
+        }
+
+        return hechos;
+    }}

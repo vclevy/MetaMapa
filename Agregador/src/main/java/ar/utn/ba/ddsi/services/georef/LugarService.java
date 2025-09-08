@@ -14,9 +14,9 @@ public class LugarService {
         this.georefService = georefService;
     }
 
-    public Mono<Object> obtenerProvincia(Double lat, Double lon) {
+    public String obtenerProvincia(Double lat, Double lon) {
         if (lat == null || lon == null) {
-            return Mono.just("Desconocida");
+            return "Desconocida";
         }
         return georefService.obtenerProvincia(lat, lon);
     }
