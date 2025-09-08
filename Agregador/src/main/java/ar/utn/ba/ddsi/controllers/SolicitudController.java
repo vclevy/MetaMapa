@@ -17,12 +17,12 @@ public class SolicitudController {
 
     // TODO: @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{idSolicitud}")
-    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody Usuario usuario, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
-        this.solcitudesService.cambiarEstadoDeSolicitud(idSolicitud, usuario, accion);
+    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody Long idUsuarioModificador, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
+        this.solcitudesService.cambiarEstadoDeSolicitud(idSolicitud, idUsuarioModificador, accion);
     }
 
-    @PostMapping("/")
-    public void crearSolicitud(@RequestBody SolicitudInputDTO solicitud, Usuario usuario) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
-        this.solcitudesService.registrarSolicitud(solicitud, usuario);
+    @PostMapping()
+    public void crearSolicitud(@RequestBody SolicitudInputDTO solicitud, @RequestParam Long idUsuario) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
+        this.solcitudesService.registrarSolicitud(solicitud, idUsuario);
     }
 }
