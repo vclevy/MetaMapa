@@ -2,16 +2,16 @@ package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
-import ar.utn.ba.ddsi.services.solicitudService.ISolcitudesService;
+import ar.utn.ba.ddsi.services.solicitudService.ISolicitudesService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/solicitud")
 public class SolicitudController {
 
-    private final ISolcitudesService solcitudesService;
+    private final ISolicitudesService solcitudesService;
 
-    public SolicitudController(ISolcitudesService solcitudesService) {
+    public SolicitudController(ISolicitudesService solcitudesService) {
         this.solcitudesService = solcitudesService;
     }
 

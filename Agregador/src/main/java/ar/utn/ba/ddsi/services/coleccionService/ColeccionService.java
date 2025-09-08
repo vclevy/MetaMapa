@@ -11,6 +11,7 @@ import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
+import ar.utn.ba.ddsi.services.georef.LugarService;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class ColeccionService implements IColeccionService {
     private IHechoService hechoService;
     private final AlgoritmoFactory algoritmoFactory;
     private final ColeccionMapper coleccionMapper;
+    @Autowired
+    private LugarService lugarService;
 
     public ColeccionService(AlgoritmoFactory algoritmoFactory, ColeccionMapper coleccionMapper) {
         this.algoritmoFactory = algoritmoFactory;
@@ -151,7 +154,7 @@ public class ColeccionService implements IColeccionService {
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO) {
         if (this.coleccionesRepository.existsById(id)) {
             Coleccion coleccion = this.coleccionesRepository.findById(id).get();
-            Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase());
+            Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), lugarService);
             System.out.println("Nueva fuente creada: " + nuevaFuente.getFuenteDeHechos() + " con URL: " + nuevaFuente.getUrlBase());
             coleccion.getFuentesDeHechos().add(nuevaFuente);
             this.refrescarColeccion(coleccion, nuevaFuente);

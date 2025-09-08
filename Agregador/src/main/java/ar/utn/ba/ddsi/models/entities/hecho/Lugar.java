@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
+import reactor.core.publisher.Mono;
 
 @Getter
 @Setter
@@ -14,6 +15,9 @@ public class Lugar {
 
     @Column(name = "longitud", nullable = false)
     private Double longitud;
+
+    @Column(name= "provicia")
+    private String provincia;
 
     public Lugar(Double latitud, Double longitud) {
         this.latitud = latitud;

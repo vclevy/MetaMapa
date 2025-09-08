@@ -8,17 +8,20 @@ import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.services.georef.LugarService;
 import org.springframework.web.reactive.function.client.WebClient;
 
 public class FuenteProxy implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
     private final TipoDeFuente tipoDeFuente = TipoDeFuente.PROXY;
+    private final LugarService lugarService;
 
-    public FuenteProxy(String baseUrl) {
+    public FuenteProxy(String baseUrl, LugarService lugarSerivce) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
+        this.lugarService = lugarSerivce;
     }
 
     @Override
@@ -41,6 +44,13 @@ public class FuenteProxy implements IFuenteDeHechos {
                                 unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
 
                                 Lugar lugar = new Lugar(hechoResponseIndice.getLatitud(), hechoResponseIndice.getLongitud());
+                                if (lugar != null) {
+                                    String provincia = lugarService.obtenerProvincia(
+                                            lugar.getLatitud(),
+                                            lugar.getLongitud()
+                                    );
+                                    lugar.setProvincia(provincia);
+                                }
                                 unHecho.setLugar(lugar);
 
                                 unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());

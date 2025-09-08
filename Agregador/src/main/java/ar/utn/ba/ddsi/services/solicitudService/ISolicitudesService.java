@@ -4,7 +4,7 @@ import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 
-public interface ISolcitudesService {
+public interface ISolicitudesService {
     void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Usuario unUsuario);
     void cambiarEstadoDeSolicitud(Long idSolicitud, Usuario usuarioModificador, String unaAccion);
     boolean verificacionDeSpam(Solicitud unaSolicitud);

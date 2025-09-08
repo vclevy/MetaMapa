@@ -1,9 +1,12 @@
 package ar.utn.ba.ddsi.models.entities.fuentes;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.services.georef.LugarService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "fuente")
 public class Fuente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,12 +29,15 @@ public class Fuente {
     @Transient
     private IFuenteDeHechos fuenteDeHechos;
 
-    public Fuente(String tipo, String urlBase) {
+    @Transient
+    private LugarService lugarService;
+
+    public Fuente(String tipo, String urlBase, LugarService lugarService) {
         this.tipo = tipo;
         this.urlBase = urlBase;
+        this.lugarService = lugarService;
         inicializarFuenteDeHechos();
     }
-
     public Fuente() {}
 
     public List<Hecho> obtenerHechos() {
@@ -43,15 +50,14 @@ public class Fuente {
     public void inicializarFuenteDeHechos() {
         switch (tipo) {
             case "ESTATICA":
-                fuenteDeHechos = new FuenteEstatica(urlBase);
+                fuenteDeHechos = new FuenteEstatica(urlBase,lugarService);
                 break;
             case "DINAMICA":
-                fuenteDeHechos = new FuenteDinamica(urlBase);
+                fuenteDeHechos = new FuenteDinamica(urlBase, lugarService);
                 break;
             case "PROXY":
-                fuenteDeHechos = new FuenteProxy(urlBase);
+                fuenteDeHechos = new FuenteProxy(urlBase, lugarService);
                 break;
-            // otros casos si existen
             default:
                 fuenteDeHechos = null;
         }

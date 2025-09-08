@@ -6,8 +6,10 @@ import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputDinamicaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
+import ar.utn.ba.ddsi.services.georef.LugarService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Getter
@@ -15,11 +17,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class FuenteDinamica implements IFuenteDeHechos {
     private final WebClient webClient;
     private Long id;
+    private LugarService lugarService;
 
-    public FuenteDinamica(String baseUrl) {
+    public FuenteDinamica(String baseUrl, LugarService lugarService) {
         this.webClient = WebClient.builder()
                 .baseUrl(baseUrl)
                 .build();
+        this.lugarService = lugarService;
     }
 
     @Override
@@ -39,6 +43,13 @@ public class FuenteDinamica implements IFuenteDeHechos {
                         unHecho.setCategoria(hechoResponseIndice.getCategoria());
                         unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
                         Lugar lugarHecho = new Lugar(hechoResponseIndice.getLugar().getLatitud(), hechoResponseIndice.getLugar().getLongitud());
+                        if (lugarHecho != null) {
+                            String provincia = lugarService.obtenerProvincia(
+                                    lugarHecho.getLatitud(),
+                                    lugarHecho.getLongitud()
+                            );
+                            lugarHecho.setProvincia(provincia);
+                        }
                         unHecho.setLugar(lugarHecho);
                         unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
                         unHecho.setUsuarioContribuyente(hechoResponseIndice.getContribuyente());

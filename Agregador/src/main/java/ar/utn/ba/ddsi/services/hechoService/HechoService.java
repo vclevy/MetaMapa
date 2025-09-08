@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.ICategoriasRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import ar.utn.ba.ddsi.services.georef.LugarService;
 import ar.utn.ba.ddsi.services.hechoService.normalizador.NormalizadorHechos;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

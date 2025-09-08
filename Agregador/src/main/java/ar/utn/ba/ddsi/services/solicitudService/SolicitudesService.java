@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class SolicitudesService implements ISolcitudesService {
+public class SolicitudesService implements ISolicitudesService {
     @Autowired
     private ISolicitudesRepository solicitudesRepository;
 

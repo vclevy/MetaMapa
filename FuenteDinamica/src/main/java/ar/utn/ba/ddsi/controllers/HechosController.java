@@ -21,7 +21,6 @@ public class HechosController {
     private ObjectMapper objectMapper;
 
 
-
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> crearHecho(
             @RequestPart("hecho") String hechoJson,
