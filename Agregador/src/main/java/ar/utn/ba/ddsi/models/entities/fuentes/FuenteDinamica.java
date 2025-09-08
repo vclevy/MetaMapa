@@ -27,13 +27,12 @@ public class FuenteDinamica implements IFuenteDeHechos {
 
     @Override
     public List<Hecho> obtenerHechos() {
-        // Obtener todos los DTOs de la fuente
         List<HechoInputDinamicaDTO> hechosDTO = webClient.get()
                 .uri("/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputDinamicaDTO.class)
                 .collectList()
-                .block(); // Bloqueamos para obtener la lista
+                .block(); // Bloqueante para obtener la lista completa
 
         List<Hecho> hechos = new ArrayList<>();
         if (hechosDTO != null) {
@@ -51,14 +50,8 @@ public class FuenteDinamica implements IFuenteDeHechos {
                 unHecho.setMultimedia(dto.getMultimedia());
                 unHecho.setUsuarioContribuyente(dto.getContribuyente());
 
-                // Crear el lugar
                 if (dto.getLugar() != null) {
                     Lugar lugar = new Lugar(dto.getLugar().getLatitud(), dto.getLugar().getLongitud());
-
-                    // Obtenemos la provincia de manera sincrónica
-                    String provincia = lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud());
-                    lugar.setProvincia(provincia);
-
                     unHecho.setLugar(lugar);
                 } else {
                     unHecho.setLugar(null);
@@ -66,10 +59,21 @@ public class FuenteDinamica implements IFuenteDeHechos {
 
                 hechos.add(unHecho);
             }
+
+            for (Hecho hecho : hechos) {
+                if (hecho.getLugar() != null) {
+                    String provincia = lugarService.obtenerProvincia(
+                            hecho.getLugar().getLatitud(),
+                            hecho.getLugar().getLongitud()
+                    );
+                    hecho.getLugar().setProvincia(provincia);
+                }
+            }
         }
 
         return hechos;
     }
+
 
 
 
