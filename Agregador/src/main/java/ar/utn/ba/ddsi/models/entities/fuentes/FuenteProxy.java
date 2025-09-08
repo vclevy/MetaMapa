@@ -32,7 +32,7 @@ public class FuenteProxy implements IFuenteDeHechos {
                 .retrieve()
                 .bodyToFlux(HechoInputProxyDTO.class)
                 .collectList()
-                .block(); // Obtenemos todos los hechos primero
+                .block();
 
         List<Hecho> hechos = new ArrayList<>();
         if (hechosDTO != null) {
@@ -50,19 +50,24 @@ public class FuenteProxy implements IFuenteDeHechos {
 
                 if (dto.getLatitud() != null && dto.getLongitud() != null) {
                     Lugar lugar = new Lugar(dto.getLatitud(), dto.getLongitud());
-
-                    // Obtenemos la provincia de manera sincrónica
-                    String provincia = lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud());
-                    lugar.setProvincia(provincia);
-
                     unHecho.setLugar(lugar);
                 } else {
                     unHecho.setLugar(null);
                 }
-
                 hechos.add(unHecho);
+            }
+
+            for (Hecho hecho : hechos) {
+                if (hecho.getLugar() != null) {
+                    String provincia = lugarService.obtenerProvincia(
+                            hecho.getLugar().getLatitud(),
+                            hecho.getLugar().getLongitud()
+                    );
+                    hecho.getLugar().setProvincia(provincia);
+                }
             }
         }
 
         return hechos;
-    }}
+    }
+}

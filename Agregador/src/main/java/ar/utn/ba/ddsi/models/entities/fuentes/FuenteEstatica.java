@@ -23,48 +23,50 @@ public class FuenteEstatica implements IFuenteDeHechos {
 
     @Override
     public List<Hecho> obtenerHechos() {
-        return webClient.get()
+        List<HechoInputEstaticaDTO> hechosDTO = webClient.get()
                 .uri("/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputEstaticaDTO.class)
                 .collectList()
-                .map(unosHechosResponse -> {
-                    List<Hecho> hechos = new ArrayList<>();
-                    for (HechoInputEstaticaDTO hechoResponseIndice : unosHechosResponse) {
-                        Hecho unHecho = new Hecho();
-                        unHecho.setIdEnFuente(hechoResponseIndice.getId());
-                        unHecho.setTitulo(hechoResponseIndice.getTitulo());
-                        unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
-                        unHecho.setCategoria(hechoResponseIndice.getCategoria());
-                        unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
-                        unHecho.setFechaDeCargaDelHecho(hechoResponseIndice.getFechaDeCarga());
-
-                        Lugar lugarHecho = null;
-                        if (hechoResponseIndice.getLugar() != null) {
-                            lugarHecho = new Lugar(
-                                    hechoResponseIndice.getLugar().getLatitud(),
-                                    hechoResponseIndice.getLugar().getLongitud()
-                            );
-
-                          if (lugarHecho != null) {
-                               String provincia = String.valueOf(lugarService.obtenerProvincia(
-                                       lugarHecho.getLatitud(),
-                                       lugarHecho.getLongitud()
-                               ));
-                               lugarHecho.setProvincia(provincia);
-                           }
-                        }
-
-                        unHecho.setLugar(lugarHecho);
-                        unHecho.setMultimedia(hechoResponseIndice.getMultimedia());
-                        unHecho.setOrigen(OrigenDelHecho.FUENTEESTATICA);
-
-                        hechos.add(unHecho);
-                    }
-                    return hechos;
-                })
                 .block();
+
+        List<Hecho> hechos = new ArrayList<>();
+        if (hechosDTO != null) {
+            for (HechoInputEstaticaDTO dto : hechosDTO) {
+                Hecho unHecho = new Hecho();
+                unHecho.setIdEnFuente(dto.getId());
+                unHecho.setTitulo(dto.getTitulo());
+                unHecho.setDescripcion(dto.getDescripcion());
+                unHecho.setCategoria(dto.getCategoria());
+                unHecho.setFechaDeAcontecimiento(dto.getFechaDeAcontecimiento());
+                unHecho.setFechaDeCargaDelHecho(dto.getFechaDeCarga());
+                unHecho.setMultimedia(dto.getMultimedia());
+                unHecho.setOrigen(OrigenDelHecho.FUENTEESTATICA);
+
+                if (dto.getLugar() != null) {
+                    Lugar lugar = new Lugar(dto.getLugar().getLatitud(), dto.getLugar().getLongitud());
+                    unHecho.setLugar(lugar); // Por ahora sin provincia
+                } else {
+                    unHecho.setLugar(null);
+                }
+
+                hechos.add(unHecho);
+            }
+
+            for (Hecho hecho : hechos) {
+                if (hecho.getLugar() != null) {
+                    String provincia = lugarService.obtenerProvincia(
+                            hecho.getLugar().getLatitud(),
+                            hecho.getLugar().getLongitud()
+                    );
+                    hecho.getLugar().setProvincia(provincia);
+                }
+            }
+        }
+
+        return hechos;
     }
+
 
 
 }
