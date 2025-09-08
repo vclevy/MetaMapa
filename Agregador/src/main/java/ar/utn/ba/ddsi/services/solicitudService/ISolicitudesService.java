@@ -5,10 +5,9 @@ import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 
 public interface ISolicitudesService {
-    void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Usuario unUsuario);
-    void cambiarEstadoDeSolicitud(Long idSolicitud, Usuario usuarioModificador, String unaAccion);
+    void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Long idUsuario);
+    void cambiarEstadoDeSolicitud(Long idSolicitud, Long idUsuarioModificador, String unaAccion);
     boolean verificacionDeSpam(Solicitud unaSolicitud);
-    Long definirId();
     boolean justificacionTieneLongitudValida(String unaJustificacion);
     void actualizarHistorialDe(Long idSolicitud, Usuario usuarioModificador);
 }

@@ -45,11 +45,12 @@ public class Solicitud {
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
 
 
-    public Solicitud (String unaJustificacion, Long idHecho, Usuario unUsuario) {
+    public Solicitud (String unaJustificacion, Hecho hecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
-        //this.hecho = new IHechosRepository().findById(idHecho); // TODO: HABLAR CON ALAN
+        this.hecho = hecho;
         this.visitanteQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
+        this.estado = EstadoDeSolicitudDeEliminacion.PENDIENTE;
     }
 
 
