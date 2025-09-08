@@ -1,14 +1,12 @@
 package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities;
-import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-@Entity
-@Table(name="colecciones")
+
+@Getter@Setter
 public class Coleccion {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
-
+    private String titulo;
     private List<Hecho> hechos;
-
 }

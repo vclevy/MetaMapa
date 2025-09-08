@@ -9,4 +9,5 @@ import lombok.Setter;
 public class Lugar {
     private Double latitud;
     private Double longitud;
+    private String provincia;
 }

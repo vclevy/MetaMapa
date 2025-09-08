@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Hecho.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,6 +56,16 @@
     &quot;accountId&quot;: &quot;24e22035-39b4-4174-8946-33ab8d78f4c9&quot;
   }
 }</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java">
+      <ranges>
+        <range start1="1" end1="2" start2="1" end2="4" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="4" end1="6" start2="6" end2="8" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
+        <range start1="7" end1="11" start2="9" end2="10" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+        <range start1="12" end1="13" start2="11" end2="11" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
+      </ranges>
+    </file>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -102,6 +119,11 @@
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
     &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="ReactorSettings">
@@ -121,6 +143,9 @@
       <recent name="$PROJECT_DIR$/maquetadoUi/img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ar.utn.ba.ddsi.ServicioEstadisticas.models.entities" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
@@ -132,7 +157,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
+  <component name="RunManager" selected="Spring Boot.FuenteDinamicaApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
@@ -189,16 +214,16 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
+        <item itemvalue="Spring Boot.AgregadorApplication" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
-        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -246,6 +271,8 @@
       <workItem from="1756822026555" duration="4025000" />
       <workItem from="1756902036319" duration="7960000" />
       <workItem from="1757030874204" duration="4185000" />
+      <workItem from="1757353328167" duration="1659000" />
+      <workItem from="1757355220764" duration="822000" />
     </task>
     <servers />
   </component>
@@ -260,9 +287,19 @@
     <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="e54dd4c4-b1af-45a0-aa3f-715537109ea0" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="e54dd4c4-b1af-45a0-aa3f-715537109ea0">
           <value>
             <State />
           </value>
