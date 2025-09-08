@@ -37,6 +37,7 @@
         <module>FuenteDinamica</module>
         <module>FuenteEstatica</module>
         <module>FuenteProxy</module>
+        <module>ServicioEstadisticas</module>
     </modules>
     <build>
         <plugins>

@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Diagramas/DER/DERAgregador.puml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/ServicioEstadisticasApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/test/java/ar/utn/ba/ddsi/ServicioEstadisticas/ServicioEstadisticasApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -23,9 +36,9 @@
         <option value="HTML File" />
         <option value="CSS File" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
         <option value="UML Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -43,12 +56,12 @@
     &quot;assignee&quot;: &quot;delfisartorio&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:dds-utn/2025-tpa-ma-ma-grupo-4.git",
-    "accountId": "24e22035-39b4-4174-8946-33ab8d78f4c9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
+    &quot;accountId&quot;: &quot;24e22035-39b4-4174-8946-33ab8d78f4c9&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -68,42 +81,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "DefaultPlantUmlFileTemplate": "UML Class",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.AgregadorApplication (1).executor": "Run",
-    "Spring Boot.AgregadorApplication.executor": "Run",
-    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
-    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
-    "Spring Boot.FuenteProxyApplication.executor": "Run",
-    "git-widget-placeholder": "ENTREGA__4",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ENTREGA__4&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -115,11 +128,11 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4" />
       <recent name="C:\Users\Valentino\OneDrive\Documents\DDSI\2025-tpa-ma-ma-grupo-4\maquetadoUi\img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi\img" />
       <recent name="$PROJECT_DIR$/maquetadoUi/img" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
-      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -173,7 +186,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ServicioEstadisticasApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ServicioEstadisticas" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.ServicioEstadisticas.ServicioEstadisticasApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Spring Boot.ServicioEstadisticasApplication" />
       <item itemvalue="Spring Boot.FuenteEstaticaApplication" />
       <item itemvalue="Spring Boot.FuenteProxyApplication" />
       <item itemvalue="Spring Boot.FuenteDinamicaApplication" />

@@ -16,9 +16,10 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="FuenteEstatica" />
+        <module name="ServicioEstadisticas" />
         <module name="FuenteDinamica" />
-        <module name="Agregador" />
         <module name="FuenteProxy" />
+        <module name="Agregador" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -31,6 +32,7 @@
       <module name="FuenteDinamica" options="-parameters" />
       <module name="FuenteEstatica" options="-parameters" />
       <module name="FuenteProxy" options="-parameters" />
+      <module name="ServicioEstadisticas" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="tp-multi-module" options="" />
     </option>
