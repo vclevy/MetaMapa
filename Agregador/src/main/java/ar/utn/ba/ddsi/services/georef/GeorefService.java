@@ -15,7 +15,7 @@ public class GeorefService {
                 .build();
     }
     
-    public Mono<String> obtenerProvincia(Double lat,Double lon) {
+    public Mono<Object> obtenerProvincia(Double lat, Double lon) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/ubicacion")

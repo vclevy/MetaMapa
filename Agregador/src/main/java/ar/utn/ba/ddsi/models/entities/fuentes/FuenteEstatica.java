@@ -43,13 +43,13 @@ public class FuenteEstatica implements IFuenteDeHechos {
                                     hechoResponseIndice.getLugar().getLongitud()
 
                             );
-                            if (lugarHecho != null) {
-                                String provincia = lugarService.obtenerProvincia(
-                                        lugarHecho.getLatitud(),
-                                        lugarHecho.getLongitud()
-                                );
-                                lugarHecho.setProvincia(provincia);
-                            }
+//                            if (lugarHecho != null) {
+//                                String provincia = lugarService.obtenerProvincia(
+//                                        lugarHecho.getLatitud(),
+//                                        lugarHecho.getLongitud()
+//                                );
+//                                lugarHecho.setProvincia(provincia);
+//                            }
                         }
                         unHecho.setLugar(lugarHecho);
                         unHecho.setMultimedia(hechoResponseIndice.getMultimedia());

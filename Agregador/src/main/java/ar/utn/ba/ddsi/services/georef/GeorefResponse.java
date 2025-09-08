@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class GeorefResponse {
-    private Lugar ubicacion;
+    private Ubicacion ubicacion;
 
 }

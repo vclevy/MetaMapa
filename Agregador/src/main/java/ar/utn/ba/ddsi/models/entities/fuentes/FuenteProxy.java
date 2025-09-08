@@ -10,6 +10,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 public class FuenteProxy implements IFuenteDeHechos {
     private final WebClient webClient;
@@ -30,38 +31,35 @@ public class FuenteProxy implements IFuenteDeHechos {
                 .uri("/api/hechos")
                 .retrieve()
                 .bodyToFlux(HechoInputProxyDTO.class)
+                .flatMap(hechoResponseIndice -> {
+                    Hecho unHecho = new Hecho();
+                    unHecho.setIdEnFuente(hechoResponseIndice.getId());
+                    unHecho.setTitulo(hechoResponseIndice.getTitulo());
+                    unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
+                    Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
+                    unHecho.setCategoria(categoria);
+                    unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
+                    unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
+                    unHecho.setEtiquetas(new ArrayList<>());
+                    unHecho.setSolicitudesDeEliminacion(new ArrayList<>());
+                    unHecho.setOrigen(OrigenDelHecho.FUENTEPROXY);
+
+                    Lugar lugar = new Lugar(hechoResponseIndice.getLatitud(), hechoResponseIndice.getLongitud());
+
+                    if (lugar != null) {
+                        // Obtener provincia de manera reactiva
+                        return lugarService.obtenerProvincia(lugar.getLatitud(), lugar.getLongitud())
+                                .map(provincia -> {
+                                    lugar.setProvincia((String) provincia);
+                                    unHecho.setLugar(lugar);
+                                    return unHecho;
+                                });
+                    } else {
+                        unHecho.setLugar(null);
+                        return Mono.just(unHecho);
+                    }
+                })
                 .collectList()
-                .map(
-                        unosHechosResponse -> {
-                            List<Hecho> hechos = new ArrayList<>();
-                            for (HechoInputProxyDTO hechoResponseIndice : unosHechosResponse) {
-                                Hecho unHecho = new Hecho();
-                                unHecho.setIdEnFuente(hechoResponseIndice.getId());
-                                unHecho.setTitulo(hechoResponseIndice.getTitulo());
-                                unHecho.setDescripcion(hechoResponseIndice.getDescripcion());
-                                Categoria categoria = new Categoria(hechoResponseIndice.getCategoria());
-                                unHecho.setCategoria(categoria);
-                                unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaHecho().toLocalDate());
-
-                                Lugar lugar = new Lugar(hechoResponseIndice.getLatitud(), hechoResponseIndice.getLongitud());
-                                if (lugar != null) {
-                                    String provincia = lugarService.obtenerProvincia(
-                                            lugar.getLatitud(),
-                                            lugar.getLongitud()
-                                    );
-                                    lugar.setProvincia(provincia);
-                                }
-                                unHecho.setLugar(lugar);
-
-                                unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
-                                unHecho.setEtiquetas(new ArrayList<>());
-                                unHecho.setSolicitudesDeEliminacion(new ArrayList<>());
-                                unHecho.setOrigen(OrigenDelHecho.FUENTEPROXY);
-
-                                hechos.add(unHecho);
-                            }
-                            return hechos;
-                        })
                 .block();
     }
 }

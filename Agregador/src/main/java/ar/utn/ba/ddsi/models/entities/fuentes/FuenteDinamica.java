@@ -44,10 +44,10 @@ public class FuenteDinamica implements IFuenteDeHechos {
                         unHecho.setFechaDeAcontecimiento(hechoResponseIndice.getFechaDeAcontecimiento());
                         Lugar lugarHecho = new Lugar(hechoResponseIndice.getLugar().getLatitud(), hechoResponseIndice.getLugar().getLongitud());
                         if (lugarHecho != null) {
-                            String provincia = lugarService.obtenerProvincia(
+                            String provincia = String.valueOf(lugarService.obtenerProvincia(
                                     lugarHecho.getLatitud(),
                                     lugarHecho.getLongitud()
-                            );
+                            ));
                             lugarHecho.setProvincia(provincia);
                         }
                         unHecho.setLugar(lugarHecho);

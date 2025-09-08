@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.services.georef;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
 public class LugarService {
@@ -13,11 +14,10 @@ public class LugarService {
         this.georefService = georefService;
     }
 
-    public String obtenerProvincia(Double lat, Double lon) {
+    public Mono<Object> obtenerProvincia(Double lat, Double lon) {
         if (lat == null || lon == null) {
-            return "Desconocida";
+            return Mono.just("Desconocida");
         }
-        // Aquí convertimos el Mono<String> a String bloqueando la ejecución
-        return georefService.obtenerProvincia(lat, lon).block();
+        return georefService.obtenerProvincia(lat, lon);
     }
 }

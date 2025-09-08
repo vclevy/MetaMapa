@@ -16,7 +16,7 @@ public class Lugar {
     @Column(name = "longitud", nullable = false)
     private Double longitud;
 
-    @Column(name= "provicia")
+    @Column(name= "provincia")
     private String provincia;
 
     public Lugar(Double latitud, Double longitud) {
