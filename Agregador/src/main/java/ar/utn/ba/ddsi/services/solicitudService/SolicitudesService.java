@@ -1,6 +1,7 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
+import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class SolicitudesService implements ISolicitudesService {
@@ -30,6 +30,7 @@ public class SolicitudesService implements ISolicitudesService {
 
     @Autowired
     private DetectorDeSpam detectorDeSpam;
+
 
     @Override
     public void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Long idUsuario) {

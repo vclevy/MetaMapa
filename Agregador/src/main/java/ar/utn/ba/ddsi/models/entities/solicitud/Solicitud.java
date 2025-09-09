@@ -39,7 +39,7 @@ public class Solicitud {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
-    private Usuario visitanteQueCargoLaSolicitud;
+    private Usuario usuarioQueCargoLaSolicitud;
 
     @OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Solicitud {
     public Solicitud (String unaJustificacion, Hecho hecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
         this.hecho = hecho;
-        this.visitanteQueCargoLaSolicitud = unUsuario;
+        this.usuarioQueCargoLaSolicitud = unUsuario;
         this.fechaDeCargaDeSolicitud = LocalDateTime.now();
         this.estado = EstadoDeSolicitudDeEliminacion.PENDIENTE;
     }
