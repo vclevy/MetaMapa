@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.models.dtos.output;
 
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import lombok.Getter;
