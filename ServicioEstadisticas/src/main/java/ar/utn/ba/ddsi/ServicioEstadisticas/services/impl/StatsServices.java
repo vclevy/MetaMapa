@@ -16,6 +16,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class StatsServices implements IStatsServices {
 
     public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) throws Exception {
         List<ResultadoEstadistica> resultados = new ArrayList<>();
+
         resultados.add(categoriaMasHechos.calcular(colecciones));
 
         for (Coleccion c : colecciones) {
@@ -47,15 +49,16 @@ public class StatsServices implements IStatsServices {
 
         // TODO: resultados.add(spamCalc.calcular(solicitudes));
 
+        for (ResultadoEstadistica r : resultados) {
+            r.setValor(r.getValor() != null ? r.getValor() : 0L);
+            r.setFechaGeneracion(r.getFechaGeneracion() != null ? r.getFechaGeneracion() : LocalDateTime.now());
+        }
+
+        // Guardamos en la base de datos
+        estadisticasRepository.saveAll(resultados);
+
         return resultados; // solo devuelve los resultados
     }
-
-
-//    public void exportarEstadisticas(List<Coleccion> colecciones, String categoria, String pathCSV) throws Exception {
-//        List<ResultadoEstadistica> resultados = calcularTodas(colecciones, categoria);
-//        Exportador<ResultadoEstadistica> exportador = new ExportadorCSV();
-//        exportador.exportar(resultados, pathCSV);
-//    }
 
 }
 
