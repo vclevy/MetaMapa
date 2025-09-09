@@ -17,8 +17,16 @@
         </processorPath>
         <module name="ServicioEstadisticas" />
         <module name="FuenteDinamica" />
+      </profile>
+      <profile name="Annotation profile for Agregador" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
         <module name="Agregador" />
-        <module name="FuenteProxy" />
       </profile>
       <profile name="Annotation profile for FuenteEstatica" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -29,6 +37,16 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="FuenteEstatica" />
+      </profile>
+      <profile name="Annotation profile for FuenteProxy" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="FuenteProxy" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

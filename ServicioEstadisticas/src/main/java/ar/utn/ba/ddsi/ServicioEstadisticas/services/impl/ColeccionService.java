@@ -52,4 +52,17 @@ public class ColeccionService implements IColeccionService {
                 dto.getFechaDeAcontecimiento().atStartOfDay() : null);
         return hecho;
     }
+
+    public List<Hecho> obtenerHechosDeColeccion(Long coleccionId, String modoDeNavegacion) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/api/coleccion/{id}")
+                        .queryParam("modoDeNavegacion", modoDeNavegacion)
+                        .build(coleccionId))
+                .retrieve()
+                .bodyToFlux(HechoInputDTO.class)
+                .map(this::inputDTOaHecho)
+                .collectList()
+                .block();
+    }
 }
