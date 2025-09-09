@@ -2,41 +2,51 @@ package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Coleccion;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
+@Component
 public class EstadisticaHoraPorCategoria {
 
-    public String calcular(Coleccion coleccion, String categoria) {
-        if (coleccion == null || coleccion.getHechos().isEmpty()) {
-            return "No hay hechos en la colección.";
+    public ResultadoEstadistica calcular(Coleccion coleccion, String categoria) {
+        if (coleccion == null || coleccion.getHechos() == null || coleccion.getHechos().isEmpty()) {
+            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
         }
 
         // Filtrar hechos de la categoría indicada
         List<Hecho> filtrados = coleccion.getHechos().stream()
-                .filter(h -> categoria.equalsIgnoreCase(h.getCategoria()))
+                .filter(h -> h.getCategoria() != null
+                        && h.getCategoria().equalsIgnoreCase(categoria))
                 .toList();
 
         if (filtrados.isEmpty()) {
-            return "No hay hechos de la categoría: " + categoria;
+            throw new IllegalArgumentException("No hay hechos para la categoría: " + categoria);
         }
 
         // Agrupar por HORA del LocalDateTime
         Map<Integer, Long> conteoPorHora = filtrados.stream()
                 .filter(h -> h.getTimestamp() != null)
                 .collect(Collectors.groupingBy(
-                        h -> h.getTimestamp().getHour(),  // de 0 a 23
+                        h -> h.getTimestamp().getHour(),
                         Collectors.counting()
                 ));
 
-        // Encontrar la hora más frecuente
-        return conteoPorHora.entrySet().stream()
+        if (conteoPorHora.isEmpty()) {
+            throw new IllegalArgumentException("Los hechos no tienen información de fecha/hora válida");
+        }
+
+        // Buscar la hora con mayor cantidad de hechos
+        Map.Entry<Integer, Long> maxEntry = conteoPorHora.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
-                .map(e -> String.format(
-                        "Hora con más hechos de la categoría '%s': %02d:00 (%d reportes)",
-                        categoria, e.getKey(), e.getValue()))
-                .orElse("No se pudo calcular la estadística.");
+                .orElseThrow(() -> new IllegalArgumentException("No se pudo calcular la estadística"));
+
+        return new ResultadoEstadistica(
+                "Hora del día con mayor cantidad de hechos en categoría " + categoria,
+                maxEntry.getKey().toString(),
+                maxEntry.getValue()
+        );
     }
+
 }

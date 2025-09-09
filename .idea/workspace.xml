@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaCategoriaMasHechos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaHoraPorCategoria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaMasHechos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaPorCategoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/repositories/IEstadisticasRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaCategoriaMasHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaCategoriaMasHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaHoraPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaHoraPorCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaMasHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaMasHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/EstadisticaProvinciaPorCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/calculadores/ResultadoEstadistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/resultadosEstadisticas/ResultadoEstadistica.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -154,7 +154,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.FuenteDinamicaApplication">
+  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />

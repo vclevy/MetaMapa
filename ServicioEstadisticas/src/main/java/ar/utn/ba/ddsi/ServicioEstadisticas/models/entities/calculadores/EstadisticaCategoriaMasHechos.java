@@ -2,17 +2,21 @@ package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Coleccion;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component
 public class EstadisticaCategoriaMasHechos {
-    public String calcular(List<Coleccion> colecciones) {
+    public ResultadoEstadistica calcular(List<Coleccion> colecciones) {
 
         if (colecciones == null || colecciones.isEmpty()) {
-            return "No hay colecciones disponibles.";
+            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
         }
 
 
@@ -25,7 +29,7 @@ public class EstadisticaCategoriaMasHechos {
                 ));
 
         if (conteoPorCategoria.isEmpty()) {
-            return "No hay hechos en las colecciones.";
+            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
         }
 
         Map.Entry<String, Long> maxEntry = conteoPorCategoria.entrySet().stream()
@@ -33,10 +37,9 @@ public class EstadisticaCategoriaMasHechos {
                 .orElse(null);
 
         if (maxEntry == null) {
-            return "No se pudo calcular la estadística.";
+            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
         }
 
-        return String.format("Categoría con más hechos: %s (%d reportes)",
-                maxEntry.getKey(), maxEntry.getValue());
+        return new ResultadoEstadistica("Categoria con mas hechos",maxEntry.getKey(),maxEntry.getValue());
     }
 }
