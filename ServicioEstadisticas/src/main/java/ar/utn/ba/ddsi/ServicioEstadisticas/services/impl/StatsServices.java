@@ -46,7 +46,7 @@ public class StatsServices implements IStatsServices {
         }
 
         // TODO: resultados.add(spamCalc.calcular(solicitudes));
-
+        estadisticasRepository.saveAll(resultados);
         return resultados; // solo devuelve los resultados
     }
 
