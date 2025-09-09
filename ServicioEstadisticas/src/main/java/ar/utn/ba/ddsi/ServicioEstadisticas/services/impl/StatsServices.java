@@ -6,6 +6,8 @@ import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.Estadist
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaHoraPorCategoria;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaMasHechos;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaPorCategoria;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.Exportador;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.ExportadorCSV;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.repositories.IEstadisticasRepository;
 import ar.utn.ba.ddsi.ServicioEstadisticas.services.IColeccionService;
@@ -14,6 +16,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +32,11 @@ public class StatsServices implements IStatsServices {
     private final EstadisticaProvinciaMasHechos provinciaMasHechos;
     private final EstadisticaProvinciaPorCategoria provinciaPorCategoria;
 
-    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) { //TODO agregar como parametro las solicitudes de eliminacion
+    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) throws Exception {
         List<ResultadoEstadistica> resultados = new ArrayList<>();
+
         resultados.add(categoriaMasHechos.calcular(colecciones));
+
         for (Coleccion c : colecciones) {
             resultados.add(horaPorCategoria.calcular(c, categoria));
         }
@@ -41,21 +46,19 @@ public class StatsServices implements IStatsServices {
         for (Coleccion c : colecciones) {
             resultados.add(provinciaPorCategoria.calcular(c, categoria));
         }
-        //TODO resultados.add(spamCalc.calcular(solicitudes));
 
-       // estadisticasRepository.saveAll(resultados);
-        return resultados;
+        // TODO: resultados.add(spamCalc.calcular(solicitudes));
 
-
-    }
-
-    public List<ResultadoEstadistica> provinciaConMasHechosDeUnaColeccion(List<Coleccion> colecciones){
-        List<ResultadoEstadistica> resultados = new ArrayList<>();
-        for (Coleccion c : colecciones) {
-            resultados.add(provinciaMasHechos.calcular(c));
+        for (ResultadoEstadistica r : resultados) {
+            r.setValor(r.getValor() != null ? r.getValor() : 0L);
+            r.setFechaGeneracion(r.getFechaGeneracion() != null ? r.getFechaGeneracion() : LocalDateTime.now());
         }
-        //estadisticasRepository.saveAll(resultados);
-        return resultados;
+
+        // Guardamos en la base de datos
+        estadisticasRepository.saveAll(resultados);
+
+        return resultados; // solo devuelve los resultados
     }
+
 }
 
