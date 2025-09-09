@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AlgoritmoMultipleMenciones implements IAlgoritmo {
     @Override
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
+    public void aplicarConsenso(Coleccion unaColeccion) {
         List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, List<Fuente>> mapaHechos = new HashMap<>();
@@ -45,7 +45,6 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
             }
         }
 
-        unaColeccion.setHechos(hechosConsensuados);
-        return unaColeccion.getHechos();
+        unaColeccion.setHechosConAlgotimoAplicado(hechosConsensuados);
     }
 }

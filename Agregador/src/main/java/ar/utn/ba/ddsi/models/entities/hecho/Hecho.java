@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.LocalDateTime.*;
+
 
 @Setter
 @Getter
@@ -80,7 +82,7 @@ public class Hecho {
     @PrePersist
     public void prePersist() {
         if (fechaDeCargaDelHecho == null) {
-            fechaDeCargaDelHecho = LocalDateTime.now();
+            fechaDeCargaDelHecho = now();
         }
     }
 }

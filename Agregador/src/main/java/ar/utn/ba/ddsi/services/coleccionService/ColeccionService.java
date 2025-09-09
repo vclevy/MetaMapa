@@ -172,6 +172,7 @@ public class ColeccionService implements IColeccionService {
             System.out.println("Nueva fuente creada: " + nuevaFuente.getFuenteDeHechos() + " con URL: " + nuevaFuente.getUrlBase());
             coleccion.getFuentesDeHechos().add(nuevaFuente);
             this.refrescarColeccion(coleccion, nuevaFuente);
+            coleccion.aplicarAlgoritmoDeConsenso();
             this.coleccionesRepository.save(coleccion);
             return this.coleccionMapper.toDTO(coleccion);
         }

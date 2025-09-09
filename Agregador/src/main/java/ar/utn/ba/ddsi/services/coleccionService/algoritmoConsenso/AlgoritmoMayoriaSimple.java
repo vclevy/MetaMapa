@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AlgoritmoMayoriaSimple implements IAlgoritmo {
     @Override
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
+    public void aplicarConsenso(Coleccion unaColeccion) {
         List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, Integer> conteoHechos = new HashMap<>();
@@ -32,7 +32,6 @@ public class AlgoritmoMayoriaSimple implements IAlgoritmo {
             }
         }
 
-        unaColeccion.setHechos(hechosConsensuados);
-        return unaColeccion.getHechos();
+        unaColeccion.setHechosConAlgotimoAplicado(hechosConsensuados);
     }
 }
