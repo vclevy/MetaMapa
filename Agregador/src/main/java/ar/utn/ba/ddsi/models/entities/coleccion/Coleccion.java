@@ -80,6 +80,6 @@ public class Coleccion {
             return;
         }
 
-        this.hechosConAlgotimoAplicado = this.algoritmoDeConsenso.aplicarConsenso(this);
+        this.algoritmoDeConsenso.aplicarConsenso(this);
     }
 }
