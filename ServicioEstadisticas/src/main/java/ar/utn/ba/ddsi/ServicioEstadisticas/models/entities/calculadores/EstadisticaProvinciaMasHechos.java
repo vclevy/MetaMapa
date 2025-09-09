@@ -5,24 +5,23 @@ import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.lang.Long.valueOf;
 @Component
 public class EstadisticaProvinciaMasHechos {
-    public ResultadoEstadistica calcular(List<Hecho> hechos) {
-        if (hechos == null || hechos.isEmpty()) {
+
+    public ResultadoEstadistica calcular(Coleccion coleccion) {
+        if (coleccion == null || coleccion.getHechos() == null || coleccion.getHechos().isEmpty()) {
+            assert coleccion != null;
             return new ResultadoEstadistica(
                     "Provincia con más hechos",
                     "N/A",
-                    null
+                    null, coleccion.getTitulo()
             );
         }
 
-        Map<String, Long> conteoPorProvincia = hechos.stream()
+        Map<String, Long> conteoPorProvincia = coleccion.getHechos().stream()
                 .filter(h -> h.getProvincia() != null)
                 .collect(Collectors.groupingBy(
                         Hecho::getProvincia,
@@ -34,14 +33,14 @@ public class EstadisticaProvinciaMasHechos {
                 .map(e -> new ResultadoEstadistica(
                         "Provincia con más hechos",
                         e.getKey(),
-                        e.getValue()
+                        e.getValue(), coleccion.getTitulo()
                 ))
                 .orElse(new ResultadoEstadistica(
                         "Provincia con más hechos",
                         "N/A",
-                        null
+                        null,
+                        coleccion.getTitulo()
                 ));
     }
-
 }
 

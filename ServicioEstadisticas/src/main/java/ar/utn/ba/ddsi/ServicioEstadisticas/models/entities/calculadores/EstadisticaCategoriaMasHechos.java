@@ -16,9 +16,8 @@ public class EstadisticaCategoriaMasHechos {
     public ResultadoEstadistica calcular(List<Coleccion> colecciones) {
 
         if (colecciones == null || colecciones.isEmpty()) {
-            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
+            throw new IllegalArgumentException("(Estadistica mas hechos1) No hay datos suficientes para calcular la estadística");
         }
-
 
         Map<String, Long> conteoPorCategoria = colecciones.stream()
                 .filter(Objects::nonNull)
@@ -29,7 +28,7 @@ public class EstadisticaCategoriaMasHechos {
                 ));
 
         if (conteoPorCategoria.isEmpty()) {
-            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
+            throw new IllegalArgumentException(" (Estadistica mas hechos2) No hay datos suficientes para calcular la estadística");
         }
 
         Map.Entry<String, Long> maxEntry = conteoPorCategoria.entrySet().stream()
@@ -37,9 +36,9 @@ public class EstadisticaCategoriaMasHechos {
                 .orElse(null);
 
         if (maxEntry == null) {
-            throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
+            throw new IllegalArgumentException("(Estadistica mas hechos3) No hay datos suficientes para calcular la estadística");
         }
 
-        return new ResultadoEstadistica("Categoria con mas hechos",maxEntry.getKey(),maxEntry.getValue());
+        return new ResultadoEstadistica("Categoria con mas hechos",maxEntry.getKey(),maxEntry.getValue(), null);
     }
 }

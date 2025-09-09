@@ -36,12 +36,25 @@ public class StatsServices implements IStatsServices {
             resultados.add(horaPorCategoria.calcular(c, categoria));
         }
         for (Coleccion c : colecciones) {
-            resultados.add(provinciaMasHechos.calcular(c.getHechos()));
+            resultados.add(provinciaMasHechos.calcular(c));
         }
-        resultados.add(provinciaPorCategoria.calcular(colecciones, "Inundacion"));
+        for (Coleccion c : colecciones) {
+            resultados.add(provinciaPorCategoria.calcular(c, categoria));
+        }
         //TODO resultados.add(spamCalc.calcular(solicitudes));
 
-        estadisticasRepository.saveAll(resultados);
+       // estadisticasRepository.saveAll(resultados);
+        return resultados;
+
+
+    }
+
+    public List<ResultadoEstadistica> provinciaConMasHechosDeUnaColeccion(List<Coleccion> colecciones){
+        List<ResultadoEstadistica> resultados = new ArrayList<>();
+        for (Coleccion c : colecciones) {
+            resultados.add(provinciaMasHechos.calcular(c));
+        }
+        //estadisticasRepository.saveAll(resultados);
         return resultados;
     }
 }

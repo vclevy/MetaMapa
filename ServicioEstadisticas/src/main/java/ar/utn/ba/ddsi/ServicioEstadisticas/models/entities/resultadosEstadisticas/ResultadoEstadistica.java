@@ -10,17 +10,24 @@ import java.time.LocalDateTime;
 @Table(name = "resultados_estadistica")
 public class ResultadoEstadistica {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nombreEstadistica; // Ej: "Provincia con más hechos"
-    private String clave;             // Ej: "Buenos Aires" o "Accidente de tránsito"
-    private long valor;               // Ej: cantidad de hechos
+    private Long id;
+    private String nombreEstadistica;
+    private String clave;
+    @Column(name = "valores", nullable = true)
+    private Long valor;
     private LocalDateTime fechaGeneracion;
+    private String nombreDeLaColeccion;
 
-    public ResultadoEstadistica(String nombreEstadistica, String clave, Long valor) {
+    public ResultadoEstadistica(String nombreEstadistica, String clave, Long valor, String nombreDeLaColeccion) {
         this.nombreEstadistica = nombreEstadistica;
         this.clave = clave;
         this.valor = valor;
         this.fechaGeneracion = LocalDateTime.now();
+        this.nombreDeLaColeccion = nombreDeLaColeccion;
+    }
+
+    public ResultadoEstadistica() {
+
     }
 }
 

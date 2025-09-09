@@ -11,14 +11,13 @@ import java.util.stream.Collectors;
 public class EstadisticaHoraPorCategoria {
 
     public ResultadoEstadistica calcular(Coleccion coleccion, String categoria) {
-        if (coleccion == null || coleccion.getHechos() == null || coleccion.getHechos().isEmpty()) {
+        if (coleccion == null) {
             throw new IllegalArgumentException("No hay datos suficientes para calcular la estadística");
         }
 
-        // Filtrar hechos de la categoría indicada
         List<Hecho> filtrados = coleccion.getHechos().stream()
-                .filter(h -> h.getCategoria() != null
-                        && h.getCategoria().equalsIgnoreCase(categoria))
+                .filter(h -> h.getCategoria() != null &&
+                        h.getCategoria().trim().equalsIgnoreCase(categoria.trim()))
                 .toList();
 
         if (filtrados.isEmpty()) {
@@ -37,7 +36,6 @@ public class EstadisticaHoraPorCategoria {
             throw new IllegalArgumentException("Los hechos no tienen información de fecha/hora válida");
         }
 
-        // Buscar la hora con mayor cantidad de hechos
         Map.Entry<Integer, Long> maxEntry = conteoPorHora.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .orElseThrow(() -> new IllegalArgumentException("No se pudo calcular la estadística"));
@@ -45,7 +43,7 @@ public class EstadisticaHoraPorCategoria {
         return new ResultadoEstadistica(
                 "Hora del día con mayor cantidad de hechos en categoría " + categoria,
                 maxEntry.getKey().toString(),
-                maxEntry.getValue()
+                maxEntry.getValue(), coleccion.getTitulo()
         );
     }
 
