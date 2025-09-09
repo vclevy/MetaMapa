@@ -6,6 +6,8 @@ import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.Estadist
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaHoraPorCategoria;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaMasHechos;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaPorCategoria;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.Exportador;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.ExportadorCSV;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.repositories.IEstadisticasRepository;
 import ar.utn.ba.ddsi.ServicioEstadisticas.services.IColeccionService;
@@ -29,9 +31,10 @@ public class StatsServices implements IStatsServices {
     private final EstadisticaProvinciaMasHechos provinciaMasHechos;
     private final EstadisticaProvinciaPorCategoria provinciaPorCategoria;
 
-    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) { //TODO agregar como parametro las solicitudes de eliminacion
+    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) throws Exception {
         List<ResultadoEstadistica> resultados = new ArrayList<>();
         resultados.add(categoriaMasHechos.calcular(colecciones));
+
         for (Coleccion c : colecciones) {
             resultados.add(horaPorCategoria.calcular(c, categoria));
         }
@@ -41,21 +44,18 @@ public class StatsServices implements IStatsServices {
         for (Coleccion c : colecciones) {
             resultados.add(provinciaPorCategoria.calcular(c, categoria));
         }
-        //TODO resultados.add(spamCalc.calcular(solicitudes));
 
-       // estadisticasRepository.saveAll(resultados);
-        return resultados;
+        // TODO: resultados.add(spamCalc.calcular(solicitudes));
 
-
+        return resultados; // solo devuelve los resultados
     }
 
-    public List<ResultadoEstadistica> provinciaConMasHechosDeUnaColeccion(List<Coleccion> colecciones){
-        List<ResultadoEstadistica> resultados = new ArrayList<>();
-        for (Coleccion c : colecciones) {
-            resultados.add(provinciaMasHechos.calcular(c));
-        }
-        //estadisticasRepository.saveAll(resultados);
-        return resultados;
-    }
+
+//    public void exportarEstadisticas(List<Coleccion> colecciones, String categoria, String pathCSV) throws Exception {
+//        List<ResultadoEstadistica> resultados = calcularTodas(colecciones, categoria);
+//        Exportador<ResultadoEstadistica> exportador = new ExportadorCSV();
+//        exportador.exportar(resultados, pathCSV);
+//    }
+
 }
 
