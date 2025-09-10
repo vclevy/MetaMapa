@@ -29,10 +29,11 @@ public class ColeccionService implements IColeccionService {
     private IHechoService hechoService;
     @Autowired
     private IFuenteDeHechosRepository fuenteRepository;
-    private final AlgoritmoFactory algoritmoFactory;
-    private final ColeccionMapper coleccionMapper;
     @Autowired
     private LugarService lugarService;
+
+    private final AlgoritmoFactory algoritmoFactory;
+    private final ColeccionMapper coleccionMapper;
 
     public ColeccionService(AlgoritmoFactory algoritmoFactory, ColeccionMapper coleccionMapper) {
         this.algoritmoFactory = algoritmoFactory;
@@ -105,7 +106,6 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente) {
-
         Fuente fuentePersistida;
         if (nuevaFuente.getId() == null) {
             fuentePersistida = fuenteRepository.save(nuevaFuente); // la persiste si es nueva
@@ -117,7 +117,6 @@ public class ColeccionService implements IColeccionService {
         List<Hecho> hechosDeColeccionDeUnaFuente = fuentePersistida.obtenerHechos();
         for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
             hechoIndice.setFuente(fuentePersistida);
-
 
             //if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) { TODO!!! @alan @gonzi lo marco para acordarme
             this.hechoService.registrarHechoDesdeFuente(hechoIndice);
@@ -146,18 +145,15 @@ public class ColeccionService implements IColeccionService {
     public ColeccionOutputDTO eliminarUnaFuenteDeUnaColeccion(Long idColeccion, Long idFuente) {
         return coleccionesRepository.findById(idColeccion)
                 .map(coleccion -> {
-                    // Saco los hechos de la coleccion que pertenezcan a la fuente
                     List<Hecho> hechosAEliminar = coleccion.getHechos()
                             .stream()
                             .filter(h -> h.getFuente().getId().equals(idFuente))
                             .toList();
                     coleccion.getHechos().removeAll(hechosAEliminar);
 
-                    // Saco la fuente de la coleccion
                     coleccion.getFuentesDeHechos()
                             .removeIf(fuente -> idFuente.equals(fuente.getId()));
 
-                    // Armo el DTO
                     Coleccion actualizada = coleccionesRepository.save(coleccion);
                     return coleccionMapper.toDTO(actualizada);
                 })
@@ -169,7 +165,6 @@ public class ColeccionService implements IColeccionService {
         if (this.coleccionesRepository.existsById(id)) {
             Coleccion coleccion = this.coleccionesRepository.findById(id).get();
             Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), lugarService);
-            System.out.println("Nueva fuente creada: " + nuevaFuente.getFuenteDeHechos() + " con URL: " + nuevaFuente.getUrlBase());
             coleccion.getFuentesDeHechos().add(nuevaFuente);
             this.refrescarColeccion(coleccion, nuevaFuente);
             coleccion.aplicarAlgoritmoDeConsenso();
@@ -182,12 +177,9 @@ public class ColeccionService implements IColeccionService {
     @Override
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String unModoDeNavegacion) {
         var coleccion = coleccionesRepository.findById(id);
-        System.out.println("Colección encontrada: " + coleccion);
-
         if (coleccion == null) {
             throw new NoSuchElementException("No se encontró la colección con handle: " + id);
         }
-
         if(unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
             return coleccion.get().getHechosConAlgotimoAplicado();
         }
@@ -199,7 +191,6 @@ public class ColeccionService implements IColeccionService {
     @Override
     public void aplicarAlgoritmosAColecciones() {
         List<Coleccion> colecciones = this.coleccionesRepository.findAll();
-
         for(Coleccion coleccionIndice : colecciones) {
             coleccionIndice.aplicarAlgoritmoDeConsenso();
         }
@@ -207,7 +198,6 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id) {
-
         if(this.coleccionesRepository.existsById(id)) {
             Coleccion coleccion = this.coleccionesRepository.findById(id).get();
             List<FuenteDeHechoOutputDTO> fuentesDeHechoOutputDTOs = new ArrayList<>();

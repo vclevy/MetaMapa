@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos;
+package ar.utn.ba.ddsi.models.dtos.input.hecho;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -3,14 +3,13 @@ package ar.utn.ba.ddsi.models.entities.fuentes;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputProxyDTO;
+import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputProxyDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 public class FuenteProxy implements IFuenteDeHechos {
     private final WebClient webClient;

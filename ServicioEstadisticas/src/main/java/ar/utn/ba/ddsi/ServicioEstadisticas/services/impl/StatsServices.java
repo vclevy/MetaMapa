@@ -50,12 +50,4 @@ public class StatsServices implements IStatsServices {
         return resultados; // solo devuelve los resultados
     }
 
-
-//    public void exportarEstadisticas(List<Coleccion> colecciones, String categoria, String pathCSV) throws Exception {
-//        List<ResultadoEstadistica> resultados = calcularTodas(colecciones, categoria);
-//        Exportador<ResultadoEstadistica> exportador = new ExportadorCSV();
-//        exportador.exportar(resultados, pathCSV);
-//    }
-
 }
-

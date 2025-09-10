@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos;
+package ar.utn.ba.ddsi.models.dtos.input.hecho;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Etiqueta;

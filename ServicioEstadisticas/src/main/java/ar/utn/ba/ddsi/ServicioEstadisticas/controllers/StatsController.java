@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.io.File;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -47,10 +46,9 @@ public class StatsController {
         List<ResultadoEstadistica> resultados = statsServices.calcularTodas(colecciones, categoria);
         Exportador<ResultadoEstadistica> exportador = new ExportadorCSV();
 
-        String proyectoPath = new File("").getAbsolutePath(); // ruta donde se ejecuta el proyecto
+        String proyectoPath = new File("").getAbsolutePath();
         Path rutaCarpeta = Paths.get(proyectoPath, "ServicioEstadisticas", "archivosCSV");
 
-        // Crear la carpeta si no existe
         if (!Files.exists(rutaCarpeta)) {
             Files.createDirectories(rutaCarpeta);
         }

@@ -49,7 +49,7 @@ public class ColeccionService implements IColeccionService {
         hecho.setCategoria(dto.getCategoriaNombre());
         hecho.setProvincia(dto.getLugar() != null ? dto.getLugar().getProvincia() : null);
         hecho.setTimestamp(dto.getFechaDeAcontecimiento() != null ?
-                dto.getFechaDeAcontecimiento().atStartOfDay() : null);
+                dto.getFechaDeAcontecimiento(): null);
         return hecho;
     }
 

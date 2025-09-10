@@ -13,8 +13,9 @@ public class ResultadoEstadistica {
     private Long id;
     private String nombreEstadistica;
     private String clave;
-    @Column(name = "valores", nullable = true)
+    @Column(name = "valores", nullable = false)
     private Long valor;
+    @Column(name = "fechas_generacion", nullable = false)
     private LocalDateTime fechaGeneracion;
     private String nombreDeLaColeccion;
 

@@ -1,12 +1,11 @@
 package ar.utn.ba.ddsi.models.entities.fuentes;
 
-import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.HechoInputEstaticaDTO;
+import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputEstaticaDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,25 @@
 package ar.utn.ba.ddsi.services.hechoService;
 
+import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputDTO;
+import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputPUTDTO;
+import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.repositories.ICategoriasRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
-import ar.utn.ba.ddsi.services.georef.LugarService;
 import ar.utn.ba.ddsi.services.hechoService.normalizador.NormalizadorHechos;
-import jakarta.transaction.Transactional;
+import ar.utn.ba.ddsi.services.mappers.HechoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class HechoService implements IHechoService {
@@ -21,6 +29,8 @@ public class HechoService implements IHechoService {
     private ICategoriasRepository categoriaRepository;
     @Autowired
     private NormalizadorHechos normalizadorHechos;
+    @Autowired
+    private HechoMapper hechoMapper;
 
     @Override
     public void registrarHechoDesdeFuente(Hecho unHecho) {
@@ -40,9 +50,112 @@ public class HechoService implements IHechoService {
         hechosRepository.saveAndFlush(hechoPosta);
     }
 
+    @Override
+    public List<HechoOutputDTO> obtenerHechos() {
+        return this.hechosRepository.findAll().stream().map(h -> hechoMapper.toDTO(h)).collect(Collectors.toList());
+    }
 
+    @Override
+    public HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO) {
+        Hecho hecho = this.hechosRepository.findById(idHecho).orElseThrow(() -> new IllegalArgumentException("Hecho no encontrado: " + idHecho));
 
+        LocalDateTime ahora = LocalDateTime.now();
+        LocalDateTime fechaCarga = hecho.getFechaDeCargaDelHecho();
 
+        if (fechaCarga == null) {
+            throw new IllegalStateException("El hecho no tiene fecha de carga registrada");
+        }
 
+        Duration transcurrido = Duration.between(fechaCarga, ahora);
+        if (transcurrido.compareTo(Duration.ofHours(1)) >= 0) {
+            throw new IllegalStateException("El hecho solo puede modificarse dentro de la primera hora desde su carga");
+        }
 
+        this.validarModificacion(hecho, hechoInputDTO);
+        Hecho guardado = this.hechosRepository.save(hecho);
+        return hechoMapper.toDTO(guardado);
+    }
+
+    @Override
+    public void validarModificacion(Hecho hecho, HechoInputPUTDTO dto) {
+        if (dto == null) throw new IllegalArgumentException("Body vacío.");
+
+        boolean hayAlgoParaActualizar =
+                dto.getTitulo() != null ||
+                        dto.getDescripcion() != null ||
+                        dto.getCategoria() != null ||
+                        dto.getLatitud() != null ||
+                        dto.getLongitud() != null ||
+                        dto.getFechaAcontecimiento() != null ||
+                        dto.getMultimedia() != null;
+
+        if (!hayAlgoParaActualizar) {
+            throw new IllegalArgumentException("No hay campos para modificar.");
+        }
+
+        if (dto.getTitulo() != null) {
+            String titulo = dto.getTitulo().trim();
+            if (titulo.isEmpty()) throw new IllegalArgumentException("El título no puede estar vacío.");
+            if (titulo.length() > 255) throw new IllegalArgumentException("El título no puede superar 255 caracteres.");
+            hecho.setTitulo(titulo);
+        }
+
+        if (dto.getDescripcion() != null) {
+            String desc = dto.getDescripcion().trim();
+            if (desc.isEmpty()) throw new IllegalArgumentException("La descripción no puede estar vacía.");
+            hecho.setDescripcion(desc);
+        }
+
+        if (dto.getCategoria() != null) {
+            String nombreCat = dto.getCategoria().trim();
+            var categoria = categoriaRepository.findByNombre(nombreCat)
+                    .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada: " + nombreCat));
+            hecho.setCategoria(categoria);
+        }
+
+        // Fecha de acontecimiento (yyyy-MM-dd)
+        if (dto.getFechaAcontecimiento() != null) {
+            String raw = dto.getFechaAcontecimiento().trim();
+            try {
+                LocalDate fecha = LocalDate.parse(raw, DateTimeFormatter.ISO_LOCAL_DATE);
+                // si querés evitar fechas futuras:
+                // if (fecha.isAfter(LocalDate.now())) throw new IllegalArgumentException("La fecha de acontecimiento no puede ser futura.");
+                hecho.setFechaDeAcontecimiento(fecha);
+            } catch (DateTimeParseException e) {
+                throw new IllegalArgumentException("fechaAcontecimiento debe tener formato yyyy-MM-dd.");
+            }
+        }
+
+        // Lugar: latitud/longitud
+        if (dto.getLatitud() != null || dto.getLongitud() != null) {
+            Lugar lugar = hecho.getLugar();
+            if (lugar == null) lugar = new Lugar();
+
+            if (dto.getLatitud() != null) {
+                String latStr = dto.getLatitud().trim();
+                double lat;
+                try { lat = Double.parseDouble(latStr); }
+                catch (NumberFormatException e) { throw new IllegalArgumentException("Latitud inválida."); }
+                if (lat < -90 || lat > 90) throw new IllegalArgumentException("Latitud fuera de rango (-90 a 90).");
+            }
+
+            if (dto.getLongitud() != null) {
+                String lonStr = dto.getLongitud().trim();
+                double lon;
+                try { lon = Double.parseDouble(lonStr); }
+                catch (NumberFormatException e) { throw new IllegalArgumentException("Longitud inválida."); }
+                if (lon < -180 || lon > 180) throw new IllegalArgumentException("Longitud fuera de rango (-180 a 180).");
+            }
+
+            hecho.setLugar(lugar);
+        }
+
+        if (dto.getMultimedia() != null) {
+            var lista = dto.getMultimedia().stream()
+                    .filter(s -> s != null && !s.trim().isEmpty())
+                    .map(String::trim)
+                    .collect(Collectors.toList());
+            hecho.setMultimedia(new java.util.ArrayList<>(lista));
+        }
+    }
 }
