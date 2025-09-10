@@ -1,25 +1,21 @@
 package ar.utn.ba.ddsi.ServicioEstadisticas.services.impl;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Coleccion;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaCategoriaMasHechos;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaHoraPorCategoria;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaMasHechos;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores.EstadisticaProvinciaPorCategoria;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.Exportador;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador.ExportadorCSV;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaCategoriaMasHechos;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaHoraPorCategoria;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaProvinciaMasHechos;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaProvinciaPorCategoria;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.ResultadoEstadistica;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.repositories.IEstadisticasRepository;
-import ar.utn.ba.ddsi.ServicioEstadisticas.services.IColeccionService;
 import ar.utn.ba.ddsi.ServicioEstadisticas.services.IStatsServices;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Data
@@ -35,19 +31,37 @@ public class StatsServices implements IStatsServices {
         List<ResultadoEstadistica> resultados = new ArrayList<>();
         resultados.add(categoriaMasHechos.calcular(colecciones));
 
+        List<CompletableFuture<ResultadoEstadistica>> futuros = new ArrayList<>();
         for (Coleccion c : colecciones) {
-            resultados.add(horaPorCategoria.calcular(c, categoria));
-        }
-        for (Coleccion c : colecciones) {
-            resultados.add(provinciaMasHechos.calcular(c));
-        }
-        for (Coleccion c : colecciones) {
-            resultados.add(provinciaPorCategoria.calcular(c, categoria));
+            futuros.add(calcularHoraPorCategoriaAsync(c, categoria));
+            futuros.add(calcularProvinciaMasHechosAsync(c));
+            futuros.add(calcularProvinciaPorCategoriaAsync(c, categoria));
         }
 
-        // TODO: resultados.add(spamCalc.calcular(solicitudes));
+        CompletableFuture.allOf(futuros.toArray(new CompletableFuture[0])).join();
+
+        for (CompletableFuture<ResultadoEstadistica> f : futuros) {
+            resultados.add(f.get());
+        }
+
+        // falta lo de spam
         estadisticasRepository.saveAll(resultados);
-        return resultados; // solo devuelve los resultados
+        return resultados;
+    }
+
+    @Async
+    public CompletableFuture<ResultadoEstadistica> calcularHoraPorCategoriaAsync(Coleccion c, String categoria) {
+        return CompletableFuture.completedFuture(horaPorCategoria.calcular(c, categoria));
+    }
+
+    @Async
+    public CompletableFuture<ResultadoEstadistica> calcularProvinciaMasHechosAsync(Coleccion c) {
+        return CompletableFuture.completedFuture(provinciaMasHechos.calcular(c));
+    }
+
+    @Async
+    public CompletableFuture<ResultadoEstadistica> calcularProvinciaPorCategoriaAsync(Coleccion c, String categoria) {
+        return CompletableFuture.completedFuture(provinciaPorCategoria.calcular(c, categoria));
     }
 
 }

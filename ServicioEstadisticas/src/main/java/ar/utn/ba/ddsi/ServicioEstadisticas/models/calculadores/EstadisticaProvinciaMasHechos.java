@@ -1,8 +1,8 @@
-package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.calculadores;
+package ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Coleccion;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.ResultadoEstadistica;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

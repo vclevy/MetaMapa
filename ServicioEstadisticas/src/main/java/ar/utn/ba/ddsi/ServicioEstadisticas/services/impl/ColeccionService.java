@@ -2,8 +2,8 @@ package ar.utn.ba.ddsi.ServicioEstadisticas.services.impl;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Coleccion;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.dtos.input.ColeccionInputDTO;
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.dtos.input.HechoInputDTO;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.dtos.input.ColeccionInputDTO;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.ServicioEstadisticas.services.IColeccionService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -48,8 +48,9 @@ public class ColeccionService implements IColeccionService {
         Hecho hecho = new Hecho();
         hecho.setCategoria(dto.getCategoriaNombre());
         hecho.setProvincia(dto.getLugar() != null ? dto.getLugar().getProvincia() : null);
-        hecho.setTimestamp(dto.getFechaDeAcontecimiento() != null ?
-                dto.getFechaDeAcontecimiento(): null);
+        hecho.setTimestamp(dto.getFechaDeAcontecimiento() != null
+                ? dto.getFechaDeAcontecimiento().atStartOfDay()
+                : null);
         return hecho;
     }
 

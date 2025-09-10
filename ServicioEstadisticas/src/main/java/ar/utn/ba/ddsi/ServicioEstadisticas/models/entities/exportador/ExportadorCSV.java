@@ -1,12 +1,10 @@
 package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.exportador;
 
-import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.resultadosEstadisticas.ResultadoEstadistica;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.ResultadoEstadistica;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -1,5 +1,5 @@
 Nombre Estadistica,Clave,Valor,Fecha Generacion,Nombre de la Coleccion
-Categoria con mas hechos,Accidente Vial,3,2025-09-09 13:19:37,null
-Hora del día con mayor cantidad de hechos en categoría Accidente Vial,0,3,2025-09-09 13:19:37,Boca predio
-Provincia con más hechos,Ciudad Autónoma de Buenos Aires,3,2025-09-09 13:19:37,Boca predio
-Provincia con más hechos de la categoría Accidente Vial,Ciudad Autónoma de Buenos Aires,3,2025-09-09 13:19:37,null
+Categoria con mas hechos,Incendio Forestal,3,2025-09-10 20:05:11,null
+Hora del día con mayor cantidad de hechos en categoría Incendio Forestal,0,3,2025-09-10 20:05:11,Coleccion Test
+Provincia con más hechos,Ciudad Autónoma de Buenos Aires,3,2025-09-10 20:05:11,Coleccion Test
+Provincia con más hechos de la categoría Incendio Forestal,Ciudad Autónoma de Buenos Aires,3,2025-09-10 20:05:11,null

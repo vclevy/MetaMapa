@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.dtos.input;
+package ar.utn.ba.ddsi.ServicioEstadisticas.models.dtos.input;
 
 import lombok.Data;
 

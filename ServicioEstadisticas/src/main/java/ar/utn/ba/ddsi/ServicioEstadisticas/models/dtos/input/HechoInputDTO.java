@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.dtos.input;
+package ar.utn.ba.ddsi.ServicioEstadisticas.models.dtos.input;
 
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Lugar;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class HechoInputDTO {
     private String titulo;
     private String categoriaNombre;
-    private LocalDateTime fechaDeAcontecimiento;
+    private LocalDate fechaDeAcontecimiento;
     private Lugar lugar;
 }
 

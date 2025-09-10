@@ -1,4 +1,4 @@
-package ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.dtos.output;
+package ar.utn.ba.ddsi.ServicioEstadisticas.models.dtos.output;
 
 import lombok.Getter;
 import lombok.Setter;
