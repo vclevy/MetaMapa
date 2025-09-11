@@ -21,9 +21,6 @@ public class EstadisticaHoraPorCategoria {
                         h.getTimestamp() != null)
                 .toList();
 
-        if (filtrados.isEmpty()) {
-            throw new IllegalArgumentException("No hay hechos para la categoría: " + categoria);
-        }
 
         Map<Integer, Long> conteoPorHora = filtrados.stream()
                 .collect(Collectors.groupingBy(

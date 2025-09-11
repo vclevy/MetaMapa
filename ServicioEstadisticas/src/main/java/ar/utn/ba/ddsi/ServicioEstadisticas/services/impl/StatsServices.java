@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaCatego
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaHoraPorCategoria;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaProvinciaMasHechos;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.calculadores.EstadisticaProvinciaPorCategoria;
+import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.Hecho;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.entities.ResultadoEstadistica;
 import ar.utn.ba.ddsi.ServicioEstadisticas.models.repositories.IEstadisticasRepository;
 import ar.utn.ba.ddsi.ServicioEstadisticas.services.IStatsServices;
@@ -15,7 +16,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -27,27 +31,35 @@ public class StatsServices implements IStatsServices {
     private final EstadisticaProvinciaMasHechos provinciaMasHechos;
     private final EstadisticaProvinciaPorCategoria provinciaPorCategoria;
 
-    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones, String categoria) throws Exception {
+    public List<ResultadoEstadistica> calcularTodas(List<Coleccion> colecciones) throws Exception {
         List<ResultadoEstadistica> resultados = new ArrayList<>();
-        resultados.add(categoriaMasHechos.calcular(colecciones));
 
-        List<CompletableFuture<ResultadoEstadistica>> futuros = new ArrayList<>();
-        for (Coleccion c : colecciones) {
-            futuros.add(calcularHoraPorCategoriaAsync(c, categoria));
-            futuros.add(calcularProvinciaMasHechosAsync(c));
-            futuros.add(calcularProvinciaPorCategoriaAsync(c, categoria));
+        Set<String> categoriasUnicas = colecciones.stream()
+                .flatMap(c -> c.getHechos().stream())
+                .map(Hecho::getCategoria)
+                .collect(Collectors.toSet());
+
+        for (String categoria : categoriasUnicas) {
+            resultados.add(categoriaMasHechos.calcular(colecciones));
+
+            List<CompletableFuture<ResultadoEstadistica>> futuros = new ArrayList<>();
+            for (Coleccion c : colecciones) {
+                futuros.add(calcularHoraPorCategoriaAsync(c, categoria));
+                futuros.add(calcularProvinciaMasHechosAsync(c));
+                futuros.add(calcularProvinciaPorCategoriaAsync(c, categoria));
+            }
+
+            CompletableFuture.allOf(futuros.toArray(new CompletableFuture[0])).join();
+
+            for (CompletableFuture<ResultadoEstadistica> f : futuros) {
+                resultados.add(f.get());
+            }
         }
 
-        CompletableFuture.allOf(futuros.toArray(new CompletableFuture[0])).join();
-
-        for (CompletableFuture<ResultadoEstadistica> f : futuros) {
-            resultados.add(f.get());
-        }
-
-        // falta lo de spam
         estadisticasRepository.saveAll(resultados);
         return resultados;
     }
+
 
     @Async
     public CompletableFuture<ResultadoEstadistica> calcularHoraPorCategoriaAsync(Coleccion c, String categoria) {

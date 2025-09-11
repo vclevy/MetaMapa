@@ -24,7 +24,7 @@ public class StatsScheduler {
     public void recalcularEstadisticas() throws Exception {
         List<Coleccion> colecciones = coleccionService.obtenerColecciones();
         String categoria = "Incendio Forestal";
-        statsServices.calcularTodas(colecciones, categoria);
-        System.out.println("📊 Estadísticas recalculadas " + LocalDateTime.now());
+        statsServices.calcularTodas(colecciones);
+        System.out.println("Estadísticas recalculadas " + LocalDateTime.now());
     }
 }
