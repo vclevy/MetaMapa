@@ -21,7 +21,7 @@ public class HechoOutputDTO {
     private String titulo;
     private String descripcion;
     private Categoria categoria;
-    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeAcontecimiento;
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private OrigenDelHecho origen;

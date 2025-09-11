@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +29,16 @@ public class ImportadorCSV implements Importador {
                 String categoria = campos[2].trim();
                 double latitud = Double.parseDouble(campos[3].trim());
                 double longitud = Double.parseDouble(campos[4].trim());
-                LocalDate fecha = LocalDate.parse(
-                        campos[5].trim(),
-                        DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                );
+
+                String raw = campos[5].trim();
+                LocalDateTime fecha;
+
+                if (raw.length() == 10) { // formato dd/MM/yyyy
+                    fecha = LocalDate.parse(raw, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                            .atStartOfDay();
+                } else { // formato dd/MM/yyyy HH:mm
+                    fecha = LocalDateTime.parse(raw, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                }
 
                 HechoInputDTO unHechoInput = new HechoInputDTO(
                         titulo,

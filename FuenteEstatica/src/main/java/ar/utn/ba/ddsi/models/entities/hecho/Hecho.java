@@ -30,7 +30,7 @@ public class Hecho {
     private Categoria categoria;
 
     @Column(name = "fecha_acontecimiento", nullable = false)
-    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeAcontecimiento;
 
     @Column(name = "fecha_carga", nullable = false)
     private LocalDateTime fechaDeCarga;
@@ -46,7 +46,7 @@ public class Hecho {
     @Column(name = "url")
     private List<String> multimedia;
 
-    public Hecho(String titulo, String descripcion, LocalDate fechaDeAcontecimiento, Lugar lugar) {
+    public Hecho(String titulo, String descripcion, LocalDateTime fechaDeAcontecimiento, Lugar lugar) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaDeAcontecimiento = fechaDeAcontecimiento;

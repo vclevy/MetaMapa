@@ -3,7 +3,7 @@ package ar.utn.ba.ddsi.models.dtos;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -12,9 +12,9 @@ public class HechoInputDTO {
     private String descripcion;
     private String categoria;
     private Lugar lugar;
-    private LocalDate fechaDelHecho;
+    private LocalDateTime fechaDelHecho;
 
-    public HechoInputDTO(String titulo, String descripcion, String categoria, Lugar lugar, LocalDate fechaDelHecho) {
+    public HechoInputDTO(String titulo, String descripcion, String categoria, Lugar lugar, LocalDateTime fechaDelHecho) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;

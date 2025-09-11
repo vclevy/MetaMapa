@@ -16,7 +16,7 @@ public class HechoInputEstaticaDTO {
     private String titulo;
     private String descripcion;
     private Categoria categoria;
-    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeAcontecimiento;
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private List<String> multimedia;

@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,7 +13,7 @@ public class HechoOutputDTO {
     private String titulo;
     private String descripcion;
     private String categoriaNombre;
-    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
     private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;

@@ -5,7 +5,7 @@ import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,7 +14,7 @@ import java.util.List;
 public class HechoInputDTO {
     private String titulo;
     private String descripcion;
-    private LocalDate fechaDeAcontecimiento;
+    private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
     private List<String> multimedia;
     private Categoria categoria;

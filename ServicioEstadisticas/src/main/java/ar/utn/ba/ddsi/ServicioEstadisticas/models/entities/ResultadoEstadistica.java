@@ -20,6 +20,14 @@ public class ResultadoEstadistica {
     private LocalDateTime fechaGeneracion;
     private String nombreDeLaColeccion;
 
+    public ResultadoEstadistica(String nombreEstadistica, String clave, Long valor, String nombreDeLaColeccion) {
+        this.nombreEstadistica = nombreEstadistica;
+        this.clave = clave;
+        this.valor = valor;
+        this.fechaGeneracion = LocalDateTime.now();
+        this.nombreDeLaColeccion = nombreDeLaColeccion;
+    }
+
     public ResultadoEstadistica() {
 
     }

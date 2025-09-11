@@ -117,14 +117,14 @@ public class HechoService implements IHechoService {
         if (dto.getFechaAcontecimiento() != null) {
             String raw = dto.getFechaAcontecimiento().trim();
             try {
-                LocalDate fecha = LocalDate.parse(raw, DateTimeFormatter.ISO_LOCAL_DATE);
-                // si querés evitar fechas futuras:
-                // if (fecha.isAfter(LocalDate.now())) throw new IllegalArgumentException("La fecha de acontecimiento no puede ser futura.");
+                LocalDateTime fecha = LocalDateTime.parse(raw, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
                 hecho.setFechaDeAcontecimiento(fecha);
             } catch (DateTimeParseException e) {
-                throw new IllegalArgumentException("fechaAcontecimiento debe tener formato yyyy-MM-dd.");
+                throw new IllegalArgumentException("fechaAcontecimiento debe tener formato yyyy-MM-ddTHH:mm:ss.");
             }
         }
+
 
         // Lugar: latitud/longitud
         if (dto.getLatitud() != null || dto.getLongitud() != null) {

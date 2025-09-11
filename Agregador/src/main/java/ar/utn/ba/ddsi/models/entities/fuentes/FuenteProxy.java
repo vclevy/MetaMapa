@@ -41,7 +41,7 @@ public class FuenteProxy implements IFuenteDeHechos {
                 unHecho.setTitulo(dto.getTitulo());
                 unHecho.setDescripcion(dto.getDescripcion());
                 unHecho.setCategoria(new Categoria(dto.getCategoria()));
-                unHecho.setFechaDeAcontecimiento(dto.getFechaHecho().toLocalDate());
+                unHecho.setFechaDeAcontecimiento(dto.getFechaHecho());
                 unHecho.setFechaDeCargaDelHecho(LocalDateTime.now());
                 unHecho.setEtiquetas(new ArrayList<>());
                 unHecho.setSolicitudesDeEliminacion(new ArrayList<>());

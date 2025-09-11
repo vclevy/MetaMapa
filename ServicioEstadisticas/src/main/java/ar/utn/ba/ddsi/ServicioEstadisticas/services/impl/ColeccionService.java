@@ -48,9 +48,7 @@ public class ColeccionService implements IColeccionService {
         Hecho hecho = new Hecho();
         hecho.setCategoria(dto.getCategoriaNombre());
         hecho.setProvincia(dto.getLugar() != null ? dto.getLugar().getProvincia() : null);
-        hecho.setTimestamp(dto.getFechaDeAcontecimiento() != null
-                ? dto.getFechaDeAcontecimiento().atStartOfDay()
-                : null);
+        hecho.setTimestamp(dto.getFechaDeAcontecimiento());
         return hecho;
     }
 
