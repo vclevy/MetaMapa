@@ -21,6 +21,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Data
 @RestController
@@ -52,7 +54,10 @@ public class StatsController {
             Files.createDirectories(rutaCarpeta);
         }
 
-        Path rutaArchivo = rutaCarpeta.resolve("estadisticas.csv");
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String nombreArchivo = "estadisticas_" + timestamp + ".csv";
+
+        Path rutaArchivo = rutaCarpeta.resolve(nombreArchivo);
 
         try (Writer writer = Files.newBufferedWriter(rutaArchivo, StandardCharsets.UTF_8)) {
             exportador.exportar(resultados, writer);
@@ -61,10 +66,4 @@ public class StatsController {
 
         return ResponseEntity.ok("Archivo CSV generado en: " + rutaArchivo.toAbsolutePath());
     }
-
-
-
-
-
-
 }
