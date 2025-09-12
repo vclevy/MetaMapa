@@ -1,0 +1,13 @@
+Nombre Estadistica,Clave,Valor,Fecha Generacion,Nombre de la Coleccion
+Categoria con mas hechos,Incendio Forestal,2,2025-09-12 09:09:20,null
+Hora del día con mayor cantidad de hechos en categoría Incendio Forestal,14:00 hs,2,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos,Ciudad Autónoma de Buenos Aires,4,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos de la categoría Incendio Forestal,Ciudad Autónoma de Buenos Aires,2,2025-09-12 09:09:20,null
+Categoria con mas hechos,Incendio Forestal,2,2025-09-12 09:09:20,null
+Hora del día con mayor cantidad de hechos en categoría Inundacion,14:00 hs,1,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos,Ciudad Autónoma de Buenos Aires,4,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos de la categoría Inundacion,Ciudad Autónoma de Buenos Aires,1,2025-09-12 09:09:20,null
+Categoria con mas hechos,Incendio Forestal,2,2025-09-12 09:09:20,null
+Hora del día con mayor cantidad de hechos en categoría Probando,14:00 hs,1,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos,Ciudad Autónoma de Buenos Aires,4,2025-09-12 09:09:20,Coleccion Test
+Provincia con más hechos de la categoría Probando,Ciudad Autónoma de Buenos Aires,1,2025-09-12 09:09:20,null

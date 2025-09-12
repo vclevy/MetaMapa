@@ -21,6 +21,9 @@ public class EstadisticaHoraPorCategoria {
                         h.getTimestamp() != null)
                 .toList();
 
+        if (filtrados.isEmpty()) {
+            return null;
+        }
 
         Map<Integer, Long> conteoPorHora = filtrados.stream()
                 .collect(Collectors.groupingBy(
@@ -29,12 +32,17 @@ public class EstadisticaHoraPorCategoria {
                 ));
 
         if (conteoPorHora.isEmpty()) {
-            throw new IllegalArgumentException("Los hechos no tienen información de fecha/hora válida");
+            return null;
         }
 
         Map.Entry<Integer, Long> maxEntry = conteoPorHora.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
-                .orElseThrow(() -> new IllegalArgumentException("No se pudo calcular la estadística"));
+                .orElse(null);
+
+        if (maxEntry == null) {
+            System.out.println("No se pudo calcular la estadística");
+            return null;
+        }
 
         Long valorFinal = maxEntry.getValue() != null ? maxEntry.getValue() : 0L;
 

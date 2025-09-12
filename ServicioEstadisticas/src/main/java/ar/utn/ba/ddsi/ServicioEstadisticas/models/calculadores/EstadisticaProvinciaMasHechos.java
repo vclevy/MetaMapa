@@ -17,7 +17,7 @@ public class EstadisticaProvinciaMasHechos {
             return new ResultadoEstadistica(
                     "Provincia con más hechos",
                     "N/A",
-                    null, coleccion.getTitulo()
+                    0L, coleccion.getTitulo()
             );
         }
 
@@ -38,7 +38,7 @@ public class EstadisticaProvinciaMasHechos {
                 .orElse(new ResultadoEstadistica(
                         "Provincia con más hechos",
                         "N/A",
-                        null,
+                        0L,
                         coleccion.getTitulo()
                 ));
     }

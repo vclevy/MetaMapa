@@ -23,7 +23,6 @@ public class StatsScheduler {
     @Scheduled(cron = "0 0 0 * * *")
     public void recalcularEstadisticas() throws Exception {
         List<Coleccion> colecciones = coleccionService.obtenerColecciones();
-        String categoria = "Incendio Forestal";
         statsServices.calcularTodas(colecciones);
         System.out.println("Estadísticas recalculadas " + LocalDateTime.now());
     }

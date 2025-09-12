@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -56,7 +53,12 @@ public class StatsServices implements IStatsServices {
             }
         }
 
-        estadisticasRepository.saveAll(resultados);
+        List<ResultadoEstadistica> resultadosValidos = resultados.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        estadisticasRepository.saveAll(resultadosValidos);
+
         return resultados;
     }
 

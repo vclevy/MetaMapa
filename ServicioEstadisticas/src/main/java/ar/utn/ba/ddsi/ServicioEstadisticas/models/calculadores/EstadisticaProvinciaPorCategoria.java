@@ -15,7 +15,12 @@ public class EstadisticaProvinciaPorCategoria {
 
     public ResultadoEstadistica calcular(Coleccion coleccion, String categoria) {
         if (coleccion == null || coleccion.getHechos() == null) {
-            throw new IllegalArgumentException("No se puede calcular estadística por categoría");
+            return new ResultadoEstadistica(
+                    "Provincia con más hechos de la categoría " + categoria,
+                    "N/A",
+                    0L,
+                    coleccion != null ? coleccion.getTitulo() : "N/A"
+            );
         }
 
         List<Hecho> filtrados = coleccion.getHechos().stream()
@@ -24,7 +29,12 @@ public class EstadisticaProvinciaPorCategoria {
                 .toList();
 
         if (filtrados.isEmpty()) {
-            throw new IllegalArgumentException("No hay hechos para la categoría: " + categoria);
+            return new ResultadoEstadistica(
+                    "Provincia con más hechos de la categoría " + categoria,
+                    "N/A",
+                    0L,
+                    coleccion.getTitulo()
+            );
         }
 
         Map<String, Long> conteoPorProvincia = filtrados.stream()
@@ -39,14 +49,14 @@ public class EstadisticaProvinciaPorCategoria {
                 .map(e -> new ResultadoEstadistica(
                         "Provincia con más hechos de la categoría " + categoria,
                         e.getKey(),
-                        e.getValue(), null
+                        e.getValue(),
+                        coleccion.getTitulo()
                 ))
                 .orElse(new ResultadoEstadistica(
                         "Provincia con más hechos de la categoría " + categoria,
                         "N/A",
-                        0L, null
+                        0L,
+                        coleccion.getTitulo()
                 ));
     }
 }
-
-
