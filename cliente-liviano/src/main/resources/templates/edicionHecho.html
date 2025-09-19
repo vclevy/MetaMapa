@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Editar hecho</title>
+    <link rel="stylesheet" href="../static/css/edicionHecho.css" />
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="logo" href="index.html">
+            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
+        </a>
+        <nav class="nav-links">
+            <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
+            <a class="btn btn-primary" href="registro.html">Registrarse</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container main-wrap">
+    <section class="form-card" aria-labelledby="titulo-form">
+        <header class="form-head">
+            <h1 id="titulo-form">Editar hecho</h1>
+            <p class="sub">Actualizá los datos y guardá los cambios.</p>
+        </header>
+
+        <form class="hecho-form" action="#" method="post">
+
+            <div class="row one">
+                <label for="titulo">Título</label>
+                <input id="titulo" name="titulo" required
+                       placeholder="Ej.: Marcha por la memoria"
+                       value="Concentración en Plaza de Mayo">
+            </div>
+
+            <div class="row one">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" required
+                          placeholder="Contá brevemente qué pasó…">Convocatoria por memoria y justicia. Asistencia de múltiples organizaciones y lectura de documentos.</textarea>
+            </div>
+
+            <div class="row two">
+                <div class="field">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Seleccioná una categoría</option>
+                        <option value="memoria">Memoria</option>
+                        <option value="derechos">Derechos humanos</option>
+                        <option value="movilizacion" selected>Movilización</option>
+                        <option value="cultura">Cultura</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="fecha">Fecha</label>
+                    <!-- valor precargado -->
+                    <input id="fecha" name="fecha" type="date" required value="2025-08-10">
+                </div>
+            </div>
+
+            <div class="row one">
+                <label for="ubicacion">Ubicación</label>
+                <input id="ubicacion" name="ubicacion"
+                       placeholder="Barrio, calle o punto de referencia"
+                       value="Plaza de Mayo, Monserrat">
+                <small class="help">Podés indicar calle y altura, o un punto de referencia.</small>
+            </div>
+
+            <div class="row one">
+                <label for="fuente">Fuente (opcional)</label>
+                <input id="fuente" name="fuente" type="url"
+                       placeholder="https://sitio.com/nota"
+                       value="https://diario-ejemplo.com/nota/plaza">
+            </div>
+
+            <div class="row one">
+                <label for="multimedia">Subir multimedia</label>
+                <input id="multimedia" name="multimedia" type="file" multiple>
+                <small class="help">Podés adjuntar imágenes o videos (opcional).</small>
+            </div>
+
+            <div class="actions">
+                <a class="btn btn-outline" href="listadoHechos.html">Cancelar</a>
+                <button class="btn btn-primary" type="submit">Guardar cambios</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<!-- Footer (tal cual nos pasaste) -->
+<footer>
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>

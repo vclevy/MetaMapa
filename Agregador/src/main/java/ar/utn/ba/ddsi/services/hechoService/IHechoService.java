@@ -8,8 +8,8 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import java.util.List;
 
 public interface IHechoService {
-    public void registrarHechoDesdeFuente(Hecho unHecho);
-    public List<HechoOutputDTO> obtenerHechos();
-    public HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO);
-    public void validarModificacion(Hecho hechoAModificar, HechoInputPUTDTO hechoInputDTO);
+    void registrarHechoDesdeFuente(Hecho unHecho);
+    List<HechoOutputDTO> obtenerHechos();
+    HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO);
+    void validarModificacion(Hecho hechoAModificar, HechoInputPUTDTO hechoInputDTO);
 }

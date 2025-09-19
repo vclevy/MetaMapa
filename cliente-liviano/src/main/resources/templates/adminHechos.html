@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MetaMapa · Gestionar hechos</title>
+    <link rel="stylesheet" href="../static/css/adminLanding.css" />
+</head>
+<body>
+<!-- Header -->
+<header role="banner">
+    <div class="header-container">
+        <a class="logo" href="index.html" aria-label="Ir al home">
+            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
+        </a>
+        <nav class="admin-top-actions" aria-label="Acciones del admin"></nav>
+    </div>
+</header>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Menú lateral">
+        <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
+        <div class="sidebar__inner">
+            <nav class="menu">
+                <a class="menu__link" href="adminLanding.html">Resumen de actividad</a>
+                <a class="menu__link" href="adminColecciones.html">Gestionar colecciones</a>
+                <a class="menu__link is-active" href="adminHechos.html">Gestionar hechos</a>
+                <a class="menu__link" href="adminSolicitudes.html">Solicitudes de eliminación</a>
+                <a class="menu__link" href="adminImportar.html">Importar hechos</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title">Hechos subidos</h1>
+        </div>
+
+        <!-- Grilla de tarjetas de hechos -->
+        <section class="hechos-grid" aria-label="Listado de hechos">
+            <!-- === Tarjeta 1 (registrado) === -->
+            <article class="hecho card">
+                <header class="hecho__head">
+                    <h2 class="hecho__title">Robo de bicicleta</h2>
+                    <p class="hecho__desc">Robo de bicicleta en Plaza Mitre, sin heridos reportados.</p>
+                </header>
+
+                <div class="hecho__media">
+                    <div class="img ph"></div><div class="img ph"></div>
+                    <div class="img ph"></div><div class="img ph"></div>
+                </div>
+
+                <a href="#" class="hecho__more">ver más…</a>
+
+                <div class="hecho__author">
+                    <!-- ícono persona -->
+                    <svg class="avatar" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/>
+                    </svg>
+                    <span class="hecho__author-name">Mariana Gómez</span>
+                </div>
+
+                <div class="hecho__date">
+                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/>
+                    </svg>
+                    <time datetime="2025-03-11T14:32">11/03/2025 · 14:32</time>
+                </div>
+
+                <div class="hecho__actions">
+                    <button class="btn btn--approve" type="button" title="Aprobar">aprobar</button>
+                    <button class="btn btn--reject" type="button" title="Rechazar">rechazar</button>
+                    <a class="btn btn--edit" href="./hecho-editar.html" title="Editar">editar</a>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 2 (anónimo) === -->
+            <article class="hecho card">
+                <header class="hecho__head">
+                    <h2 class="hecho__title">Vandalismo en comercio</h2>
+                    <p class="hecho__desc">Rotura de vidriera sobre Av. Rivadavia. Sin detenidos.</p>
+                </header>
+                <div class="hecho__media">
+                    <div class="img ph"></div><div class="img ph"></div>
+                    <div class="img ph"></div><div class="img ph"></div>
+                </div>
+
+                <a href="#" class="hecho__more">ver más…</a>
+
+                <div class="hecho__author">
+                    <svg class="avatar" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/>
+                    </svg>
+                    <span class="hecho__author-name">Anónimo</span>
+                </div>
+
+                <div class="hecho__date">
+                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/>
+                    </svg>
+                    <time datetime="2025-03-10T19:05">10/03/2025 · 19:05</time>
+                </div>
+
+                <div class="hecho__actions">
+                    <button class="btn btn--approve" type="button">aprobar</button>
+                    <button class="btn btn--reject" type="button">rechazar</button>
+                    <a class="btn btn--edit" href="./hecho-editar.html">editar</a>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 3 (registrado) === -->
+            <article class="hecho card">
+                <header class="hecho__head">
+                    <h2 class="hecho__title">Marcha en microcentro</h2>
+                    <p class="hecho__desc">Concentración sobre Diagonal Norte, demoras en tránsito.</p>
+                </header>
+                <div class="hecho__media">
+                    <div class="img ph"></div><div class="img ph"></div>
+                    <div class="img ph"></div><div class="img ph"></div>
+                </div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author">
+                    <svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                    <span class="hecho__author-name">Juan Pérez</span>
+                </div>
+                <div class="hecho__date">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                    <time datetime="2025-03-10T12:10">10/03/2025 · 12:10</time>
+                </div>
+                <div class="hecho__actions">
+                    <button class="btn btn--approve" type="button">aprobar</button>
+                    <button class="btn btn--reject" type="button">rechazar</button>
+                    <a class="btn btn--edit" href="./hecho-editar.html">editar</a>
+                </div>
+            </article>
+
+            <!-- === Tarjeta 4 (registrado) === -->
+            <article class="hecho card">
+                <header class="hecho__head">
+                    <h2 class="hecho__title">Incendio en depósito</h2>
+                    <p class="hecho__desc">Fuego controlado por bomberos, sin víctimas.</p>
+                </header>
+                <div class="hecho__media">
+                    <div class="img ph"></div><div class="img ph"></div>
+                    <div class="img ph"></div><div class="img ph"></div>
+                </div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author">
+                    <svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg>
+                    <span class="hecho__author-name">Carla Ruiz</span>
+                </div>
+                <div class="hecho__date">
+                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg>
+                    <time datetime="2025-03-10T08:12">10/03/2025 · 08:12</time>
+                </div>
+                <div class="hecho__actions">
+                    <button class="btn btn--approve" type="button">aprobar</button>
+                    <button class="btn btn--reject" type="button">rechazar</button>
+                    <a class="btn btn--edit" href="./hecho-editar.html">editar</a>
+                </div>
+            </article>
+
+            <!-- === Tarjetas 5–8 (algunas Anónimo) === -->
+            <article class="hecho card">
+                <header class="hecho__head"><h2 class="hecho__title">Accidente leve</h2><p class="hecho__desc">Choque sin heridos en Av. Mitre.</p></header>
+                <div class="hecho__media"><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div></div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author"><svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg><span class="hecho__author-name">Anónimo</span></div>
+                <div class="hecho__date"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg><time datetime="2025-03-09T18:40">09/03/2025 · 18:40</time></div>
+                <div class="hecho__actions"><button class="btn btn--approve" type="button">aprobar</button><button class="btn btn--reject" type="button">rechazar</button><a class="btn btn--edit" href="./hecho-editar.html">editar</a></div>
+            </article>
+
+            <article class="hecho card">
+                <header class="hecho__head"><h2 class="hecho__title">Corte de calle</h2><p class="hecho__desc">Corte por obra en San Martín.</p></header>
+                <div class="hecho__media"><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div></div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author"><svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg><span class="hecho__author-name">Anónimo</span></div>
+                <div class="hecho__date"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg><time datetime="2025-03-09T11:22">09/03/2025 · 11:22</time></div>
+                <div class="hecho__actions"><button class="btn btn--approve" type="button">aprobar</button><button class="btn btn--reject" type="button">rechazar</button><a class="btn btn--edit" href="./hecho-editar.html">editar</a></div>
+            </article>
+
+            <article class="hecho card">
+                <header class="hecho__head"><h2 class="hecho__title">Robo en transporte</h2><p class="hecho__desc">Arrebato en línea 132.</p></header>
+                <div class="hecho__media"><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div></div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author"><svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg><span class="hecho__author-name">Mateo López</span></div>
+                <div class="hecho__date"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg><time datetime="2025-03-08T21:05">08/03/2025 · 21:05</time></div>
+                <div class="hecho__actions"><button class="btn btn--approve" type="button">aprobar</button><button class="btn btn--reject" type="button">rechazar</button><a class="btn btn--edit" href="./hecho-editar.html">editar</a></div>
+            </article>
+
+            <article class="hecho card">
+                <header class="hecho__head"><h2 class="hecho__title">Grafitis en fachada</h2><p class="hecho__desc">Pintadas en comercio de Caballito.</p></header>
+                <div class="hecho__media"><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div><div class="img ph"></div></div>
+                <a href="#" class="hecho__more">ver más…</a>
+                <div class="hecho__author"><svg class="avatar" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5m0 2c-4.33 0-8 2.17-8 5v1h16v-1c0-2.83-3.67-5-8-5Z"/></svg><span class="hecho__author-name">Anónimo</span></div>
+                <div class="hecho__date"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2m0 15H5V10h14z"/></svg><time datetime="2025-03-08T09:18">08/03/2025 · 09:18</time></div>
+                <div class="hecho__actions"><button class="btn btn--approve" type="button">aprobar</button><button class="btn btn--reject" type="button">rechazar</button><a class="btn btn--edit" href="./hecho-editar.html">editar</a></div>
+            </article>
+        </section>
+    </main>
+</div>
+
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+<!-- Toggle sidebar en mobile -->
+<script>
+    (function(){
+        const btn = document.querySelector('.sidebar__toggle');
+        const sidebar = document.querySelector('.sidebar');
+        if(!btn || !sidebar) return;
+        btn.addEventListener('click', () => {
+            const open = sidebar.classList.toggle('is-open');
+            btn.setAttribute('aria-expanded', String(open));
+        });
+    })();
+</script>
+</body>
+</html>

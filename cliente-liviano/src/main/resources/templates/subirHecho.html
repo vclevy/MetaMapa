@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Subir hecho — MetaMapa</title>
+
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
+
+    <!-- CSS específico de esta vista -->
+    <link rel="stylesheet" th:href="@{/css/subirHecho.css}"/>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="logo" th:href="@{/}">
+            <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa"/>
+        </a>
+        <nav class="nav-links">
+            <a class="btn btn-primary" th:href="@{/login}">Iniciar sesión</a>
+            <a class="btn btn-primary" th:href="@{/registro}">Registrarse</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="intro">
+        <h1>Subir hecho</h1>
+        <p>Cargá un nuevo hecho para contribuir a la memoria colectiva.</p>
+    </section>
+
+    <section class="form-section">
+        <form class="form-card"
+              th:action="@{/hechos/crear}"
+              th:object="${hecho}"
+              method="post"
+              enctype="multipart/form-data"
+              novalidate>
+            <h2>Datos del hecho</h2>
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" th:field="*{titulo}" placeholder="Ej.: Marcha por la memoria" required>
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" th:field="*{descripcion}" rows="4" placeholder="Contá brevemente qué pasó…" required></textarea>
+
+            <div class="grid-two">
+                <div>
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" th:field="*{categoriaNombre}" required>
+                        <option value="">Seleccioná una categoría</option>
+                        <option th:each="cat : ${categorias}"
+                                th:value="${cat.nombre}"
+                                th:text="${cat.nombre}">
+                        </option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" th:field="*{fechaDeAcontecimiento}" required>
+                </div>
+            </div>
+
+            <label for="ubicacion">Ubicación</label>
+            <input type="text" id="ubicacion" th:field="*{ubicacion}" placeholder="Barrio, calle o punto de referencia" required>
+
+            <label for="multimedia">Subir multimedia</label>
+            <input type="file" id="multimedia" name="multimedia" accept="image/*,video/*,audio/*" multiple>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

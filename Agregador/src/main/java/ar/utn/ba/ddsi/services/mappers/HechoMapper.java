@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class HechoMapper {
     public HechoOutputDTO toDTO(Hecho hecho) {
         HechoOutputDTO dto = new HechoOutputDTO();
+        dto.setId(hecho.getId());
         dto.setTitulo(hecho.getTitulo());
         dto.setDescripcion(hecho.getDescripcion());
         dto.setCategoriaNombre(hecho.getCategoria().getNombre());

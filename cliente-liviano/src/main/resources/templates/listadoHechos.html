@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MetaMapa — Hechos</title>
+    <link rel="stylesheet" th:href="@{/css/listadoHechos.css}" />
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="logo" th:href="@{/}">
+            <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
+        </a>
+        <nav class="nav-links">
+            <a class="btn btn-primary" th:href="@{/login}">Iniciar sesión</a>
+            <a class="btn btn-primary" th:href="@{/registro}">Registrarse</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="intro container">
+        <h1>Hechos</h1>
+        <p>Explorá los hechos reportados por la comunidad.</p>
+    </section>
+
+    <!-- Listado -->
+    <section class="hechos-list">
+        <div class="cards container">
+            <article class="card" th:each="hecho : ${hechos}">
+                <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
+                    <img th:src="${hecho.multimedia}" th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+                </a>
+                <div class="card-body">
+                    <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                    <p class="meta">
+                        <span th:text="${#temporals.format(hecho.fechaDeAcontecimiento, 'dd/MM/yyyy')}"></span>
+                        <span class="badge" th:text="${hecho.categoria}">Categoría</span>
+                        <!--<span class="badge alt" th:text="${hecho.fuente}">Fuente</span> -->
+                    </p>
+                    <p th:text="${hecho.descripcion}">Descripción breve del hecho…</p>
+                    <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Paginación (opcional) -->
+    <nav class="pagination" aria-label="Paginación">
+        <a class="page prev" th:href="@{|/hechos?page=${paginaAnterior}|}">Anterior</a>
+        <span th:each="i : ${#numbers.sequence(1,totalPaginas)}">
+            <a class="page" th:classappend="${i==paginaActual} ? ' is-current'"
+               th:href="@{|/hechos?page=${i}|}" th:text="${i}">1</a>
+        </span>
+        <a class="page next" th:href="@{|/hechos?page=${paginaSiguiente}|}">Siguiente</a>
+    </nav>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

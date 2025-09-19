@@ -17,14 +17,6 @@ public class LugarController {
         this.lugarService = lugarService;
     }
 
-    /**
-     * Endpoint POST para obtener un objeto Lugar con latitud, longitud y provincia.
-     * Ejemplo de JSON en Postman:
-     * {
-     *     "latitud": -34.61,
-     *     "longitud": -58.38
-     * }
-     */
     @PostMapping("/provincia")
     public String obtenerProvincia(@RequestBody Lugar lugar) {
         // Devuelve directamente el nombre de la provincia

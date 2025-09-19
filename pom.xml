@@ -38,6 +38,7 @@
         <module>FuenteEstatica</module>
         <module>FuenteProxy</module>
         <module>ServicioEstadisticas</module>
+        <module>cliente-liviano</module>
     </modules>
     <build>
         <plugins>
