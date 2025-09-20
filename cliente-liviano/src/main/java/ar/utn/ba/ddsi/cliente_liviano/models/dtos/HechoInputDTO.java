@@ -1,6 +1,5 @@
 package ar.utn.ba.ddsi.cliente_liviano.models.dtos;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.entities.Categoria;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.Etiqueta;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.Lugar;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
@@ -20,7 +19,6 @@ public class HechoInputDTO {
     private String categoriaNombre;
     private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
-    private Categoria categoria;
     private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
     private List<String> multimedia;

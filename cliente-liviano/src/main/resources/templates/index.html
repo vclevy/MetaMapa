@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/index.css">
+    <title>MetaMapa - Landing</title>
 
-    <!-- Leaflet (para el mapa) -->
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+
+    <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
@@ -13,12 +16,12 @@
 
 <header>
     <div class="header-container">
-        <a class="logo" href="index.html">
-            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
+        <a class="logo" th:href="@{/}">
+            <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
         </a>
         <nav class="nav-links">
-            <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
-            <a class="btn btn-primary" href="registro.html">Registrarse</a>
+            <a class="btn btn-primary" th:href="@{/inicioSesion}">Iniciar sesión</a>
+            <a class="btn btn-primary" th:href="@{/registro}">Registrarse</a>
         </nav>
     </div>
 </header>
@@ -28,9 +31,9 @@
     <div class="banner-texto">
         <h1>Mapeo colaborativo de la información</h1>
         <div class="banner-botones">
-            <a class="btn btn-outline" href="listadoHechos.html">Ver hechos</a>
-            <a class="btn btn-outline" href="subirHecho.html">Subir hecho</a>
-            <a class="btn btn-outline" href="listadoColecciones.html">Ver colecciones</a>
+            <a class="btn btn-outline" th:href="@{/hechos}">Ver hechos</a>
+            <a class="btn btn-outline" th:href="@{/hechos/subir}">Subir hecho</a>
+            <a class="btn btn-outline" th:href="@{/colecciones}">Ver colecciones</a>
         </div>
     </div>
 </div>
@@ -40,49 +43,17 @@
     <div id="map"></div>
 </section>
 
+<!-- Hechos destacados -->
 <section class="destacados container">
     <h2>Hechos destacados</h2>
     <div class="cards">
-        <div class="card">
-            <img src="ejemplo1.jpg" alt="Imagen de ejemplo">
-            <div class="card-body">
-                <h3>Imagen de ejemplo</h3>
-                <p>Descripción breve del hecho destacado...</p>
+        <div class="card" th:each="hecho : ${destacados}">
+            <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|" />
             </div>
-        </div>
-        <div class="card">
-            <img src="ejemplo2.jpg" alt="Imagen de ejemplo">
             <div class="card-body">
-                <h3>Imagen de ejemplo</h3>
-                <p>Otra descripción breve del hecho destacado...</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="ejemplo3.jpg" alt="Imagen de ejemplo">
-            <div class="card-body">
-                <h3>Nuevo hecho 1</h3>
-                <p>Descripción corta para el hecho número tres.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
-            <div class="card-body">
-                <h3>Nuevo hecho 2</h3>
-                <p>Otra descripción breve para el hecho número cuatro.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
-            <div class="card-body">
-                <h3>Nuevo hecho 2</h3>
-                <p>Otra descripción breve para el hecho número cuatro.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="ejemplo4.jpg" alt="Imagen de ejemplo">
-            <div class="card-body">
-                <h3>Nuevo hecho 2</h3>
-                <p>Otra descripción breve para el hecho número cuatro.</p>
+                <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                <p th:text="${hecho.descripcion}">Descripción breve...</p>
             </div>
         </div>
     </div>
@@ -99,10 +70,12 @@
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Marcador de ejemplo
-    L.marker([-34.6037, -58.3816]).addTo(map)
-        .bindPopup('Ciudad de Buenos Aires')
-        .openPopup();
+    // Ejemplo de marcador de hechos destacados en el mapa
+    /*
+    th:each="hecho : ${destacados}"
+    Se podría hacer con un script dinámico Thymeleaf si cada hecho tiene coordenadas
+    */
 </script>
+
 </body>
 </html>

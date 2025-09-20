@@ -77,9 +77,10 @@
     <section class="hechos-list">
         <div class="cards container">
             <article class="card" th:each="hecho : ${hechos}">
-                <div th:if="${hecho.multimedia != null and hecho.multimedia != ''}">
+                <!-- Mostrar solo si hay al menos una multimedia -->
+                <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
                     <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
-                        <img th:src="${hecho.multimedia}" th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+                        <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|"/>
                     </a>
                 </div>
 
@@ -87,16 +88,15 @@
                     <h3 th:text="${hecho.titulo}">Título del hecho</h3>
                     <p class="meta">
                         <span th:text="${#temporals.format(hecho.fechaDeAcontecimiento, 'dd/MM/yyyy')}"></span>
-                        <!-- Fuente opcional, solo si existe -->
-                        <!--    <span class="badge alt" th:if="${hecho.fuente != null}" th:text="${hecho.fuente}"></span>-->
-                       </p>
-                       <p th:text="${hecho.descripcion}">Descripción breve del hecho…</p>
-                       <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
-                   </div>
-               </article>
-           </div>
+                        <span class="badge" th:text="${hecho.categoriaNombre}">Categoría</span>
+                    </p>
+                    <p th:text="${hecho.descripcion}">Descripción breve del hecho…</p>
+                    <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+        </div>
 
-           <!-- Paginación -->
+        <!-- Paginación -->
         <nav class="pagination" aria-label="Paginación">
             <a class="page prev" th:href="@{|/hechos?page=${paginaAnterior}|}">Anterior</a>
             <span th:each="i : ${#numbers.sequence(1,totalPaginas)}">

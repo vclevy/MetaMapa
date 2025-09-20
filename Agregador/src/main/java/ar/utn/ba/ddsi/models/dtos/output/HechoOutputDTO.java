@@ -14,7 +14,6 @@ public class HechoOutputDTO {
     private String titulo;
     private String descripcion;
     private String categoriaNombre;
-    private Categoria categoria;
     private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
     private List<Solicitud> solicitudesDeEliminacion;
