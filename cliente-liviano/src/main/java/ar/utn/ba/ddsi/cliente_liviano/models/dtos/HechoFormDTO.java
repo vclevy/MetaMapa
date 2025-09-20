@@ -10,5 +10,6 @@ public class HechoFormDTO {
     private String descripcion;
     private String categoriaNombre;
     private LocalDateTime fechaDeAcontecimiento;
-    private String ubicacion;
+    private Double latitud;
+    private Double longitud;
 }

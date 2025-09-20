@@ -183,3 +183,39 @@ header {
     .form-card { padding: 1.25rem; }
 }
 
+     /* Contenedor relativo para que el ul se posicione debajo del input */
+.input-contenedor {
+    position: relative;
+    width: 100%; /* que ocupe todo el ancho del contenedor padre */
+}
+
+.input-contenedor input {
+    width: 100%;      /* input ocupa todo el ancho de su contenedor */
+    box-sizing: border-box; /* incluye padding y border dentro del ancho */
+}
+
+
+/* Estilos básicos para las sugerencias */
+#sugerencias {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%; /* justo debajo del input */
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#sugerencias li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#sugerencias li:hover {
+    background-color: #f0f0f0;
+}

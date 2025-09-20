@@ -12,6 +12,29 @@
 
     <!-- CSS específico de esta vista -->
     <link rel="stylesheet" th:href="@{/css/subirHecho.css}"/>
+
+    <style>
+        /* Estilos básicos para las sugerencias */
+        #sugerencias {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            background: white;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            z-index: 1000;
+        }
+        #sugerencias li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #sugerencias li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
 
@@ -51,23 +74,26 @@
             <div class="grid-two">
                 <div>
                     <label for="categoria">Categoría</label>
-                    <select id="categoria" th:field="*{categoriaNombre}" required>
-                        <option value="">Seleccioná una categoría</option>
-                        <option th:each="cat : ${categorias}"
-                                th:value="${cat.nombre}"
-                                th:text="${cat.nombre}">
-                        </option>
-                    </select>
+                    <input type="text" id="categoria"
+                           th:field="*{categoriaNombre}"
+                           placeholder="Ej.: Derechos Humanos"
+                           required>
                 </div>
 
                 <div>
-                    <label for="fecha">Fecha</label>
+                    <label for="fecha">Fecha y hora</label>
                     <input type="date" id="fecha" th:field="*{fechaDeAcontecimiento}" required>
                 </div>
             </div>
 
             <label for="ubicacion">Ubicación</label>
-            <input type="text" id="ubicacion" th:field="*{ubicacion}" placeholder="Barrio, calle o punto de referencia" required>
+            <div class="input-contenedor">
+                <input type="text" id="ubicacion" placeholder="Barrio, calle o punto de referencia" required>
+                <ul id="sugerencias"></ul>
+            </div>
+            <!-- Campos ocultos para lat/lon -->
+            <input type="hidden" th:field="*{latitud}" id="latitud">
+            <input type="hidden" th:field="*{longitud}" id="longitud">
 
             <label for="multimedia">Subir multimedia</label>
             <input type="file" id="multimedia" name="multimedia" accept="image/*,video/*,audio/*" multiple>
@@ -76,5 +102,45 @@
         </form>
     </section>
 </main>
+
+<script>
+    const input = document.getElementById('ubicacion');
+    const latInput = document.getElementById('latitud');
+    const lonInput = document.getElementById('longitud');
+    const sugerenciasDiv = document.getElementById('sugerencias');
+
+    input.addEventListener('input', async function() {
+        const query = this.value;
+        sugerenciasDiv.innerHTML = '';
+        if (query.length < 3) return;
+
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+            const results = await response.json();
+
+            results.forEach(place => {
+                const li = document.createElement('li');
+                li.textContent = place.display_name;
+                li.addEventListener('click', () => {
+                    input.value = place.display_name;
+                    latInput.value = place.lat;
+                    lonInput.value = place.lon;
+                    sugerenciasDiv.innerHTML = '';
+                });
+                sugerenciasDiv.appendChild(li);
+            });
+        } catch (error) {
+            console.error('Error buscando ubicación:', error);
+        }
+    });
+
+    // Ocultar sugerencias si se hace click afuera
+    document.addEventListener('click', function(e) {
+        if (!sugerenciasDiv.contains(e.target) && e.target !== input) {
+            sugerenciasDiv.innerHTML = '';
+        }
+    });
+</script>
+
 </body>
 </html>
