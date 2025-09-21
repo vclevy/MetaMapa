@@ -1,9 +1,11 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.config.MultipartInputResource;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDinamicaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFormDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
+import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -25,17 +28,15 @@ import java.util.List;
 public class HechosController {
 
     private final AgregadorService agregador;
-    private final WebClient webClient;
+    private final DinamicaService dinamica;
     private final ObjectMapper objectMapper;
     private static final int PAGE_SIZE = 10;
 
     @Autowired
-    public HechosController(AgregadorService agregador,
-                            WebClient.Builder builder,
+    public HechosController(AgregadorService agregador, DinamicaService dinamica,
                             ObjectMapper objectMapper) {
         this.agregador = agregador;
-        this.webClient = builder.baseUrl("http://localhost:8081")
-                .build();
+        this.dinamica = dinamica;
         this.objectMapper = objectMapper;
     }
 
@@ -86,43 +87,56 @@ public class HechosController {
         return "listadoHechos";
     }
 
-    @PostMapping("/crear")
-    public String crearHecho(@ModelAttribute("hecho") HechoFormDTO hechoForm,
-                             @RequestParam("multimedia") MultipartFile[] archivos,
-                             RedirectAttributes redirectAttributes) {
-        try {
-            String hechoJson = objectMapper.writeValueAsString(hechoForm);
-
-            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
-            formData.add("hecho", hechoJson);
-
-            if (archivos != null) {
-                for (MultipartFile archivo : archivos) {
-                    if (!archivo.isEmpty()) {
-                        formData.add("archivos", new MultipartInputResource(archivo));
-                    }
-                }
-            }
-
-            webClient.post()
-                    .uri("/hechos") // endpoint dinámico
-                    .contentType(MediaType.MULTIPART_FORM_DATA)
-                    .body(BodyInserters.fromMultipartData(formData))
-                    .retrieve()
-                    .toBodilessEntity()
-                    .block();
-
-            redirectAttributes.addFlashAttribute("mensaje", "Hecho creado con éxito.");
-            return "redirect:/hechos";
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al crear el hecho: " + e.getMessage());
-            return "redirect:/hechos/subir";
-        }
-    }
-
     @GetMapping("/subir")
     public String mostrarFormulario(Model model) {
         model.addAttribute("hecho", new HechoFormDTO());
         return "subirHecho";
     }
+
+    @PostMapping("/crear")
+    public String crearHecho(@ModelAttribute HechoFormDTO hechoForm,
+                             @RequestParam("multimedia") List<MultipartFile> archivos,
+                             RedirectAttributes redirectAttributes) {
+
+        try {
+            HechoDinamicaDTO hecho = dinamica.crearHecho(hechoForm, archivos);
+            redirectAttributes.addFlashAttribute("mensajeExito", "¡Hecho subido correctamente!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("mensajeError", "Error al subir el hecho: " + e.getMessage());
+        }
+
+        return "redirect:/hechos/subir";
+    }
+
+
+    @GetMapping("/all")
+    @ResponseBody
+    public List<HechoInputDTO> obtenerTodosHechos() {
+        return agregador.obtenerHechos(); // Método que devuelve todos los hechos
+    }
+
+    @GetMapping("/bounds")
+    public List<HechoInputDTO> obtenerHechosPorBounds(
+            @RequestParam double south,
+            @RequestParam double west,
+            @RequestParam double north,
+            @RequestParam double east) {
+
+        return agregador.obtenerHechosEnBounds(south, west, north, east);
+    }
+
+    @GetMapping("/{id}")
+    public String detalle(@PathVariable Long id, Model model) {
+        HechoInputDTO hecho = agregador.obtenerHechoPorId(id);
+
+        // Formateamos la fecha
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String fechaFormateada = hecho.getFechaDeAcontecimiento().format(formatter);
+
+        model.addAttribute("hecho", hecho);
+        model.addAttribute("fechaFormateada", fechaFormateada);
+
+        return "detalleHecho";
+    }
+
 }

@@ -7,6 +7,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/map.css}" />
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -43,39 +44,96 @@
     <div id="map"></div>
 </section>
 
-<!-- Hechos destacados -->
-<section class="destacados container">
-    <h2>Hechos destacados</h2>
-    <div class="cards">
-        <div class="card" th:each="hecho : ${destacados}">
-            <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
-                <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|" />
-            </div>
-            <div class="card-body">
-                <h3 th:text="${hecho.titulo}">Título del hecho</h3>
-                <p th:text="${hecho.descripcion}">Descripción breve...</p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <footer>
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<!-- Script dinámico para cargar hechos -->
 <script>
-    const map = L.map('map').setView([-34.6037, -58.3816], 13); // Buenos Aires
+    const map = L.map('map').setView([-34.6037, -58.3816], 13); // Centro inicial
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Ejemplo de marcador de hechos destacados en el mapa
-    /*
-    th:each="hecho : ${destacados}"
-    Se podría hacer con un script dinámico Thymeleaf si cada hecho tiene coordenadas
-    */
+    let markersLayer = L.layerGroup().addTo(map);
+
+    // Función para agregar hechos al mapa
+    function agregarHechos(hechos) {
+        markersLayer.clearLayers();
+
+        hechos.forEach(hecho => {
+            if (hecho.latitud && hecho.longitud) {
+                let popupContent = `
+                <div class="card">
+                    ${hecho.multimedia && hecho.multimedia.length > 0 ? `
+                        <div>
+                            <a href="/hechos/${hecho.id}">
+                                <img src="${hecho.multimedia[0]}" alt="Imagen del hecho ${hecho.titulo}" />
+                            </a>
+                        </div>
+                    ` : ''}
+                    <div class="card-body">
+                        <h3>${hecho.titulo}</h3>
+                        <p><small>${new Date(hecho.fechaDeAcontecimiento).toLocaleDateString()}</small></p>
+                        <p>${hecho.descripcion ?? ''}</p>
+                        <a href="/hechos/${hecho.id}" class="card-link">Ver detalle</a>
+                    </div>
+                </div>
+            `;
+                L.marker([hecho.latitud, hecho.longitud])
+                    .addTo(markersLayer)
+                    .bindPopup(popupContent);
+            }
+        });
+
+        // Ajustar mapa para que entren todos los pins
+        if (markersLayer.getLayers().length > 0) {
+            const group = L.featureGroup(markersLayer.getLayers());
+            map.fitBounds(group.getBounds(), { padding: [50, 50] });
+        }
+    }
+
+    // Cargar todos los hechos al inicio
+    async function cargarTodosHechos() {
+        try {
+            const response = await fetch('/hechos/all'); // Endpoint que devuelve todos los hechos
+            if (!response.ok) throw new Error('Error al cargar todos los hechos');
+
+            const hechos = await response.json();
+            agregarHechos(hechos);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Cargar hechos dinámicamente según bounds cuando se mueve el mapa
+    async function cargarHechosEnVista() {
+        const bounds = map.getBounds();
+        const url = `/hechos/bounds?south=${bounds.getSouth()}&west=${bounds.getWest()}&north=${bounds.getNorth()}&east=${bounds.getEast()}`;
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Error al cargar hechos en vista');
+
+            const hechos = await response.json();
+            agregarHechos(hechos);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // Primer carga: todos los hechos
+    cargarTodosHechos();
+
+    // Actualizar al mover/zoom
+    map.on('moveend', cargarHechosEnVista);
 </script>
+
 
 </body>
 </html>

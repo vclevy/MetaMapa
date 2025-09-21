@@ -305,14 +305,6 @@ footer {
     letter-spacing: 1px;
 }
 
-/* Mapa */
-#map {
-    height: 400px;
-    margin: 3rem auto;
-    border-radius: 10px;
-    border: 2px solid #2B7BD6;
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     .header-container {

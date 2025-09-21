@@ -137,7 +137,7 @@ header {
 /* Controles */
 .form-card label { font-weight: 700; color:#133863; }
 .form-card input[type="text"],
-.form-card input[type="date"],
+.form-card input[type="datetime-local"],
 .form-card input[type="file"],
 .form-card textarea,
 .form-card select {

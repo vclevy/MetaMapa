@@ -19,11 +19,16 @@ public class LandingController {
         this.agregador = agregador;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String landing(Model model) {
-        List<HechoInputDTO> destacados = agregador.obtenerHechos(); // PUSE ESTE MÉTODO COMO PRUEBA,,,,, HAY Q CAMBIARLO, EN EL AGREGADOR TENDRRÍA Q HABER UNO Q DEUVLEVA DESTACADOS
+        // Lista de hechos destacados (solo algunos)
+        List<HechoInputDTO> destacados = agregador.obtenerHechosDestacados(); //TODO
         model.addAttribute("destacados", destacados);
 
-        return "index";
+        // Lista de todos los hechos para el mapa
+        List<HechoInputDTO> hechos = agregador.obtenerHechos();
+        model.addAttribute("hechos", hechos);
+
+        return "index"; // Thymeleaf usará "destacados" y "hechos"
     }
 }

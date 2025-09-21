@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -9,12 +8,20 @@
 
     <!-- CSS global -->
     <link rel="stylesheet" th:href="@{/css/header.css}"/>
-
-    <!-- CSS específico de esta vista -->
     <link rel="stylesheet" th:href="@{/css/subirHecho.css}"/>
 
     <style>
-        /* Estilos básicos para las sugerencias */
+        /* Flash message */
+        .alert-success {
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            border: 1px solid green;
+            background-color: #e6ffe6;
+            color: green;
+            border-radius: 4px;
+        }
+
+        /* Sugerencias */
         #sugerencias {
             border: 1px solid #ccc;
             max-height: 150px;
@@ -51,6 +58,11 @@
 </header>
 
 <main>
+    <!-- Flash message -->
+    <div th:if="${mensajeExito}" class="alert-success" id="flashMessage">
+        <p th:text="${mensajeExito}"></p>
+    </div>
+
     <section class="intro">
         <h1>Subir hecho</h1>
         <p>Cargá un nuevo hecho para contribuir a la memoria colectiva.</p>
@@ -82,7 +94,7 @@
 
                 <div>
                     <label for="fecha">Fecha y hora</label>
-                    <input type="date" id="fecha" th:field="*{fechaDeAcontecimiento}" required>
+                    <input type="datetime-local" id="fecha" th:field="*{fechaDeAcontecimiento}" required>
                 </div>
             </div>
 
@@ -91,7 +103,6 @@
                 <input type="text" id="ubicacion" placeholder="Barrio, calle o punto de referencia" required>
                 <ul id="sugerencias"></ul>
             </div>
-            <!-- Campos ocultos para lat/lon -->
             <input type="hidden" th:field="*{latitud}" id="latitud">
             <input type="hidden" th:field="*{longitud}" id="longitud">
 
@@ -104,6 +115,13 @@
 </main>
 
 <script>
+    // Ocultar flash message después de 5 segundos
+    const flash = document.getElementById('flashMessage');
+    if (flash) {
+        setTimeout(() => flash.style.display = 'none', 5000);
+    }
+
+    // Autocomplete ubicación
     const input = document.getElementById('ubicacion');
     const latInput = document.getElementById('latitud');
     const lonInput = document.getElementById('longitud');
@@ -134,7 +152,6 @@
         }
     });
 
-    // Ocultar sugerencias si se hace click afuera
     document.addEventListener('click', function(e) {
         if (!sugerenciasDiv.contains(e.target) && e.target !== input) {
             sugerenciasDiv.innerHTML = '';

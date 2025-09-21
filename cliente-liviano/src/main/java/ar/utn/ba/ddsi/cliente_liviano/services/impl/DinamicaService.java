@@ -1,0 +1,90 @@
+package ar.utn.ba.ddsi.cliente_liviano.services.impl;
+
+import ar.utn.ba.ddsi.cliente_liviano.config.MultipartInputResource;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDinamicaDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFormDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.Categoria;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.Lugar;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@Service
+public class DinamicaService {
+
+    private final WebClient webClient;
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+    public DinamicaService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8081").build();
+        this.objectMapper = objectMapper;
+    }
+
+    public HechoDinamicaDTO crearHecho(HechoFormDTO hechoForm,
+                                       java.util.List<MultipartFile> archivos) {
+        try {
+            // Convertir HechoFormDTO a HechoDinamicaDTO
+            HechoDinamicaDTO hechoDto = new HechoDinamicaDTO();
+            hechoDto.setTitulo(hechoForm.getTitulo());
+            hechoDto.setDescripcion(hechoForm.getDescripcion());
+            hechoDto.setFechaDeAcontecimiento(hechoForm.getFechaDeAcontecimiento());
+            Lugar lugar = new Lugar();
+            lugar.setLatitud(hechoForm.getLatitud());
+            lugar.setLongitud(hechoForm.getLongitud());
+            hechoDto.setLugar(lugar);
+            Categoria categoria = new Categoria();
+            categoria.setNombre(hechoForm.getCategoriaNombre());
+            hechoDto.setCategoria(categoria);
+
+            // Convertir a JSON
+            String hechoJson = objectMapper.writeValueAsString(hechoDto);
+
+            // Preparar el body multipart
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            MultipartInputResource hechoResource = new MultipartInputResource(
+                    hechoJson.getBytes(), "hecho.json"
+            );
+            body.add("hecho", hechoResource);
+
+            // Agregar archivos multimedia
+            if (archivos != null) {
+                for (MultipartFile archivo : archivos) {
+                    if (!archivo.isEmpty()) {
+                        try {
+                            MultipartInputResource fileResource = new MultipartInputResource(
+                                    archivo.getBytes(),
+                                    archivo.getOriginalFilename()
+                            );
+                            body.add("archivos", fileResource);
+                        } catch (Exception e) {
+                            System.err.println("Error leyendo archivo " + archivo.getOriginalFilename() + ": " + e.getMessage());
+                        }
+                    }
+                }
+            }
+
+            // Enviar POST al servicio de fuente dinámica
+            Mono<HechoDinamicaDTO> response = webClient.post()
+                    .uri("/hechos")
+                    .contentType(MediaType.MULTIPART_FORM_DATA)
+                    .body(BodyInserters.fromMultipartData(body))
+                    .retrieve()
+                    .bodyToMono(HechoDinamicaDTO.class);
+
+            return response.block(); // Bloquea hasta recibir la respuesta
+
+        } catch (Exception e) {
+            System.err.println("Error creando hecho en DinamicaService: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+}

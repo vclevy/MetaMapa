@@ -1,112 +1,73 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Detalle del hecho — MetaMapa</title>
-    <link rel="stylesheet" href="../static/css/detalleHecho.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del Hecho</title>
+    <link rel="stylesheet" th:href="@{/css/detalleHecho.css}" />
+    <style>
+        /* Flex container para imagen y detalles */
+        .detalle-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        /* Imagen del hecho */
+        .detalle-flex .hecho-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        /* Detalles del hecho */
+        .detalle-flex .detalle-hecho {
+            flex: 1;
+        }
+
+        /* Responsivo: imagen arriba en pantallas pequeñas */
+        @media (max-width: 600px) {
+            .detalle-flex {
+                flex-direction: column;
+                align-items: center;
+            }
+            .detalle-flex .hecho-img {
+                width: 100%;
+                height: auto;
+            }
+            .detalle-flex .detalle-hecho {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-
 <body>
+<div class="container detalle-flex">
 
-
-<header>
-    <div class="header-container">
-        <a class="logo" href="index.html">
-            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
-        </a>
-        <nav class="nav-links">
-            <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
-            <a class="btn btn-primary" href="registro.html">Registrarse</a>
-        </nav>
+    <!-- Imagen principal -->
+    <div th:if="${hecho.multimedia!= null}">
+        <img th:src="${hecho.multimedia}" alt="Imagen del hecho" class="hecho-img"/>
     </div>
-</header>
 
+    <!-- Detalles del hecho -->
+    <div class="detalle-hecho">
+        <h1 th:text="${hecho.titulo}">Título del Hecho</h1>
 
-<main class="page">
-    <div class="wrap">
+        <p><strong>Descripción:</strong> <span th:text="${hecho.descripcion}">Descripción del hecho</span></p>
 
-        <!-- Migas / volver -->
-        <nav class="breadcrumbs">
-            <a href="listadoHechos.html" class="crumb">Hechos</a>
-            <span class="sep">/</span>
-            <span class="crumb current">Concentración en Plaza de Mayo</span>
-        </nav>
+        <p><strong>Categoría:</strong> <span th:text="${hecho.categoriaNombre}">Categoría del hecho</span></p>
 
-        <!-- Contenido principal -->
-        <article class="hecho">
-            <!-- Columna izquierda: galería -->
-            <section class="media">
-                <figure class="media-main">
-                    <img src="../static/img/ejemplo1.jpg"
-                         alt="Concentración en Plaza de Mayo - imagen principal">
-                </figure>
+        <p><strong>Fecha del acontecimiento:</strong>
+            <span th:text="${fechaFormateada}"></span>
+        </p>
 
-                <div class="media-thumbs">
-                    <img src="../static/img/ejemplo1.jpg"
-                         alt="Miniatura 1">
-                    <img src="../static/img/ejemplo3.jpeg"
-                         alt="Miniatura 2">
-                    <img src="../static/img/ejemplo4.jpeg"
-                         alt="Miniatura 3">
-                    <!-- Última miniatura con overlay +N -->
-                    <div class="thumb-more">
-                        <img src="https://images.unsplash.com/photo-1520975922284-9fbd7f0c9d1d?q=80&w=800&auto=format&fit=crop"
-                             alt="Miniatura 4">
-                        <span class="more-badge">+7</span>
-                    </div>
-                </div>
-
-                <!-- Nota: si quisieras abrir un visor, luego se puede agregar JS. -->
-            </section>
-
-            <!-- Columna derecha: información -->
-            <section class="info">
-                <h1 class="title">Concentración en Plaza de Mayo</h1>
-
-                <div class="meta">
-                    <div class="meta-item">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10h5v5H7z"></path><path d="M19 4h-1V2h-2v2H8V2H6v2H5a3 3 0 0 0-3 3v11a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm1 14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9h16Z"></path></svg>
-                        <span>10/08/2025</span>
-                    </div>
-                    <div class="meta-item">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"></path></svg>
-                        <span>Monserrat, CABA</span>
-                    </div>
-                    <div class="meta-item">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-8l-2-2H3a1 1 0 0 0-1 1v13a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1Z"></path></svg>
-                        <span class="chip chip-blue">Movilización</span>
-                        <span class="chip">Prensa</span>
-                    </div>
-                </div>
-
-                <p class="desc">
-                    Convocatoria por memoria y justicia. Asistencia de múltiples organizaciones y gran
-                    participación ciudadana en Plaza de Mayo. La movilización se desarrolló de forma pacífica,
-                    con presencia de medios de comunicación y agrupaciones sociales.
-                </p>
-
-                <!-- Fuente -->
-                <div class="fuente">
-                    <span class="label">Fuente:</span>
-                    <a href="#" class="chip link">Prensa</a>
-                </div>
-
-                <!-- Acciones -->
-                <div class="actions">
-                    <a class="btn btn-secondary" href="edicionHecho.html">Editar hecho</a>
-                    <a class="btn btn-danger" href="solicitarEliminacion.html">Solicitar eliminación</a>
-                </div>
-            </section>
-        </article>
+        <p><strong>Ubicación:</strong>
+            <span th:if="${hecho.lugar.latitud != null and hecho.lugar.longitud != null}"
+                  th:text="${hecho.lugar.provincia}"></span>
+            <span th:if="${hecho.lugar.latitud == null or hecho.lugar.longitud == null}">Ubicación no disponible</span>
+        </p>
     </div>
-</main>
 
-<footer>
-    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
-</footer>
-
+</div>
 </body>
 </html>
