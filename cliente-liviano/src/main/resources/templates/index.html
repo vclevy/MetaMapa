@@ -8,6 +8,7 @@
     <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/map.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -20,17 +21,8 @@
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a class="logo" th:href="@{/}">
-            <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
-        </a>
-        <nav class="nav-links">
-            <a class="btn btn-primary" th:href="@{/inicioSesion}">Iniciar sesión</a>
-            <a class="btn btn-primary" th:href="@{/registro}">Registrarse</a>
-        </nav>
-    </div>
-</header>
+<!-- Header importado -->
+<div th:replace="header :: mainHeader"></div>
 
 <!-- Banner -->
 <div id="banner">

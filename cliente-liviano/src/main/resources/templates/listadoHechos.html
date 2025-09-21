@@ -80,7 +80,24 @@
                 <!-- Mostrar solo si hay al menos una multimedia -->
                 <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
                     <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
-                        <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+                        <!-- Si es imagen -->
+                        <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg')
+                     or #strings.endsWith(hecho.multimedia[0], '.jpeg')
+                     or #strings.endsWith(hecho.multimedia[0], '.png')
+                     or #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                             th:src="${hecho.multimedia[0]}"
+                             th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+
+                        <!-- Si es video -->
+                        <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
+                               th:src="${hecho.multimedia[0]}"
+                               type="video/mp4"
+                               controls
+                               preload="metadata"
+                               style="max-width:100%; border-radius:10px;">
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+
                     </a>
                 </div>
 

@@ -9,11 +9,32 @@ const input = document.getElementById('ubicacion');
 const latInput = document.getElementById('latitud');
 const lonInput = document.getElementById('longitud');
 const sugerenciasDiv = document.getElementById('sugerencias');
+const form = document.querySelector('form');
 
+// Función para limpiar hidden inputs
+function limpiarLatLng() {
+    latInput.value = '';
+    lonInput.value = '';
+}
+
+// Manejar envío del formulario
+form.addEventListener('submit', function(e) {
+    if (!latInput.value || !lonInput.value) {
+        e.preventDefault();
+        alert('Por favor seleccioná una ubicación válida de las sugerencias.');
+        input.focus();
+    }
+});
+
+// Detectar cambios en el input
 input.addEventListener('input', async function() {
     const query = this.value.trim();
     sugerenciasDiv.innerHTML = '';
-    if (query.length < 3) return;
+
+    if (query.length < 3) {
+        limpiarLatLng(); // limpiar si no hay suficiente texto
+        return;
+    }
 
     try {
         const response = await fetch(
@@ -36,6 +57,7 @@ input.addEventListener('input', async function() {
         });
     } catch (error) {
         console.error('Error buscando ubicación:', error);
+        limpiarLatLng(); // limpiar si falla la búsqueda
     }
 });
 

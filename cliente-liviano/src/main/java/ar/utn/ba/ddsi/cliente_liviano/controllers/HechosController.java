@@ -116,15 +116,6 @@ public class HechosController {
         return agregador.obtenerHechos(); // Método que devuelve todos los hechos
     }
 
-    @GetMapping("/bounds")
-    public List<HechoInputDTO> obtenerHechosPorBounds(
-            @RequestParam double south,
-            @RequestParam double west,
-            @RequestParam double north,
-            @RequestParam double east) {
-
-        return agregador.obtenerHechosEnBounds(south, west, north, east);
-    }
 
     @GetMapping("/{id}")
     public String detalle(@PathVariable Long id, Model model) {

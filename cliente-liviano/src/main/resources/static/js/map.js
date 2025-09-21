@@ -9,33 +9,38 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const markersCluster = L.markerClusterGroup();
 map.addLayer(markersCluster);
 
+// Últimos bounds cargados para evitar redraw innecesario
+let lastBounds = null;
+
+// Debounce
+let timeoutId = null;
+
 // Función para crear ícono por categoría
 function crearIcono(categoria) {
-    const url = `/img/pin.png`; //TODO Bonus, poner un pin distinto por categoria o chiche asi
+    const url = `/img/beanosPin.png`; // Podés cambiar según categoría
     return L.icon({
         iconUrl: url,
-        iconSize: [30, 30],
+        iconSize: [30, 70],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30]
     });
 }
 
-// Función para agregar hechos al mapa
+// Agregar hechos al mapa
 function agregarHechos(hechos) {
     markersCluster.clearLayers();
 
     hechos.forEach(h => {
-        // Acceder a latitud y longitud dentro de lugar
         const lat = h.lugar?.latitud;
         const lng = h.lugar?.longitud;
 
         if (lat && lng) {
-            let popupContent = `
+            const popupContent = `
                 <div class="card-popup">
                     ${h.multimedia && h.multimedia.length > 0 ? `
                         <div>
                             <a href="/hechos/${h.id}">
-                                <img src="${h.multimedia[0]}" alt="Imagen del hecho ${h.titulo}" style="width:100%; height:auto; border-radius:5px;" />
+                                <img src="${h.multimedia[0]}" alt="${h.titulo}" style="width:100%; height:auto; border-radius:5px;" />
                             </a>
                         </div>
                     ` : ''}
@@ -54,13 +59,12 @@ function agregarHechos(hechos) {
         }
     });
 
-    // Ajustar mapa para mostrar todos los markers
     if (markersCluster.getLayers().length > 0) {
         map.fitBounds(markersCluster.getBounds(), { padding: [50, 50] });
     }
 }
 
-// Cargar todos los hechos
+// Cargar todos los hechos al inicio
 async function cargarTodosHechos() {
     try {
         const response = await fetch('/hechos/all');
@@ -75,6 +79,11 @@ async function cargarTodosHechos() {
 // Cargar hechos según bounds
 async function cargarHechosEnVista() {
     const bounds = map.getBounds();
+
+    // Evitar redraw si bounds no cambiaron
+    if (lastBounds && lastBounds.equals(bounds)) return;
+    lastBounds = bounds;
+
     const url = `/hechos/bounds?south=${bounds.getSouth()}&west=${bounds.getWest()}&north=${bounds.getNorth()}&east=${bounds.getEast()}`;
 
     try {
@@ -90,5 +99,8 @@ async function cargarHechosEnVista() {
 // Primer carga
 cargarTodosHechos();
 
-// Actualizar al mover/zoom
-map.on('moveend', cargarHechosEnVista);
+// Actualizar al mover/zoom con debounce
+map.on('moveend', () => {
+    if (timeoutId) clearTimeout(timeoutId);
+    timeoutId = setTimeout(cargarHechosEnVista, 300); // 300ms
+});
