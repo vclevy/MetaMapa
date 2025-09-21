@@ -1,9 +1,6 @@
-#map {
-    height: 400px;
-    margin: 3rem auto;
-    border-radius: 10px;
-    border: 2px solid #2B7BD6;
-}
+#map { height: 600px; width: 100%; margin: 20px 0; }
+.card-popup { width: 200px; }
+.card-popup img { max-width: 100%; border-radius: 5px; }
 
 /* Estilo de la card dentro del popup */
 .leaflet-popup-content .card {
