@@ -7,6 +7,7 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public class HechosController {
     }
 
     @PostMapping("/crear")
-    public String crearHecho(@ModelAttribute HechoFormDTO hechoForm,
+    public String crearHecho( @Valid @ModelAttribute HechoFormDTO hechoForm,
                              @RequestParam("multimedia") List<MultipartFile> archivos,
                              RedirectAttributes redirectAttributes) {
 

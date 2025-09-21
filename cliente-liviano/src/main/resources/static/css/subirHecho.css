@@ -194,28 +194,38 @@ header {
     box-sizing: border-box; /* incluye padding y border dentro del ancho */
 }
 
-
-/* Estilos básicos para las sugerencias */
+/* Lista de sugerencias */
 #sugerencias {
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-    background: white;
-    list-style: none;
-    padding: 0;
-    margin: 0;
     position: absolute;
     top: 100%; /* justo debajo del input */
     left: 0;
-    width: 100%;
+    right: 0;
     z-index: 1000;
+
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px;
 }
 
+/* Cada ítem */
 #sugerencias li {
-    padding: 8px;
+    padding: 10px;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
+/* Hover */
 #sugerencias li:hover {
-    background-color: #f0f0f0;
+    background: #f3f6fb; /* color suave */
 }
+
+
