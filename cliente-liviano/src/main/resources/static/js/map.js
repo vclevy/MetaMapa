@@ -9,20 +9,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const markersCluster = L.markerClusterGroup();
 map.addLayer(markersCluster);
 
-// Últimos bounds cargados para evitar redraw innecesario
-let lastBounds = null;
-
-// Debounce
-let timeoutId = null;
-
 // Función para crear ícono por categoría
 function crearIcono(categoria) {
-    const url = `/img/beanosPin.png`; // Podés cambiar según categoría
+    const url = `/img/beanosPin.png`; // Cambiar si querés íconos distintos por categoría
     return L.icon({
         iconUrl: url,
         iconSize: [30, 70],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -30]
+        iconAnchor: [15, 70],
+        popupAnchor: [0, -70]
     });
 }
 
@@ -76,31 +70,5 @@ async function cargarTodosHechos() {
     }
 }
 
-// Cargar hechos según bounds
-async function cargarHechosEnVista() {
-    const bounds = map.getBounds();
 
-    // Evitar redraw si bounds no cambiaron
-    if (lastBounds && lastBounds.equals(bounds)) return;
-    lastBounds = bounds;
-
-    const url = `/hechos/bounds?south=${bounds.getSouth()}&west=${bounds.getWest()}&north=${bounds.getNorth()}&east=${bounds.getEast()}`;
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error('Error al cargar hechos en vista');
-        const hechos = await response.json();
-        agregarHechos(hechos);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// Primer carga
 cargarTodosHechos();
-
-// Actualizar al mover/zoom con debounce
-map.on('moveend', () => {
-    if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(cargarHechosEnVista, 300); // 300ms
-});

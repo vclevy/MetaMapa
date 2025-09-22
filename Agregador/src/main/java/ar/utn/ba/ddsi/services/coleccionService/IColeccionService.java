@@ -23,4 +23,5 @@ public interface IColeccionService {
     void aplicarAlgoritmosAColecciones();
     List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id);
     void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente);
+    ColeccionOutputDTO obtenerColeccion(Long id);
 }

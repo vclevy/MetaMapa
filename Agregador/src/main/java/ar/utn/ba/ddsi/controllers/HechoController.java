@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputPUTDTO;
+import ar.utn.ba.ddsi.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,9 @@ import java.util.List;
 public class HechoController {
     private final IHechoService hechoService;
 
-    public HechoController(IHechoService hechoService) { this.hechoService = hechoService; }
+    public HechoController(IHechoService hechoService) {
+        this.hechoService = hechoService;
+    }
 
     @GetMapping
     public ResponseEntity<List<HechoOutputDTO>> obtenerHechos() {
@@ -22,7 +25,14 @@ public class HechoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HechoOutputDTO> modificarHecho(@PathVariable Long id, @RequestBody HechoInputPUTDTO hechoInputDTO) {
+    public ResponseEntity<HechoOutputDTO> modificarHecho(@PathVariable Long id,
+                                                         @RequestBody HechoInputPUTDTO hechoInputDTO) {
         return ResponseEntity.ok(this.hechoService.modificarHecho(id, hechoInputDTO));
+    }
+
+    // Nuevo endpoint
+    @PostMapping("/filtrar")
+    public ResponseEntity<List<HechoOutputDTO>> filtrarHechos(@RequestBody HechoFiltroDTO filtros) {
+        return ResponseEntity.ok(this.hechoService.filtrarHechos(filtros));
     }
 }

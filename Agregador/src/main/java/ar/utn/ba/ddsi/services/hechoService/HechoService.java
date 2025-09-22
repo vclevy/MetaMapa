@@ -2,15 +2,18 @@ package ar.utn.ba.ddsi.services.hechoService;
 
 import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputPUTDTO;
+import ar.utn.ba.ddsi.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
+import ar.utn.ba.ddsi.models.entities.hecho.filtros.*;
 import ar.utn.ba.ddsi.models.repositories.ICategoriasRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.hechoService.normalizador.NormalizadorHechos;
 import ar.utn.ba.ddsi.services.mappers.HechoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -18,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -157,5 +161,21 @@ public class HechoService implements IHechoService {
                     .collect(Collectors.toList());
             hecho.setMultimedia(new java.util.ArrayList<>(lista));
         }
+    }
+
+    @Override
+    public List<HechoOutputDTO> filtrarHechos(HechoFiltroDTO filtros) {
+        List<HechoSpecification> listaFiltros = new ArrayList<>();
+        listaFiltros.add(new FechaHechoSpecification(filtros.getFechaDesde(), filtros.getFechaHasta()));
+        listaFiltros.add(new CategoriaHechoSpecification(filtros.getCategoriaId()));
+        listaFiltros.add(new FuenteHechoSpecification(filtros.getFuenteId()));
+        listaFiltros.add(new UbicacionHechoSpecification(filtros.getProvincia()));
+
+        Specification<Hecho> spec = HechoSpecifications.combinar(listaFiltros);
+
+        return hechosRepository.findAll(spec)
+                .stream()
+                .map(hechoMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

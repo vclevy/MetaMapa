@@ -51,6 +51,11 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
+    public ColeccionOutputDTO obtenerColeccion(Long id) {
+        var coleccion = this.coleccionesRepository.findById(id).get();
+        return this.coleccionMapper.toDTO(coleccion);
+    }
+
     @Override
     public List<ColeccionOutputDTO> findAll() {
         List<ColeccionOutputDTO> coleccionOutputDTOS = new ArrayList<>();

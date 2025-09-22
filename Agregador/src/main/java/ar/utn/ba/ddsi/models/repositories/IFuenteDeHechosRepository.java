@@ -3,7 +3,7 @@ package ar.utn.ba.ddsi.models.repositories;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface IFuenteDeHechosRepository extends JpaRepository<Fuente, Long> {
+public interface IFuenteDeHechosRepository extends JpaRepository<Fuente, Long>, JpaSpecificationExecutor<Fuente> {
 }

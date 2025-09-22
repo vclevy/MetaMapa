@@ -40,7 +40,7 @@ public class ColeccionController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/hechos")
     public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(@PathVariable Long id, @RequestParam (defaultValue = "IRRESTRICTO") String modoDeNavegacion) {
         List<Hecho> hechos = coleccionService.obtenerHechosDeColeccionSegunModoDeNavegacion(id, modoDeNavegacion);
         return ResponseEntity.ok(hechos);
@@ -49,6 +49,12 @@ public class ColeccionController {
     @GetMapping
     public ResponseEntity<List<ColeccionOutputDTO>> obtenerColecciones() {
         return ResponseEntity.ok(coleccionService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ColeccionOutputDTO> obtenerColeccion(@PathVariable Long id) {
+        ColeccionOutputDTO dto = coleccionService.obtenerColeccion(id);
+        return ResponseEntity.ok(dto);
     }
 
     @PatchMapping("/{id}/atributo")

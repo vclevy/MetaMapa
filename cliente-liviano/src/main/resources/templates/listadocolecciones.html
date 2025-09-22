@@ -1,54 +1,32 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Colecciones — MetaMapa</title>
-    <link rel="stylesheet" href="../static/css/listadoColecciones.css">
+    <link rel="stylesheet" th:href="@{/css/listadoColecciones.css}">
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a class="logo" href="index.html">
-            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
-        </a>
-        <nav class="nav-links">
-            <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
-            <a class="btn btn-primary" href="registro.html">Registrarse</a>
-        </nav>
-    </div>
-</header>
+<div th:replace="header :: mainHeader"></div>
 
 <main class="container colecciones">
-        <h1>Colecciones</h1>
-        <p>Explorá las colecciones</p>
-
+    <h1>Colecciones</h1>
+    <p>Explorá las colecciones</p>
 
     <section class="colecciones-list">
-        <!-- Ejemplos estáticos -->
-        <a class="coleccion-item" href="/colecciones/1">
+        <!-- Iteración dinámica con Thymeleaf -->
+        <a class="coleccion-item"
+           th:each="coleccion : ${colecciones}"
+           th:href="@{'/colecciones/' + ${coleccion.id}}">
             <div class="info">
-                <h3>Incendios forestales</h3>
-                <p>Imágenes de los últimos incendios ocurridos.</p>
+                <h3 th:text="${coleccion.titulo}">Título</h3>
+                <p th:text="${coleccion.descripcion}">Descripción</p>
             </div>
-            <span class="badge">128 hechos</span>
-        </a>
-
-        <a class="coleccion-item" href="/colecciones/2">
-            <div class="info">
-                <h3>Movilizaciones</h3>
-                <p>Registro ciudadano de marchas y concentraciones.</p>
-            </div>
-            <span class="badge">56 hechos</span>
-        </a>
-
-        <a class="coleccion-item" href="/colecciones/3">
-            <div class="info">
-                <h3>Archivo de prensa</h3>
-                <p>Notas periodísticas relevadas y curadas por el equipo.</p>
-            </div>
-            <span class="badge">312 hechos</span>
+            <span class="badge"
+                  th:text="${#lists.size(coleccion.hechosDeLaColeccion)} + ' hechos'">
+                0 hechos
+            </span>
         </a>
     </section>
 </main>

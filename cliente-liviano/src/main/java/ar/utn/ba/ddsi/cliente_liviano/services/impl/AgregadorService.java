@@ -1,11 +1,13 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,16 +40,26 @@ public class AgregadorService implements IAgregadorService {
 
         return hechos.stream().limit(3).collect(Collectors.toList());
     }
-    public List<HechoInputDTO> obtenerHechosEnBounds(double south, double west, double north, double east) {
-        return this.obtenerHechos().stream()
-                .filter(h -> h.getLugar().getLatitud() != null &&h.getLugar().getLongitud() != null)
-                .filter(h -> h.getLugar().getLatitud() >= south && h.getLugar().getLatitud() <= north)
-                .filter(h -> h.getLugar().getLongitud() >= west && h.getLugar().getLongitud() <= east)
-                .collect(Collectors.toList());
+
+    public List<ColeccionInputDTO> obtenerColecciones(){
+        return webClient.get()
+            .uri("/api/coleccion")
+            .retrieve()
+            .bodyToFlux(ColeccionInputDTO.class)
+            .collectList()
+            .block();
     }
 
-    public HechoInputDTO obtenerHechoPorId(long id) {
-        return obtenerHechos().stream().filter(h -> h.getId() == id).findFirst().orElse(null);
+    public HechoInputDTO obtenerHechoPorId(Long id) {
+        return obtenerHechos().stream().filter(h -> Objects.equals(h.getId(), id)).findFirst().orElse(null); //Super ineficiente hay que arreglarlo
+    }
+
+    public ColeccionInputDTO obtenerColeccionPorId(Long id) {
+        return webClient.get()
+                .uri("/api/coleccion/{id}", id)
+                .retrieve()
+                .bodyToMono(ColeccionInputDTO.class)
+                .block();
     }
 
 }

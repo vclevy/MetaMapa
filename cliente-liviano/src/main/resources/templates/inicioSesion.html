@@ -4,21 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../static/css/sesion.css">
-  <title>MetaMapa - Iniciar Sesión</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+
+    <title>MetaMapa - Iniciar Sesión</title>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a class="logo" href="index.html">
-            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
-        </a>
-        <nav class="nav-links">
-            <a class="btn btn-primary" href="inicioSesion.html">Iniciar sesión</a>
-            <a class="btn btn-primary" href="registro.html">Registrarse</a>
-        </nav>
-    </div>
-</header>
+<div th:replace="header :: mainHeader"></div>
 
 <main class="main-content">
   <section class="intro">

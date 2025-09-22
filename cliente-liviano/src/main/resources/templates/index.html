@@ -41,6 +41,22 @@
     <div id="map" style="height: 600px;"></div>
 </section>
 
+<!-- Hechos destacados -->
+<section class="destacados container">
+    <h2>Hechos destacados</h2>
+    <div class="cards">
+        <div class="card" th:each="hecho : ${destacados}">
+            <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|" />
+            </div>
+            <div class="card-body">
+                <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                <p th:text="${hecho.descripcion}">Descripción breve...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <footer>
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>

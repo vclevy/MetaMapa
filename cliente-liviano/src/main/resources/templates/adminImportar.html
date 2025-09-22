@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MetaMapa · Importar hechos</title>
     <link rel="stylesheet" href="../static/css/adminLanding.css" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+
 </head>
 <body>
 <!-- Header -->
-<header role="banner">
-    <div class="header-container">
-        <a class="logo" href="index.html" aria-label="Ir al home">
-            <img src="../static/img/logoMetamapa.png" alt="Logo MetaMapa" />
-        </a>
-        <nav class="admin-top-actions" aria-label="Acciones del admin"></nav>
-    </div>
-</header>
+<div th:replace="header :: mainHeader"></div>
+
 
 <div class="layout">
     <!-- Sidebar -->
