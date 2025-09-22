@@ -19,41 +19,38 @@
 
     <!-- Filtros -->
     <section class="filters container">
-        <form class="filters-form" method="get" th:action="@{/hechos}">
+        <form class="filters-form">
             <div class="filter-group">
                 <label for="fecha-desde">Fecha desde</label>
-                <input type="date" id="fecha-desde" name="desde" th:value="${desde}">
+                <input type="date" id="fecha-desde" name="desde" th:value="${filtros.fechaDesde}">
             </div>
 
             <div class="filter-group">
                 <label for="fecha-hasta">Fecha hasta</label>
-                <input type="date" id="fecha-hasta" name="hasta" th:value="${hasta}">
+                <input type="date" id="fecha-hasta" name="hasta" th:value="${filtros.fechaHasta}">
             </div>
 
             <div class="filter-group">
                 <label for="ubicacion">Ubicación</label>
                 <input type="text" id="ubicacion" name="ubicacion" placeholder="Barrio, calle o ciudad"
-                       th:value="${ubicacion}">
+                       th:value="${filtros.provincia}">
             </div>
 
             <div class="filter-group">
                 <label for="categoria">Categoría</label>
-                <select id="categoria" name="categoria" th:value="${categoria}">
+                <select id="categoria" name="categoria">
                     <option value="">Todas</option>
-                    <option value="memoria" th:selected="${categoria=='memoria'}">Memoria</option>
-                    <option value="derechos" th:selected="${categoria=='derechos'}">Derechos humanos</option>
-                    <option value="movilizacion" th:selected="${categoria=='movilizacion'}">Movilización</option>
-                    <option value="cultura" th:selected="${categoria=='cultura'}">Cultura</option>
+                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"
+                            th:selected="${cat.id} == ${filtros.categoriaId}"></option>
                 </select>
             </div>
 
             <div class="filter-group">
                 <label for="fuente">Fuente</label>
-                <select id="fuente" name="fuente" th:value="${fuente}">
+                <select id="fuente" name="fuente">
                     <option value="">Todas</option>
-                    <option value="ciudadana" th:selected="${fuente=='ciudadana'}">Dinámica</option>
-                    <option value="prensa" th:selected="${fuente=='prensa'}">Estática</option>
-                    <option value="archivo" th:selected="${fuente=='archivo'}">Proxy</option>
+                    <option th:each="fuente : ${fuentes}" th:value="${fuente.id}" th:text="${fuente.tipo}"
+                            th:selected="${fuente.id} == ${filtros.fuenteId}"></option>
                 </select>
             </div>
 
@@ -68,18 +65,14 @@
     <section class="hechos-list">
         <div class="cards container">
             <article class="card" th:each="hecho : ${hechos}">
-                <!-- Mostrar solo si hay al menos una multimedia -->
                 <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
                     <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
-                        <!-- Si es imagen -->
-                        <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg')
-                     or #strings.endsWith(hecho.multimedia[0], '.jpeg')
-                     or #strings.endsWith(hecho.multimedia[0], '.png')
-                     or #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                        <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
+                                     #strings.endsWith(hecho.multimedia[0], '.jpeg') or
+                                     #strings.endsWith(hecho.multimedia[0], '.png') or
+                                     #strings.endsWith(hecho.multimedia[0], '.gif')}"
                              th:src="${hecho.multimedia[0]}"
                              th:alt="|Imagen del hecho ${hecho.titulo}|"/>
-
-                        <!-- Si es video -->
                         <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
                                th:src="${hecho.multimedia[0]}"
                                type="video/mp4"
@@ -88,10 +81,8 @@
                                style="max-width:100%; border-radius:10px;">
                             Tu navegador no soporta la reproducción de video.
                         </video>
-
                     </a>
                 </div>
-
                 <div class="card-body">
                     <h3 th:text="${hecho.titulo}">Título del hecho</h3>
                     <p class="meta">
@@ -119,5 +110,68 @@
 <footer>
     <p>© 2025 MetaMapa — Todos los derechos reservados</p>
 </footer>
+
+<script>
+    document.querySelector('.filters-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const catVal = document.querySelector('#categoria').value;
+        const fuenteVal = document.querySelector('#fuente').value;
+
+        const data = {
+            fechaDesde: document.querySelector('#fecha-desde').value || null,
+            fechaHasta: document.querySelector('#fecha-hasta').value || null,
+            provincia: document.querySelector('#ubicacion').value || null,
+            categoriaId: catVal ? parseInt(catVal) : null,
+            fuenteId: fuenteVal ? parseInt(fuenteVal) : null
+        };
+
+        fetch('/api/hecho/filtrar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(resp => resp.json())
+            .then(hechos => {
+                const container = document.querySelector('.cards.container');
+                container.innerHTML = ''; // limpiar
+
+                hechos.forEach(hecho => {
+                    const card = document.createElement('article');
+                    card.classList.add('card');
+
+                    let mediaHtml = '';
+                    if (hecho.multimedia && hecho.multimedia.length > 0) {
+                        const url = hecho.multimedia[0];
+                        if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif')) {
+                            mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
+                                    <img src="${url}" alt="Imagen del hecho ${hecho.titulo}" />
+                                 </a>`;
+                        } else if (url.endsWith('.mp4')) {
+                            mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
+                                    <video src="${url}" controls preload="metadata" style="max-width:100%; border-radius:10px;"></video>
+                                 </a>`;
+                        }
+                    }
+
+                    card.innerHTML = `
+                ${mediaHtml}
+                <div class="card-body">
+                    <h3>${hecho.titulo}</h3>
+                    <p class="meta">
+                        <span>${new Date(hecho.fechaDeAcontecimiento).toLocaleDateString()}</span>
+                        <span class="badge">${hecho.categoriaNombre}</span>
+                    </p>
+                    <p>${hecho.descripcion}</p>
+                    <a href="/hechos/${hecho.id}" class="card-link">Ver detalle</a>
+                </div>
+            `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => console.error(err));
+    });
+</script>
+
 </body>
 </html>

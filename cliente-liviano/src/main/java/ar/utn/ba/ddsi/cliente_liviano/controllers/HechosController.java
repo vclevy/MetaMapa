@@ -2,22 +2,18 @@ package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.config.MultipartInputResource;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDinamicaDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFormDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
-import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -42,43 +38,54 @@ public class HechosController {
     }
 
     @GetMapping
-    public String listar(
-            @RequestParam(required = false) String fechaDesde,
-            @RequestParam(required = false) String fechaHasta,
-            @RequestParam(required = false) String ubicacion,
-            @RequestParam(required = false) String categoria,
-            @RequestParam(required = false) String fuente,
-            Model model) {
+    public String listar(@ModelAttribute("filtros") HechoFiltroDTO filtros, Model model) {
 
         List<HechoInputDTO> hechos = agregador.obtenerHechos(); // trae todos
 
-        if (fechaDesde != null && !fechaDesde.isEmpty()) {
+        // Filtrar por fechaDesde
+        if (filtros.getFechaDesde() != null && !filtros.getFechaDesde().isEmpty()) {
+            LocalDate fechaDesdeLD = LocalDate.parse(filtros.getFechaDesde());
             hechos = hechos.stream()
-                    .filter(h -> !h.getFechaDeAcontecimiento().isBefore(LocalDate.parse(fechaDesde).atStartOfDay()))
-                    .toList();
-        }
-        if (fechaHasta != null && !fechaHasta.isEmpty()) {
-            hechos = hechos.stream()
-                    .filter(h -> !h.getFechaDeAcontecimiento().isAfter(LocalDate.parse(fechaHasta).atStartOfDay()))
-                    .toList();
-        }
-        if (ubicacion != null && !ubicacion.isEmpty()) {
-            hechos = hechos.stream()
-                    .filter(h -> h.getLugar().getProvincia().toLowerCase().contains(ubicacion.toLowerCase()))
-                    .toList();
-        }
-        if (categoria != null && !categoria.isEmpty() && !categoria.equalsIgnoreCase("todas")) {
-            hechos = hechos.stream()
-                    .filter(h -> h.getCategoriaNombre().equalsIgnoreCase(categoria))
+                    .filter(h -> !h.getFechaDeAcontecimiento().toLocalDate().isBefore(fechaDesdeLD))
                     .toList();
         }
 
+        // Filtrar por fechaHasta
+        if (filtros.getFechaHasta() != null && !filtros.getFechaHasta().isEmpty()) {
+            LocalDate fechaHastaLD = LocalDate.parse(filtros.getFechaHasta());
+            hechos = hechos.stream()
+                    .filter(h -> !h.getFechaDeAcontecimiento().toLocalDate().isAfter(fechaHastaLD))
+                    .toList();
+        }
+
+        // Filtrar por provincia
+        if (filtros.getProvincia() != null && !filtros.getProvincia().isEmpty()) {
+            hechos = hechos.stream()
+                    .filter(h -> h.getLugar() != null &&
+                            h.getLugar().getProvincia() != null &&
+                            h.getLugar().getProvincia().toLowerCase()
+                                    .contains(filtros.getProvincia().toLowerCase()))
+                    .toList();
+        }
+
+        // Filtrar por categoria
+     //  if (filtros.getCategoriaId() != null) {
+     //      hechos = hechos.stream()
+     //              .filter(h -> h.getCategoriaNombre() != null &&
+     //                      h.getCategoriaNombre().equalsIgnoreCase(
+     //                              agregador.obtenerCategoriaNombrePorId(filtros.getCategoriaId())
+     //                      ))
+     //              .toList();
+     //  }
+
+     //  // Filtrar por fuente
+     //  if (filtros.getFuenteId() != null) {
+     //      hechos = hechos.stream()
+     //              .filter(h -> h.getContribuyente() != null &&
+     //                      h.getContribuyente().getId().equals(filtros.getFuenteId()))
+     //              .toList();
+
         model.addAttribute("hechos", hechos);
-        model.addAttribute("fechaDesde", fechaDesde);
-        model.addAttribute("fechaHasta", fechaHasta);
-        model.addAttribute("ubicacion", ubicacion);
-        model.addAttribute("categoria", categoria);
-        model.addAttribute("fuente", fuente);
 
         // Paginación
         int totalHechos = hechos.size();
@@ -87,6 +94,8 @@ public class HechosController {
 
         return "listadoHechos";
     }
+
+
 
     @GetMapping("/subir")
     public String mostrarFormulario(Model model) {

@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/CategoriaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoFiltroDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaHoraPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaHoraPorCategoria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/CategoriasCotroller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/CategoriasCotroller.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
     <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/schedulers/StatsScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/schedulers/StatsScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/listadoHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/listadoHechos.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,32 +54,6 @@
     &quot;accountId&quot;: &quot;24e22035-39b4-4174-8946-33ab8d78f4c9&quot;
   }
 }</component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java">
-      <ranges>
-        <range start1="7" end1="7" start2="7" end2="8" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="17" end1="17" start2="18" end2="20" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="18" end1="18" start2="21" end2="22" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="29" end1="30" start2="33" end2="34" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="31" end1="32" start2="35" end2="43" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="33" end1="39" start2="44" end2="50" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="40" end1="41" start2="51" end2="52" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="42" end1="44" start2="53" end2="56" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="46" end1="47" start2="58" end2="58" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="50" end1="50" start2="61" end2="62" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java">
-      <ranges>
-        <range start1="15" end1="17" start2="15" end2="15" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="26" end1="26" start2="24" end2="25" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-        <range start1="38" end1="39" start2="37" end2="38" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="40" end1="41" start2="39" end2="40" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="44" end1="45" start2="43" end2="44" changelist="7c0befda-bef3-41cc-b839-b52f05738a79" />
-        <range start1="46" end1="47" start2="45" end2="46" changelist="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" />
-      </ranges>
-    </file>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -117,11 +90,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.AgregadorApplication (1).executor": "Run",
     "Spring Boot.AgregadorApplication.executor": "Run",
+    "Spring Boot.ClienteLivianoApplication.executor": "Run",
     "Spring Boot.FuenteDinamicaApplication.executor": "Run",
     "Spring Boot.FuenteEstaticaApplication.executor": "Run",
     "Spring Boot.FuenteProxyApplication.executor": "Run",
     "Spring Boot.ServicioEstadisticasApplication.executor": "Run",
-    "git-widget-placeholder": "ENTREGA__4",
+    "git-widget-placeholder": "ENTREGA__5",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4",
@@ -179,13 +153,27 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ServicioEstadisticasApplication">
+  <component name="RunManager" selected="Spring Boot.ClienteLivianoApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ar.utn.ba.ddsi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClienteLivianoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="cliente-liviano" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.cliente_liviano.ClienteLivianoApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.cliente_liviano.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -231,13 +219,15 @@
       <item itemvalue="Spring Boot.ServicioEstadisticasApplication" />
       <item itemvalue="Spring Boot.FuenteEstaticaApplication" />
       <item itemvalue="Spring Boot.FuenteProxyApplication" />
+      <item itemvalue="Spring Boot.ClienteLivianoApplication" />
       <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
       <item itemvalue="Spring Boot.AgregadorApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
+        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
+        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
       </list>
