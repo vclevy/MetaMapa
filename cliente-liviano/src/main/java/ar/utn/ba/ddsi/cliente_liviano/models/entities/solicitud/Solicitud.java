@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.usuario.Usuario;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class Solicitud {
 
     private String justificacionDeEliminacion;
 
-    private HechoInputDTO hecho;
+    private HechoDTO hecho;
 
     private EstadoDeSolicitudDeEliminacion estado;
 
@@ -29,7 +29,7 @@ public class Solicitud {
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
 
 
-    public Solicitud (String unaJustificacion, HechoInputDTO hecho, Usuario unUsuario) {
+    public Solicitud (String unaJustificacion, HechoDTO hecho, Usuario unUsuario) {
         this.justificacionDeEliminacion = unaJustificacion;
         this.hecho = hecho;
         this.usuarioQueCargoLaSolicitud = unUsuario;

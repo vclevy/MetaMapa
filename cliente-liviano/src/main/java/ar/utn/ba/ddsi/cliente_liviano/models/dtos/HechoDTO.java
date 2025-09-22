@@ -12,7 +12,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class HechoInputDTO {
+public class HechoDTO {
     private Long id;
     private String titulo;
     private String descripcion;

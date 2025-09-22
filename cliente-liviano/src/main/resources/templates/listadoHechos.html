@@ -22,12 +22,12 @@
         <form class="filters-form">
             <div class="filter-group">
                 <label for="fecha-desde">Fecha desde</label>
-                <input type="date" id="fecha-desde" name="desde" th:value="${filtros.fechaDesde}">
+                <input type="datetime-local" id="fecha-desde" name="fechaDesde" th:value="${filtros.fechaDesde}">
             </div>
 
             <div class="filter-group">
                 <label for="fecha-hasta">Fecha hasta</label>
-                <input type="date" id="fecha-hasta" name="hasta" th:value="${filtros.fechaHasta}">
+                <input type="datetime-local" id="fecha-hasta" name="fechaHasta" th:value="${filtros.fechaHasta}">
             </div>
 
             <div class="filter-group">
@@ -115,18 +115,21 @@
     document.querySelector('.filters-form').addEventListener('submit', function(e) {
         e.preventDefault();
 
+        const fechaDesdeVal = document.querySelector('#fecha-desde').value;
+        const fechaHastaVal = document.querySelector('#fecha-hasta').value;
+        const provinciaVal = document.querySelector('#ubicacion').value;
         const catVal = document.querySelector('#categoria').value;
         const fuenteVal = document.querySelector('#fuente').value;
 
-        const data = {
-            fechaDesde: document.querySelector('#fecha-desde').value || null,
-            fechaHasta: document.querySelector('#fecha-hasta').value || null,
-            provincia: document.querySelector('#ubicacion').value || null,
-            categoriaId: catVal ? parseInt(catVal) : null,
-            fuenteId: fuenteVal ? parseInt(fuenteVal) : null
-        };
+        const data = {};
 
-        fetch('/api/hecho/filtrar', {
+        if (fechaDesdeVal) data.fechaDesde = fechaDesdeVal;
+        if (fechaHastaVal) data.fechaHasta = fechaHastaVal;
+        if (provinciaVal) data.provincia = provinciaVal;
+        if (catVal) data.categoriaId = parseInt(catVal);
+        if (fuenteVal) data.fuenteId = parseInt(fuenteVal);
+
+        fetch('/hechos/filtrar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -134,7 +137,7 @@
             .then(resp => resp.json())
             .then(hechos => {
                 const container = document.querySelector('.cards.container');
-                container.innerHTML = ''; // limpiar
+                container.innerHTML = '';
 
                 hechos.forEach(hecho => {
                     const card = document.createElement('article');
@@ -143,35 +146,37 @@
                     let mediaHtml = '';
                     if (hecho.multimedia && hecho.multimedia.length > 0) {
                         const url = hecho.multimedia[0];
-                        if (url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png') || url.endsWith('.gif')) {
+                        if (url.match(/\.(jpg|jpeg|png|gif)$/i)) {
                             mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
-                                    <img src="${url}" alt="Imagen del hecho ${hecho.titulo}" />
-                                 </a>`;
+                                <img src="${url}" alt="Imagen del hecho ${hecho.titulo}" />
+                             </a>`;
                         } else if (url.endsWith('.mp4')) {
                             mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
-                                    <video src="${url}" controls preload="metadata" style="max-width:100%; border-radius:10px;"></video>
-                                 </a>`;
+                                <video src="${url}" controls preload="metadata" style="max-width:100%; border-radius:10px;"></video>
+                             </a>`;
                         }
                     }
 
                     card.innerHTML = `
-                ${mediaHtml}
-                <div class="card-body">
-                    <h3>${hecho.titulo}</h3>
-                    <p class="meta">
-                        <span>${new Date(hecho.fechaDeAcontecimiento).toLocaleDateString()}</span>
-                        <span class="badge">${hecho.categoriaNombre}</span>
-                    </p>
-                    <p>${hecho.descripcion}</p>
-                    <a href="/hechos/${hecho.id}" class="card-link">Ver detalle</a>
-                </div>
-            `;
+                    ${mediaHtml}
+                    <div class="card-body">
+                        <h3>${hecho.titulo}</h3>
+                        <p class="meta">
+                            <span>${new Date(hecho.fechaDeAcontecimiento).toLocaleDateString()}</span>
+                            <span class="badge">${hecho.categoriaNombre}</span>
+                        </p>
+                        <p>${hecho.descripcion}</p>
+                        <a href="/hechos/${hecho.id}" class="card-link">Ver detalle</a>
+                    </div>
+                `;
                     container.appendChild(card);
                 });
             })
             .catch(err => console.error(err));
     });
+
 </script>
 
 </body>
 </html>
+

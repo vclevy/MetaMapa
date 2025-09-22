@@ -11,7 +11,7 @@ public class ColeccionInputDTO {
     private Long id;
     private String titulo;
     private String descripcion;
-    private List<HechoInputDTO> hechosDeLaColeccion;
+    private List<HechoDTO> hechosDeLaColeccion;
     private String algoritmoDeConsenso;
     //private List<FuenteDeHechoOutputDTO> fuentesDeHechos;
 }

@@ -1,7 +1,8 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionInputDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,20 +22,20 @@ public class AgregadorService implements IAgregadorService {
                 .build();
     }
 
-    public List<HechoInputDTO> obtenerHechos() {
+    public List<HechoDTO> obtenerHechos() {
         return webClient.get()
                 .uri("/api/hecho")
                 .retrieve()
-                .bodyToFlux(HechoInputDTO.class)
+                .bodyToFlux(HechoDTO.class)
                 .collectList()
                 .block();
     }
 
-    public List <HechoInputDTO> obtenerHechosDestacados(){ //TODO mejorar la logica esta
-        List<HechoInputDTO> hechos = webClient.get()
+    public List <HechoDTO> obtenerHechosDestacados(){ //TODO mejorar la logica esta
+        List<HechoDTO> hechos = webClient.get()
                 .uri("/api/hecho")
                 .retrieve()
-                .bodyToFlux(HechoInputDTO.class)
+                .bodyToFlux(HechoDTO.class)
                 .collectList()
                 .block();
 
@@ -50,7 +51,7 @@ public class AgregadorService implements IAgregadorService {
             .block();
     }
 
-    public HechoInputDTO obtenerHechoPorId(Long id) {
+    public HechoDTO obtenerHechoPorId(Long id) {
         return obtenerHechos().stream().filter(h -> Objects.equals(h.getId(), id)).findFirst().orElse(null); //Super ineficiente hay que arreglarlo
     }
 
@@ -59,6 +60,16 @@ public class AgregadorService implements IAgregadorService {
                 .uri("/api/coleccion/{id}", id)
                 .retrieve()
                 .bodyToMono(ColeccionInputDTO.class)
+                .block();
+    }
+
+    public List<HechoDTO> filtrarHechos(HechoFiltroDTO filtros) {
+        return webClient.post()
+                .uri("/api/hecho/filtrar")
+                .bodyValue(filtros)
+                .retrieve()
+                .bodyToFlux(HechoDTO.class)
+                .collectList()
                 .block();
     }
 

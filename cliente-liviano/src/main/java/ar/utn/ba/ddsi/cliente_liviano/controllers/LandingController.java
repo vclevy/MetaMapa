@@ -1,6 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +22,11 @@ public class LandingController {
     @GetMapping("/")
     public String landing(Model model) {
         // Lista de hechos destacados (solo algunos)
-        List<HechoInputDTO> destacados = agregador.obtenerHechosDestacados(); //TODO
+        List<HechoDTO> destacados = agregador.obtenerHechosDestacados(); //TODO
         model.addAttribute("destacados", destacados);
 
         // Lista de todos los hechos para el mapa
-        List<HechoInputDTO> hechos = agregador.obtenerHechos();
+        List<HechoDTO> hechos = agregador.obtenerHechos();
         model.addAttribute("hechos", hechos);
 
         return "index"; // Thymeleaf usará "destacados" y "hechos"
