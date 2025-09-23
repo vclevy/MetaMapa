@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MetaMapa — Hechos</title>
     <link rel="stylesheet" th:href="@{/css/listadoHechos.css}" />
-    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 38px;
+            padding: 4px 12px;
+            border-radius: 5px;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,7 +30,6 @@
         <p>Explorá y filtrá los hechos reportados por la comunidad.</p>
     </section>
 
-    <!-- Filtros -->
     <section class="filters container">
         <form class="filters-form">
             <div class="filter-group">
@@ -46,7 +58,6 @@
                             th:selected="${cat.id} == ${filtros.categoriaId}">
                     </option>
                 </select>
-
             </div>
 
             <div class="filter-group">
@@ -65,7 +76,6 @@
         </form>
     </section>
 
-    <!-- Listado -->
     <section class="hechos-list">
         <div class="cards container">
             <article class="card" th:each="hecho : ${hechos}">
@@ -99,7 +109,6 @@
             </article>
         </div>
 
-        <!-- Paginación -->
         <nav class="pagination" aria-label="Paginación">
             <a class="page prev" th:href="@{|/hechos?page=${paginaAnterior}|}">Anterior</a>
             <span th:each="i : ${#numbers.sequence(1,totalPaginas)}">
@@ -115,7 +124,26 @@
     <p>© 2025 MetaMapa — Todos los derechos reservados</p>
 </footer>
 
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
+    $(document).ready(function() {
+        // Inicializar Select2 con barra de búsqueda
+        $('#categoria').select2({
+            placeholder: "Seleccione categoría",
+            allowClear: true,
+            width: 'resolve'
+        });
+        $('#fuente').select2({
+            placeholder: "Seleccione fuente",
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
     document.querySelector('.filters-form').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -178,9 +206,7 @@
             })
             .catch(err => console.error(err));
     });
-
 </script>
 
 </body>
 </html>
-

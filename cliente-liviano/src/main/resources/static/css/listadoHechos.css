@@ -37,6 +37,7 @@ header {
 
 .nav-links {
     display: flex;
+    flex-wrap: nowrap; /* evita que los elementos se rompan */
     align-items: center;
     gap: 1rem;
 }
@@ -117,6 +118,25 @@ header {
     box-shadow:0 0 0 3px rgba(43,123,214,.15);
 }
 .filter-actions { display:flex; align-items:end; gap:.6rem; justify-content:flex-end; }
+
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end; /* Alinea los botones al final de los inputs */
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 150px; /* Ajusta el ancho mínimo de cada grupo */
+}
+
+.filter-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end; /* Mantiene los botones alineados con los inputs */
+}
 
 /* Cards grid */
 .hechos-list { margin: 1.4rem 0 2rem; }
