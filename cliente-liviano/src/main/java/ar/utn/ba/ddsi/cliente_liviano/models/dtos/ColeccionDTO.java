@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ColeccionInputDTO {
+public class ColeccionDTO {
     private Long id;
     private String titulo;
     private String descripcion;
