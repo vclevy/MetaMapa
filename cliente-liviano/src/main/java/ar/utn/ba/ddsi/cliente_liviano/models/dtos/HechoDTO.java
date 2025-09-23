@@ -23,5 +23,6 @@ public class HechoDTO {
     private List<Etiqueta> etiquetas;
     private List<String> multimedia;
     private Usuario contribuyente;
+    private String tipoFuente;
 }
 

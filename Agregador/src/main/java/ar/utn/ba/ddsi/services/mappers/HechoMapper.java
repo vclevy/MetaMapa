@@ -18,6 +18,10 @@ public class HechoMapper {
         dto.setMultimedia(hecho.getMultimedia());
         dto.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
         dto.setContribuyente(hecho.getUsuarioContribuyente());
+
+        if (hecho.getFuente() != null) {
+            dto.setFuenteNombre(hecho.getFuente().getTipo());
+        }
         return dto;
     }
 }

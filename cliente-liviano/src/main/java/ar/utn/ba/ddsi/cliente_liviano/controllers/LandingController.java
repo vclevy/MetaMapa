@@ -31,4 +31,11 @@ public class LandingController {
 
         return "index"; // Thymeleaf usará "destacados" y "hechos"
     }
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        // TODO Por ahora los datos del dashboard están HARDCODEADOS en la vista.
+        // Más adelante los agregamos dinámicamente con model.addAttribute(...)
+        return "adminLanding";
+    }
 }

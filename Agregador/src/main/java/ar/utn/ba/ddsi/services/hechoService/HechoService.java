@@ -168,7 +168,7 @@ public class HechoService implements IHechoService {
         List<HechoSpecification> listaFiltros = new ArrayList<>();
         listaFiltros.add(new FechaHechoSpecification(filtros.getFechaDesde(), filtros.getFechaHasta()));
         listaFiltros.add(new CategoriaHechoSpecification(filtros.getCategoriaId()));
-        listaFiltros.add(new FuenteHechoSpecification(filtros.getFuenteId()));
+        listaFiltros.add(new FuenteHechoSpecification(filtros.getTipoFuente()));
         listaFiltros.add(new UbicacionHechoSpecification(filtros.getProvincia()));
 
         Specification<Hecho> spec = HechoSpecifications.combinar(listaFiltros);

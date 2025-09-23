@@ -1,29 +1,29 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MetaMapa · Importar hechos</title>
-    <link rel="stylesheet" href="../static/css/adminLanding.css" />
-    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
-
+    <link rel="stylesheet" th:href="@{/css/adminImportar.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
 </head>
 <body>
+
 <!-- Header -->
 <div th:replace="header :: mainHeader"></div>
 
-
 <div class="layout">
+
     <!-- Sidebar -->
     <aside class="sidebar" aria-label="Menú lateral">
         <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
         <div class="sidebar__inner">
             <nav class="menu">
-                <a class="menu__link" href="adminLanding.html">Resumen de actividad</a>
-                <a class="menu__link" href="adminColecciones.html">Gestionar colecciones</a>
-                <a class="menu__link" href="adminHechos.html">Gestionar hechos</a>
-                <a class="menu__link" href="adminSolicitudes.html">Solicitudes de eliminación</a>
-                <a class="menu__link is-active" href="adminImportar.html">Importar hechos</a>
+                <a class="menu__link" th:href="@{/admin}">Resumen de actividad</a>
+                <a class="menu__link" th:href="@{/admin/colecciones}">Gestionar colecciones</a>
+                <a class="menu__link" th:href="@{/admin/hechos}">Gestionar hechos</a>
+                <a class="menu__link" th:href="@{/admin/solicitudes}">Solicitudes de eliminación</a>
+                <a class="menu__link is-active" th:href="@{/admin/importar}">Importar hechos</a>
             </nav>
         </div>
     </aside>
@@ -34,83 +34,116 @@
             <h1 class="page-title">Importar hechos</h1>
         </div>
 
+        <!-- Mensajes flash dinámicos -->
+        <div id="mensaje" class="alert" style="display:none;"></div>
+
         <article class="card import-card">
-            <form class="import-form" action="#" method="post" enctype="multipart/form-data" novalidate>
+            <div class="import-form">
                 <p class="import-help">Cargar archivo con extensión <strong>.csv</strong></p>
 
-                <!-- Dropzone + “Examinar…” -->
                 <div class="dropzone" id="dropzone" tabindex="0" aria-label="Área para seleccionar o soltar un archivo .csv">
-                    <input type="file" id="csvFile" name="csvFile" accept=".csv" required hidden>
+                    <input type="file" id="csvFile" accept=".csv" required>
                     <button class="file-trigger" type="button" aria-controls="csvFile">Examinar…</button>
                     <span class="file-hint">o arrastrá y soltá aquí</span>
                     <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
                 </div>
 
                 <div class="import-actions">
-                    <button class="btn btn--primary btn--lg" id="importBtn" type="submit" disabled>Importar</button>
+                    <button class="btn btn--primary btn--lg" id="importBtn" type="button" disabled>Importar</button>
                 </div>
-            </form>
+            </div>
         </article>
     </main>
 </div>
 
-<!-- Footer -->
 <footer role="contentinfo">
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
-<!-- Scripts -->
 <script>
-    // Toggle sidebar en mobile (igual que en otras vistas)
-    (function(){
-        const btn = document.querySelector('.sidebar__toggle');
-        const sidebar = document.querySelector('.sidebar');
-        if(!btn || !sidebar) return;
-        btn.addEventListener('click', () => {
-            const open = sidebar.classList.toggle('is-open');
-            btn.setAttribute('aria-expanded', String(open));
-        });
-    })();
-
-    // Lógica simple de importación (selector, drag & drop, habilitar botón)
     (function(){
         const fileInput = document.getElementById('csvFile');
-        const dropzone  = document.getElementById('dropzone');
-        const fileName  = document.getElementById('fileName');
-        const trigger   = document.querySelector('.file-trigger');
+        const dropzone = document.getElementById('dropzone');
+        const fileName = document.getElementById('fileName');
+        const trigger = document.querySelector('.file-trigger');
         const importBtn = document.getElementById('importBtn');
+        const mensaje = document.getElementById('mensaje');
 
-        function setFile(file) {
+        let archivoSeleccionado = null;
+
+        function mostrarMensaje(texto, tipo){
+            mensaje.textContent = texto;
+            mensaje.className = 'alert ' + tipo;
+            mensaje.style.display = 'block';
+        }
+
+        function setFile(file){
             if(!file) return;
-            if(!file.name.toLowerCase().endsWith('.csv')) {
-                alert('Solo se permiten archivos .csv');
+            if(!file.name.toLowerCase().endsWith('.csv')){
+                mostrarMensaje('Solo se permiten archivos .csv', 'alert-error');
                 return;
             }
-            // asignar al input (para drag & drop)
-            const dt = new DataTransfer();
-            dt.items.add(file);
-            fileInput.files = dt.files;
-
+            archivoSeleccionado = file;
             fileName.textContent = file.name + ' · ' + Math.round(file.size/1024) + ' KB';
             importBtn.disabled = false;
+            mensaje.style.display = 'none';
         }
 
         trigger.addEventListener('click', () => fileInput.click());
         dropzone.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', (e) => setFile(e.target.files[0]));
 
-        // Drag & drop
+        fileInput.addEventListener('change', e => setFile(e.target.files[0]));
+
         ['dragenter','dragover'].forEach(ev => {
-            dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+            dropzone.addEventListener(ev, e => {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
         });
+
         ['dragleave','drop'].forEach(ev => {
-            dropzone.addEventListener(ev, (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); });
+            dropzone.addEventListener(ev, e => {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
         });
-        dropzone.addEventListener('drop', (e) => {
+
+        dropzone.addEventListener('drop', e => {
             const file = e.dataTransfer.files && e.dataTransfer.files[0];
             setFile(file);
         });
+
+        importBtn.addEventListener('click', () => {
+            if(!archivoSeleccionado){
+                mostrarMensaje('Seleccioná un archivo antes de importar', 'alert-error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('archivos', archivoSeleccionado);
+
+            fetch('/admin/importar', {
+                method: 'POST',
+                body: formData
+            })
+                .then(async res => {
+                    if(res.ok){
+                        const text = await res.text(); // Si tu backend devuelve algo, opcional
+                        mostrarMensaje('Archivo importado correctamente', 'alert-success');
+                        archivoSeleccionado = null;
+                        fileInput.value = '';
+                        fileName.textContent = 'Ningún archivo seleccionado';
+                        importBtn.disabled = true;
+                    } else {
+                        const err = await res.text();
+                        mostrarMensaje('Error al importar archivo: ' + err, 'alert-error');
+                    }
+                })
+                .catch(err => mostrarMensaje('Error al importar archivo: ' + err, 'alert-error'));
+        });
+
     })();
 </script>
+
 </body>
 </html>

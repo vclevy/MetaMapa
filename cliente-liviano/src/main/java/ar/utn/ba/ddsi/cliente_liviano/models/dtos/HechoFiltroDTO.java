@@ -13,6 +13,6 @@ public class HechoFiltroDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime fechaHasta;
     private Long categoriaId;
-    private Long fuenteId;
     private String provincia;
+    private String tipoFuente;
 }

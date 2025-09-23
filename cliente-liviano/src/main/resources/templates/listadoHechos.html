@@ -62,12 +62,14 @@
 
             <div class="filter-group">
                 <label for="fuente">Fuente</label>
-                <select id="fuente" name="fuente">
+                <select id="fuente" name="tipoFuente">
                     <option value="">Todas</option>
-                    <option th:each="fuente : ${fuentes}" th:value="${fuente.id}" th:text="${fuente.tipo}"
-                            th:selected="${fuente.id} == ${filtros.fuenteId}"></option>
+                    <option value="DINAMICA">DINAMICA</option>
+                    <option value="ESTATICA">ESTATICA</option>
+                    <option value="PROXY">PROXY</option>
                 </select>
             </div>
+
 
             <div class="filter-actions">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
@@ -159,7 +161,7 @@
         if (fechaHastaVal) data.fechaHasta = fechaHastaVal;
         if (provinciaVal) data.provincia = provinciaVal;
         if (catVal) data.categoriaId = parseInt(catVal);
-        if (fuenteVal) data.fuenteId = parseInt(fuenteVal);
+        if (fuenteVal) data.tipoFuente = fuenteVal;
 
         fetch('/hechos/filtrar', {
             method: 'POST',
