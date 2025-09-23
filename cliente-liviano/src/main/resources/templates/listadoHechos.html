@@ -40,9 +40,13 @@
                 <label for="categoria">Categoría</label>
                 <select id="categoria" name="categoria">
                     <option value="">Todas</option>
-                    <option th:each="cat : ${categorias}" th:value="${cat.id}" th:text="${cat.nombre}"
-                            th:selected="${cat.id} == ${filtros.categoriaId}"></option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat.id}"
+                            th:text="${cat.nombre}"
+                            th:selected="${cat.id} == ${filtros.categoriaId}">
+                    </option>
                 </select>
+
             </div>
 
             <div class="filter-group">

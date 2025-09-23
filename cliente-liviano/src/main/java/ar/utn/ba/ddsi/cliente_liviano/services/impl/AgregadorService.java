@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.CategoriaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionInputDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
@@ -73,4 +74,12 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
+    public List<CategoriaDTO> obtenerCategorias() {
+        return webClient.get()
+                .uri("/api/categorias")
+                .retrieve()
+                .bodyToFlux(CategoriaDTO.class)
+                .collectList()
+                .block();
+    }
 }

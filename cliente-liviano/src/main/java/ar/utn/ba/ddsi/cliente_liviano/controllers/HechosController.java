@@ -1,9 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDinamicaDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFormDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,47 +37,8 @@ public class HechosController {
 
         List<HechoDTO> hechos = agregador.obtenerHechos(); // trae todos
 
-        // Filtrar por fechaDesde
-        if (filtros.getFechaDesde() != null) {
-            hechos = hechos.stream()
-                    .filter(h -> !h.getFechaDeAcontecimiento().isBefore(filtros.getFechaDesde()))
-                    .toList();
-        }
-
-        // Filtrar por fechaHasta
-        if (filtros.getFechaHasta() != null) {
-            hechos = hechos.stream()
-                    .filter(h -> !h.getFechaDeAcontecimiento().isAfter(filtros.getFechaHasta()))
-                    .toList();
-        }
-
-        // Filtrar por provincia
-        if (filtros.getProvincia() != null && !filtros.getProvincia().isBlank()) {
-            hechos = hechos.stream()
-                    .filter(h -> h.getLugar() != null &&
-                            h.getLugar().getProvincia() != null &&
-                            h.getLugar().getProvincia().toLowerCase()
-                                    .contains(filtros.getProvincia().toLowerCase()))
-                    .toList();
-        }
-
-        // Filtrar por categoria (si activás)
-        // if (filtros.getCategoriaId() != null) {
-        //     hechos = hechos.stream()
-        //             .filter(h -> h.getCategoriaNombre() != null &&
-        //                     h.getCategoriaNombre().equalsIgnoreCase(
-        //                             agregador.obtenerCategoriaNombrePorId(filtros.getCategoriaId())
-        //                     ))
-        //             .toList();
-        // }
-
-        // Filtrar por fuente (si activás)
-        // if (filtros.getFuenteId() != null) {
-        //     hechos = hechos.stream()
-        //             .filter(h -> h.getContribuyente() != null &&
-        //                     h.getContribuyente().getId().equals(filtros.getFuenteId()))
-        //             .toList();
-        // }
+        List<CategoriaDTO> categorias = agregador.obtenerCategorias();
+        model.addAttribute("categorias", categorias);
 
         model.addAttribute("hechos", hechos);
 
