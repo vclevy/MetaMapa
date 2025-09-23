@@ -46,7 +46,10 @@ public class Hecho {
     @Column(name = "url")
     private List<String> multimedia;
 
-    public Hecho(String titulo, String descripcion, LocalDateTime fechaDeAcontecimiento, Lugar lugar) {
+    @Column(name = "nombre_archivo", length = 255)
+    private String nombreArchivo;
+
+    public Hecho(String titulo, String descripcion, LocalDateTime fechaDeAcontecimiento, Lugar lugar, String nombreArchivo) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaDeAcontecimiento = fechaDeAcontecimiento;
@@ -54,5 +57,6 @@ public class Hecho {
         this.lugar = lugar;
         this.origen = OrigenDelHecho.DATASET;
         this.multimedia = new ArrayList<>();
+        this.nombreArchivo = nombreArchivo;
     }
 }

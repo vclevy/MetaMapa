@@ -6,6 +6,8 @@
     <title>MetaMapa · Nueva colección</title>
     <link rel="stylesheet" th:href="@{/css/adminNuevaColeccion.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+
 </head>
 <body>
 <!-- Header -->
@@ -13,30 +15,7 @@
 
 <div class="layout">
     <!-- Sidebar -->
-    <aside class="sidebar" aria-label="Menú lateral">
-        <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
-        <div class="sidebar__inner">
-            <nav class="menu">
-                <a class="menu__link"
-                   th:href="@{/admin/landing}">Resumen de actividad</a>
-
-                <a class="menu__link"
-                   th:href="@{/admin/colecciones}">Gestionar colecciones</a>
-
-                <a class="menu__link is-active"
-                   th:href="@{/admin/coleccion/nueva}">Crear colección</a>
-
-                <a class="menu__link"
-                   th:href="@{/admin/hechos}">Gestionar hechos</a>
-
-                <a class="menu__link"
-                   th:href="@{/admin/solicitudes}">Solicitudes de eliminación</a>
-
-                <a class="menu__link"
-                   th:href="@{/admin/importar}">Importar hechos</a>
-            </nav>
-        </div>
-    </aside>
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
 
     <!-- Contenido -->
     <main class="main" role="main">
@@ -56,6 +35,11 @@
         <!-- Contenedor centrado del formulario -->
         <div class="form-wrapper">
             <article class="card form-card-collection">
+
+                <!-- Mensajes de éxito o error -->
+                <div th:if="${mensajeExito}" class="alert alert-success" th:text="${mensajeExito}"></div>
+                <div th:if="${mensajeError}" class="alert alert-error" th:text="${mensajeError}"></div>
+
                 <form th:action="@{/admin/coleccion/crear}"
                       th:object="${coleccionCreateDTO}"
                       method="post">

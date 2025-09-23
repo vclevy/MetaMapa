@@ -13,12 +13,14 @@ public class HechoInputDTO {
     private String categoria;
     private Lugar lugar;
     private LocalDateTime fechaDelHecho;
+    private String nombreArchivo; // <-- nuevo campo
 
-    public HechoInputDTO(String titulo, String descripcion, String categoria, Lugar lugar, LocalDateTime fechaDelHecho) {
+    public HechoInputDTO(String titulo, String descripcion, String categoria, Lugar lugar, LocalDateTime fechaDelHecho, String nombreArchivo) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.lugar = lugar;
         this.fechaDelHecho = fechaDelHecho;
+        this.nombreArchivo = nombreArchivo;
     }
 }

@@ -13,5 +13,5 @@ public class ColeccionDTO {
     private String descripcion;
     private List<HechoDTO> hechosDeLaColeccion;
     private String algoritmoDeConsenso;
-    //private List<FuenteDeHechoOutputDTO> fuentesDeHechos;
+    private List<FuenteDeHechoDTO> fuentesDeHechos;
 }

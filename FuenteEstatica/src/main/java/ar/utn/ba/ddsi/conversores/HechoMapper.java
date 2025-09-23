@@ -14,15 +14,14 @@ public class HechoMapper {
                 dto.getTitulo(),
                 dto.getDescripcion(),
                 dto.getFechaDelHecho(),
-                dto.getLugar()
+                dto.getLugar(),
+                dto.getNombreArchivo()
         );
 
         Categoria categoria = new Categoria(dto.getCategoria());
         hecho.setCategoria(categoria);
         return hecho;
     }
-
-
 
     public HechoOutputDTO toOutputDTO(Hecho hecho) {
         return new HechoOutputDTO(
@@ -33,7 +32,8 @@ public class HechoMapper {
                 hecho.getFechaDeAcontecimiento(),
                 hecho.getFechaDeCarga(),
                 hecho.getLugar(),
-                hecho.getMultimedia()
+                hecho.getMultimedia(),
+                hecho.getNombreArchivo()
         );
     }
 }

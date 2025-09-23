@@ -10,6 +10,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EstaticaService {
@@ -41,5 +44,26 @@ public class EstaticaService {
                 .retrieve()
                 .bodyToMono(String.class); // acá podes mapear al tipo que devuelva el endpoint
     }
+
+    public Mono<String> importarArchivos(MultipartFile[] files) {
+        if(files == null || files.length == 0){
+            return Mono.error(new IllegalArgumentException("No se subieron archivos"));
+        }
+
+        List<Mono<String>> monos = Arrays.stream(files)
+                .map(file -> {
+                    try {
+                        return importarArchivo(file); // Mono<String>
+                    } catch (IOException e) {
+                        return Mono.<String>error(e); // forzar tipo a Mono<String>
+                    }
+                })
+                .collect(Collectors.toList());
+
+        return Mono.when(monos)
+                .then(Mono.just("Todos los archivos importados correctamente"));
+    }
+
+
 
 }

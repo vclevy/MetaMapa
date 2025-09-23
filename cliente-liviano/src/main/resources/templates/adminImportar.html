@@ -31,7 +31,7 @@
                 <p class="import-help">Cargar archivo con extensión <strong>.csv</strong></p>
 
                 <div class="dropzone" id="dropzone" tabindex="0" aria-label="Área para seleccionar o soltar un archivo .csv">
-                    <input type="file" id="csvFile" name="archivos" accept=".csv" required hidden>
+                    <input type="file" id="csvFile" name="archivos" accept=".csv" required hidden multiple>
                     <button class="file-trigger" type="button" aria-controls="csvFile">Examinar…</button>
                     <span class="file-hint">o arrastrá y soltá aquí</span>
                     <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
@@ -48,17 +48,16 @@
 <footer role="contentinfo">
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
-
 <script>
     (function(){
         const fileInput = document.getElementById('csvFile');
         const dropzone = document.getElementById('dropzone');
-        const fileName = document.getElementById('fileName');
+        const fileList = document.getElementById('fileName'); // para mostrar todos los nombres
         const trigger = document.querySelector('.file-trigger');
         const importBtn = document.getElementById('importBtn');
         const mensaje = document.getElementById('mensaje');
 
-        let archivoSeleccionado = null;
+        let archivosSeleccionados = [];
 
         function mostrarMensaje(texto, tipo){
             mensaje.textContent = texto;
@@ -66,26 +65,31 @@
             mensaje.style.display = 'block';
         }
 
-        function setFile(file){
-            if(!file) return;
-            if(!file.name.toLowerCase().endsWith('.csv')){
+        function setFiles(files){
+            if(!files || files.length === 0) return;
+
+            // validar todos los archivos
+            const csvFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.csv'));
+            if(csvFiles.length !== files.length){
                 mostrarMensaje('Solo se permiten archivos .csv', 'alert-error');
-                archivoSeleccionado = null;
+                archivosSeleccionados = [];
                 fileInput.value = '';
-                fileName.textContent = 'Ningún archivo seleccionado';
+                fileList.textContent = 'Ningún archivo seleccionado';
                 importBtn.disabled = true;
                 return;
             }
-            archivoSeleccionado = file;
-            fileName.textContent = file.name + ' · ' + Math.round(file.size/1024) + ' KB';
-            importBtn.disabled = false;
+
+            archivosSeleccionados = csvFiles;
+            fileList.textContent = archivosSeleccionados.map(f => f.name).join(' · ');
+            importBtn.disabled = archivosSeleccionados.length === 0;
             mensaje.style.display = 'none';
         }
 
+        // eventos para seleccionar archivos
         trigger.addEventListener('click', () => fileInput.click());
         dropzone.addEventListener('click', () => fileInput.click());
 
-        fileInput.addEventListener('change', e => setFile(e.target.files[0]));
+        fileInput.addEventListener('change', e => setFiles(e.target.files));
 
         ['dragenter','dragover'].forEach(ev => {
             dropzone.addEventListener(ev, e => {
@@ -102,18 +106,19 @@
         });
 
         dropzone.addEventListener('drop', e => {
-            const file = e.dataTransfer.files && e.dataTransfer.files[0];
-            setFile(file);
+            const files = e.dataTransfer.files;
+            setFiles(files);
         });
 
+        // subir archivos al backend
         importBtn.addEventListener('click', async () => {
-            if(!archivoSeleccionado){
-                mostrarMensaje('Seleccioná un archivo antes de importar', 'alert-error');
+            if(archivosSeleccionados.length === 0){
+                mostrarMensaje('Seleccioná al menos un archivo antes de importar', 'alert-error');
                 return;
             }
 
             const formData = new FormData();
-            formData.append('archivos', archivoSeleccionado); // coincide con @RequestParam del backend
+            archivosSeleccionados.forEach(f => formData.append('archivos', f)); // enviar todos los archivos
 
             try {
                 const res = await fetch('/admin/importar', {
@@ -124,22 +129,21 @@
                 const text = await res.text();
 
                 if(res.ok){
-                    mostrarMensaje('Archivo importado correctamente', 'alert-success');
-                    archivoSeleccionado = null;
+                    mostrarMensaje('Archivos importados correctamente', 'alert-success');
+                    archivosSeleccionados = [];
                     fileInput.value = '';
-                    fileName.textContent = 'Ningún archivo seleccionado';
+                    fileList.textContent = 'Ningún archivo seleccionado';
                     importBtn.disabled = true;
                 } else {
-                    mostrarMensaje('Error al importar archivo: ' + text, 'alert-error');
+                    mostrarMensaje('Error al importar archivos: ' + text, 'alert-error');
                 }
             } catch(err) {
-                mostrarMensaje('Error al importar archivo: ' + err, 'alert-error');
+                mostrarMensaje('Error al importar archivos: ' + err, 'alert-error');
             }
         });
 
     })();
 </script>
-
 
 </body>
 </html>

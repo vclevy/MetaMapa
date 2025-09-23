@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -36,7 +39,6 @@ public class AdminController {
         return "adminNuevaColeccion";
     }
 
-    // Crear colección
     @PostMapping("/coleccion/crear")
     public String crearColeccion(@ModelAttribute ColeccionCreateDTO request, Model model) {
         try {
@@ -47,11 +49,11 @@ public class AdminController {
             );
 
             model.addAttribute("mensajeExito", "Colección creada con éxito: " + creada.getTitulo());
-            model.addAttribute("coleccionCreateDTO", new ColeccionCreateDTO()); // reiniciar formulario
+            model.addAttribute("coleccionCreateDTO", new ColeccionCreateDTO());
 
         } catch (Exception e) {
             model.addAttribute("mensajeError", "Error al crear la colección: " + e.getMessage());
-            model.addAttribute("coleccionCreateDTO", request); // mantener datos ingresados
+            model.addAttribute("coleccionCreateDTO", request);
         }
 
         return "adminNuevaColeccion";
@@ -64,15 +66,37 @@ public class AdminController {
 
 
     @PostMapping("/importar")
-    public ResponseEntity<String> importarArchivo(@RequestParam("archivos") MultipartFile file) {
+    public ResponseEntity<String> importarArchivo(@RequestParam("archivos") MultipartFile[] files) {
         try {
-            String resultado = estatica.importarArchivo(file).block();
-            return ResponseEntity.ok("Archivo importado correctamente: " + resultado);
+            String resultado = estatica.importarArchivos(files).block();
+            return ResponseEntity.ok(resultado);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al importar archivo: " + e.getMessage());
+                    .body("Error al importar archivos: " + e.getMessage());
         }
     }
+
+    @GetMapping("/colecciones")
+    public String listarColecciones(Model model) {
+        // Obtener todas las colecciones
+        List<ColeccionDTO> colecciones = agregador.obtenerColecciones();
+
+        // Inicializar listas vacías para evitar nulls en Thymeleaf
+        if (colecciones != null) {
+            colecciones.forEach(c -> {
+                if (c.getHechosDeLaColeccion() == null) {
+                    c.setHechosDeLaColeccion(Collections.emptyList());
+                }
+            });
+        }
+
+        // Pasar la lista al modelo
+        model.addAttribute("colecciones", colecciones);
+
+        // Retornar el template Thymeleaf
+        return "adminColecciones"; // nombre del archivo HTML sin .html
+    }
+
 
 
 

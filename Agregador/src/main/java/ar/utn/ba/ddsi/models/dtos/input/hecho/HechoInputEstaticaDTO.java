@@ -20,4 +20,5 @@ public class HechoInputEstaticaDTO {
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private List<String> multimedia;
+    private String nombreArchivo;
 }

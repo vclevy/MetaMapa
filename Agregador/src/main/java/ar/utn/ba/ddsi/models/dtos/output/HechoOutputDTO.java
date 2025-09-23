@@ -21,4 +21,5 @@ public class HechoOutputDTO {
     private List<String> multimedia;
     private Usuario contribuyente;
     private String fuenteNombre;
+    private String nombreArchivo;
 }

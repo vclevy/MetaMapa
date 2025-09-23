@@ -54,6 +54,9 @@ public class Hecho {
     @JoinColumn(name = "usuario_contribuyente_id")
     private Usuario usuarioContribuyente;
 
+    @Column(name = "nombre_archivo", length = 255)
+    private String nombreArchivo;
+
     @ManyToMany
     @JoinTable(
             name = "hecho_etiquetas",

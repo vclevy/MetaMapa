@@ -20,8 +20,11 @@ public class HechoOutputDTO {
     private LocalDateTime fechaDeCarga;
     private Lugar lugar;
     private List<String> multimedia;
+    private String nombreArchivo;
 
-    public HechoOutputDTO(Long id, String titulo, String descripcion, Categoria categoria, LocalDateTime fechaDeAcontecimiento, LocalDateTime fechaDeCarga, Lugar lugar, List<String> multimedia) {
+    public HechoOutputDTO(Long id, String titulo, String descripcion, Categoria categoria,
+                          LocalDateTime fechaDeAcontecimiento, LocalDateTime fechaDeCarga,
+                          Lugar lugar, List<String> multimedia, String nombreArchivo) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -30,5 +33,6 @@ public class HechoOutputDTO {
         this.fechaDeCarga = fechaDeCarga;
         this.lugar = lugar;
         this.multimedia = multimedia;
+        this.nombreArchivo = nombreArchivo;
     }
 }

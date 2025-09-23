@@ -3,6 +3,8 @@ package ar.utn.ba.ddsi.models.entities.importador;
 import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import com.opencsv.exceptions.CsvValidationException;
+
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +23,8 @@ public class ImportadorCSV implements Importador {
 
         List<String[]> filas = lectorCSV.leerCSV(rutaArchivo);
         List<HechoInputDTO> hechos = new ArrayList<>();
+
+        String nombreArchivo = new File(rutaArchivo).getName();
 
         for (String[] campos : filas) {
             try {
@@ -45,7 +49,8 @@ public class ImportadorCSV implements Importador {
                         descripcion,
                         categoria,
                         new Lugar(latitud, longitud),
-                        fecha
+                        fecha,
+                        nombreArchivo
                 );
 
                 hechos.add(unHechoInput);
