@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MetaMapa · Solicitudes de eliminación</title>
-    <link rel="stylesheet" href="../static/css/adminLanding.css" />
+    <link rel="stylesheet" th:href="@{/css/adminLanding.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+
 
 </head>
 <body>
@@ -13,19 +15,7 @@
 
 <div class="layout">
     <!-- Sidebar -->
-    <aside class="sidebar" aria-label="Menú lateral">
-        <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
-        <div class="sidebar__inner">
-            <nav class="menu">
-                <a class="menu__link" href="adminLanding.html">Resumen de actividad</a>
-                <a class="menu__link" href="adminColecciones.html">Gestionar colecciones</a>
-                <a class="menu__link" href="adminHechos.html">Gestionar hechos</a>
-                <a class="menu__link is-active" href="adminSolicitudes.html">Solicitudes de eliminación</a>
-                <a class="menu__link" href="adminImportar.html">Importar hechos</a>
-            </nav>
-        </div>
-    </aside>
-
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
     <!-- Contenido -->
     <main class="main" role="main">
         <div class="page-header">

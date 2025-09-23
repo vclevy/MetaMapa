@@ -5,6 +5,8 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,16 +64,17 @@ public class AdminController {
 
 
     @PostMapping("/importar")
-    public String importarArchivo(@RequestParam("archivos") MultipartFile file,
-                                  RedirectAttributes redirect) {
+    public ResponseEntity<String> importarArchivo(@RequestParam("archivos") MultipartFile file) {
         try {
             String resultado = estatica.importarArchivo(file).block();
-            redirect.addFlashAttribute("success", "Archivo importado correctamente: " + resultado);
+            return ResponseEntity.ok("Archivo importado correctamente: " + resultado);
         } catch (Exception e) {
-            redirect.addFlashAttribute("error", "Error al importar archivo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al importar archivo: " + e.getMessage());
         }
-        return "redirect:/admin/importar";
     }
+
+
 
 
 }

@@ -6,6 +6,7 @@
     <title>MetaMapa · Importar hechos</title>
     <link rel="stylesheet" th:href="@{/css/adminImportar.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
 </head>
 <body>
 
@@ -14,19 +15,7 @@
 
 <div class="layout">
 
-    <!-- Sidebar -->
-    <aside class="sidebar" aria-label="Menú lateral">
-        <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
-        <div class="sidebar__inner">
-            <nav class="menu">
-                <a class="menu__link" th:href="@{/admin}">Resumen de actividad</a>
-                <a class="menu__link" th:href="@{/admin/colecciones}">Gestionar colecciones</a>
-                <a class="menu__link" th:href="@{/admin/hechos}">Gestionar hechos</a>
-                <a class="menu__link" th:href="@{/admin/solicitudes}">Solicitudes de eliminación</a>
-                <a class="menu__link is-active" th:href="@{/admin/importar}">Importar hechos</a>
-            </nav>
-        </div>
-    </aside>
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
 
     <!-- Contenido -->
     <main class="main" role="main">
@@ -42,7 +31,7 @@
                 <p class="import-help">Cargar archivo con extensión <strong>.csv</strong></p>
 
                 <div class="dropzone" id="dropzone" tabindex="0" aria-label="Área para seleccionar o soltar un archivo .csv">
-                    <input type="file" id="csvFile" accept=".csv" required>
+                    <input type="file" id="csvFile" name="archivos" accept=".csv" required hidden>
                     <button class="file-trigger" type="button" aria-controls="csvFile">Examinar…</button>
                     <span class="file-hint">o arrastrá y soltá aquí</span>
                     <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
@@ -81,6 +70,10 @@
             if(!file) return;
             if(!file.name.toLowerCase().endsWith('.csv')){
                 mostrarMensaje('Solo se permiten archivos .csv', 'alert-error');
+                archivoSeleccionado = null;
+                fileInput.value = '';
+                fileName.textContent = 'Ningún archivo seleccionado';
+                importBtn.disabled = true;
                 return;
             }
             archivoSeleccionado = file;
@@ -113,37 +106,40 @@
             setFile(file);
         });
 
-        importBtn.addEventListener('click', () => {
+        importBtn.addEventListener('click', async () => {
             if(!archivoSeleccionado){
                 mostrarMensaje('Seleccioná un archivo antes de importar', 'alert-error');
                 return;
             }
 
             const formData = new FormData();
-            formData.append('archivos', archivoSeleccionado);
+            formData.append('archivos', archivoSeleccionado); // coincide con @RequestParam del backend
 
-            fetch('/admin/importar', {
-                method: 'POST',
-                body: formData
-            })
-                .then(async res => {
-                    if(res.ok){
-                        const text = await res.text(); // Si tu backend devuelve algo, opcional
-                        mostrarMensaje('Archivo importado correctamente', 'alert-success');
-                        archivoSeleccionado = null;
-                        fileInput.value = '';
-                        fileName.textContent = 'Ningún archivo seleccionado';
-                        importBtn.disabled = true;
-                    } else {
-                        const err = await res.text();
-                        mostrarMensaje('Error al importar archivo: ' + err, 'alert-error');
-                    }
-                })
-                .catch(err => mostrarMensaje('Error al importar archivo: ' + err, 'alert-error'));
+            try {
+                const res = await fetch('/admin/importar', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const text = await res.text();
+
+                if(res.ok){
+                    mostrarMensaje('Archivo importado correctamente', 'alert-success');
+                    archivoSeleccionado = null;
+                    fileInput.value = '';
+                    fileName.textContent = 'Ningún archivo seleccionado';
+                    importBtn.disabled = true;
+                } else {
+                    mostrarMensaje('Error al importar archivo: ' + text, 'alert-error');
+                }
+            } catch(err) {
+                mostrarMensaje('Error al importar archivo: ' + err, 'alert-error');
+            }
         });
 
     })();
 </script>
+
 
 </body>
 </html>

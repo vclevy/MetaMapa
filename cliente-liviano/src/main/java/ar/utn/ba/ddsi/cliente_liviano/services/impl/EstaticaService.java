@@ -27,7 +27,7 @@ public class EstaticaService {
 
         // Construir body multipart
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
-        builder.part("archivo", new ByteArrayResource(file.getBytes()) {
+        builder.part("archivos", new ByteArrayResource(file.getBytes()) {
             @Override
             public String getFilename() {
                 return file.getOriginalFilename();
