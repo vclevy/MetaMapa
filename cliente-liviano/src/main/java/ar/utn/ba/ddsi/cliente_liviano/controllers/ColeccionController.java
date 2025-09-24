@@ -6,12 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/colecciones")
@@ -35,7 +35,6 @@ public class ColeccionController {
             });
         }
 
-        // Añadir al modelo
         model.addAttribute("colecciones", colecciones);
 
         // Paginación (opcional, para uso futuro)
@@ -43,7 +42,16 @@ public class ColeccionController {
         int totalPaginas = (int) Math.ceil((double) totalHechos / PAGE_SIZE);
         model.addAttribute("totalPaginas", totalPaginas);
 
-        return "listadocolecciones"; // nombre del template Thymeleaf
+        return "listadoColecciones"; // nombre del template Thymeleaf
+    }
+
+    @GetMapping("/{id}")
+    public String verDetalleColeccion(@PathVariable Long id, Model model) {
+        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
+
+        model.addAttribute("coleccion", coleccion);
+
+        return "detalleColeccion";
     }
 
 }

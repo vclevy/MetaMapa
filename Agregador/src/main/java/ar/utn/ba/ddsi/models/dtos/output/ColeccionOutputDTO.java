@@ -7,6 +7,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ColeccionOutputDTO {
+    private Long id;
     private String titulo;
     private String descripcion;
     private List<HechoOutputDTO> hechosDeLaColeccion;

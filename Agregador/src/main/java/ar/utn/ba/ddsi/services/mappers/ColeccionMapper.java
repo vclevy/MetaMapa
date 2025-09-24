@@ -19,6 +19,7 @@ public class ColeccionMapper {
 
     public ColeccionOutputDTO toDTO(Coleccion coleccion) {
         ColeccionOutputDTO dto = new ColeccionOutputDTO();
+        dto.setId(coleccion.getId());
         dto.setTitulo(coleccion.getTitulo());
         dto.setDescripcion(coleccion.getDescripcion());
         dto.setHandle(coleccion.getHandle());

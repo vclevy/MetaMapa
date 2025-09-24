@@ -57,6 +57,25 @@
     </div>
 </section>
 
+<!-- Colecciones destacadas -->
+<section class="destacados container">
+    <h2>Colecciones destacadas</h2>
+    <section class="colecciones-list">
+        <a class="coleccion-item"
+           th:each="coleccion : ${coleccionesDestacadas}"
+           th:href="@{'/colecciones/' + ${coleccion.id}}">
+            <div class="info">
+                <h3 th:text="${coleccion.titulo}">Título</h3>
+                <p th:text="${coleccion.descripcion}">Descripción</p>
+            </div>
+            <span class="badge"
+                  th:text="${#lists.size(coleccion.hechosDeLaColeccion)} + ' hechos'">
+                0 hechos
+            </span>
+        </a>
+    </section>
+</section>
+
 <footer>
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>

@@ -33,7 +33,7 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
             }
         }
 
-        unaColeccion.setHechosConAlgotimoAplicado(hechosConsensuados);
+        unaColeccion.setHechosConAlgoritmoAplicado(hechosConsensuados);
     }
 
     private boolean tieneSolicitudAprobada(Hecho hecho) {

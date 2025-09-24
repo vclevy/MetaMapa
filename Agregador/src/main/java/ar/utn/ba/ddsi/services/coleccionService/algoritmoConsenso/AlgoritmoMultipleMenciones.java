@@ -45,6 +45,6 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
             }
         }
 
-        unaColeccion.setHechosConAlgotimoAplicado(hechosConsensuados);
+        unaColeccion.setHechosConAlgoritmoAplicado(hechosConsensuados);
     }
 }

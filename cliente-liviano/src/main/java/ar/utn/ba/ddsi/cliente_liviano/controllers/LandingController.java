@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,9 @@ public class LandingController {
         // Lista de todos los hechos para el mapa
         List<HechoDTO> hechos = agregador.obtenerHechos();
         model.addAttribute("hechos", hechos);
+
+        List<ColeccionDTO> coleccionesDestacadas = agregador.obtenerColecciones(); // TODO Q SEAN DESTACADAS
+        model.addAttribute("coleccionesDestacadas", coleccionesDestacadas);
 
         return "index"; // Thymeleaf usará "destacados" y "hechos"
     }

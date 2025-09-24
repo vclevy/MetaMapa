@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.services.coleccionService;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.colecciones.ColeccionPatchDTO;
 import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteCreateDTO;
-import ar.utn.ba.ddsi.models.dtos.input.fuentesDeHechos.FuenteDeleteDTO;
 import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
 import ar.utn.ba.ddsi.models.dtos.output.ColeccionOutputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.FuenteDeHechoOutputDTO;
@@ -186,7 +185,7 @@ public class ColeccionService implements IColeccionService {
             throw new NoSuchElementException("No se encontró la colección con handle: " + id);
         }
         if(unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
-            return coleccion.get().getHechosConAlgotimoAplicado();
+            return coleccion.get().getHechosConAlgoritmoAplicado();
         }
         else {
             return coleccion.get().getHechos();

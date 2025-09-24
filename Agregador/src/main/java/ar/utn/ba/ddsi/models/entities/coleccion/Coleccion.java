@@ -45,7 +45,7 @@ public class Coleccion {
     private IAlgoritmo algoritmoDeConsenso;
 
     @Transient
-    private List<Hecho> hechosConAlgotimoAplicado;
+    private List<Hecho> hechosConAlgoritmoAplicado;
 
     public Coleccion (String titulo, String descripcion,IAlgoritmo algoritmoDeConsenso) {
         this.titulo = titulo;
