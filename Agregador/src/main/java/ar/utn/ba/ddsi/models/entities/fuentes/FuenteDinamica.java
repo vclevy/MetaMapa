@@ -32,7 +32,7 @@ public class FuenteDinamica implements IFuenteDeHechos {
                 .retrieve()
                 .bodyToFlux(HechoInputDinamicaDTO.class)
                 .collectList()
-                .block(); // Bloqueante para obtener la lista completa
+                .block();
 
         List<Hecho> hechos = new ArrayList<>();
         if (hechosDTO != null) {

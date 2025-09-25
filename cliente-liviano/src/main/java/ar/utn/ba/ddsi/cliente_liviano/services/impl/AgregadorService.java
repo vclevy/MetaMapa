@@ -101,7 +101,7 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
-    public List<Solicitud> obtenerSolicituds() {
-
-    }
+//    public List<Solicitud> obtenerSolicituds() {
+//
+//    }
 }

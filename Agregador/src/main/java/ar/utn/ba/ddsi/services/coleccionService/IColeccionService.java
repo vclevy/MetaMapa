@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface IColeccionService {
     boolean delete(Long id);
-    Coleccion findById(Long id);
     ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO);
     void refrescarColecciones();
     List<ColeccionOutputDTO> findAll();

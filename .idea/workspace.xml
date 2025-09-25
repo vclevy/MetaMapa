@@ -5,12 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/EstadisticasService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminColecciones.css" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminColecciones.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/FuenteDinamica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/FuenteDinamica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/subirHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/subirHecho.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

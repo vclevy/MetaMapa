@@ -67,15 +67,6 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public Coleccion findById(Long id) {
-        if (this.coleccionesRepository.existsById(id)) {
-            return this.coleccionesRepository.findById(id).get();
-        } else {
-            return null;
-        }
-    }
-
-    @Override
     public ColeccionOutputDTO crear(ColeccionInputDTO unaColeccionInputDTO) {
         IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccionInputDTO.getAlgoritmo());
         var coleccion = new Coleccion(
@@ -111,22 +102,33 @@ public class ColeccionService implements IColeccionService {
     @Override
     public void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente) {
         Fuente fuentePersistida;
+
         if (nuevaFuente.getId() == null) {
-            fuentePersistida = fuenteRepository.save(nuevaFuente); // la persiste si es nueva
+            fuentePersistida = fuenteRepository.save(nuevaFuente);
         } else {
             fuentePersistida = fuenteRepository.findById(nuevaFuente.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Fuente inexistente con id " + nuevaFuente.getId()));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Fuente inexistente con id " + nuevaFuente.getId()));
         }
 
-        List<Hecho> hechosDeColeccionDeUnaFuente = fuentePersistida.obtenerHechos();
-        for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
-            hechoIndice.setFuente(fuentePersistida);
+        fuentePersistida.setLugarService(lugarService);
+        fuentePersistida.inicializarFuenteDeHechos();
 
-            //if (unaColeccion.verificadorDeAgregadorDeHechos(hechoIndice)) { TODO!!! @alan @gonzi lo marco para acordarme
-            this.hechoService.registrarHechoDesdeFuente(hechoIndice);
-            unaColeccion.getHechos().add(hechoIndice);
+        List<Hecho> hechosDeFuente = fuentePersistida.obtenerHechos();
+        for (Hecho hecho : hechosDeFuente) {
+            hecho.setFuente(fuentePersistida);
+
+            // Verificador de agregador de hechos
+            // if (unaColeccion.verificadorDeAgregadorDeHechos(hecho)) {
+            //     unaColeccion.getHechos().add(hecho);
+            // }
+
+            this.hechoService.registrarHechoDesdeFuente(hecho);
+            unaColeccion.getHechos().add(hecho);
         }
     }
+
+
 
     @Override
     public ColeccionOutputDTO modificarAtributo(Long id, ColeccionPatchDTO patch) {
@@ -168,9 +170,22 @@ public class ColeccionService implements IColeccionService {
     public ColeccionOutputDTO agregarUnaFuenteDeUnaColeccion(Long id, FuenteCreateDTO fuenteDTO) {
         if (this.coleccionesRepository.existsById(id)) {
             Coleccion coleccion = this.coleccionesRepository.findById(id).get();
-            Fuente nuevaFuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), lugarService);
-            coleccion.getFuentesDeHechos().add(nuevaFuente);
-            this.refrescarColeccion(coleccion, nuevaFuente);
+
+            Optional<Fuente> fuenteExistente = coleccion.getFuentesDeHechos().stream()
+                    .filter(f -> f.getUrlBase().equalsIgnoreCase(fuenteDTO.getUrlBase())
+                            && f.getTipo().equals(fuenteDTO.getTipo()))
+                    .findFirst();
+
+            Fuente fuente;
+            if (fuenteExistente.isPresent()) {
+                // Si ya existe, usar la existente
+                fuente = fuenteExistente.get();
+            } else {
+                fuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), lugarService);
+                coleccion.getFuentesDeHechos().add(fuente);
+            }
+
+            this.refrescarColeccion(coleccion, fuente);
             coleccion.aplicarAlgoritmoDeConsenso();
             this.coleccionesRepository.save(coleccion);
             return this.coleccionMapper.toDTO(coleccion);

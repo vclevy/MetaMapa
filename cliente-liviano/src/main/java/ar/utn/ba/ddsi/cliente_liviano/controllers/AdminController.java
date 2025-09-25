@@ -1,10 +1,14 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
+import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
+import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +29,15 @@ public class AdminController {
     private AgregadorService agregador;
     @Autowired
     private EstaticaService estatica;
+    @Autowired
+    private EstadisticasService estadisticas;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    @GetMapping("/")
-    public String admin(Model model) {
-        // TODO Por ahora los datos del dashboard están HARDCODEADOS en la vista.
-        // Más adelante los agregamos dinámicamente con model.addAttribute(...)
-        return "adminLanding";
+    @GetMapping("/admin")
+    public String adminLanding(Model model) {
+        List<ResultadoEstadisticaDTO> resultados = estadisticas.obtenerTodas();
+        model.addAttribute("resultados", resultados); // <- clave "resultados"
+        return "adminLanding"; // nombre de la plantilla
     }
 
     // Mostrar formulario
@@ -98,10 +105,10 @@ public class AdminController {
         return "adminColecciones"; // nombre del archivo HTML sin .html
     }
 
-    @GetMapping("/solicitudes")
-    public String listarSolicitudes(Model model) {
-        List<Solicitud> = agregador.obtenerSolicitudes();
-    }
+//    @GetMapping("/solicitudes")
+//    public String listarSolicitudes(Model model) {
+//        List<Solicitud> = agregador.obtenerSolicitudes();
+//    }
 
 
 

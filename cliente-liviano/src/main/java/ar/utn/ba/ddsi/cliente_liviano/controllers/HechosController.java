@@ -22,7 +22,7 @@ public class HechosController {
     private final AgregadorService agregador;
     private final DinamicaService dinamica;
     private final ObjectMapper objectMapper;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 12;
 
     @Autowired
     public HechosController(AgregadorService agregador, DinamicaService dinamica,
@@ -33,22 +33,35 @@ public class HechosController {
     }
 
     @GetMapping
-    public String listar(@ModelAttribute("filtros") HechoFiltroDTO filtros, Model model) {
+    public String listar(@ModelAttribute("filtros") HechoFiltroDTO filtros,
+                         @RequestParam(value = "page", defaultValue = "1") int page,
+                         Model model) {
 
         List<HechoDTO> hechos = agregador.obtenerHechos(); // trae todos
-
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias);
-
-        model.addAttribute("hechos", hechos);
 
         // Paginación
         int totalHechos = hechos.size();
         int totalPaginas = (int) Math.ceil((double) totalHechos / PAGE_SIZE);
+
+        // Ajustar page si se pasa fuera de rango
+        if (page < 1) page = 1;
+        if (page > totalPaginas) page = totalPaginas;
+
+        int fromIndex = (page - 1) * PAGE_SIZE;
+        int toIndex = Math.min(fromIndex + PAGE_SIZE, totalHechos);
+        List<HechoDTO> hechosPaginados = hechos.subList(fromIndex, toIndex);
+
+        model.addAttribute("hechos", hechosPaginados);
+        model.addAttribute("paginaActual", page);
+        model.addAttribute("paginaAnterior", page > 1 ? page - 1 : 1);
+        model.addAttribute("paginaSiguiente", page < totalPaginas ? page + 1 : totalPaginas);
         model.addAttribute("totalPaginas", totalPaginas);
 
         return "listadoHechos";
     }
+
 
     @PostMapping("/filtrar")
     @ResponseBody
