@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.CategoriaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -98,5 +99,9 @@ public class AgregadorService implements IAgregadorService {
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
                 .block();
+    }
+
+    public List<Solicitud> obtenerSolicituds() {
+
     }
 }

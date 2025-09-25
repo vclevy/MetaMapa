@@ -117,4 +117,8 @@ public class SolicitudesService implements ISolicitudesService {
             }
         }
     }
+
+    public  List<Solicitud> obtenerSolicitudes(){
+        return solicitudesRepository.findAll();
+    }
 }

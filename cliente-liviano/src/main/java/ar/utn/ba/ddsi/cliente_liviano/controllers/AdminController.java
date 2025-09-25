@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,11 @@ public class AdminController {
 
         // Retornar el template Thymeleaf
         return "adminColecciones"; // nombre del archivo HTML sin .html
+    }
+
+    @GetMapping("/solicitudes")
+    public String listarSolicitudes(Model model) {
+        List<Solicitud> = agregador.obtenerSolicitudes();
     }
 
 
