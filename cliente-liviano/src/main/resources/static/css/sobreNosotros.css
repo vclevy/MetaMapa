@@ -45,6 +45,37 @@
     margin-bottom: 10px;
 }
 
+/* Sección Legal y Privacidad */
+.about-section.legal {
+    background: #133863; /* gris muy oscuro tirando a negro */
+    color: #dcdcdc;      /* texto claro para contraste */
+    padding: 40px 20px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 900px;
+    margin: 60px auto;
+    border-radius: 10px;
+}
+
+.about-section.legal h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #f1faee; /* un blanco ligeramente diferente al footer */
+    text-align: center;
+}
+
+.about-section.legal a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.about-section.legal a:hover {
+    color: #66b0ff;
+    text-decoration: underline;
+}
+
 footer {
     background: #133863;
     color: #f1faee;
@@ -54,3 +85,4 @@ footer {
     font-size: 0.9rem;
     letter-spacing: 1px;
 }
+
