@@ -90,6 +90,12 @@ body {
     padding-left: 1rem;
 }
 
+.destacados.container {
+    max-height: 400px; /* Ajusta este valor a lo que necesites */
+    overflow-y: auto;  /* Agrega scroll vertical si el contenido excede la altura */
+    height: 260px;
+}
+
 /* Cards */
 .cards {
     display: flex;
@@ -125,6 +131,7 @@ body {
 
 .card-body {
     padding: 1rem;
+    text-align: left;
 }
 
 .card-body h3 {
@@ -224,22 +231,22 @@ body {
 
 /* Texto dentro del ítem */
 .coleccion-item .info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem; /* antes 0.25rem */
+    text-align: left; /* Alinea todo el contenido a la izquierda */
+    padding: 0;       /* Elimina cualquier padding extra */
 }
 
 .coleccion-item h3 {
     margin: 0;
-    color: #133863; /* var(--azul-osc) */
+    color: #133863;
     font-size: 1rem;
 }
 
 .coleccion-item p {
     margin: 0;
     color: #6b7c93;
-    font-size: .9rem;
+    font-size: 0.9rem;
 }
+
 
 /* Badge con cantidad de hechos */
 .badge {
