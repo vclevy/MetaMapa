@@ -79,6 +79,28 @@ header {
     box-shadow: 0 6px 12px rgba(13, 110, 253, 0.6) !important;
 }
 
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    border-radius: 35%;
+    background-color: #ffffff; /* azul */
+    color: #2B7BD6;
+    font-weight: bold;
+    text-decoration: none;
+    border-color: #2B7BD6;
+    border-width: 2px;
+}
+
+.btn-icon:hover {
+    background-color: #2B7BD6;
+    border-color: #2B7BD6;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .header-container {

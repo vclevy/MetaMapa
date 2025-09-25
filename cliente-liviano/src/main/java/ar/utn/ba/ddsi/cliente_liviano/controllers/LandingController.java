@@ -42,4 +42,9 @@ public class LandingController {
         // Más adelante los agregamos dinámicamente con model.addAttribute(...)
         return "adminLanding";
     }
+
+    @GetMapping("/sobre-nosotros")
+    public String sobreNosotros() {
+        return "sobreNosotros";
+    }
 }
