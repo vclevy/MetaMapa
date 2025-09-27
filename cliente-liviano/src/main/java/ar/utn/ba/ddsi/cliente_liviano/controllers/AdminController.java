@@ -122,22 +122,25 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/coleccion/editar/{id}")
     public String editarColeccion(@PathVariable Long id, Model model) {
-        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
-        if (coleccion == null) {
-            // redirigir si no existe
-            return "redirect:/admin/colecciones";
-        }
+        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id); // tu servicio
         model.addAttribute("coleccion", coleccion);
-        return "formColeccion"; // mismo template que el de crear
+        return "adminNuevaColeccion"; // Thymeleaf template editarColeccion.html
     }
 
-//    @PostMapping("/guardar")
-//    public String guardarColeccion(@ModelAttribute ColeccionDTO coleccion) {
-//        agregador.saveOrUpdate(coleccion);
-//        return "redirect:/admin/colecciones";
-//    }
+    @PostMapping("/guardar")
+    public String guardarColeccion(@ModelAttribute ColeccionDTO coleccionModificada) {
+        ColeccionDTO coleccionOriginal = agregador.obtenerColeccionPorId(coleccionModificada.getId());
+
+        if (coleccionOriginal != null) {
+            agregador.saveOrUpdate(coleccionOriginal, coleccionModificada);
+        } else {
+            agregador.saveOrUpdate(coleccionOriginal,coleccionModificada); // nueva colección
+        }
+
+        return "redirect:/colecciones";
+    }
 
 
 

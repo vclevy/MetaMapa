@@ -120,14 +120,51 @@ public class AgregadorService implements IAgregadorService {
         return response != null && response.getStatusCode().is2xxSuccessful();
     }
 
-    public void saveOrUpdate(ColeccionDTO coleccion) { //TODO
-        if (coleccion.getId() != null) {
-            // actualizar la colección existente
-        } else {
-            // crear una nueva
+    public boolean saveOrUpdate(ColeccionDTO coleccionOriginal, ColeccionDTO coleccionModificada) {
+        boolean exito = true;
+
+        // Comparar título
+        if (!Objects.equals(coleccionOriginal.getTitulo(), coleccionModificada.getTitulo())) {
+            exito &= actualizarAtributo(coleccionOriginal.getId(), "titulo", coleccionModificada.getTitulo(), null);
         }
+
+        // Comparar descripción
+        if (!Objects.equals(coleccionOriginal.getDescripcion(), coleccionModificada.getDescripcion())) {
+            exito &= actualizarAtributo(coleccionOriginal.getId(), "descripcion", coleccionModificada.getDescripcion(), null);
+        }
+
+        // Comparar algoritmo de consenso
+        if (!Objects.equals(coleccionOriginal.getAlgoritmoDeConsenso(), coleccionModificada.getAlgoritmoDeConsenso())) {
+            exito &= actualizarAtributo(coleccionOriginal.getId(), "algoritmo", null, coleccionModificada.getAlgoritmoDeConsenso());
+        }
+
+        return exito;
     }
 
+    private boolean actualizarAtributo(Long id, String campo, String nuevoValor, String nuevoAlgoritmo) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("campo", campo);
+        if ("algoritmo".equals(campo)) {
+            body.put("nuevoAlgoritmoDeConsenso", nuevoAlgoritmo);
+        } else {
+            body.put("nuevoValor", nuevoValor);
+        }
 
-
+        try {
+            webClient.patch()
+                    .uri("/{id}/atributo", id)
+                    .bodyValue(body)
+                    .retrieve()
+                    .toBodilessEntity()
+                    .block();
+            return true;
+        } catch (WebClientResponseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+
+
+
+
