@@ -120,6 +120,14 @@ public class AgregadorService implements IAgregadorService {
         return response != null && response.getStatusCode().is2xxSuccessful();
     }
 
+    public void saveOrUpdate(ColeccionDTO coleccion) { //TODO
+        if (coleccion.getId() != null) {
+            // actualizar la colección existente
+        } else {
+            // crear una nueva
+        }
+    }
+
 
 
 }

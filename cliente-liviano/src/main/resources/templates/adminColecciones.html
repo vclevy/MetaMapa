@@ -55,7 +55,7 @@
                 <div class="collection__consenso">
                     <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
                     <div class="select">
-                        <select th:id="'consenso-' + ${coleccion.id}" name="consenso" th:value="${coleccion.algoritmoDeConsenso}">
+                        <select th:id="'consenso-' + ${coleccion.id}" th:field="*{algoritmoDeConsenso}">
                             <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
                             <option value="DOS_TERCIOS" th:selected="${coleccion.algoritmoDeConsenso == 'DOS_TERCIOS'}">Umbral 2/3</option>
                             <option value="UNANIMIDAD" th:selected="${coleccion.algoritmoDeConsenso == 'UNANIMIDAD'}">Unanimidad</option>
@@ -65,11 +65,14 @@
                 </div>
 
                 <div class="collection__actions">
+                    <!-- Botón editar -->
                     <a class="iconbtn" th:href="@{'/admin/coleccion/editar/' + ${coleccion.id}}" aria-label="Editar" data-tooltip="Editar">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/>
                         </svg>
                     </a>
+
+                    <!-- Botón borrar -->
                     <button class="iconbtn iconbtn--danger" type="button" aria-label="Borrar" data-tooltip="Borrar"
                             th:onclick="'confirmarBorrado(' + ${coleccion.id} + ');'">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
@@ -87,7 +90,6 @@
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
-<!-- Toggle sidebar en mobile + confirmación de borrado -->
 <script>
     (function(){
         const btn = document.querySelector('.sidebar__toggle');
@@ -99,6 +101,7 @@
         });
     })();
 
+    // Confirmación borrado
     function confirmarBorrado(id) {
         if (confirm("¿Confirmas que querés borrar la colección?")) {
             fetch('/colecciones/borrar?id=' + id, { method: 'DELETE' })
@@ -112,7 +115,6 @@
                 .catch(() => alert("Error al comunicarse con el servidor"));
         }
     }
-
 </script>
 </body>
 </html>

@@ -122,6 +122,23 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/editar/{id}")
+    public String editarColeccion(@PathVariable Long id, Model model) {
+        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
+        if (coleccion == null) {
+            // redirigir si no existe
+            return "redirect:/admin/colecciones";
+        }
+        model.addAttribute("coleccion", coleccion);
+        return "formColeccion"; // mismo template que el de crear
+    }
+
+//    @PostMapping("/guardar")
+//    public String guardarColeccion(@ModelAttribute ColeccionDTO coleccion) {
+//        agregador.saveOrUpdate(coleccion);
+//        return "redirect:/admin/colecciones";
+//    }
+
 
 
 
