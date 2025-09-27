@@ -71,7 +71,7 @@
                         </svg>
                     </a>
                     <button class="iconbtn iconbtn--danger" type="button" aria-label="Borrar" data-tooltip="Borrar"
-                            th:onclick="'location.href=\'/admin/coleccion/borrar/' + ${coleccion.id} + '\';'">
+                            th:onclick="'confirmarBorrado(' + ${coleccion.id} + ');'">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/>
                         </svg>
@@ -87,7 +87,7 @@
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
-<!-- Toggle sidebar en mobile -->
+<!-- Toggle sidebar en mobile + confirmación de borrado -->
 <script>
     (function(){
         const btn = document.querySelector('.sidebar__toggle');
@@ -98,6 +98,21 @@
             btn.setAttribute('aria-expanded', String(open));
         });
     })();
+
+    function confirmarBorrado(id) {
+        if (confirm("¿Confirmas que querés borrar la colección?")) {
+            fetch('/colecciones/borrar?id=' + id, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert("Error al borrar la colección");
+                    }
+                })
+                .catch(() => alert("Error al comunicarse con el servidor"));
+        }
+    }
+
 </script>
 </body>
 </html>

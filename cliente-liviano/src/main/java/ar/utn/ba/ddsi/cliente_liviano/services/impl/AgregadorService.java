@@ -6,8 +6,10 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -104,4 +106,20 @@ public class AgregadorService implements IAgregadorService {
 //    public List<Solicitud> obtenerSolicituds() {
 //
 //    }
+
+    public boolean eliminarColeccion(Long id) {
+        ResponseEntity<String> response = webClient.delete()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/api/coleccion")
+                        .queryParam("id", id)
+                        .build())
+                .retrieve()
+                .toEntity(String.class)
+                .block();
+
+        return response != null && response.getStatusCode().is2xxSuccessful();
+    }
+
+
+
 }

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -109,6 +110,20 @@ public class AdminController {
 //    public String listarSolicitudes(Model model) {
 //        List<Solicitud> = agregador.obtenerSolicitudes();
 //    }
+    @DeleteMapping("/colecciones/borrar")
+    @ResponseBody  // importante para que devuelva algo que el fetch pueda interpretar
+    public ResponseEntity<String> borrarColeccion(@RequestParam Long id) {
+        boolean eliminado = agregador.eliminarColeccion(id); // llama al backend real
+        if (eliminado) {
+            return ResponseEntity.ok("Colección eliminada correctamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontró la colección con id: " + id);
+        }
+    }
+
+
+
 
 
 
