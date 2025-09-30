@@ -39,6 +39,7 @@
         <module>FuenteProxy</module>
         <module>ServicioEstadisticas</module>
         <module>cliente-liviano</module>
+        <module>AuthService</module>
     </modules>
     <build>
         <plugins>
