@@ -8,5 +8,5 @@ public class RegistroDTO {
     private String apellido;
     private String nombreDeUsuario;
     private String email;
-    private String contrasenia;
+    private String clave;
 }

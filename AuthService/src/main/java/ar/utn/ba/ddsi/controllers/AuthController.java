@@ -38,7 +38,7 @@ public class AuthController {
         usuario.setApellido(registro.getApellido());
         usuario.setNombreDeUsuario(registro.getNombreDeUsuario());
         usuario.setEmail(registro.getEmail());
-        usuario.setContrasenia(passwordEncoder.encode(registro.getContrasenia()));
+        usuario.setContrasenia(passwordEncoder.encode(registro.getClave()));
         usuario.setRol(Rol.CONTRIBUYENTE);
 
         usuarioRepository.save(usuario);

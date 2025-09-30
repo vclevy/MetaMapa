@@ -10,17 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http, CustomAuthProvider provider) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(provider)
-                .build();
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,16 +20,36 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authManager(
+            HttpSecurity http,
+            CustomAuthProvider customAuthProvider
+    ) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .authenticationProvider(customAuthProvider)
+                .build();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers(
+                                "/login",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/api/auth/register",
+                                "/api/auth/login"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/sesion/login")          // página de login
+                        .loginProcessingUrl("/sesion/login") // endpoint del POST del form
+                        .usernameParameter("usuario")        // nombre del input
+                        .passwordParameter("clave")          // nombre del input
                         .permitAll()
-                        .defaultSuccessUrl("/home", true) // cambiá a tu página inicial
+                        .defaultSuccessUrl("/", true)        // 👈 redirige a /
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -51,8 +63,10 @@ public class SecurityConfig {
                         .accessDeniedHandler((request, response, accessDeniedException) ->
                                 response.sendRedirect("/403")
                         )
-                );
+                )
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
 }
+

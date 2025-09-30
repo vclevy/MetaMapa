@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../static/css/sesion.css">
-    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+  <link rel="stylesheet" th:href="@{/css/sesion.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
 
     <title>MetaMapa - Iniciar Sesión</title>
 </head>
@@ -15,7 +15,7 @@
 <main class="main-content">
   <section class="intro">
     <h2>Iniciar sesión</h2>
-    <p>Accedé a tu cuenta. Si todavía no tenés una, debés  <a href="registro.html">registrarte</a>.</p>
+    <p>Accedé a tu cuenta. Si todavía no tenés una, debés  <a th:href="@{/sesion/registro}">registrarte</a>.</p>
   </section>
 
   <section class="form-section">
