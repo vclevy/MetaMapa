@@ -5,25 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AuthService/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/AuthServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/config/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Permiso.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Rol.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/repositories/UsuarioRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/providers/CustomAuthProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AuthService/src/test/java/ar/utn/ba/ddsi/AuthService/AuthServiceApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/controllers/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/dtos/RegistroDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/services/CustomerUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/services/JwtService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/SesionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/RegistroForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/registro.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/registro.html" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -74,7 +66,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
         &quot;customColor&quot;: &quot;&quot;,
@@ -166,7 +158,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthServiceApplication">
+  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
