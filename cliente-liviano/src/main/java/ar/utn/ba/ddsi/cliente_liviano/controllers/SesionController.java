@@ -1,14 +1,15 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.RegistroForm;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AuthService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -26,25 +27,51 @@ public class SesionController {
     @GetMapping("/registro")
     public String mostrarRegistro(Model model) {
         model.addAttribute("registroForm", new RegistroForm());
-        return "registro"; // Thymeleaf: registro.html
+        return "registro";
     }
 
     @GetMapping("/login")
-    public String mostrarLogin() {
+    public String mostrarLogin(Model model) {
+        model.addAttribute("loginDTO", new LoginDTO());
         return "inicioSesion";
     }
+
+
+    @PostMapping("/login")
+    public String loginUsuario(@ModelAttribute LoginDTO loginDTO, HttpSession session, Model model) {
+        String token = authService.login(loginDTO.getNombreDeUsuario(), loginDTO.getClave());
+
+        if (token != null) {
+            session.setAttribute("username", loginDTO.getNombreDeUsuario());
+            session.setAttribute("token", token);
+            return "redirect:/";
+        } else {
+            model.addAttribute("error", "Usuario o clave incorrectos");
+            return "inicioSesion";
+        }
+    }
+
+
+
+
 
     @PostMapping("/registrar")
     public String registrarUsuario(@ModelAttribute RegistroForm registroForm, Model model) {
         try {
             Map<String, Object> response = authService.registrar(registroForm);
-            // Podés mostrar un mensaje de éxito
             model.addAttribute("mensajeExito", "Usuario registrado con éxito. Por favor inicia sesión.");
-            return "inicioSesion"; // redirige a login
+            return "inicioSesion";
         } catch (Exception e) {
             model.addAttribute("error", "No se pudo registrar: " + e.getMessage());
-            return "registro"; // vuelve al formulario
+            return "registro";
         }
     }
+
+    @PostMapping("/logout")
+    public String logoutUsuario(HttpSession session) {
+        session.invalidate(); // cierra la sesión
+        return "redirect:/";  // redirige a la página principal
+    }
+
 
 }

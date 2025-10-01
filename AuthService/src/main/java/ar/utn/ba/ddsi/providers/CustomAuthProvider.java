@@ -51,11 +51,6 @@ public class CustomAuthProvider implements AuthenticationProvider {
         // Rol
         authorities.add(new SimpleGrantedAuthority("ROLE_" + usuario.getRol().name()));
 
-        // Permisos
-        usuario.getPermisos().forEach(permiso ->
-                authorities.add(new SimpleGrantedAuthority(permiso.name()))
-        );
-
         return new UsernamePasswordAuthenticationToken(username, rawPassword, authorities);
     }
 

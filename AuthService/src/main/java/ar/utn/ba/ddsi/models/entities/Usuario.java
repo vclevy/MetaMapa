@@ -30,17 +30,4 @@ public class Usuario {
     @Column(nullable = false)
     private Rol rol;
 
-    // Permisos múltiples
-    @ElementCollection(targetClass = Permiso.class, fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "usuario_permisos",
-            joinColumns = @JoinColumn(name = "usuario_id")
-    )
-    @Enumerated(EnumType.STRING)
-    @Column(name = "permiso")
-    private List<Permiso> permisos = new ArrayList<>();
-
-    public void agregarPermiso(Permiso p) {
-        this.permisos.add(p);
-    }
 }

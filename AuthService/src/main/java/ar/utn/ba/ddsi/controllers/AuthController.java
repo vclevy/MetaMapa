@@ -1,11 +1,15 @@
 package ar.utn.ba.ddsi.controllers;
 
+import ar.utn.ba.ddsi.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.models.dtos.RegistroDTO;
+import ar.utn.ba.ddsi.models.entities.LoginResponse;
 import ar.utn.ba.ddsi.models.entities.Rol;
 import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.repositories.UsuarioRepository;
 import ar.utn.ba.ddsi.services.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -46,5 +53,34 @@ public class AuthController {
         String token = jwtService.generateToken(usuario);
         return ResponseEntity.ok(Map.of("token", token));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO request) {
+        // 1. Buscar usuario por username
+        Optional<Usuario> userOpt = usuarioRepository.findByNombreDeUsuario(request.getNombreDeUsuario());
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
+        }
+
+        Usuario usuario = userOpt.get();
+
+        // 2. Verificar contraseña
+        if (!passwordEncoder.matches(request.getClave(), usuario.getContrasenia())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
+        }
+
+        // 3. Generar token JWT
+        String token = jwtService.generateToken(usuario);
+
+        // 4. Devolver token
+        return ResponseEntity.ok(new LoginResponse(token));
+    }
+
+    // Método simple de ejemplo para generar token
+    private String generarToken(String username) {
+        // Aquí iría JWT real o algún token dummy por ahora
+        return Base64.getEncoder().encodeToString((username + ":token").getBytes());
+    }
+
 }
 

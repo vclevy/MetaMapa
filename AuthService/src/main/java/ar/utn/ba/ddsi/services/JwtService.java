@@ -17,7 +17,6 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(usuario.getNombreDeUsuario())
                 .claim("rol", usuario.getRol().name())
-                .claim("permisos", usuario.getPermisos().stream().map(Enum::name).toList())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
