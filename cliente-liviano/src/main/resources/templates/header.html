@@ -3,19 +3,19 @@
         <a class="logo" th:href="@{/}">
             <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
         </a>
+
         <nav class="nav-links">
+            <!-- Si está autenticado -->
+            <span th:if="${session.username != null}">
+                Hola, <b th:text="${session.username}">Usuario</b>!
+                <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
+            </span>
 
             <!-- Si NO está autenticado -->
-            <div th:if="${#httpServletRequest.getSession(false)?.getAttribute('username') == null}">
+            <span th:if="${session.username == null}">
                 <a class="btn btn-primary" th:href="@{/sesion/login}">Iniciar sesión</a>
                 <a class="btn btn-primary" th:href="@{/sesion/registro}">Registrarse</a>
-            </div>
-
-            <!-- Si está autenticado -->
-            <div th:if="${#httpServletRequest.getSession(false)?.getAttribute('username') != null}">
-                <span>Hola, <span th:text="${#httpServletRequest.getSession(false).getAttribute('username')}">Usuario</span>!</span>
-                <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
-            </div>
+            </span>
 
             <!-- Siempre visible -->
             <a class="btn btn-icon" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>

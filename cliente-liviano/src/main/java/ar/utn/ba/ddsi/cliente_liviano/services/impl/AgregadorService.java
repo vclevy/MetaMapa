@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.CategoriaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.TokenProvider;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +21,24 @@ import java.util.stream.Collectors;
 @Service
 public class AgregadorService implements IAgregadorService {
 
-    private final WebClient webClient;
+    private final WebClient webClientPublico;
+    private final WebClient webClientConToken;
+    private final TokenProvider tokenProvider;
 
-    public AgregadorService() {
-        this.webClient = WebClient.builder()
+    public AgregadorService(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+        this.webClientPublico = WebClient.builder()
                 .baseUrl("http://localhost:8080")
+                .build();
+        this.webClientConToken = WebClient.builder()
+                .baseUrl("http://localhost:8080")
+                .defaultHeader("Authorization", "Bearer " + tokenProvider.getToken())
                 .build();
     }
 
+
     public List<HechoDTO> obtenerHechos() {
-        return webClient.get()
+        return webClientPublico.get()
                 .uri("/api/hecho")
                 .retrieve()
                 .bodyToFlux(HechoDTO.class)
@@ -37,8 +46,9 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
+
     public List <HechoDTO> obtenerHechosDestacados(){ //TODO mejorar la logica esta
-        List<HechoDTO> hechos = webClient.get()
+        List<HechoDTO> hechos = webClientPublico.get()
                 .uri("/api/hecho")
                 .retrieve()
                 .bodyToFlux(HechoDTO.class)
@@ -49,7 +59,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List<ColeccionDTO> obtenerColecciones(){
-        return webClient.get()
+        return webClientPublico.get()
             .uri("/api/coleccion")
             .retrieve()
             .bodyToFlux(ColeccionDTO.class)
@@ -62,7 +72,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public ColeccionDTO obtenerColeccionPorId(Long id) {
-        return webClient.get()
+        return webClientPublico.get()
                 .uri("/api/coleccion/{id}", id)
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
@@ -70,7 +80,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List<HechoDTO> filtrarHechos(HechoFiltroDTO filtros) {
-        return webClient.post()
+        return webClientPublico.post()
                 .uri("/api/hecho/filtrar")
                 .bodyValue(filtros)
                 .retrieve()
@@ -80,7 +90,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List<CategoriaDTO> obtenerCategorias() {
-        return webClient.get()
+        return webClientPublico.get()
                 .uri("/api/categorias")
                 .retrieve()
                 .bodyToFlux(CategoriaDTO.class)
@@ -95,7 +105,7 @@ public class AgregadorService implements IAgregadorService {
         body.put("descripcion", descripcion);
         body.put("algoritmo", algoritmo);
 
-        return webClient.post()
+        return webClientConToken.post()
                 .uri("/api/coleccion")
                 .bodyValue(body)   // Jackson lo convierte a JSON
                 .retrieve()
@@ -108,7 +118,7 @@ public class AgregadorService implements IAgregadorService {
 //    }
 
     public boolean eliminarColeccion(Long id) {
-        ResponseEntity<String> response = webClient.delete()
+        ResponseEntity<String> response = webClientConToken.delete()
                 .uri(uriBuilder -> uriBuilder
                         .path("/api/coleccion")
                         .queryParam("id", id)
@@ -151,7 +161,7 @@ public class AgregadorService implements IAgregadorService {
         }
 
         try {
-            webClient.patch()
+            webClientConToken.patch()
                     .uri("/{id}/atributo", id)
                     .bodyValue(body)
                     .retrieve()

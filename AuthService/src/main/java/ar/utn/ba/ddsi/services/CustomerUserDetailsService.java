@@ -17,9 +17,9 @@ public class CustomerUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + email));
+    public UserDetails loadUserByUsername(String nombreDeUsuario) throws UsernameNotFoundException {
+        var usuario = usuarioRepository.findByNombreDeUsuario(nombreDeUsuario)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + nombreDeUsuario));
 
         return User.builder()
                 .username(usuario.getNombreDeUsuario())
@@ -27,6 +27,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
                 .roles(usuario.getRol().name())
                 .build();
     }
+
 
 }
 

@@ -141,12 +141,4 @@ public class AdminController {
 
         return "redirect:/colecciones";
     }
-
-
-
-
-
-
-
-
 }

@@ -39,9 +39,10 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/images/**",
                                 "/api/auth/register",
-                                "/api/auth/login"
+                                "/api/auth/login",
+                                "/"
                         ).permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/admin/**").authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/sesion/login")          // página de login
