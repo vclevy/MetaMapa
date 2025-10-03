@@ -35,9 +35,10 @@
             <!-- Iteración de colecciones -->
             <article class="collection card" th:each="coleccion : ${colecciones}">
                 <div class="collection__main">
-                    <a th:href="@{'/coleccion/' + ${coleccion.id}}" class="collection__link">
+                    <a th:href="@{'/colecciones/' + ${coleccion.id}}" class="collection__link">
                         <div class="collection__name" th:text="${coleccion.titulo}">Nombre de la colección</div>
                     </a>
+
                     <div class="collection__desc" th:text="${coleccion.descripcion}">Descripción</div>
                 </div>
 

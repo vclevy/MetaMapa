@@ -19,14 +19,16 @@
 .layout {
     display: flex;
     gap: 1.5rem;
-    padding: 1.5rem;
 }
 
 /* Main content */
 .main {
-    flex: 1;
-    min-width: 0; /* para que los hijos respeten overflow */
+    flex: 1;                /* sigue ocupando espacio flexible */
+    max-width: 1600px;      /* límite de ancho (ajustalo a gusto) */
+    margin-right: 2rem;     /* aire a la derecha */
+    margin-top: 2rem;       /* que empiece más abajo */
 }
+
 /* ====== Sidebar ajustes ====== */
 .sidebar a {
     display: block;          /* para que el fondo azul ocupe todo el ancho */
@@ -217,4 +219,8 @@ footer {
     color: #888;
     font-size: 0.85rem;
     margin-top: 2rem;
+}
+
+body {
+    background-color: #f6f8fb;
 }
