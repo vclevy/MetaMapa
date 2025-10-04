@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.cliente_liviano.controllers;
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
@@ -37,11 +38,10 @@ public class AdminController {
     @GetMapping("/admin")
     public String adminLanding(Model model) {
         List<ResultadoEstadisticaDTO> resultados = estadisticas.obtenerTodas();
-        model.addAttribute("resultados", resultados); // <- clave "resultados"
+        model.addAttribute("resultados", resultados);
         return "adminLanding"; // nombre de la plantilla
     }
 
-    // Mostrar formulario
     @GetMapping("/coleccion/nueva")
     public String mostrarFormulario(Model model) {
         model.addAttribute("coleccionCreateDTO", new ColeccionCreateDTO());
@@ -142,11 +142,29 @@ public class AdminController {
         return "redirect:/colecciones";
     }
 
+    @PostMapping("/coleccion/{id}/fuente/agregar")
+    public String agregarFuente(@PathVariable Long id,
+                                @ModelAttribute FuenteCreateDTO fuenteDTO,
+                                RedirectAttributes redirectAttrs) {
+        try {
+            agregador.agregarFuentes(id, fuenteDTO);
+            redirectAttrs.addFlashAttribute("mensajeExito", "Fuente agregada correctamente");
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("mensajeError", "Error al agregar fuente: " + e.getMessage());
+        }
+        return "redirect:/admin/colecciones";
+    }
 
-
-
-
-
-
-
+    @PostMapping("/coleccion/{id}/fuente/eliminar")
+    public String eliminarFuente(@PathVariable Long id,
+                                 @RequestParam Long idFuente,
+                                 RedirectAttributes redirectAttrs) {
+        try {
+            agregador.eliminarFuentes(id, idFuente);
+            redirectAttrs.addFlashAttribute("mensajeExito", "Fuente eliminada correctamente");
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("mensajeError", "Error al eliminar fuente: " + e.getMessage());
+        }
+        return "redirect:/admin/colecciones";
+    }
 }

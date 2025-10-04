@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="'Editar colección — ' + ${coleccion.titulo}">Editar colección</title>
+    <link rel="stylesheet" th:href="@{/css/adminColecciones.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}">
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
+
+    <!-- Contenido -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title" th:text="'Editar colección: ' + ${coleccion.titulo}">Editar colección</h1>
+        </div>
+
+        <!-- Formulario -->
+        <form th:action="@{'/admin/coleccion/editar/' + ${coleccion.id}}" method="post" class="form-edit">
+
+            <!-- Título -->
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input id="titulo" name="titulo" type="text"
+                       th:value="${coleccion.titulo}" required/>
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="3"
+                          required th:text="${coleccion.descripcion}"></textarea>
+            </div>
+
+            <!-- Algoritmo de consenso -->
+            <div class="form-group">
+                <label for="algoritmoDeConsenso">Algoritmo de consenso</label>
+                <select id="algoritmoDeConsenso" name="algoritmoDeConsenso">
+                    <option value="MAYORIA_SIMPLE"
+                            th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">
+                        Mayoría simple
+                    </option>
+                    <option value="MULTIPLES_MENCIONES"
+                            th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">
+                        Múltiples menciones
+                    </option>
+                    <option value="ABSOLUTA"
+                            th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">
+                        Absoluta
+                    </option>
+                </select>
+            </div>
+
+            <!-- Fuentes -->
+            <div class="form-group">
+                <label>Fuentes (puertos)</label>
+                <div class="fuentes-list">
+                    <!-- Iteración sobre fuentes existentes -->
+                    <div class="fuente-item" th:each="fuente, iterStat : ${coleccion.fuentesDeHechos}">
+                        <input type="text" th:name="'fuentes[' + ${iterStat.index} + '].puerto'"
+                               th:value="${fuente.puerto}" placeholder="Puerto"/>
+                        <button type="button" class="btn-remove"
+                                onclick="this.parentElement.remove()">Quitar</button>
+                    </div>
+                </div>
+
+                <!-- Botón para agregar más -->
+                <button type="button" class="btn-add" onclick="agregarFuente()">Agregar fuente</button>
+            </div>
+
+            <!-- Acciones -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Guardar cambios</button>
+                <a th:href="@{/admin/colecciones}" class="btn">Cancelar</a>
+            </div>
+        </form>
+    </main>
+</div>
+
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+<script>
+    function agregarFuente() {
+        const list = document.querySelector('.fuentes-list');
+        const index = list.children.length;
+
+        const div = document.createElement('div');
+        div.classList.add('fuente-item');
+        div.innerHTML = `
+            <input type="text" name="fuentes[${index}].puerto" placeholder="Puerto"/>
+            <button type="button" class="btn-remove" onclick="this.parentElement.remove()">Quitar</button>
+        `;
+        list.appendChild(div);
+    }
+</script>
+
+<style>
+    .form-edit { max-width: 700px; display: flex; flex-direction: column; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group input, .form-group textarea, .form-group select {
+        padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #ccc; font-size: 1rem;
+    }
+    .fuentes-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .fuente-item { display: flex; gap: 0.5rem; align-items: center; }
+    .btn-add, .btn-remove {
+        padding: 0.3rem 0.7rem; font-size: 0.85rem; border-radius: 0.5rem; cursor: pointer;
+        border: 1px solid transparent; background: var(--primario); color: #fff;
+    }
+    .btn-remove { background: #f87171; }
+    .btn-remove:hover { background: #b91c1c; }
+    .btn-add:hover { background: var(--primario-oscuro); }
+    .form-actions { display: flex; gap: 1rem; }
+</style>
+
+</body>
+</html>

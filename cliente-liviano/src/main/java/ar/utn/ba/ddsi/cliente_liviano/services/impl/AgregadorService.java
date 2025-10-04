@@ -1,11 +1,9 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.CategoriaDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -163,6 +161,28 @@ public class AgregadorService implements IAgregadorService {
             return false;
         }
     }
+
+    public ColeccionDTO agregarFuentes(Long idColeccion, FuenteCreateDTO fuenteDTO) {
+        return webClient.post()
+                .uri("/api/coleccion/{id}/fuentes", idColeccion)
+                .bodyValue(fuenteDTO)
+                .retrieve()
+                .bodyToMono(ColeccionDTO.class)
+                .block();
+    }
+
+    public ColeccionDTO eliminarFuentes(Long idColeccion, Long idFuente) {
+        Map<String, Long> body = new HashMap<>();
+        body.put("idFuente", idFuente);
+
+        return webClient.method(HttpMethod.DELETE)
+                .uri("/api/coleccion/{idColeccion}/fuentes", idColeccion)
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(ColeccionDTO.class)
+                .block();
+    }
+
 }
 
 

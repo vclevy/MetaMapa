@@ -19,14 +19,16 @@
 .layout {
     display: flex;
     gap: 1.5rem;
-    padding: 1.5rem;
 }
 
 /* Main content */
 .main {
-    flex: 1;
-    min-width: 0; /* para que los hijos respeten overflow */
+    flex: 1;                /* sigue ocupando espacio flexible */
+    max-width: 1600px;      /* límite de ancho (ajustalo a gusto) */
+    margin-right: 2rem;     /* aire a la derecha */
+    margin-top: 2rem;       /* que empiece más abajo */
 }
+
 /* ====== Sidebar ajustes ====== */
 .sidebar a {
     display: block;          /* para que el fondo azul ocupe todo el ancho */
@@ -218,3 +220,76 @@ footer {
     font-size: 0.85rem;
     margin-top: 2rem;
 }
+
+body {
+    background-color: #f6f8fb;
+}
+
+.fuentes-section {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.fuentes-section h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #2B7BD6;
+}
+
+.fuentes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.8rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.fuentes-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f6f8fb;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+}
+
+.add-fuente-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-fuente-form input {
+    flex: 1;
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-add, .btn-remove {
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-add {
+    background-color: #2B7BD6;
+    color: white;
+}
+.btn-add:hover {
+    background-color: #1a5ba8;
+}
+
+.btn-remove {
+    background-color: #f87171;
+    color: white;
+}
+.btn-remove:hover {
+    background-color: #b91c1c;
+}
+
