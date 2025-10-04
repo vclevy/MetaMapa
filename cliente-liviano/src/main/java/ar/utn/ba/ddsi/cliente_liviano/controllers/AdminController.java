@@ -143,24 +143,34 @@ public class AdminController {
     }
 
     @PostMapping("/coleccion/{id}/fuente/agregar")
-    public String agregarFuente(@PathVariable Long id,
-                                @ModelAttribute FuenteCreateDTO fuenteDTO,
-                                RedirectAttributes redirectAttrs) {
+    public String agregarFuentesForm(@PathVariable Long id,
+                                     @RequestParam String handle,
+                                     @RequestParam String tipo,
+                                     @RequestParam String urlBase,
+                                     RedirectAttributes redirectAttrs) {
+
+        FuenteCreateDTO dto = new FuenteCreateDTO();
+        dto
+                .setHandle(handle);
+        dto.setTipo(tipo);
+        dto.setUrlBase(urlBase);
+
         try {
-            agregador.agregarFuentes(id, fuenteDTO);
+            agregador.agregarFuentes(id, dto);
             redirectAttrs.addFlashAttribute("mensajeExito", "Fuente agregada correctamente");
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("mensajeError", "Error al agregar fuente: " + e.getMessage());
         }
+
         return "redirect:/admin/colecciones";
     }
 
-    @PostMapping("/coleccion/{id}/fuente/eliminar")
-    public String eliminarFuente(@PathVariable Long id,
-                                 @RequestParam Long idFuente,
-                                 RedirectAttributes redirectAttrs) {
+    @PostMapping("/coleccion/{idColeccion}/fuente/eliminar")
+    public String eliminarFuenteForm(@PathVariable Long idColeccion,
+                                     @RequestParam Long idFuente,
+                                     RedirectAttributes redirectAttrs) {
         try {
-            agregador.eliminarFuentes(id, idFuente);
+            agregador.eliminarFuentes(idColeccion, idFuente);
             redirectAttrs.addFlashAttribute("mensajeExito", "Fuente eliminada correctamente");
         } catch (Exception e) {
             redirectAttrs.addFlashAttribute("mensajeError", "Error al eliminar fuente: " + e.getMessage());

@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/FuenteCreateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/editarColeccion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/FuenteCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/FuenteCreateDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminColecciones.css" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminColecciones.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminColecciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminColecciones.html" afterDir="false" />
     </list>
@@ -227,8 +224,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
-        <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
+        <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
       </list>
@@ -295,7 +292,7 @@
       <workItem from="1758644019828" duration="3899000" />
       <workItem from="1758893766290" duration="3000" />
       <workItem from="1758980464437" duration="1629000" />
-      <workItem from="1759532954542" duration="6072000" />
+      <workItem from="1759532954542" duration="9451000" />
     </task>
     <servers />
   </component>

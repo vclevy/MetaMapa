@@ -32,9 +32,10 @@
             <!-- Iteración de colecciones -->
             <article class="collection card" th:each="coleccion : ${colecciones}">
                 <div class="collection__main">
-                    <a th:href="@{'/coleccion/' + ${coleccion.id}}" class="collection__link">
+                    <a th:href="@{'/colecciones/' + ${coleccion.id}}" class="collection__link">
                         <div class="collection__name" th:text="${coleccion.titulo}">Nombre de la colección</div>
                     </a>
+
                     <div class="collection__desc" th:text="${coleccion.descripcion}">Descripción</div>
                 </div>
 
@@ -44,15 +45,16 @@
                     <ul class="fuentes-list" th:id="'fuentes-list-' + ${coleccion.id}">
                         <li th:each="fuente : ${coleccion.fuentesDeHechos}" th:data-handle="${fuente.handle}">
                             <span th:text="${fuente.handle} + ' (' + ${fuente.tipo} + ')'">Fuente</span>
-                            <form th:action="@{/admin/coleccion/{id}/fuente/eliminar(id=${coleccion.id})}" method="post" style="display:inline">
-                                <input type="hidden" name="handleFuente" th:value="${fuente.handle}" />
+                            <form th:action="@{/admin/coleccion/{idColeccion}/fuente/eliminar(idColeccion=${coleccion.id})}" method="post">
+                                <input type="hidden" name="idFuente" th:value="${fuente.id}" />
                                 <button type="submit" class="btn-remove">Quitar</button>
                             </form>
+
                         </li>
                     </ul>
 
                     <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
-                        <input type="text" name="nombre" placeholder="Nombre" required />
+                        <input type="text" name="handle" placeholder="Nombre" required />
                         <input type="text" name="tipo" placeholder="Tipo" required />
                         <input type="text" name="urlBase" placeholder="URL Base" required />
                         <button type="submit" class="btn-add">Añadir</button>
