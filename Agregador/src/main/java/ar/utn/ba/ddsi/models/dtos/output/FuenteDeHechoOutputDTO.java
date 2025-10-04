@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FuenteDeHechoOutputDTO {
-    private String handle;
+    private Long id;
+    private String nombre;
     private String tipo;
     private String urlBase;
 }

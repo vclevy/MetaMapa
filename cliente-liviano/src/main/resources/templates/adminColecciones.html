@@ -43,37 +43,36 @@
                 <div class="collection__sources">
                     <div class="sources__label">Fuentes asociadas</div>
                     <ul class="fuentes-list" th:id="'fuentes-list-' + ${coleccion.id}">
-                        <li th:each="fuente : ${coleccion.fuentesDeHechos}" th:data-handle="${fuente.handle}">
-                            <span th:text="${fuente.handle} + ' (' + ${fuente.tipo} + ')'">Fuente</span>
+                        <li th:each="fuente : ${coleccion.fuentesDeHechos}" th:data-nombre="${fuente.nombre}">
+                            <span th:text="${fuente.nombre} + ' (' + ${fuente.tipo} + ')'">Fuente</span>
                             <form th:action="@{/admin/coleccion/{idColeccion}/fuente/eliminar(idColeccion=${coleccion.id})}" method="post">
                                 <input type="hidden" name="idFuente" th:value="${fuente.id}" />
                                 <button type="submit" class="btn-remove">Quitar</button>
                             </form>
-
                         </li>
-                    </ul>
+                   </ul>
 
-                    <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
-                        <input type="text" name="handle" placeholder="Nombre" required />
-                        <input type="text" name="tipo" placeholder="Tipo" required />
-                        <input type="text" name="urlBase" placeholder="URL Base" required />
-                        <button type="submit" class="btn-add">Añadir</button>
-                    </form>
-                </div>
+                   <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
+                       <input type="text" name="nombre" placeholder="Nombre" required />
+                       <input type="text" name="tipo" placeholder="Tipo" required />
+                       <input type="text" name="urlBase" placeholder="URL Base" required />
+                       <button type="submit" class="btn-add">Añadir</button>
+                   </form>
+               </div>
 
-                <div class="collection__consenso">
-                    <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
-                    <div class="select">
-                        <select th:id="'consenso-' + ${coleccion.id}" name="algoritmoDeConsenso">
-                            <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
-                            <option value="MULTIPLES_MENCIONES" th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">Múltiples menciones</option>
-                            <option value="ABSOLUTA" th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">Absoluta</option>
-                        </select>
-                    </div>
-                </div>
+               <div class="collection__consenso">
+                   <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
+                   <div class="select">
+                       <select th:id="'consenso-' + ${coleccion.id}" name="algoritmoDeConsenso">
+                           <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
+                           <option value="MULTIPLES_MENCIONES" th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">Múltiples menciones</option>
+                           <option value="ABSOLUTA" th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">Absoluta</option>
+                       </select>
+                   </div>
+               </div>
 
-                <div class="collection__actions">
-                    <!-- Botón editar -->
+               <div class="collection__actions">
+                   <!-- Botón editar -->
                     <a class="iconbtn" th:href="@{'/admin/coleccion/editar/' + ${coleccion.id}}" aria-label="Editar" data-tooltip="Editar">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/>

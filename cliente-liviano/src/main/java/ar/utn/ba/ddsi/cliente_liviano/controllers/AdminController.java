@@ -144,14 +144,14 @@ public class AdminController {
 
     @PostMapping("/coleccion/{id}/fuente/agregar")
     public String agregarFuentesForm(@PathVariable Long id,
-                                     @RequestParam String handle,
+                                     @RequestParam String nombre,
                                      @RequestParam String tipo,
                                      @RequestParam String urlBase,
                                      RedirectAttributes redirectAttrs) {
 
         FuenteCreateDTO dto = new FuenteCreateDTO();
         dto
-                .setHandle(handle);
+                .setNombre(nombre);
         dto.setTipo(tipo);
         dto.setUrlBase(urlBase);
 

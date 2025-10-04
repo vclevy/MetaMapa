@@ -344,7 +344,6 @@ footer{
     border: 1px solid transparent;
     cursor: pointer;
     transition: transform .05s ease, filter .15s ease, background .15s ease;
-    text-transform: lowercase;
     letter-spacing: .3px;
 }
 .btn:active{ transform: translateY(1px); }

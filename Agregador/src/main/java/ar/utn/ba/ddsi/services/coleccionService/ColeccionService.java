@@ -181,7 +181,10 @@ public class ColeccionService implements IColeccionService {
                 // Si ya existe, usar la existente
                 fuente = fuenteExistente.get();
             } else {
-                fuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getUrlBase(), lugarService);
+                fuente = new Fuente(fuenteDTO.getTipo(), fuenteDTO.getNombre(), fuenteDTO.getUrlBase(), lugarService);
+                System.out.printf(" NOMBRE FUENTE DTO %s\n", fuenteDTO.getNombre());
+                System.out.printf("Creando Fuente %s\n", fuente.getNombre());
+
                 coleccion.getFuentesDeHechos().add(fuente);
             }
 

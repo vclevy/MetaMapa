@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FuenteCreateDTO {
-    private String handle;
+    private String nombre;
     private String tipo;
     private String urlBase;
 }
