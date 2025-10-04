@@ -22,6 +22,9 @@ public class Fuente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="nombre")
+    private String nombre;
+
     @OneToMany(mappedBy = "fuente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Hecho> hechos = new ArrayList<>();
 
@@ -37,7 +40,8 @@ public class Fuente {
     @Transient
     private LugarService lugarService;
 
-    public Fuente(String tipo, String urlBase, LugarService lugarService) {
+    public Fuente(String tipo, String nombre, String urlBase, LugarService lugarService) {
+        this.nombre = nombre;
         this.tipo = tipo;
         this.urlBase = urlBase;
         this.lugarService = lugarService;

@@ -16,7 +16,6 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="FuenteEstatica" />
         <module name="ServicioEstadisticas" />
         <module name="FuenteDinamica" />
         <module name="FuenteProxy" />
@@ -28,11 +27,23 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.40/lombok-1.18.40.jar" />
         </processorPath>
         <module name="cliente-liviano" />
       </profile>
+      <profile name="Annotation profile for FuenteEstatica" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="FuenteEstatica" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="AuthService" target="17" />
       <module name="common" target="17" />
     </bytecodeTargetLevel>
   </component>

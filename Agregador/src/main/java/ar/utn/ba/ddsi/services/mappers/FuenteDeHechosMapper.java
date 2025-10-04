@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class FuenteDeHechosMapper {
     public FuenteDeHechoOutputDTO toDTO(Fuente fuente) {
         FuenteDeHechoOutputDTO dto = new FuenteDeHechoOutputDTO();
-
+        dto.setId(fuente.getId());
+        dto.setNombre(fuente.getNombre());
         dto.setTipo(fuente.getTipo());
         dto.setUrlBase(fuente.getUrlBase());
         return dto;

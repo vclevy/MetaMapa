@@ -22,11 +22,8 @@
         <div class="page-header">
             <h1 class="page-title">Colecciones</h1>
             <div class="page-actions">
-                <a class="btn btn--primary" th:href="@{/admin/coleccion/nueva}" title="Crear nueva colección">
-                    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/>
-                    </svg>
-                    Nueva colección
+                <a class="btn btn-primary" th:href="@{/admin/coleccion/nueva}" title="Crear nueva colección">
+                    Crear colección
                 </a>
             </div>
         </div>
@@ -42,44 +39,53 @@
                     <div class="collection__desc" th:text="${coleccion.descripcion}">Descripción</div>
                 </div>
 
+                <!-- BLOQUE DE FUENTES -->
                 <div class="collection__sources">
                     <div class="sources__label">Fuentes asociadas</div>
-                    <div class="chips">
-                        <span class="chip" th:each="fuente : ${coleccion.fuentesDeHechos}"
-                              th:text="${fuente.tipo.toUpperCase()}"
-                              th:classappend="' chip--' + ${fuente.tipo.toLowerCase()}">
-                            Fuente
-                        </span>
-                    </div>
-                </div>
+                    <ul class="fuentes-list" th:id="'fuentes-list-' + ${coleccion.id}">
+                        <li th:each="fuente : ${coleccion.fuentesDeHechos}" th:data-nombre="${fuente.nombre}">
+                            <span th:text="${fuente.nombre} + ' (' + ${fuente.tipo} + ')'">Fuente</span>
+                            <form th:action="@{/admin/coleccion/{idColeccion}/fuente/eliminar(idColeccion=${coleccion.id})}" method="post">
+                                <input type="hidden" name="idFuente" th:value="${fuente.id}" />
+                                <button type="submit" class="btn-remove">Quitar</button>
+                            </form>
+                        </li>
+                   </ul>
 
-                <div class="collection__consenso">
-                    <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
-                    <div class="select">
-                        <select th:id="'consenso-' + ${coleccion.id}" name="algoritmoDeConsenso">
-                            <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
-                            <option value="MULTIPLES_MENCIONES" th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">Múltiples menciones</option>
-                            <option value="ABSOLUTA" th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">Absoluta</option>
-                        </select>
-                    </div>
-                </div>
+                   <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
+                       <input type="text" name="nombre" placeholder="Nombre" required />
+                       <input type="text" name="tipo" placeholder="Tipo" required />
+                       <input type="text" name="urlBase" placeholder="URL Base" required />
+                       <button type="submit" class="btn-add">Añadir</button>
+                   </form>
+               </div>
 
-                <div class="collection__actions">
-                    <!-- Botón editar -->
+               <div class="collection__consenso">
+                   <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
+                   <div class="select">
+                       <select th:id="'consenso-' + ${coleccion.id}" name="algoritmoDeConsenso">
+                           <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
+                           <option value="MULTIPLES_MENCIONES" th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">Múltiples menciones</option>
+                           <option value="ABSOLUTA" th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">Absoluta</option>
+                       </select>
+                   </div>
+               </div>
+
+               <div class="collection__actions">
+                   <!-- Botón editar -->
                     <a class="iconbtn" th:href="@{'/admin/coleccion/editar/' + ${coleccion.id}}" aria-label="Editar" data-tooltip="Editar">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/>
                         </svg>
                     </a>
-
                     <!-- Botón borrar -->
-                    <button class="iconbtn iconbtn--danger" type="button" aria-label="Borrar" data-tooltip="Borrar"
-                            th:onclick="'confirmarBorrado(' + ${coleccion.id} + ');'">
+                    <button class="iconbtn iconbtn--danger" type="button" aria-label="Borrar" data-tooltip="Borrar" th:onclick="'confirmarBorrado(' + ${coleccion.id} + ');'">
                         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="currentColor" d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/>
                         </svg>
                     </button>
                 </div>
+
             </article>
         </section>
     </main>
@@ -89,32 +95,3 @@
 <footer role="contentinfo">
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
-
-<script>
-    (function(){
-        const btn = document.querySelector('.sidebar__toggle');
-        const sidebar = document.querySelector('.sidebar');
-        if(!btn || !sidebar) return;
-        btn.addEventListener('click', () => {
-            const open = sidebar.classList.toggle('is-open');
-            btn.setAttribute('aria-expanded', String(open));
-        });
-    })();
-
-    // Confirmación borrado
-    function confirmarBorrado(id) {
-        if (confirm("¿Confirmas que querés borrar la colección?")) {
-            fetch('/colecciones/borrar?id=' + id, { method: 'DELETE' })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        alert("Error al borrar la colección");
-                    }
-                })
-                .catch(() => alert("Error al comunicarse con el servidor"));
-        }
-    }
-</script>
-</body>
-</html>
