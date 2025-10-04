@@ -21,19 +21,19 @@
   </section>
 
   <section class="form-section">
-    <form th:action="@{/sesion/login}" th:object="${loginDTO}" method="post">
+    <form th:action="@{/sesion/login}" th:object="${loginDTO}" method="post" class="form-card">
       <label for="nombreDeUsuario">Usuario:</label>
       <input type="text" id="nombreDeUsuario" th:field="*{nombreDeUsuario}" required/>
 
       <label for="clave">Contraseña:</label>
       <input type="password" id="clave" th:field="*{clave}" required/>
 
-      <button type="submit">Ingresar</button>
+      <button type="submit" class="btn btn-primary">Ingresar</button>
     </form>
 
-    <!-- Mensaje de error -->
     <p th:if="${error}" th:text="${error}" style="color:red;"></p>
   </section>
+
 </main>
 
 <footer>

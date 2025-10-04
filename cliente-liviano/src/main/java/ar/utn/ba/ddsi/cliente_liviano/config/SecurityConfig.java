@@ -17,7 +17,7 @@ public class SecurityConfig {
                         // GET páginas públicas
                         .requestMatchers(HttpMethod.GET, "sesion/debug", "/",  "/sesion/registrar", "/sesion/login", "/sesion/registro", "/css/**", "/js/**", "/img/**").permitAll()
                         // POST login y registro
-                        .requestMatchers(HttpMethod.POST, "/sesion/login", "/sesion/registrar").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/sesion/login", "/sesion/registrar",  "/api/auth/**").permitAll()
                         // /admin/** solo ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         // el resto requiere auth
