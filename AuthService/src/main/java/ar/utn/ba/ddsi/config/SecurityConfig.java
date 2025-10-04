@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -32,42 +33,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/login",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/api/auth/register",
-                                "/api/auth/login",
-                                "/"
+                                "/api/auth/**",  // login, register, refresh
+                                "/css/**", "/js/**", "/images/**", "/"
                         ).permitAll()
-                        .requestMatchers("/admin/**").authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/sesion/login")          // página de login
-                        .loginProcessingUrl("/sesion/login") // endpoint del POST del form
-                        .usernameParameter("usuario")        // nombre del input
-                        .passwordParameter("clave")          // nombre del input
-                        .permitAll()
-                        .defaultSuccessUrl("/", true)        // 👈 redirige a /
+                        .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout")
+                        .logoutSuccessUrl("/")
                         .permitAll()
-                )
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint((request, response, authException) ->
-                                response.sendRedirect("/login?unauthorized")
-                        )
-                        .accessDeniedHandler((request, response, accessDeniedException) ->
-                                response.sendRedirect("/403")
-                        )
-                )
-                .csrf(csrf -> csrf.disable());
+                );
 
         return http.build();
     }
 }
-

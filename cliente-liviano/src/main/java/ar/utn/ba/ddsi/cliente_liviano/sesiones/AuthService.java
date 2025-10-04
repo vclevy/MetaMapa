@@ -1,13 +1,11 @@
-package ar.utn.ba.ddsi.cliente_liviano.services.impl;
+package ar.utn.ba.ddsi.cliente_liviano.sesiones;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.RegistroForm;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -17,37 +15,30 @@ public class AuthService {
 
     @Autowired
     public AuthService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8086").build(); // URL de tu AuthService real
+        this.webClient = webClientBuilder
+                .baseUrl("http://localhost:8086")
+                .build();
     }
 
     public Map<String, Object> registrar(RegistroForm registroForm) {
         return webClient.post()
-                .uri("/api/auth/register") // endpoint del AuthService
+                .uri("/api/auth/register")
                 .bodyValue(registroForm)
                 .retrieve()
                 .bodyToMono(Map.class)
                 .block();
     }
 
-    public String login(String usuario, String clave) {
+    public AuthResponse login(String usuario, String clave) {
         LoginDTO loginRequest = new LoginDTO();
         loginRequest.setNombreDeUsuario(usuario);
         loginRequest.setClave(clave);
 
-        Map<String, Object> response = webClient.post()
-                .uri("/api/auth/login") // apunta al AuthService real
+        return webClient.post()
+                .uri("/api/auth/login")
                 .bodyValue(loginRequest)
                 .retrieve()
-                .bodyToMono(Map.class)
-                .block();
-
-        if (response != null && response.get("token") != null) {
-            return (String) response.get("token");
-        } else {
-            return null;
-        }
+                .bodyToMono(AuthResponse.class)
+                .block(); // devuelve accessToken, refreshToken y roles
     }
-
-
-
 }

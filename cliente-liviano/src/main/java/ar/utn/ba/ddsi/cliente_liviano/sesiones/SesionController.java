@@ -1,20 +1,16 @@
-package ar.utn.ba.ddsi.cliente_liviano.controllers;
+package ar.utn.ba.ddsi.cliente_liviano.sesiones;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.RegistroForm;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.TokenProvider;
-import ar.utn.ba.ddsi.cliente_liviano.services.impl.AuthService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Map;
 
 @Controller
@@ -43,19 +39,26 @@ public class SesionController {
     }
 
     @PostMapping("/login")
-    public String loginUsuario(@ModelAttribute LoginDTO loginDTO, HttpSession session, Model model) {
-        String token = authService.login(loginDTO.getNombreDeUsuario(), loginDTO.getClave());
-        tokenProvider.setToken(token);
-        if (token != null) {
-            session.setAttribute("username", loginDTO.getNombreDeUsuario());
-            session.setAttribute("token", token);
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", "Usuario o clave incorrectos");
-            return "inicioSesion";
-        }
-    }
+    public String login(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            HttpSession session) {
 
+        // Llamada al servicio de autenticación
+        AuthResponse tokens = authService.login(username, password);
+
+        if (tokens == null) {
+            // Si falla login, redirigir a login con error
+            return "redirect:/login?error=true";
+        }
+
+        // Guardar tokens en sesión stateful
+        session.setAttribute("ACCESS_TOKEN", tokens.getAccessToken());
+        session.setAttribute("REFRESH_TOKEN", tokens.getRefreshToken());
+
+        // Redirigir al dashboard / alumnos
+        return "redirect:/alumnos";
+    }
     @PostMapping("/registrar")
     public String registrarUsuario(@ModelAttribute RegistroForm registroForm, Model model) {
         try {

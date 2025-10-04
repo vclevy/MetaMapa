@@ -4,46 +4,48 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
 @Service
 public class JwtService {
-    private final String secretKey = "claveMuySecretaDe32Caracteres123456"; // TODO: mover a config segura
-    private final long expiration = 1000 * 60 * 60; // 1 hora
 
-    public String generateToken(Usuario usuario) {
+    private final String SECRET = "superSecretKey";
+    private final long ACCESS_EXP = 1000 * 60 * 15;  // 15 min
+    private final long REFRESH_EXP = 1000L * 60 * 60 * 24 * 7; // 7 días
+
+    public String generateAccessToken(UserDetails user) {
         return Jwts.builder()
-                .setSubject(usuario.getNombreDeUsuario())
-                .claim("rol", usuario.getRol().name())
+                .setSubject(user.getUsername())
+                .claim("roles", user.getAuthorities())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_EXP))
+                .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
     }
 
+    public String generateRefreshToken(UserDetails user) {
+        return Jwts.builder()
+                .setSubject(user.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXP))
+                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .compact();
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public String extractUsername(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                .build()
+        return Jwts.parser().setSigningKey(SECRET)
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
-
-    public boolean isTokenValid(String token, Usuario usuario) {
-        String username = extractUsername(token);
-        return username.equals(usuario.getNombreDeUsuario()) && !isTokenExpired(token);
-    }
-
-    private boolean isTokenExpired(String token) {
-        Date expiration = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();
-        return expiration.before(new Date());
+                .getBody().getSubject();
     }
 }
