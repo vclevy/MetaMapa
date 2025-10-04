@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MetaMapa - Registro de Contribuyentes</title>
-    <link rel="stylesheet" href="../static/css/sesion.css">
-    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
-
+    <link rel="stylesheet" th:href="@{/css/sesion.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
 </head>
 <body>
+<!-- Header -->
 <div th:replace="header :: mainHeader"></div>
 
 <main class="main-content">
@@ -17,29 +17,38 @@
         <p>Unite a MetaMapa y ayudanos a mapear la memoria colectiva</p>
         <p>
             Si ya tenés una cuenta, debés
-            <a href="inicioSesion.html">iniciar sesión</a>.
+            <a th:href="@{/sesion/login}">iniciar sesión</a>.
         </p>
     </section>
 
     <section class="form-section">
-        <form class="form-card">
-            <label for="nombre">Nombre <span style="color:red">*</span></label>
-            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        <form th:action="@{/sesion/registrar}" th:object="${registroForm}" method="post" class="form-card">
 
-            <label for="apellido">Apellido</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido">
+            <label th:for="*{nombre}">Nombre <span style="color:red">*</span></label>
+            <input type="text" th:field="*{nombre}" placeholder="Tu nombre" required/>
 
-            <label for="usuario">Nombre de usuario</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Elegí un usuario">
+            <label th:for="*{apellido}">Apellido</label>
+            <input type="text" th:field="*{apellido}" placeholder="Tu apellido"/>
 
-            <label for="email">Correo electrónico</label>
-            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com">
+            <label th:for="*{nombreDeUsuario}">Nombre de usuario</label>
+            <input type="text" th:field="*{nombreDeUsuario}" placeholder="Elegí un usuario"/>
 
-            <label for="clave">Contraseña <span style="color:red">*</span></label>
-            <input type="password" id="clave" name="clave" placeholder="Ingresá una contraseña segura">
+            <label th:for="*{email}">Correo electrónico</label>
+            <input type="email" th:field="*{email}" placeholder="ejemplo@correo.com"/>
+
+            <label th:for="*{clave}">Contraseña <span style="color:red">*</span></label>
+            <input type="password" th:field="*{clave}" placeholder="Ingresá una contraseña segura"/>
 
             <button type="submit" class="btn btn-primary">Registrarme</button>
         </form>
+
+        <!-- Mensajes -->
+        <div th:if="${error}">
+            <p th:text="${error}" style="color:red"></p>
+        </div>
+        <div th:if="${mensajeExito}">
+            <p th:text="${mensajeExito}" style="color:green"></p>
+        </div>
     </section>
 </main>
 

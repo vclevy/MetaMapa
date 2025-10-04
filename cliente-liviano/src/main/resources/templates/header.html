@@ -1,12 +1,23 @@
-<!-- templates/header.html -->
 <header th:fragment="mainHeader">
     <div class="header-container">
         <a class="logo" th:href="@{/}">
             <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
         </a>
+
         <nav class="nav-links">
-            <a class="btn btn-primary" th:href="@{/inicioSesion}">Iniciar sesión</a>
-            <a class="btn btn-primary" th:href="@{/registro}">Registrarse</a>
+            <!-- Si está autenticado -->
+            <span th:if="${session.username != null}">
+                Hola, <b th:text="${session.username}">Usuario</b>!
+                <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
+            </span>
+
+            <!-- Si NO está autenticado -->
+            <span th:if="${session.username == null}">
+                <a class="btn btn-primary" th:href="@{/sesion/login}">Iniciar sesión</a>
+                <a class="btn btn-primary" th:href="@{/sesion/registro}">Registrarse</a>
+            </span>
+
+            <!-- Siempre visible -->
             <a class="btn btn-icon" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
         </nav>
     </div>
