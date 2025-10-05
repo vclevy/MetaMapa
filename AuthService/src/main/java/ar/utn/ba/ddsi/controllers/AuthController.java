@@ -71,10 +71,4 @@ public class AuthController {
         return ResponseEntity.ok(new LoginResponse(token));
     }
 
-    // Método simple de ejemplo para generar token
-    private String generarToken(String username) {
-        // Aquí iría JWT real o algún token dummy por ahora
-        return Base64.getEncoder().encodeToString((username + ":token").getBytes());
-    }
-
 }

@@ -1,16 +1,13 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
-import ar.utn.ba.ddsi.cliente_liviano.jwt.JwtService;
+import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.FuenteCreateDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,17 +32,22 @@ public class AdminController {
     @Autowired
     private EstadisticasService estadisticas;
     @Autowired
-    private JwtService jwtServiceCliente;
+    private TokenDecoder tokenDecoder;
 
     private boolean esAdmin(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7);
-            return jwtServiceCliente.isTokenValid(token) &&
-                    "ADMIN".equals(jwtServiceCliente.extractRole(token));
+        String token = (String) request.getSession().getAttribute("token");
+        if (token == null) return false;
+
+        try {
+            String rol = tokenDecoder.getRol(token);
+            System.out.println("ROL desde token: " + rol); // <-- debug
+            return "ADMIN".equalsIgnoreCase(rol);
+        } catch (Exception e) {
+            e.printStackTrace(); // para ver errores de parsing
+            return false;
         }
-        return false;
     }
+
 
     @GetMapping("/admin")
     public String adminLanding(Model model, HttpServletRequest request) {

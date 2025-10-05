@@ -1,38 +1,45 @@
 package ar.utn.ba.ddsi.cliente_liviano.config;
 
+import ar.utn.ba.ddsi.cliente_liviano.jwt.JwtAuthenticationFilter;
+import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
+    private final TokenDecoder tokenDecoder;
+
+    public SecurityConfig(TokenDecoder tokenDecoder) {
+        this.tokenDecoder = tokenDecoder;
+    }
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // GET páginas públicas
-                        .requestMatchers(HttpMethod.GET, "sesion/debug", "/",  "/sesion/registrar", "/sesion/login", "/sesion/registro", "/css/**", "/js/**", "/img/**", "hechos/**").permitAll()
-                        // POST login y registro
-                        .requestMatchers(HttpMethod.POST, "/sesion/login", "/sesion/registrar",  "/api/auth/**").permitAll()
-                        // /admin/** solo ADMIN
+                        .requestMatchers(HttpMethod.GET,
+                                "sesion/debug", "/", "/sesion/registrar", "/sesion/login", "/sesion/registro",
+                                "/css/**", "/js/**", "/img/**", "hechos/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,
+                                "/sesion/login", "/sesion/registrar", "/api/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        // el resto requiere auth
                         .anyRequest().authenticated()
                 )
-                .formLogin(formLogin -> formLogin.disable())
+                .formLogin(form -> form.disable())
                 .logout(logout -> logout
                         .logoutUrl("/sesion/logout")
                         .logoutSuccessUrl("/")
                         .permitAll()
-                );
+                )
+                .addFilterBefore(new JwtAuthenticationFilter(tokenDecoder), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
-
 
 

@@ -2,7 +2,6 @@ package ar.utn.ba.ddsi.config;
 
 import ar.utn.ba.ddsi.filters.JwtAuthenticationFilter;
 import ar.utn.ba.ddsi.providers.CustomAuthProvider;
-import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

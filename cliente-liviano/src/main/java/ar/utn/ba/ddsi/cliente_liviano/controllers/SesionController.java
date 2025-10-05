@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
+import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.RegistroForm;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.TokenProvider;
@@ -8,13 +9,16 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,7 +26,7 @@ import java.util.Map;
 public class SesionController {
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private TokenDecoder tokenDecoder;
     private final AuthService authService;
 
     @Autowired
@@ -45,16 +49,35 @@ public class SesionController {
     @PostMapping("/login")
     public String loginUsuario(@ModelAttribute LoginDTO loginDTO, HttpSession session, Model model) {
         String token = authService.login(loginDTO.getNombreDeUsuario(), loginDTO.getClave());
-        tokenProvider.setToken(token);
         if (token != null) {
             session.setAttribute("username", loginDTO.getNombreDeUsuario());
             session.setAttribute("token", token);
-            return "redirect:/";
+
+            String rol = tokenDecoder.getRol(token);
+
+            // Crear autenticación para Spring Security
+            List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + rol.toUpperCase()));
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(loginDTO.getNombreDeUsuario(), null, authorities);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
+            Authentication current = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println("Usuario logueado: " + current.getName());
+            System.out.println("Roles: " + current.getAuthorities());
+
+            if ("ADMIN".equalsIgnoreCase(rol)) {
+                return "redirect:/admin";
+            } else {
+                return "redirect:/";
+            }
         } else {
             model.addAttribute("error", "Usuario o clave incorrectos");
             return "inicioSesion";
         }
+
     }
+
+
 
     @PostMapping("/registrar")
     public String registrarUsuario(@ModelAttribute RegistroForm registroForm, Model model) {
