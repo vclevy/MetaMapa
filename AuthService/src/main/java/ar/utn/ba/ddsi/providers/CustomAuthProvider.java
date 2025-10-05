@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.repositories.UsuarioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +26,7 @@ public class CustomAuthProvider implements AuthenticationProvider {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public CustomAuthProvider(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    public CustomAuthProvider(UsuarioRepository usuarioRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
     }

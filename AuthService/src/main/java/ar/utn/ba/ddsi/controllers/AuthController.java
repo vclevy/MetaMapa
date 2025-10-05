@@ -8,17 +8,12 @@ import ar.utn.ba.ddsi.models.entities.Usuario;
 import ar.utn.ba.ddsi.models.repositories.UsuarioRepository;
 import ar.utn.ba.ddsi.services.JwtService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -46,12 +41,17 @@ public class AuthController {
         usuario.setNombreDeUsuario(registro.getNombreDeUsuario());
         usuario.setEmail(registro.getEmail());
         usuario.setContrasenia(passwordEncoder.encode(registro.getClave()));
-        usuario.setRol(Rol.ADMIN);
+        usuario.setRol(Rol.CONTRIBUYENTE);
 
         usuarioRepository.save(usuario);
 
         String token = jwtService.generateToken(usuario);
         return ResponseEntity.ok(Map.of("token", token));
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "ok";
     }
 
     @PostMapping("/login")
@@ -83,4 +83,3 @@ public class AuthController {
     }
 
 }
-
