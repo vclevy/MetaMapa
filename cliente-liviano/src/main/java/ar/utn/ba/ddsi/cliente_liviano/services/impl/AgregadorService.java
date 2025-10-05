@@ -1,8 +1,11 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
+import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,12 @@ import java.util.stream.Collectors;
 public class AgregadorService implements IAgregadorService {
 
     private final WebClient webClient;
+
+    @Autowired
+    private TokenDecoder tokenDecoder;
+
+    @Autowired
+    private HttpSession session;
 
     public AgregadorService() {
         this.webClient = WebClient.builder()
@@ -87,30 +96,31 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public ColeccionDTO crearColeccion(String titulo, String descripcion, String algoritmo) {
-        // construyo el objeto con los datos que pide el backend
         Map<String, Object> body = new HashMap<>();
         body.put("titulo", titulo);
         body.put("descripcion", descripcion);
         body.put("algoritmo", algoritmo);
 
+        String token = (String) session.getAttribute("token");
+
         return webClient.post()
                 .uri("/api/coleccion")
+                .header("Authorization", "Bearer " + token) // <-- importante
                 .bodyValue(body)   // Jackson lo convierte a JSON
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
                 .block();
     }
 
-//    public List<Solicitud> obtenerSolicituds() {
-//
-//    }
-
     public boolean eliminarColeccion(Long id) {
+        String token = (String) session.getAttribute("token");
+
         ResponseEntity<String> response = webClient.delete()
                 .uri(uriBuilder -> uriBuilder
                         .path("/api/coleccion")
                         .queryParam("id", id)
                         .build())
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .toEntity(String.class)
                 .block();
@@ -163,8 +173,10 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public ColeccionDTO agregarFuentes(Long idColeccion, FuenteCreateDTO fuenteDTO) {
+        String token = (String) session.getAttribute("token");
         return webClient.post()
                 .uri("/api/coleccion/{id}/fuentes", idColeccion)
+                .header("Authorization", "Bearer " + token) // <-- importante
                 .bodyValue(fuenteDTO)
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
@@ -172,11 +184,14 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public ColeccionDTO eliminarFuentes(Long idColeccion, Long idFuente) {
+        String token = (String) session.getAttribute("token");
+
         Map<String, Long> body = new HashMap<>();
         body.put("idFuente", idFuente);
 
         return webClient.method(HttpMethod.DELETE)
                 .uri("/api/coleccion/{idColeccion}/fuentes", idColeccion)
+                .header("Authorization", "Bearer " + token) // <-- importante
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)

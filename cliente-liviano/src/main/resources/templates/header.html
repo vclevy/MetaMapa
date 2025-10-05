@@ -9,16 +9,20 @@
             <span th:if="${session.username != null}">
                 Hola, <b th:text="${session.username}">Usuario</b>!
                 <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
+
+                <!-- Si el usuario es ADMIN -->
+                <a class="btn btn-primary" th:if="${session.rol == 'ADMIN'}" th:href="@{/admin}">Panel</a>
+
+                <!-- Si NO es ADMIN -->
+                <a class="btn btn-icon" th:if="${session.rol != 'ADMIN'}" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
             </span>
 
             <!-- Si NO está autenticado -->
             <span th:if="${session.username == null}">
                 <a class="btn btn-primary" th:href="@{/sesion/login}">Iniciar sesión</a>
                 <a class="btn btn-primary" th:href="@{/sesion/registro}">Registrarse</a>
+                <a class="btn btn-icon" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
             </span>
-
-            <!-- Siempre visible -->
-            <a class="btn btn-icon" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
         </nav>
     </div>
 </header>

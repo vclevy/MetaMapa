@@ -25,7 +25,6 @@ public class ColeccionController {
         this.coleccionService = coleccionService;
     }
 
-    // CUALQUIERA autenticado puede ver colecciones
     @GetMapping
     public ResponseEntity<List<ColeccionOutputDTO>> obtenerColecciones() {
         return ResponseEntity.ok(coleccionService.findAll());

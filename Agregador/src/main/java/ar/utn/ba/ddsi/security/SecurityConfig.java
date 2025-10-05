@@ -5,9 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtFilter;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -17,14 +24,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/coleccion/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/hecho/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/hecho/filtrar").permitAll()
 
                         .requestMatchers(HttpMethod.POST, "/api/coleccion/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/coleccion/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/coleccion/**").hasRole("ADMIN")
 
-                        // lo demás requiere autenticación
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(formLogin -> formLogin.disable());
 

@@ -109,6 +109,24 @@ header {
 .form-card h2 { margin:0 0 .25rem; color:#133863; }
 .form-card label { font-weight:700; color:#133863; }
 
+/* Centrado del contenido de la sección de introducción */
+.intro {
+    /* Define un ancho máximo para que no se extienda por toda la pantalla */
+    max-width: 600px;
+    /* Centra el bloque .intro horizontalmente dentro de su contenedor (el .main) */
+    margin-left: auto;
+    margin-right: auto;
+    /* Centra el texto (el h1 y el p) dentro de la sección .intro */
+    text-align: center;
+    /* Añade un poco de margen inferior para separarlo del formulario, si lo hubiera */
+    margin-bottom: 2rem;
+}
+
+/* Opcional: Asegura que el h1 y p no tengan márgenes extraños que rompan el centrado */
+.intro h1, .intro p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 /* Inputs, Textareas y Selects modernos */
 .form-card input[type="text"],
 .form-card input[type="datetime-local"],

@@ -31,30 +31,9 @@ public class AdminController {
     private EstaticaService estatica;
     @Autowired
     private EstadisticasService estadisticas;
-    @Autowired
-    private TokenDecoder tokenDecoder;
-
-    private boolean esAdmin(HttpServletRequest request) {
-        String token = (String) request.getSession().getAttribute("token");
-        if (token == null) return false;
-
-        try {
-            String rol = tokenDecoder.getRol(token);
-            System.out.println("ROL desde token: " + rol); // <-- debug
-            return "ADMIN".equalsIgnoreCase(rol);
-        } catch (Exception e) {
-            e.printStackTrace(); // para ver errores de parsing
-            return false;
-        }
-    }
-
 
     @GetMapping("/admin")
-    public String adminLanding(Model model, HttpServletRequest request) {
-        if (!esAdmin(request)) {
-            return "redirect:/sesion/login"; // o página 403
-        }
-
+    public String adminLanding(Model model) {
         List<ResultadoEstadisticaDTO> resultados = estadisticas.obtenerTodas();
         model.addAttribute("resultados", resultados);
         return "adminLanding";
@@ -109,7 +88,6 @@ public class AdminController {
         // Obtener todas las colecciones
         List<ColeccionDTO> colecciones = agregador.obtenerColecciones();
 
-        // Inicializar listas vacías para evitar nulls en Thymeleaf
         if (colecciones != null) {
             colecciones.forEach(c -> {
                 if (c.getHechosDeLaColeccion() == null) {
@@ -118,10 +96,8 @@ public class AdminController {
             });
         }
 
-        // Pasar la lista al modelo
         model.addAttribute("colecciones", colecciones);
 
-        // Retornar el template Thymeleaf
         return "adminColecciones"; // nombre del archivo HTML sin .html
     }
 
@@ -129,6 +105,7 @@ public class AdminController {
 //    public String listarSolicitudes(Model model) {
 //        List<Solicitud> = agregador.obtenerSolicitudes();
 //    }
+
     @DeleteMapping("/colecciones/borrar")
     @ResponseBody  // importante para que devuelva algo que el fetch pueda interpretar
     public ResponseEntity<String> borrarColeccion(@RequestParam Long id) {

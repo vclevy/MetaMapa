@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +25,13 @@ public class HechoController {
         return ResponseEntity.ok(this.hechoService.obtenerHechos());
     }
 
+    @PreAuthorize("hasRole('CONTRIBUYENTE')")
     @PutMapping("/{id}")
     public ResponseEntity<HechoOutputDTO> modificarHecho(@PathVariable Long id,
                                                          @RequestBody HechoInputPUTDTO hechoInputDTO) {
         return ResponseEntity.ok(this.hechoService.modificarHecho(id, hechoInputDTO));
     }
 
-    // Nuevo endpoint
     @PostMapping("/filtrar")
     public ResponseEntity<List<HechoOutputDTO>> filtrarHechos(@RequestBody HechoFiltroDTO filtros) {
         return ResponseEntity.ok(this.hechoService.filtrarHechos(filtros));

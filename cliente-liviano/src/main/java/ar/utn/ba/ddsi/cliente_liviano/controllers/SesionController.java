@@ -3,7 +3,6 @@ package ar.utn.ba.ddsi.cliente_liviano.controllers;
 import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.RegistroForm;
-import ar.utn.ba.ddsi.cliente_liviano.models.entities.TokenProvider;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AuthService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +53,8 @@ public class SesionController {
             session.setAttribute("token", token);
 
             String rol = tokenDecoder.getRol(token);
+            session.setAttribute("rol", rol);
 
-            // Crear autenticación para Spring Security
             List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + rol.toUpperCase()));
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(loginDTO.getNombreDeUsuario(), null, authorities);
@@ -64,6 +63,7 @@ public class SesionController {
             Authentication current = SecurityContextHolder.getContext().getAuthentication();
             System.out.println("Usuario logueado: " + current.getName());
             System.out.println("Roles: " + current.getAuthorities());
+            System.out.println("Token: " + token);
 
             if ("ADMIN".equalsIgnoreCase(rol)) {
                 return "redirect:/admin";
@@ -74,10 +74,7 @@ public class SesionController {
             model.addAttribute("error", "Usuario o clave incorrectos");
             return "inicioSesion";
         }
-
     }
-
-
 
     @PostMapping("/registrar")
     public String registrarUsuario(@ModelAttribute RegistroForm registroForm, Model model) {
