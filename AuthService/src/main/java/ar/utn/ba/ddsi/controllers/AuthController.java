@@ -49,11 +49,6 @@ public class AuthController {
         return ResponseEntity.ok(Map.of("token", token));
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "ok";
-    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO request) {
         // 1. Buscar usuario por username

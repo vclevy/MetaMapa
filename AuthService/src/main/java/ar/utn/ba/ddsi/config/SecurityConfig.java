@@ -1,6 +1,8 @@
 package ar.utn.ba.ddsi.config;
 
+import ar.utn.ba.ddsi.filters.JwtAuthenticationFilter;
 import ar.utn.ba.ddsi.providers.CustomAuthProvider;
+import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -30,26 +34,24 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   JwtAuthenticationFilter jwtFilter) throws Exception {
+
         http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/login",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/api/auth/register",
-                                "/api/auth/login"
-                        ).permitAll()
+                        .requestMatchers("/login", "/css/**", "/js/**", "/images/**",
+                                "/api/auth/register", "/api/auth/login").permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
-                        .loginPage("/sesion/login")          // página de login
-                        .loginProcessingUrl("/sesion/login") // endpoint del POST del form
-                        .usernameParameter("usuario")        // nombre del input
-                        .passwordParameter("clave")          // nombre del input
+                        .loginPage("/sesion/login")
+                        .loginProcessingUrl("/sesion/login")
+                        .usernameParameter("usuario")
+                        .passwordParameter("clave")
                         .permitAll()
-                        .defaultSuccessUrl("/", true)        // 👈 redirige a /
+                        .defaultSuccessUrl("/", true)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -63,9 +65,9 @@ public class SecurityConfig {
                         .accessDeniedHandler((request, response, accessDeniedException) ->
                                 response.sendRedirect("/403")
                         )
-                )
-                .csrf(csrf -> csrf.disable());
+                );
 
         return http.build();
     }
+
 }
