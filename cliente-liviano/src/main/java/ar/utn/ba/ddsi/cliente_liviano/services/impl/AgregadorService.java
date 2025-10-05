@@ -36,8 +36,11 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List<HechoDTO> obtenerHechos() {
+        String token = (String) session.getAttribute("token");
+
         return webClient.get()
                 .uri("/api/hecho")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(HechoDTO.class)
                 .collectList()
@@ -45,8 +48,11 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List <HechoDTO> obtenerHechosDestacados(){ //TODO mejorar la logica esta
+        String token = (String) session.getAttribute("token");
+
         List<HechoDTO> hechos = webClient.get()
                 .uri("/api/hecho")
+                .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(HechoDTO.class)
                 .collectList()
@@ -105,7 +111,7 @@ public class AgregadorService implements IAgregadorService {
 
         return webClient.post()
                 .uri("/api/coleccion")
-                .header("Authorization", "Bearer " + token) // <-- importante
+                .header("Authorization", "Bearer " + token)
                 .bodyValue(body)   // Jackson lo convierte a JSON
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
