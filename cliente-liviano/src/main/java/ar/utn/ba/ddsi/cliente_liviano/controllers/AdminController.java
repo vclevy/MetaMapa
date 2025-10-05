@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
+import ar.utn.ba.ddsi.cliente_liviano.jwt.JwtService;
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
@@ -10,6 +11,7 @@ import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +35,30 @@ public class AdminController {
     private EstaticaService estatica;
     @Autowired
     private EstadisticasService estadisticas;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private JwtService jwtServiceCliente;
+
+    private boolean esAdmin(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String token = authHeader.substring(7);
+            return jwtServiceCliente.isTokenValid(token) &&
+                    "ADMIN".equals(jwtServiceCliente.extractRole(token));
+        }
+        return false;
+    }
 
     @GetMapping("/admin")
-    public String adminLanding(Model model) {
+    public String adminLanding(Model model, HttpServletRequest request) {
+        if (!esAdmin(request)) {
+            return "redirect:/sesion/login"; // o página 403
+        }
+
         List<ResultadoEstadisticaDTO> resultados = estadisticas.obtenerTodas();
         model.addAttribute("resultados", resultados);
-        return "adminLanding"; // nombre de la plantilla
+        return "adminLanding";
     }
+
 
     @GetMapping("/coleccion/nueva")
     public String mostrarFormulario(Model model) {
