@@ -2,9 +2,8 @@ package ar.utn.ba.ddsi.models.dtos.output;
 
 import ar.utn.ba.ddsi.models.entities.hecho.*;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import lombok.Data;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

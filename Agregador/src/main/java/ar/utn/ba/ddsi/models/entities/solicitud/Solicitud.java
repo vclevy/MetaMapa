@@ -1,10 +1,9 @@
 package ar.utn.ba.ddsi.models.entities.solicitud;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
-import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -14,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Data
 @Table(name = "solicitudes")
 public class Solicitud {
     @Id
@@ -37,22 +37,11 @@ public class Solicitud {
     @Column(name = "fecha_de_evaluacion")
     private LocalDateTime fechaDeEvaluacionDeSolicitud;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuarioQueCargoLaSolicitud;
+    @Column(name = "nombre_de_usuario")
+    private String nombreDeUsuario;
 
     @OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistorialSolicitud> historialSolicitud = new ArrayList<>();
-
-
-    public Solicitud (String unaJustificacion, Hecho hecho, Usuario unUsuario) {
-        this.justificacionDeEliminacion = unaJustificacion;
-        this.hecho = hecho;
-        this.usuarioQueCargoLaSolicitud = unUsuario;
-        this.fechaDeCargaDeSolicitud = LocalDateTime.now();
-        this.estado = EstadoDeSolicitudDeEliminacion.PENDIENTE;
-    }
-
 
     public Solicitud() {
 

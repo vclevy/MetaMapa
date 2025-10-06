@@ -1,21 +1,20 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
-import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.solicitud.AccionesSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
-import ar.utn.ba.ddsi.models.repositories.IUsuariosRepository;
 import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Service
 public class SolicitudesService implements ISolicitudesService {
@@ -26,14 +25,11 @@ public class SolicitudesService implements ISolicitudesService {
     private IHechosRepository hechosRepository;
 
     @Autowired
-    private IUsuariosRepository usuarioRepository;
-
-    @Autowired
     private DetectorDeSpam detectorDeSpam;
 
 
     @Override
-    public void registrarSolicitud(SolicitudInputDTO solicitudInputDTO, Long idUsuario) {
+    public void registrarSolicitud(SolicitudInputDTO solicitudInputDTO) {
 
         if (!this.justificacionTieneLongitudValida(solicitudInputDTO.getJustificacion())) {
             return;
@@ -43,41 +39,37 @@ public class SolicitudesService implements ISolicitudesService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Hecho no encontrado con id " + solicitudInputDTO.getIdHecho()));
 
-
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id " + idUsuario));
-
-
-        Solicitud unaSolicitud = new Solicitud(
-                solicitudInputDTO.getJustificacion(),
-                hecho,
-                usuario
-        );
+        Solicitud unaSolicitud = new Solicitud();
+        unaSolicitud.setJustificacionDeEliminacion(solicitudInputDTO.getJustificacion());
+        unaSolicitud.setHecho(hecho);
+        unaSolicitud.setFechaDeCargaDeSolicitud(LocalDateTime.now());
+        unaSolicitud.setNombreDeUsuario(solicitudInputDTO.getNombreDeUsuario());
+        unaSolicitud.setHistorialSolicitud(null);
 
         if (!this.verificacionDeSpam(unaSolicitud)) {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE);
             solicitudesRepository.save(unaSolicitud);
-            this.actualizarHistorialDe(unaSolicitud.getIdSolicitud(), usuario);
-
         } else {
             unaSolicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
         }
+        solicitudesRepository.save(unaSolicitud);
     }
 
     @Override
-    public void cambiarEstadoDeSolicitud(Long idSolicitud, Long idUsuarioModificador, String unaAccion) {
+    public void cambiarEstadoDeSolicitud(Long idSolicitud, String usuarioModificador, AccionesSolicitud unaAccion) {
         Solicitud solicitud = solicitudesRepository.findById(idSolicitud)
                 .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada con id " + idSolicitud));
 
-        Usuario usuarioModificador = usuarioRepository.findById(idUsuarioModificador)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id " + idUsuarioModificador));
+        HistorialSolicitud historialSolicitud = new HistorialSolicitud();
+        historialSolicitud.setEstado(solicitud.getEstado());
+        historialSolicitud.setNombreDeUsuario(usuarioModificador);
+        solicitud.getHistorialSolicitud().add(historialSolicitud);
 
-
-        switch (unaAccion.toLowerCase()) {
-            case "aprobar":
+        switch (unaAccion) {
+            case APROBAR:
                 solicitud.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
                 break;
-            case "rechazar":
+            case RECHAZAR:
                 solicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
                 break;
             default:
@@ -85,37 +77,18 @@ public class SolicitudesService implements ISolicitudesService {
         }
 
         solicitud.setFechaDeEvaluacionDeSolicitud(LocalDateTime.now());
-
-        this.actualizarHistorialDe(idSolicitud, usuarioModificador);
-
         solicitudesRepository.save(solicitud);
     }
+
 
     @Override
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
         return this.detectorDeSpam.esSpam(unaSolicitud.getJustificacionDeEliminacion());
     }
 
-
-
     @Override
     public boolean justificacionTieneLongitudValida(String unaJustificacion) {
         return unaJustificacion != null && unaJustificacion.length() >= 500;
-    }
-
-    @Override
-    public void actualizarHistorialDe(Long idSolicitud, Usuario usuarioModificador) {
-        List<Solicitud> solcicitudes = solicitudesRepository.findAll();
-
-        for (Solicitud solicitudIndice : solcicitudes) {
-            if (solicitudIndice.getIdSolicitud() == idSolicitud) {
-                HistorialSolicitud historialSolicitud = new HistorialSolicitud(
-                        solicitudIndice.getEstado(),
-                        usuarioModificador
-                );
-                solicitudIndice.getHistorialSolicitud().add(historialSolicitud);
-            }
-        }
     }
 
     public  List<Solicitud> obtenerSolicitudes(){

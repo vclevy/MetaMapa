@@ -1,9 +1,10 @@
 package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
+import ar.utn.ba.ddsi.models.entities.solicitud.AccionesSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
-import ar.utn.ba.ddsi.models.entities.usuario.Usuario;
 import ar.utn.ba.ddsi.services.solicitudService.ISolicitudesService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,25 +13,26 @@ import java.util.List;
 @RequestMapping("/api/solicitud")
 public class SolicitudController {
 
-    private final ISolicitudesService solcitudesService;
+    private final ISolicitudesService solicitudesService;
 
     public SolicitudController(ISolicitudesService solcitudesService) {
-        this.solcitudesService = solcitudesService;
+        this.solicitudesService = solcitudesService;
     }
 
-    // TODO: @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{idSolicitud}")
-    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody Long idUsuarioModificador, @RequestParam String accion) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
-        this.solcitudesService.cambiarEstadoDeSolicitud(idSolicitud, idUsuarioModificador, accion);
+    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody String usuarioModificador, @RequestParam AccionesSolicitud unaAccion) {
+        this.solicitudesService.cambiarEstadoDeSolicitud(idSolicitud, usuarioModificador, unaAccion);
     }
 
     @PostMapping()
-    public void crearSolicitud(@RequestBody SolicitudInputDTO solicitud, @RequestParam Long idUsuario) { //TODO: NO DEBERIA SER ASI, EL USUARIO TIENE QUE VENIR POR INTERFAZ
-        this.solcitudesService.registrarSolicitud(solicitud, idUsuario);
+    public void crearSolicitud(@RequestBody SolicitudInputDTO solicitud) {
+        this.solicitudesService.registrarSolicitud(solicitud);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
     public List<Solicitud> obtenerTodas(){
-        return this.solcitudesService.obtenerSolicitudes();
+        return this.solicitudesService.obtenerSolicitudes();
     }
 }

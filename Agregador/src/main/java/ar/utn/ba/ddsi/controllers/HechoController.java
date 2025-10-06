@@ -1,6 +1,5 @@
 package ar.utn.ba.ddsi.controllers;
 
-import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputPUTDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
