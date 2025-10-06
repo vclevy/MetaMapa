@@ -18,4 +18,6 @@ public class HechoInputDTO {
     private Lugar lugar;
     private List<String> multimedia;
     private Categoria categoria;
+    private String nombreDeUsuario;
+    private Boolean esAnonimo;
 }

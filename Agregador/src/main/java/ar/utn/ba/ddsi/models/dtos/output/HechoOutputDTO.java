@@ -19,7 +19,7 @@ public class HechoOutputDTO {
     private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
     private List<String> multimedia;
-    private Usuario contribuyente;
+    private String nombreDeUsuario;
     private String fuenteNombre;
     private String nombreArchivo;
 }

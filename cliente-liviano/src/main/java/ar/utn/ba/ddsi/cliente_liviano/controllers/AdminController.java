@@ -106,16 +106,10 @@ public class AdminController {
 //        List<Solicitud> = agregador.obtenerSolicitudes();
 //    }
 
-    @DeleteMapping("/colecciones/borrar")
-    @ResponseBody  // importante para que devuelva algo que el fetch pueda interpretar
-    public ResponseEntity<String> borrarColeccion(@RequestParam Long id) {
-        boolean eliminado = agregador.eliminarColeccion(id); // llama al backend real
-        if (eliminado) {
-            return ResponseEntity.ok("Colección eliminada correctamente");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("No se encontró la colección con id: " + id);
-        }
+    @PostMapping("/{id}/eliminar")
+    public String eliminar(@PathVariable Long id) {
+        agregador.eliminarColeccion(id);
+        return "redirect:/admin/colecciones";
     }
 
     @GetMapping("/coleccion/editar/{id}")
@@ -158,7 +152,7 @@ public class AdminController {
             redirectAttrs.addFlashAttribute("mensajeError", "Error al agregar fuente: " + e.getMessage());
         }
 
-        return "redirect:/admin/colecciones";
+        return "redirect:/colecciones";
     }
 
     @PostMapping("/coleccion/{idColeccion}/fuente/eliminar")

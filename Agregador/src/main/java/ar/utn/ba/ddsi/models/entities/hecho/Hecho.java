@@ -50,9 +50,8 @@ public class Hecho {
     @CollectionTable(name = "hecho_multimedia", joinColumns = @JoinColumn(name = "hecho_id"))
     private List<String> multimedia;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_contribuyente_id")
-    private Usuario usuarioContribuyente;
+    @Column(name = "nombre_de_usuario", length = 100)
+    private String nombreDeUsuario;
 
     @Column(name = "nombre_archivo", length = 255)
     private String nombreArchivo;

@@ -48,7 +48,7 @@ public class FuenteDinamica implements IFuenteDeHechos {
                 unHecho.setSolicitudesDeEliminacion(dto.getSolicitudesDeEliminacion());
                 unHecho.setOrigen(OrigenDelHecho.CONTRIBUYENTE);
                 unHecho.setMultimedia(dto.getMultimedia());
-                unHecho.setUsuarioContribuyente(dto.getContribuyente());
+                unHecho.setNombreDeUsuario(dto.getNombreDeUsuario());
 
                 if (dto.getLugar() != null) {
                     Lugar lugar = new Lugar(dto.getLugar().getLatitud(), dto.getLugar().getLongitud());

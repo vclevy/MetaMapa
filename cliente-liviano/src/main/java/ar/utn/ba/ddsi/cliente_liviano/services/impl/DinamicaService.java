@@ -31,7 +31,6 @@ public class DinamicaService {
     public HechoDinamicaDTO crearHecho(HechoFormDTO hechoForm,
                                        java.util.List<MultipartFile> archivos) {
         try {
-            // Convertir HechoFormDTO a HechoDinamicaDTO
             HechoDinamicaDTO hechoDto = new HechoDinamicaDTO();
             hechoDto.setTitulo(hechoForm.getTitulo());
             hechoDto.setDescripcion(hechoForm.getDescripcion());
@@ -43,7 +42,8 @@ public class DinamicaService {
             Categoria categoria = new Categoria();
             categoria.setNombre(hechoForm.getCategoriaNombre());
             hechoDto.setCategoria(categoria);
-
+            hechoDto.setNombreDeUsuario(hechoForm.getNombreDeUsuario());
+            hechoDto.setEsAnonimo(hechoForm.getEsAnonimo());
             // Convertir a JSON
             String hechoJson = objectMapper.writeValueAsString(hechoDto);
 

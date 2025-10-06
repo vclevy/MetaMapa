@@ -25,4 +25,9 @@ public class HechoFormDTO {
 
     @NotNull(message = "La longitud es obligatoria")
     private Double longitud;
+
+    private String nombreDeUsuario;
+
+    private Boolean esAnonimo = false;
+
 }

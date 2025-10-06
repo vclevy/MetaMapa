@@ -66,8 +66,8 @@ public class HechosServices implements IHechosServices {
         hecho.setFueEliminado(false);
         hecho.setEsAnonimo(hecho.esAnonimo());
         hecho.setSolicitudesDeEliminacion(new ArrayList<>());
-        hecho.setContribuyente(null); // TODO: asignar contribuyente real
-
+        hecho.setNombreDeUsuario(dto.getNombreDeUsuario());
+        hecho.setEsAnonimo(dto.getEsAnonimo());
         Lugar lugar = new Lugar();
         lugar.setLatitud(dto.getLugar().getLatitud());
         lugar.setLongitud(dto.getLugar().getLongitud());
@@ -131,7 +131,7 @@ public class HechosServices implements IHechosServices {
         Hecho hechoOriginal = repositorioDeHechos.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
 
-        if (hechoOriginal.getContribuyente() == null) {
+        if (hechoOriginal.getNombreDeUsuario() == null) {
             throw new RuntimeException("Un usuario anónimo no puede editar hechos");
         }
 

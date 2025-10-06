@@ -41,7 +41,7 @@ public class AuthController {
         usuario.setNombreDeUsuario(registro.getNombreDeUsuario());
         usuario.setEmail(registro.getEmail());
         usuario.setContrasenia(passwordEncoder.encode(registro.getClave()));
-        usuario.setRol(Rol.ADMIN);
+        usuario.setRol(Rol.CONTRIBUYENTE);
 
         usuarioRepository.save(usuario);
 
@@ -51,7 +51,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO request) {
-        // 1. Buscar usuario por username
         Optional<Usuario> userOpt = usuarioRepository.findByNombreDeUsuario(request.getNombreDeUsuario());
         if (userOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
@@ -59,15 +58,12 @@ public class AuthController {
 
         Usuario usuario = userOpt.get();
 
-        // 2. Verificar contraseña
         if (!passwordEncoder.matches(request.getClave(), usuario.getContrasenia())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
         }
 
-        // 3. Generar token JWT
         String token = jwtService.generateToken(usuario);
 
-        // 4. Devolver token
         return ResponseEntity.ok(new LoginResponse(token));
     }
 

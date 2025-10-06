@@ -52,7 +52,7 @@ public class Hecho {
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
 
     @Column(name = "es_anonimo", nullable = false)
-    private Boolean esAnonimo = true;
+    private Boolean esAnonimo;
 
     @ManyToMany
     @JoinTable(
@@ -70,9 +70,8 @@ public class Hecho {
     @Column(name = "fue_eliminado", nullable = false)
     private Boolean fueEliminado = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contribuyente_id")
-    private Usuario contribuyente;
+    @Column(name = "nombre_de_usuario", length = 100)
+    private String nombreDeUsuario;
 
     @Embedded
     private Revision revision;
@@ -97,6 +96,6 @@ public class Hecho {
     }
 
     public boolean esAnonimo(){
-        return this.contribuyente == null;
+        return this.nombreDeUsuario == null;
     }
 }

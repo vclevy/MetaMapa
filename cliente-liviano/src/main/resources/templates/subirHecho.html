@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -107,6 +106,12 @@
 
             <label for="multimedia">Subir multimedia</label>
             <input type="file" id="multimedia" name="multimedia" accept="image/*,video/*,audio/*" multiple>
+
+            <!-- Checkbox para anonimato: solo visible si el usuario está autenticado -->
+            <div th:if="${session.username != null}">
+                <input type="checkbox" id="anonimo" th:field="*{esAnonimo}" th:checked="${hecho.esAnonimo}" />
+                <label for="anonimo">Quiero que mi nombre no se muestre públicamente</label>
+            </div>
 
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>

@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
@@ -21,15 +22,12 @@ public class HechosController {
 
     private final AgregadorService agregador;
     private final DinamicaService dinamica;
-    private final ObjectMapper objectMapper;
     private static final int PAGE_SIZE = 12;
 
     @Autowired
-    public HechosController(AgregadorService agregador, DinamicaService dinamica,
-                            ObjectMapper objectMapper) {
+    public HechosController(AgregadorService agregador, DinamicaService dinamica) {
         this.agregador = agregador;
         this.dinamica = dinamica;
-        this.objectMapper = objectMapper;
     }
 
     @GetMapping
@@ -41,11 +39,19 @@ public class HechosController {
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias);
 
-        // Paginación
         int totalHechos = hechos.size();
+
+        if (totalHechos == 0) {
+            model.addAttribute("hechos", List.of());
+            model.addAttribute("paginaActual", 1);
+            model.addAttribute("paginaAnterior", 1);
+            model.addAttribute("paginaSiguiente", 1);
+            model.addAttribute("totalPaginas", 1);
+            return "listadoHechos";
+        }
+
         int totalPaginas = (int) Math.ceil((double) totalHechos / PAGE_SIZE);
 
-        // Ajustar page si se pasa fuera de rango
         if (page < 1) page = 1;
         if (page > totalPaginas) page = totalPaginas;
 
@@ -62,7 +68,6 @@ public class HechosController {
         return "listadoHechos";
     }
 
-
     @PostMapping("/filtrar")
     @ResponseBody
     public List<HechoDTO> filtrar(@RequestBody HechoFiltroDTO filtro) {
@@ -77,12 +82,17 @@ public class HechosController {
     }
 
     @PostMapping("/crear")
-    public String crearHecho( @Valid @ModelAttribute HechoFormDTO hechoForm,
+    public String crearHecho(@Valid @ModelAttribute HechoFormDTO hechoForm,
                              @RequestParam("multimedia") List<MultipartFile> archivos,
+                             Authentication auth,
                              RedirectAttributes redirectAttributes) {
 
         try {
-            HechoDinamicaDTO hecho = dinamica.crearHecho(hechoForm, archivos);
+            String username = auth.getName(); // viene del SecurityContext
+            System.out.println("Usuario autenticado: " + username);
+            hechoForm.setNombreDeUsuario(username);
+
+            dinamica.crearHecho(hechoForm, archivos);
             redirectAttributes.addFlashAttribute("mensajeExito", "¡Hecho subido correctamente!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("mensajeError", "Error al subir el hecho: " + e.getMessage());

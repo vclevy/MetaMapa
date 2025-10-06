@@ -17,4 +17,6 @@ public class HechoDinamicaDTO {
         private Lugar lugar;
         private List<String> multimedia;
         private Categoria categoria;
+        private Boolean esAnonimo;
+        private String nombreDeUsuario;
 }

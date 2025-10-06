@@ -17,7 +17,7 @@ public class HechoMapper {
         dto.setEtiquetas(hecho.getEtiquetas());
         dto.setMultimedia(hecho.getMultimedia());
         dto.setSolicitudesDeEliminacion(hecho.getSolicitudesDeEliminacion());
-        dto.setContribuyente(hecho.getUsuarioContribuyente());
+        dto.setNombreDeUsuario(hecho.getNombreDeUsuario());
         dto.setNombreArchivo(hecho.getNombreArchivo());
 
         if (hecho.getFuente() != null) {

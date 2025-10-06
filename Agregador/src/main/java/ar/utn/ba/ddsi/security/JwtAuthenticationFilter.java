@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final String secretKey = "claveMuySecretaDe32Caracteres123456"; // misma que el Auth Service
+    private final String secretKey = "claveMuySecretaDe32Caracteres123456";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -34,6 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String token = authHeader.substring(7);
+        System.out.println("Authorization header: " + authHeader);
+        System.out.println("Token extraído: " + token);
 
         try {
             Claims claims = Jwts.parserBuilder()
