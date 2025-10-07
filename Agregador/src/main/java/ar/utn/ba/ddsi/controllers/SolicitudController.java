@@ -19,7 +19,6 @@ public class SolicitudController {
         this.solicitudesService = solcitudesService;
     }
 
-    // Aprobar solicitud
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{idSolicitud}/aprobar")
     public void aprobarSolicitud(@PathVariable Long idSolicitud,
@@ -27,7 +26,6 @@ public class SolicitudController {
         solicitudesService.aprobarSolicitud(idSolicitud, usuarioModificador);
     }
 
-    // Rechazar solicitud
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{idSolicitud}/rechazar")
     public void rechazarSolicitud(@PathVariable Long idSolicitud,

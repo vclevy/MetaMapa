@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -207,6 +204,37 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
+    public List<SolicitudDTO> obtenerSolicitudes() {
+        try {
+            List<SolicitudDTO> solicitudes = webClient.get()
+                    .uri("/api/solicitud/all")
+                    .retrieve()
+                    .bodyToFlux(SolicitudDTO.class)
+                    .collectList()
+                    .block();
+            return (solicitudes != null) ? solicitudes : Collections.emptyList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
+        webClient.patch()
+                .uri("/api/solicitud/{id}/aprobar", idSolicitud)
+                .bodyValue(usuarioModificador)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
+
+    public void rechazarSolicitud(Long idSolicitud, String usuarioModificador) {
+        webClient.patch()
+                .uri("/api/solicitud/{id}/rechazar", idSolicitud)
+                .bodyValue(usuarioModificador)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
 }
 
 

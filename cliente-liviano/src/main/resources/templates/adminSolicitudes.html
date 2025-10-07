@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Solicitudes de eliminación</title>
     <link rel="stylesheet" th:href="@{/css/adminSolicitudes.css}">
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
 </head>
 <body>
 
@@ -17,75 +17,47 @@
     <!-- Sidebar -->
     <div th:replace="adminSidebar :: sidebarFragment"></div>
 
-    <!-- Contenido -->
+    <!-- Contenido principal -->
     <main class="main" role="main">
         <div class="page-header">
             <h1 class="page-title">Solicitudes de eliminación</h1>
         </div>
 
-        <!-- Filtros -->
-        <section class="filters">
-            <form method="get" class="filters-form">
-                <div class="filter-group">
-                    <label for="estado">Estado</label>
-                    <select id="estado" name="estado">
-                        <option value="">Todos</option>
-                        <option value="PENDIENTE">Pendiente</option>
-                        <option value="APROBADA">Aprobada</option>
-                        <option value="RECHAZADA">Rechazada</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label for="usuario">Usuario</label>
-                    <input id="usuario" name="usuario" type="text" placeholder="Buscar por usuario..."/>
-                </div>
-
-                <div class="filter-actions">
-                    <button type="submit" class="btn btn--primary">Filtrar</button>
-                    <a th:href="@{/admin/solicitudes}" class="btn">Limpiar</a>
-                </div>
-            </form>
-        </section>
-
         <!-- Lista de solicitudes -->
         <section class="solicitudes-list">
-            <div th:each="solicitud : ${solicitudes}" class="solicitud-card">
+            <div th:if="${#lists.isEmpty(solicitudes)}" class="no-data">
+                <p>No hay solicitudes registradas.</p>
+            </div>
 
+            <div th:each="solicitud : ${solicitudes}" class="solicitud-card">
                 <div class="solicitud-info">
                     <div class="solicitud-header">
-                        <h2 th:text="'#' + ${solicitud.idSolicitud}">#1</h2>
-                        <span class="badge"
-                              th:classappend="' estado-' + ${solicitud.estado.toString().toLowerCase()}"
-                              th:text="${solicitud.estado}">PENDIENTE</span>
+                        <h2 th:text="'Hecho ID: ' + ${solicitud.idHecho}">Hecho ID: 1</h2>
                     </div>
 
-                    <p class="hecho" th:text="${solicitud.hecho.titulo}">Título del hecho</p>
-                    <p class="justificacion" th:text="${solicitud.justificacionDeEliminacion}">
-                        Justificación del usuario...
+                    <p class="justificacion">
+                        <strong>Justificación:</strong>
+                        <span th:text="${solicitud.justificacion}">Justificación del usuario...</span>
                     </p>
 
                     <div class="meta">
-                        <span th:text="'Usuario: ' + ${solicitud.usuarioQueCargoLaSolicitud.username}">usuario</span>
-                        <span th:text="'Fecha: ' + ${#temporals.format(solicitud.fechaDeCargaDeSolicitud, 'dd/MM/yyyy HH:mm')}">
-                            06/10/2025 14:30
-                        </span>
+                        <span th:text="'Solicitado por: ' + ${solicitud.nombreDeUsuario}">usuario</span>
                     </div>
                 </div>
 
                 <div class="solicitud-actions">
-                    <a th:href="@{'/admin/solicitud/' + ${solicitud.idSolicitud}}" class="btn-ver">Ver</a>
-                    <a th:if="${solicitud.estado.name() == 'PENDIENTE'}"
-                       th:href="@{'/admin/solicitud/aprobar/' + ${solicitud.idSolicitud}}"
-                       class="btn-aprobar">Aprobar</a>
-                    <a th:if="${solicitud.estado.name() == 'PENDIENTE'}"
-                       th:href="@{'/admin/solicitud/rechazar/' + ${solicitud.idSolicitud}}"
-                       class="btn-rechazar">Rechazar</a>
-                </div>
-            </div>
+                    <form th:action="@{'/admin/solicitudes/' + ${solicitud.idHecho} + '/aprobar'}" method="post">
+                        <input type="hidden" name="usuarioModificador"
+                               th:value="${#httpServletRequest.remoteUser}"/>
+                        <button type="submit" class="btn-aprobar">Aprobar</button>
+                    </form>
 
-            <div th:if="${#lists.isEmpty(solicitudes)}" class="no-data">
-                <p>No hay solicitudes registradas.</p>
+                    <form th:action="@{'/admin/solicitudes/' + ${solicitud.idHecho} + '/rechazar'}" method="post">
+                        <input type="hidden" name="usuarioModificador"
+                               th:value="${#httpServletRequest.remoteUser}"/>
+                        <button type="submit" class="btn-rechazar">Rechazar</button>
+                    </form>
+                </div>
             </div>
         </section>
 

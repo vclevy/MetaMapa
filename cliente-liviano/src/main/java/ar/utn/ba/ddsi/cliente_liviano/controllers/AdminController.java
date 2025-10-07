@@ -1,6 +1,5 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
-import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
@@ -8,7 +7,6 @@ import ar.utn.ba.ddsi.cliente_liviano.models.dtos.FuenteCreateDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,11 +98,6 @@ public class AdminController {
 
         return "adminColecciones"; // nombre del archivo HTML sin .html
     }
-
-//    @GetMapping("/solicitudes")
-//    public String listarSolicitudes(Model model) {
-//        List<Solicitud> = agregador.obtenerSolicitudes();
-//    }
 
     @PostMapping("/{id}/eliminar")
     public String eliminar(@PathVariable Long id) {
