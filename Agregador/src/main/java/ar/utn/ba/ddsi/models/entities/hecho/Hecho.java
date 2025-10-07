@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.models.entities.hecho;
 
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -63,6 +64,7 @@ public class Hecho {
     private List<Etiqueta> etiquetas;
 
     @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Solicitud> solicitudesDeEliminacion = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

@@ -1,8 +1,8 @@
 package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
+import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
-import ar.utn.ba.ddsi.models.entities.solicitud.AccionesSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
@@ -71,8 +71,8 @@ public class SolicitudesService implements ISolicitudesService {
         HistorialSolicitud historialSolicitud = new HistorialSolicitud();
         historialSolicitud.setEstado(solicitud.getEstado());
         historialSolicitud.setNombreDeUsuario(usuarioModificador);
-        historialSolicitud.setFechaModificacion(LocalDateTime.now()); // <-- clave
-        historialSolicitud.setSolicitud(solicitud); // también es buena práctica setear la relación
+        historialSolicitud.setFechaModificacion(LocalDateTime.now());
+        historialSolicitud.setSolicitud(solicitud);
 
         solicitud.getHistorialSolicitud().add(historialSolicitud);
 
@@ -93,7 +93,11 @@ public class SolicitudesService implements ISolicitudesService {
         return unaJustificacion != null && unaJustificacion.length() >= 500;
     }
 
-    public  List<Solicitud> obtenerSolicitudes(){
-        return solicitudesRepository.findAll();
+    @Override
+    public List<SolicitudOutputDTO> obtenerSolicitudes() {
+        return solicitudesRepository.findAll().stream()
+                .map(SolicitudOutputDTO::new)
+                .toList();
     }
+
 }

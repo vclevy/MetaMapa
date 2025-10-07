@@ -1,8 +1,7 @@
 package ar.utn.ba.ddsi.controllers;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
-import ar.utn.ba.ddsi.models.entities.solicitud.AccionesSolicitud;
-import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
+import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
 import ar.utn.ba.ddsi.services.solicitudService.ISolicitudesService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class SolicitudController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/all")
-    public List<Solicitud> obtenerTodas(){
-        return this.solicitudesService.obtenerSolicitudes();
+    public List<SolicitudOutputDTO> obtenerTodas() {
+        return solicitudesService.obtenerSolicitudes();
     }
 }
