@@ -219,7 +219,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
-        webClient.patch()
+        webClient.post()
                 .uri("/api/solicitud/{id}/aprobar", idSolicitud)
                 .bodyValue(usuarioModificador)
                 .retrieve()
@@ -228,7 +228,7 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public void rechazarSolicitud(Long idSolicitud, String usuarioModificador) {
-        webClient.patch()
+        webClient.post()
                 .uri("/api/solicitud/{id}/rechazar", idSolicitud)
                 .bodyValue(usuarioModificador)
                 .retrieve()

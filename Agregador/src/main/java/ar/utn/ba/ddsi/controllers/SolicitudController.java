@@ -3,6 +3,8 @@ package ar.utn.ba.ddsi.controllers;
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
 import ar.utn.ba.ddsi.services.solicitudService.ISolicitudesService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +20,14 @@ public class SolicitudController {
         this.solicitudesService = solcitudesService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{idSolicitud}/aprobar")
+    @PostMapping("/{idSolicitud}/aprobar")
     public void aprobarSolicitud(@PathVariable Long idSolicitud,
                                  @RequestBody String usuarioModificador) {
         solicitudesService.aprobarSolicitud(idSolicitud, usuarioModificador);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{idSolicitud}/rechazar")
+    @PostMapping("/{idSolicitud}/rechazar")
     public void rechazarSolicitud(@PathVariable Long idSolicitud,
                                   @RequestBody String usuarioModificador) {
         solicitudesService.rechazarSolicitud(idSolicitud, usuarioModificador);
