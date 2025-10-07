@@ -27,7 +27,7 @@ public class AgregadorService implements IAgregadorService {
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:8080")
                 .codecs(configurer ->
-                        configurer.defaultCodecs().maxInMemorySize(5 * 1024 * 1024) // 5 MB
+                        configurer.defaultCodecs().maxInMemorySize(5 * 1024 * 1024)
                 )
                 .build();
     }
@@ -194,19 +194,19 @@ public class AgregadorService implements IAgregadorService {
 
         return webClient.method(HttpMethod.DELETE)
                 .uri("/api/coleccion/{idColeccion}/fuentes", idColeccion)
-                .header("Authorization", "Bearer " + token) // <-- importante
+                .header("Authorization", "Bearer " + token)
                 .bodyValue(body)
                 .retrieve()
                 .bodyToMono(ColeccionDTO.class)
                 .block();
     }
 
-    public List<SolicitudDTO> obtenerSolicitudes() {
+    public List<SolicitudDTO> obtenerSolicitudesPendientes() {
         String token = (String) session.getAttribute("token");
 
         try {
             List<SolicitudDTO> solicitudes = webClient.get()
-                    .uri("/api/solicitud/all")
+                    .uri("/api/solicitud/pendientes")
                     .header("Authorization", "Bearer " + token)
                     .retrieve()
                     .bodyToFlux(SolicitudDTO.class)

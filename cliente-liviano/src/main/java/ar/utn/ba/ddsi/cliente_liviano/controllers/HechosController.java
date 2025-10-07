@@ -125,4 +125,10 @@ public class HechosController {
         return "detalleHecho";
     }
 
+    @GetMapping("/{id}/solicitar-eliminacion")
+    public String mostrarFormularioSolicitud(Model model) {
+        model.addAttribute("solicitud", new SolicitudDTO());
+        return "solicitarEliminacion";
+    }
+
 }

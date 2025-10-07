@@ -113,6 +113,12 @@
                   th:text="${hecho.lugar.provincia}"></span>
             <span th:if="${hecho.lugar.latitud == null or hecho.lugar.longitud == null}">Ubicación no disponible</span>
         </p>
+        <!-- Botón para solicitar eliminación -->
+        <div class="actions" style="margin-top:1.5rem;">
+            <a class="btn btn-outline btn-solicitar" th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
+                Solicitar eliminación
+            </a>
+        </div>
     </div>
 
 

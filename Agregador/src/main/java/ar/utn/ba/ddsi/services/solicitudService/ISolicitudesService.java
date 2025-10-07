@@ -13,4 +13,5 @@ public interface ISolicitudesService {
     boolean verificacionDeSpam(Solicitud unaSolicitud);
     boolean justificacionTieneLongitudValida(String unaJustificacion);
     List<SolicitudOutputDTO> obtenerSolicitudes();
+    List<SolicitudOutputDTO> obtenerSolicitudesPendientes();
 }

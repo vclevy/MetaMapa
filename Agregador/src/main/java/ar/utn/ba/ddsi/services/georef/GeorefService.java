@@ -31,7 +31,7 @@ public class GeorefService {
                     }
                     return "Provincia desconocida";
                 })
-                .block(); // ⚠️ bloquea el hilo hasta recibir el String
+                .block();
     }
 
 }

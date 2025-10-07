@@ -19,7 +19,7 @@ public class AdminSolicitudesController {
 
     @GetMapping
     public String listarSolicitudes(Model model) {
-        List<SolicitudDTO> solicitudes = agregadorService.obtenerSolicitudes();
+        List<SolicitudDTO> solicitudes = agregadorService.obtenerSolicitudesPendientes();
 
         model.addAttribute("solicitudes", solicitudes);
         return "adminSolicitudes";

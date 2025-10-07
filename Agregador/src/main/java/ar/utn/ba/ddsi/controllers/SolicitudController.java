@@ -42,4 +42,11 @@ public class SolicitudController {
     public List<SolicitudOutputDTO> obtenerTodas() {
         return solicitudesService.obtenerSolicitudes();
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/pendientes")
+    public List<SolicitudOutputDTO> obtenerPendientes() {
+        return solicitudesService.obtenerSolicitudesPendientes();
+    }
+
 }

@@ -99,5 +99,12 @@ public class SolicitudesService implements ISolicitudesService {
                 .map(SolicitudOutputDTO::new)
                 .toList();
     }
+    @Override
+    public List<SolicitudOutputDTO> obtenerSolicitudesPendientes() {
+        return solicitudesRepository.findByEstado(EstadoDeSolicitudDeEliminacion.PENDIENTE).stream()
+                .map(SolicitudOutputDTO::new)
+                .toList();
+    }
+
 
 }

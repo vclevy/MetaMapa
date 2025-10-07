@@ -72,3 +72,17 @@ html, body {
     margin-bottom: 1.5rem;
     box-shadow: var(--shadow);
 }
+
+
+.btn-solicitar {
+    color: #d9534f;           /* Color del texto (rojo suave) */
+    border-color: #d9534f;    /* Borde del mismo color */
+    transition: all 0.2s ease;
+    position: relative;
+    right: -300px;
+}
+
+.btn-solicitar:hover {
+    background-color: #d9534f; /* Fondo rojo al pasar el mouse */
+    color: #fff;               /* Texto blanco */
+}
