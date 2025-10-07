@@ -15,10 +15,10 @@ public class HechoOutputDTO {
     private String categoriaNombre;
     private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
-    private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
     private List<String> multimedia;
     private String nombreDeUsuario;
     private String fuenteNombre;
     private String nombreArchivo;
+    private Boolean esAnonimo;
 }

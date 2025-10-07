@@ -53,6 +53,8 @@ public class HechosServices implements IHechosServices {
         dto.setFueEliminado(hecho.getFueEliminado());
         dto.setEsEditable(hecho.esEditable());
         dto.setMultimedia(hecho.getMultimedia());
+        dto.setNombreDeUsuario(hecho.getNombreDeUsuario());
+        dto.setEsAnonimo(hecho.getEsAnonimo());
         return dto;
     }
 

@@ -74,7 +74,7 @@ public class Hecho {
     private Fuente fuente;
 
     @Column(name = "es_anonimo", nullable = false)
-    private Boolean esAnonimo = true;
+    private Boolean esAnonimo;
 
     @Column(name = "fue_eliminado", nullable = false)
     private Boolean fueEliminado = false;

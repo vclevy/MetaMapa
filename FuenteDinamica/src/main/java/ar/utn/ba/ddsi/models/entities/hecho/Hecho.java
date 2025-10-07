@@ -79,17 +79,6 @@ public class Hecho {
     @OneToMany(mappedBy = "hecho", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ModificacionHecho> historialDeModificaciones = new ArrayList<>();
 
-    public void agregarEtiquetas(Etiqueta... unasEtiquetas) {
-        Collections.addAll(this.etiquetas, unasEtiquetas);
-    }
-
-    public void agregarSolicitudDeEliminacion(Solicitud unaSolicitud) {
-        this.solicitudesDeEliminacion.add(unaSolicitud);
-    }
-
-    public boolean tieneSolicitudesDeEliminacionAprobada() {
-       return solicitudesDeEliminacion.stream().anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoSolicitudEliminacion.APROBADA);
-    }
 
     public boolean esEditable(){
         return (ChronoUnit.DAYS.between(this.getFechaDeCarga(), LocalDateTime.now())) < 7;

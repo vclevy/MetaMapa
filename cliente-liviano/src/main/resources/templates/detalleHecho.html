@@ -96,6 +96,10 @@
     <div class="detalle-hecho">
         <h1 th:text="${hecho.titulo}">Título del Hecho</h1>
 
+        <p><strong>Subido por:</strong>
+            <span th:text="${hecho.nombreDeUsuario != null ? hecho.nombreDeUsuario : 'Anónimo'}"></span>
+        </p>
+
         <p><strong>Descripción:</strong> <span th:text="${hecho.descripcion}">Descripción del hecho</span></p>
 
         <p><strong>Categoría:</strong> <span th:text="${hecho.categoriaNombre}">Categoría del hecho</span></p>
@@ -110,6 +114,7 @@
             <span th:if="${hecho.lugar.latitud == null or hecho.lugar.longitud == null}">Ubicación no disponible</span>
         </p>
     </div>
+
 
 </div>
 

@@ -8,5 +8,5 @@ import lombok.Setter;
 public class SolicitudInputDTO {
     private String justificacion;
     private Long idHecho;
-    private String nombreDeUsuario; // Usuario solicitante
+    private String nombreDeUsuario;
 }

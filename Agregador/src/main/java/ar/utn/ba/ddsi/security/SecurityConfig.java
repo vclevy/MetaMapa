@@ -25,9 +25,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/hecho/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/hecho/filtrar").permitAll()
-
+                        .requestMatchers(HttpMethod.POST, "/api/solicitud").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/coleccion/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/coleccion/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/solicitud/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/coleccion/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()

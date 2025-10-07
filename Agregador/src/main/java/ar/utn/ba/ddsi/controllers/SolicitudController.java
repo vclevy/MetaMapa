@@ -19,10 +19,20 @@ public class SolicitudController {
         this.solicitudesService = solcitudesService;
     }
 
+    // Aprobar solicitud
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping("/{idSolicitud}")
-    public void procesarSolicitudDeEliminacion(@PathVariable Long idSolicitud, @RequestBody String usuarioModificador, @RequestParam AccionesSolicitud unaAccion) {
-        this.solicitudesService.cambiarEstadoDeSolicitud(idSolicitud, usuarioModificador, unaAccion);
+    @PatchMapping("/{idSolicitud}/aprobar")
+    public void aprobarSolicitud(@PathVariable Long idSolicitud,
+                                 @RequestBody String usuarioModificador) {
+        solicitudesService.aprobarSolicitud(idSolicitud, usuarioModificador);
+    }
+
+    // Rechazar solicitud
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{idSolicitud}/rechazar")
+    public void rechazarSolicitud(@PathVariable Long idSolicitud,
+                                  @RequestBody String usuarioModificador) {
+        solicitudesService.rechazarSolicitud(idSolicitud, usuarioModificador);
     }
 
     @PostMapping()

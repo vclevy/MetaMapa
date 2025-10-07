@@ -32,6 +32,9 @@ public class AgregadorService implements IAgregadorService {
     public AgregadorService() {
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:8080")
+                .codecs(configurer ->
+                        configurer.defaultCodecs().maxInMemorySize(5 * 1024 * 1024) // 5 MB
+                )
                 .build();
     }
 

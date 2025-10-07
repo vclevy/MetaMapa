@@ -88,8 +88,10 @@ public class HechosController {
                              RedirectAttributes redirectAttributes) {
 
         try {
-            String username = auth.getName(); // viene del SecurityContext
-            System.out.println("Usuario autenticado: " + username);
+            String username = null;
+            if (auth != null && auth.isAuthenticated()) {
+                username = auth.getName();
+            }
             hechoForm.setNombreDeUsuario(username);
 
             dinamica.crearHecho(hechoForm, archivos);
@@ -100,6 +102,7 @@ public class HechosController {
 
         return "redirect:/hechos/subir";
     }
+
 
     @GetMapping("/all")
     @ResponseBody

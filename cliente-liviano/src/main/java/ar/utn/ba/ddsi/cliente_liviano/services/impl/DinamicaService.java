@@ -16,6 +16,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class DinamicaService {
 
@@ -29,21 +31,25 @@ public class DinamicaService {
     }
 
     public HechoDinamicaDTO crearHecho(HechoFormDTO hechoForm,
-                                       java.util.List<MultipartFile> archivos) {
+                                       List<MultipartFile> archivos) {
         try {
             HechoDinamicaDTO hechoDto = new HechoDinamicaDTO();
             hechoDto.setTitulo(hechoForm.getTitulo());
             hechoDto.setDescripcion(hechoForm.getDescripcion());
             hechoDto.setFechaDeAcontecimiento(hechoForm.getFechaDeAcontecimiento());
+
             Lugar lugar = new Lugar();
             lugar.setLatitud(hechoForm.getLatitud());
             lugar.setLongitud(hechoForm.getLongitud());
             hechoDto.setLugar(lugar);
+
             Categoria categoria = new Categoria();
             categoria.setNombre(hechoForm.getCategoriaNombre());
             hechoDto.setCategoria(categoria);
+
             hechoDto.setNombreDeUsuario(hechoForm.getNombreDeUsuario());
             hechoDto.setEsAnonimo(hechoForm.getEsAnonimo());
+
             // Convertir a JSON
             String hechoJson = objectMapper.writeValueAsString(hechoDto);
 
@@ -71,7 +77,6 @@ public class DinamicaService {
                 }
             }
 
-            // Enviar POST al servicio de fuente dinámica
             Mono<HechoDinamicaDTO> response = webClient.post()
                     .uri("/hechos")
                     .contentType(MediaType.MULTIPART_FORM_DATA)
@@ -79,7 +84,7 @@ public class DinamicaService {
                     .retrieve()
                     .bodyToMono(HechoDinamicaDTO.class);
 
-            return response.block(); // Bloquea hasta recibir la respuesta
+            return response.block();
 
         } catch (Exception e) {
             System.err.println("Error creando hecho en DinamicaService: " + e.getMessage());
@@ -87,4 +92,6 @@ public class DinamicaService {
             return null;
         }
     }
+
+
 }

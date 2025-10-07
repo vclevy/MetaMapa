@@ -28,4 +28,5 @@ public class HechoInputDinamicaDTO {
     private String nombreDeUsuario;
     private Boolean esEditable;
     private List<String> multimedia;
+    private Boolean esAnonimo;
 }

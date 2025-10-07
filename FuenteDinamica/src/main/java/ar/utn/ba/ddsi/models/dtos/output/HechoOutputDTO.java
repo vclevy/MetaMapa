@@ -28,7 +28,8 @@ public class HechoOutputDTO {
     private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
     private Boolean fueEliminado = false;
-    private Usuario contribuyente;
+    private String nombreDeUsuario;
     private Boolean esEditable;
     private List<String> multimedia;
+    private Boolean esAnonimo;
 }

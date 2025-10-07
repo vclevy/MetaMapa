@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface ISolicitudesService {
     void registrarSolicitud(SolicitudInputDTO solicitudInputDTO);
-    void cambiarEstadoDeSolicitud(Long idSolicitud, String usuarioModificador, AccionesSolicitud unaAccion);
+    void aprobarSolicitud(Long idSolicitud, String usuarioModificador);
+    void rechazarSolicitud(Long idSolicitud, String usuarioModificador);
     boolean verificacionDeSpam(Solicitud unaSolicitud);
     boolean justificacionTieneLongitudValida(String unaJustificacion);
     List<Solicitud> obtenerSolicitudes();

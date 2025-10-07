@@ -19,10 +19,9 @@ public class HechoDTO {
     private String categoriaNombre;
     private LocalDateTime fechaDeAcontecimiento;
     private Lugar lugar;
-    private List<Solicitud> solicitudesDeEliminacion;
     private List<Etiqueta> etiquetas;
     private List<String> multimedia;
-    private Usuario contribuyente;
+    private String nombreDeUsuario;
     private String tipoFuente;
 }
 

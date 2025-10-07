@@ -27,7 +27,6 @@ public class SolicitudesService implements ISolicitudesService {
     @Autowired
     private DetectorDeSpam detectorDeSpam;
 
-
     @Override
     public void registrarSolicitud(SolicitudInputDTO solicitudInputDTO) {
 
@@ -56,27 +55,30 @@ public class SolicitudesService implements ISolicitudesService {
     }
 
     @Override
-    public void cambiarEstadoDeSolicitud(Long idSolicitud, String usuarioModificador, AccionesSolicitud unaAccion) {
+    public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
+        cambiarEstado(idSolicitud, usuarioModificador, EstadoDeSolicitudDeEliminacion.APROBADA);
+    }
+
+    @Override
+    public void rechazarSolicitud(Long idSolicitud, String usuarioModificador) {
+        cambiarEstado(idSolicitud, usuarioModificador, EstadoDeSolicitudDeEliminacion.RECHAZADA);
+    }
+
+    private void cambiarEstado(Long idSolicitud, String usuarioModificador, EstadoDeSolicitudDeEliminacion nuevoEstado) {
         Solicitud solicitud = solicitudesRepository.findById(idSolicitud)
                 .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada con id " + idSolicitud));
 
         HistorialSolicitud historialSolicitud = new HistorialSolicitud();
         historialSolicitud.setEstado(solicitud.getEstado());
         historialSolicitud.setNombreDeUsuario(usuarioModificador);
+        historialSolicitud.setFechaModificacion(LocalDateTime.now()); // <-- clave
+        historialSolicitud.setSolicitud(solicitud); // también es buena práctica setear la relación
+
         solicitud.getHistorialSolicitud().add(historialSolicitud);
 
-        switch (unaAccion) {
-            case APROBAR:
-                solicitud.setEstado(EstadoDeSolicitudDeEliminacion.APROBADA);
-                break;
-            case RECHAZAR:
-                solicitud.setEstado(EstadoDeSolicitudDeEliminacion.RECHAZADA);
-                break;
-            default:
-                throw new IllegalArgumentException("Acción inválida: " + unaAccion);
-        }
-
+        solicitud.setEstado(nuevoEstado);
         solicitud.setFechaDeEvaluacionDeSolicitud(LocalDateTime.now());
+
         solicitudesRepository.save(solicitud);
     }
 
