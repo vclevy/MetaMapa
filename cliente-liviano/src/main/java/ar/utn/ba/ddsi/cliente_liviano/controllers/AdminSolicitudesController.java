@@ -20,9 +20,11 @@ public class AdminSolicitudesController {
     @GetMapping
     public String listarSolicitudes(Model model) {
         List<SolicitudDTO> solicitudes = agregadorService.obtenerSolicitudes();
+
         model.addAttribute("solicitudes", solicitudes);
         return "adminSolicitudes";
     }
+
 
     @PostMapping("/{id}/aprobar")
     public String aprobarSolicitud(@PathVariable Long id,

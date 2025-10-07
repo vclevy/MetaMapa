@@ -48,13 +48,13 @@
                 <div class="solicitud-actions">
                     <form th:action="@{'/admin/solicitudes/' + ${solicitud.idHecho} + '/aprobar'}" method="post">
                         <input type="hidden" name="usuarioModificador"
-                               th:value="${#httpServletRequest.remoteUser}"/>
+                               th:value="${session.username}"/>
                         <button type="submit" class="btn-aprobar">Aprobar</button>
                     </form>
 
                     <form th:action="@{'/admin/solicitudes/' + ${solicitud.idHecho} + '/rechazar'}" method="post">
                         <input type="hidden" name="usuarioModificador"
-                               th:value="${#httpServletRequest.remoteUser}"/>
+                               th:value="${session.username}"/>
                         <button type="submit" class="btn-rechazar">Rechazar</button>
                     </form>
                 </div>
@@ -62,6 +62,8 @@
         </section>
 
     </main>
+
+
 </div>
 
 <footer role="contentinfo">

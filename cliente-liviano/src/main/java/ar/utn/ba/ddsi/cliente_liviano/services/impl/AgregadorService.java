@@ -21,9 +21,6 @@ public class AgregadorService implements IAgregadorService {
     private final WebClient webClient;
 
     @Autowired
-    private TokenDecoder tokenDecoder;
-
-    @Autowired
     private HttpSession session;
 
     public AgregadorService() {
@@ -205,9 +202,12 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public List<SolicitudDTO> obtenerSolicitudes() {
+        String token = (String) session.getAttribute("token");
+
         try {
             List<SolicitudDTO> solicitudes = webClient.get()
                     .uri("/api/solicitud/all")
+                    .header("Authorization", "Bearer " + token)
                     .retrieve()
                     .bodyToFlux(SolicitudDTO.class)
                     .collectList()
