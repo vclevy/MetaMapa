@@ -21,11 +21,21 @@
             </p>
         </header>
 
-        <form th:action="@{/hechos/solicitar-eliminacion}" th:object="${solicitud}" method="post" class="elim-form" novalidate>
-            <!-- Justificación -->
+        <!-- ✅ Acción corregida: ahora envía POST a /hechos/{id}/solicitar-eliminacion -->
+        <form th:action="@{/hechos/{id}/solicitar-eliminacion(id=${solicitud.idHecho})}"
+              th:object="${solicitud}"
+              method="post"
+              class="elim-form"
+              novalidate>
+
+
+        <!-- Justificación -->
             <div class="row one">
                 <label for="justificacion">Justificación <span class="req">(mínimo 500 caracteres)</span></label>
-                <textarea id="justificacion" th:field="*{justificacion}" minlength="500" required
+                <textarea id="justificacion"
+                          th:field="*{justificacion}"
+                          minlength="500"
+                          required
                           placeholder="Escribí una justificación detallada…"></textarea>
                 <span th:if="${#fields.hasErrors('justificacion')}" th:errors="*{justificacion}" class="help"></span>
             </div>

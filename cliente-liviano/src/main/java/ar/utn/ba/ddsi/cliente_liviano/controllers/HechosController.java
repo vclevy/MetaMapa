@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -126,9 +127,27 @@ public class HechosController {
     }
 
     @GetMapping("/{id}/solicitar-eliminacion")
-    public String mostrarFormularioSolicitud(Model model) {
-        model.addAttribute("solicitud", new SolicitudDTO());
+    public String mostrarFormularioSolicitud(@PathVariable Long id, Model model) {
+        SolicitudDTO solicitud = new SolicitudDTO();
+        solicitud.setIdHecho(id); // 👈 importante
+        model.addAttribute("solicitud", solicitud);
         return "solicitarEliminacion";
+    }
+
+    @PostMapping("/{id}/solicitar-eliminacion")
+    public String procesarSolicitudEliminacion(
+            @PathVariable Long id,
+            @ModelAttribute("solicitud") SolicitudDTO solicitudDTO,
+            RedirectAttributes redirectAttributes,
+            Principal principal) {
+
+        String usuario = principal.getName();
+        solicitudDTO.setNombreDeUsuario(usuario);
+
+        agregador.solicitarEliminacion(solicitudDTO);
+
+        redirectAttributes.addFlashAttribute("mensajeExito", "Solicitud enviada correctamente.");
+        return "redirect:/hechos";
     }
 
 }

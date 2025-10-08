@@ -7,6 +7,8 @@ import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -233,6 +235,20 @@ public class AgregadorService implements IAgregadorService {
                 .bodyValue(usuarioModificador)
                 .retrieve()
                 .toBodilessEntity()
+                .block();
+    }
+
+    public void solicitarEliminacion(SolicitudDTO solicitudDTO) {
+        String respuesta = webClient.post()
+                .uri("/api/solicitud")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(solicitudDTO)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, r ->
+                        r.bodyToMono(String.class)
+                                .map(msg -> new RuntimeException("Error al crear la solicitud: " + msg))
+                )
+                .bodyToMono(String.class)
                 .block();
     }
 }
