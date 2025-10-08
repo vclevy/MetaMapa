@@ -45,7 +45,7 @@ public class LandingController {
         model.addAttribute("hechos", hechos);
 
         // Colecciones destacadas
-        List<ColeccionDTO> coleccionesDestacadas = agregador.obtenerColecciones();
+        List<ColeccionDTO> coleccionesDestacadas = agregador.obtenerColeccionesDestacadas();
         model.addAttribute("coleccionesDestacadas", coleccionesDestacadas);
 
         return "index"; // Vista principal

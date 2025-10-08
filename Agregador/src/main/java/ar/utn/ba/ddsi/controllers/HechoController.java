@@ -24,6 +24,11 @@ public class HechoController {
         return ResponseEntity.ok(this.hechoService.obtenerHechos());
     }
 
+    @GetMapping("/destacados")
+    public ResponseEntity<List<HechoOutputDTO>> obtenerHechosDestacados() {
+        return ResponseEntity.ok(this.hechoService.obtenerHechosDestacados());
+    }
+
     @PreAuthorize("hasRole('CONTRIBUYENTE')")
     @PutMapping("/{id}")
     public ResponseEntity<HechoOutputDTO> modificarHecho(@PathVariable Long id,

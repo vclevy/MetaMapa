@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.services.factory.AlgoritmoFactory;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ColeccionService implements IColeccionService {
@@ -234,5 +235,16 @@ public class ColeccionService implements IColeccionService {
             return fuentesDeHechoOutputDTOs;
         }
         return null;
+    }
+
+    public List<ColeccionOutputDTO> obtenerColeccionesDestacadas() {
+        List<Coleccion> todas = coleccionesRepository.findAll();
+        Collections.shuffle(todas);
+        List<Coleccion> seleccionadas = todas.stream()
+                .limit(6)
+                .collect(Collectors.toList());
+        return seleccionadas.stream()
+                .map(coleccionMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -177,4 +178,17 @@ public class HechoService implements IHechoService {
                 .map(hechoMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<HechoOutputDTO> obtenerHechosDestacados() {
+        List<Hecho> todos = hechosRepository.findAll();
+        Collections.shuffle(todos);
+        List<Hecho> seleccionados = todos.stream()
+                .limit(6)
+                .collect(Collectors.toList());
+        return seleccionados.stream()
+                .map(hechoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
 }

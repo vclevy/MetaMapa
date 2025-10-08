@@ -91,9 +91,8 @@ body {
 }
 
 .destacados.container {
-    max-height: 400px; /* Ajusta este valor a lo que necesites */
     overflow-y: auto;  /* Agrega scroll vertical si el contenido excede la altura */
-    height: 260px;
+    height: 450px;
 }
 
 /* Cards */

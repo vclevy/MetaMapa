@@ -13,5 +13,5 @@ public interface IHechoService {
     HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO);
     void validarModificacion(Hecho hechoAModificar, HechoInputPUTDTO hechoInputDTO);
     List<HechoOutputDTO> filtrarHechos(HechoFiltroDTO filtros);
-
+    List<HechoOutputDTO> obtenerHechosDestacados();
 }

@@ -35,6 +35,11 @@ public class ColeccionController {
         return ResponseEntity.ok(coleccionService.obtenerColeccion(id));
     }
 
+    @GetMapping("/destacadas")
+    public ResponseEntity<List<ColeccionOutputDTO>> obtenerColeccionesDestacadas() {
+        return ResponseEntity.ok(coleccionService.obtenerColeccionesDestacadas());
+    }
+
     @GetMapping("/{id}/hechos")
     public ResponseEntity<List<Hecho>> obtenerHechosDeUnaColeccion(
             @PathVariable Long id,

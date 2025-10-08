@@ -46,11 +46,11 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
-    public List <HechoDTO> obtenerHechosDestacados(){ //TODO mejorar la logica esta
+    public List <HechoDTO> obtenerHechosDestacados(){
         String token = (String) session.getAttribute("token");
 
         List<HechoDTO> hechos = webClient.get()
-                .uri("/api/hecho")
+                .uri("/api/hecho/destacados")
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
                 .bodyToFlux(HechoDTO.class)
@@ -67,6 +67,15 @@ public class AgregadorService implements IAgregadorService {
             .bodyToFlux(ColeccionDTO.class)
             .collectList()
             .block();
+    }
+
+    public List<ColeccionDTO> obtenerColeccionesDestacadas(){
+        return webClient.get()
+                .uri("/api/coleccion/destacadas")
+                .retrieve()
+                .bodyToFlux(ColeccionDTO.class)
+                .collectList()
+                .block();
     }
 
     public HechoDTO obtenerHechoPorId(Long id) {
