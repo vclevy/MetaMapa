@@ -30,13 +30,6 @@ public class AdminController {
     @Autowired
     private EstadisticasService estadisticas;
 
-    @GetMapping("/admin")
-    public String adminLanding(Model model) {
-        List<ResultadoEstadisticaDTO> resultados = estadisticas.obtenerTodas();
-        model.addAttribute("resultados", resultados);
-        return "adminLanding";
-    }
-
 
     @GetMapping("/coleccion/nueva")
     public String mostrarFormulario(Model model) {

@@ -14,28 +14,94 @@
 
 <div class="layout">
     <!-- Sidebar -->
-    <div th:replace="adminSidebar :: sidebarFragment"></div>
+    <div th:replace="~{adminSidebar :: sidebarFragment}"></div>
 
-    <!-- Contenido -->
+    <!-- Contenido principal -->
     <main class="main" role="main">
+        <h1 class="page-title">Resumen de actividad</h1>
+        <p class="muted" style="margin-top:-0.35rem">
+            Última generación de estadísticas:
+            <b th:text="${generado}">-</b>
+        </p>
+
         <section class="dashboard-grid">
-            <article class="card card--kpis" aria-labelledby="kpis-title">
-                <h2 id="kpis-title" class="card__title">Hechos cargados en el último mes · Totales</h2>
-                <div class="kpis-two">
-                    <div class="kpi-block">
-                        <div class="kpi__label">Último mes</div>
-                        <div class="kpi__value">128</div>
+
+            <!-- Indicadores destacados -->
+            <article class="card card--stats" aria-labelledby="indicadores-title">
+                <h2 id="indicadores-title" class="card__title">Indicadores destacados</h2>
+                <div class="stats-pair">
+                    <div class="stat">
+                        <div class="stat__label">Categoría con más hechos</div>
+                        <div class="stat__row">
+                            <div class="stat__value"
+                                 th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
+                            <div class="stat__desc"
+                                 th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
+                        </div>
                     </div>
-                    <div class="kpi-block">
-                        <div class="kpi__label">Totales</div>
-                        <div class="kpi__value">2.431</div>
+                    <div class="stat">
+                        <div class="stat__label">Provincia con más hechos</div>
+                        <div class="stat__row">
+                            <div class="stat__value"
+                                 th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
+                            <div class="stat__desc"
+                                 th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
+                        </div>
                     </div>
                 </div>
             </article>
-            <!-- Aquí podés agregar más cards o widgets hardcodeados -->
-        </section>
-    </main>
-</div>
+
+            <!-- Pico horario por categoría -->
+            <article class="card card--solicitudes" aria-labelledby="pico-horario-title">
+                <h2 id="pico-horario-title" class="card__title">Pico horario · por categoría</h2>
+                <ul class="list list--recent" th:if="${!#lists.isEmpty(horasTop)}">
+                    <li class="list__item" th:each="h : ${horasTop}">
+                        <div class="thumb" aria-hidden="true"></div>
+                        <div>
+                            <div class="list__title" th:text="${h.categoria}">Categoría</div>
+                            <div class="list__meta">
+                                Hora: <b th:text="${h.hora}">--:--</b> ·
+                                Cantidad: <b th:text="${h.cantidad}">0</b>
+                            </div>
+                        </div>
+                        <div class="muted">pico</div>
+                    </li>
+                </ul>
+                <p class="muted" th:if="${#lists.isEmpty(horasTop)}"><i>Sin datos disponibles</i></p>
+            </article>
+
+            <article class="card card--barras" aria-labelledby="detalle-title">
+                <h2 id="detalle-title" class="card__title">Detalle de estadísticas</h2>
+                <div class="chart--bars">
+                    <table class="bars">
+                        <thead>
+                        <tr>
+                            <th class="barlbl">Nombre</th>
+                            <th class="barlbl">Clave</th>
+                            <th class="barlbl">Valor</th>
+                            <th class="barlbl">Colección</th>
+                            <th class="barlbl">Generado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="r : ${rawStats}">
+                            <td th:text="${r.nombreEstadistica}">-</td>
+                            <td th:text="${r.clave}">-</td>
+                            <td th:text="${r.valor}">0</td>
+                            <td th:text="${r.nombreDeLaColeccion}">-</td>
+                            <td th:text="${r.fechaGeneracion}">-</td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(rawStats)}">
+                            <td colspan="5" class="muted"><i>Sin datos</i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+
+        </section> <!-- cierre section -->
+    </main> <!-- cierre main -->
+</div> <!-- cierre layout -->
 
 <!-- Footer -->
 <footer role="contentinfo">
@@ -49,7 +115,7 @@
         const btn = document.querySelector('.sidebar__toggle');
         const sidebar = document.querySelector('.sidebar');
         if(!btn || !sidebar) return;
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', function(){
             const open = sidebar.classList.toggle('is-open');
             btn.setAttribute('aria-expanded', String(open));
         });
