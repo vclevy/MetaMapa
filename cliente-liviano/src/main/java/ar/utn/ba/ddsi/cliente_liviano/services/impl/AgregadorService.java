@@ -266,6 +266,24 @@ public class AgregadorService implements IAgregadorService {
                 .bodyToMono(String.class)
                 .block();
     }
+
+    public void editarHecho(HechoDTO hechoDTO) {
+        String token = (String) session.getAttribute("token");
+
+        webClient.put()
+                .uri("/api/hecho/{id}", hechoDTO.getId())
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(hechoDTO)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, r ->
+                        r.bodyToMono(String.class)
+                                .map(msg -> new RuntimeException("Error al editar el hecho: " + msg))
+                )
+                .toBodilessEntity()
+                .block();
+    }
+
 }
 
 

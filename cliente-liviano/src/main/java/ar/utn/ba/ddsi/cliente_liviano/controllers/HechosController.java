@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
@@ -79,6 +80,7 @@ public class HechosController {
     @GetMapping("/subir")
     public String mostrarFormulario(Model model) {
         model.addAttribute("hecho", new HechoFormDTO());
+        model.addAttribute("modoEdicion", false);
         return "subirHecho";
     }
 
@@ -122,7 +124,10 @@ public class HechosController {
 
         model.addAttribute("hecho", hecho);
         model.addAttribute("fechaFormateada", fechaFormateada);
-
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            model.addAttribute("usuarioActual", auth.getName());
+        }
         return "detalleHecho";
     }
 
@@ -148,6 +153,24 @@ public class HechosController {
 
         redirectAttributes.addFlashAttribute("mensajeExito", "Solicitud enviada correctamente.");
         return "redirect:/hechos";
+    }
+
+    // Mostrar el formulario con los datos actuales
+    @GetMapping("/{id}/editar")
+    public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
+        // Obtenemos el hecho actual desde el backend
+        HechoDTO hecho = agregador.obtenerHechoPorId(id);
+        model.addAttribute("hecho", hecho);
+        model.addAttribute("modoEdicion", true);
+        return "subirHecho"; // la vista Thymeleaf (hecho-form.html)
+    }
+
+    // Procesar el formulario enviado
+    @PostMapping("/{id}/editar")
+    public String editarHecho(@PathVariable Long id, @ModelAttribute HechoDTO hechoDTO) {
+        hechoDTO.setId(id); // aseguramos que tenga el id
+        agregador.editarHecho(hechoDTO);
+        return "redirect:/hechos"; // redirige al listado o a la vista del hecho
     }
 
 }
