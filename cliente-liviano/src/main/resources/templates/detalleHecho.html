@@ -5,21 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detalle del Hecho</title>
 
-    <!-- CSS de detalle del hecho -->
+    <!-- CSS -->
     <link rel="stylesheet" th:href="@{/css/detalleHecho.css}" />
-
-    <!-- CSS del header -->
     <link rel="stylesheet" th:href="@{/css/header.css}" />
 
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
     <style>
-        /* Flex container para imagen y detalles */
         .detalle-flex {
             display: flex;
             align-items: flex-start;
             gap: 2rem;
         }
-
-        /* Imagen/carrusel */
         .carousel {
             position: relative;
             width: 300px;
@@ -33,9 +32,7 @@
             object-fit: cover;
             display: none;
         }
-        .carousel img.active {
-            display: block;
-        }
+        .carousel img.active { display: block; }
         .carousel .prev, .carousel .next {
             position: absolute;
             top: 50%;
@@ -49,50 +46,43 @@
         }
         .carousel .prev { left: 10px; }
         .carousel .next { right: 10px; }
+        .detalle-flex .detalle-hecho { flex: 1; }
 
-        /* Detalles del hecho */
-        .detalle-flex .detalle-hecho {
-            flex: 1;
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            margin-top: 2rem;
         }
 
-        /* Responsivo: imagen arriba en pantallas pequeñas */
         @media (max-width: 600px) {
             .detalle-flex {
                 flex-direction: column;
                 align-items: center;
             }
-            .carousel {
-                width: 100%;
-                height: auto;
-            }
-            .carousel img {
-                height: auto;
-            }
-            .detalle-flex .detalle-hecho {
-                width: 100%;
-            }
+            .carousel { width: 100%; height: auto; }
+            .carousel img { height: auto; }
+            .detalle-flex .detalle-hecho { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<!-- Header importado -->
+<!-- Header -->
 <div th:replace="header :: mainHeader"></div>
 
 <div class="container detalle-flex">
 
-    <!-- Carrusel de imágenes -->
+    <!-- Carrusel -->
     <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}" class="carousel">
         <div th:each="img, iterStat : ${hecho.multimedia}">
-            <img th:src="${img}" alt="Imagen del hecho"
-                 th:classappend="${iterStat.index == 0} ? 'active' : ''"/>
+            <img th:src="${img}" alt="Imagen del hecho" th:classappend="${iterStat.index == 0} ? 'active' : ''"/>
         </div>
-
         <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="next" onclick="moveSlide(1)">&#10095;</button>
     </div>
 
-    <!-- Detalles del hecho -->
+    <!-- Detalles -->
     <div class="detalle-hecho">
         <h1 th:text="${hecho.titulo}">Título del Hecho</h1>
 
@@ -100,48 +90,81 @@
             <span th:text="${hecho.nombreDeUsuario != null ? hecho.nombreDeUsuario : 'Anónimo'}"></span>
         </p>
 
-        <p><strong>Descripción:</strong> <span th:text="${hecho.descripcion}">Descripción del hecho</span></p>
+        <p><strong>Descripción:</strong> <span th:text="${hecho.descripcion}"></span></p>
 
-        <p><strong>Categoría:</strong> <span th:text="${hecho.categoriaNombre}">Categoría del hecho</span></p>
+        <p><strong>Categoría:</strong> <span th:text="${hecho.categoriaNombre}"></span></p>
 
         <p><strong>Fecha del acontecimiento:</strong>
             <span th:text="${fechaFormateada}"></span>
         </p>
 
         <p><strong>Ubicación:</strong>
-            <span th:if="${hecho.lugar.latitud != null and hecho.lugar.longitud != null}"
+            <span th:if="${hecho.lugar != null and hecho.lugar.latitud != null and hecho.lugar.longitud != null}"
                   th:text="${hecho.lugar.provincia}"></span>
-            <span th:if="${hecho.lugar.latitud == null or hecho.lugar.longitud == null}">Ubicación no disponible</span>
+            <span th:if="${hecho.lugar == null or hecho.lugar.latitud == null or hecho.lugar.longitud == null}">
+                Ubicación no disponible
+            </span>
         </p>
-        <!-- Botón para solicitar eliminación -->
+
         <div class="actions" style="margin-top:1.5rem;">
-            <a class="btn btn-outline btn-solicitar" th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
+            <a class="btn btn-outline btn-solicitar"
+               th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
                 Solicitar eliminación
             </a>
         </div>
     </div>
-
-
 </div>
 
-<script>
-    let currentSlide = 0;
+<!-- Mapa -->
+<div th:if="${hecho.lugar != null and hecho.lugar.latitud != null and hecho.lugar.longitud != null}" class="container">
+    <div id="map"></div>
+</div>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Carrusel
+    let currentSlide = 0;
     function showSlide(index) {
         const slides = document.querySelectorAll(".carousel img");
-        if (slides.length === 0) return;
+        if (!slides.length) return;
         slides.forEach(slide => slide.classList.remove("active"));
         currentSlide = (index + slides.length) % slides.length;
         slides[currentSlide].classList.add("active");
     }
+    function moveSlide(step) { showSlide(currentSlide + step); }
+    document.addEventListener("DOMContentLoaded", () => showSlide(0));
 
-    function moveSlide(step) {
-        showSlide(currentSlide + step);
-    }
+    // Mapa
+    document.addEventListener("DOMContentLoaded", function () {
+        const lat = [[${hecho.lugar != null && hecho.lugar.latitud != null ? hecho.lugar.latitud : 'null'}]];
+        const lng = [[${hecho.lugar != null && hecho.lugar.longitud != null ? hecho.lugar.longitud : 'null'}]];
+        const titulo = /*[[${hecho.titulo}]]*/ 'Hecho';
 
-    document.addEventListener("DOMContentLoaded", () => {
-        showSlide(0);
+        if (lat != null && lng != null) {
+            const map = L.map('map').setView([lat, lng], 14);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            const icon = L.icon({
+                iconUrl: '/img/beanosPin.png',
+                iconSize: [30, 70],
+                iconAnchor: [15, 70],
+                popupAnchor: [0, -70]
+            });
+
+            L.marker([lat, lng], { icon: icon })
+                .addTo(map)
+                .bindPopup(`<strong>${titulo}</strong>`)
+                .openPopup();
+        } else {
+            console.warn("Este hecho no tiene coordenadas");
+            const mapDiv = document.getElementById('map');
+            if (mapDiv) mapDiv.style.display = 'none';
+        }
     });
+    /*]]>*/
 </script>
 </body>
 </html>

@@ -7,7 +7,7 @@
         <nav class="nav-links">
             <!-- Si está autenticado -->
             <span th:if="${session.username != null}">
-                Hola, <b th:text="${session.username}">Usuario</b>!
+                Hola, <b th:text="${session.username}">Usuario</b>!<span style="margin-right: 0.8rem;"></span>
                 <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
 
                 <!-- Si el usuario es ADMIN -->
