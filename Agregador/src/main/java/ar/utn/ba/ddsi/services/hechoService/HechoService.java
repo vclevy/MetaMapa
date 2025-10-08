@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -63,18 +61,20 @@ public class HechoService implements IHechoService {
     public HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO) {
         Hecho hecho = this.hechosRepository.findById(idHecho).orElseThrow(() -> new IllegalArgumentException("Hecho no encontrado: " + idHecho));
 
-        LocalDateTime ahora = LocalDateTime.now();
+        ZoneId zonaUTC3 = ZoneOffset.ofHours(-3);
+        ZonedDateTime ahoraEnUTC3 = ZonedDateTime.now(zonaUTC3);
         LocalDateTime fechaCarga = hecho.getFechaDeCargaDelHecho();
+        ZonedDateTime fechaCargaConZona = fechaCarga.atZone(zonaUTC3);
 
         if (fechaCarga == null) {
             throw new IllegalStateException("El hecho no tiene fecha de carga registrada");
         }
 
-        Duration transcurrido = Duration.between(fechaCarga, ahora);
+        Duration transcurrido = Duration.between(fechaCargaConZona, ahoraEnUTC3);
         if (transcurrido.compareTo(Duration.ofHours(1)) >= 0) {
             throw new IllegalStateException("El hecho solo puede modificarse dentro de la primera hora desde su carga");
         }
-
+        System.out.println("CargaHecho: " + fechaCargaConZona + " Ahora" + ahoraEnUTC3);
         this.validarModificacion(hecho, hechoInputDTO);
         Hecho guardado = this.hechosRepository.save(hecho);
         return hechoMapper.toDTO(guardado);

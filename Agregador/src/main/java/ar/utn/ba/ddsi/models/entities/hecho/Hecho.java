@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +87,8 @@ public class Hecho {
     @PrePersist
     public void prePersist() {
         if (fechaDeCargaDelHecho == null) {
-            fechaDeCargaDelHecho = now();
+            ZoneId zonaUTC3 = ZoneOffset.ofHours(-3);
+            fechaDeCargaDelHecho = ZonedDateTime.now(zonaUTC3).toLocalDateTime();
         }
     }
 }

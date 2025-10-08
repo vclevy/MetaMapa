@@ -230,8 +230,11 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
-        webClient.post()
+        String token = (String) session.getAttribute("token");
+
+        webClient.patch()
                 .uri("/api/solicitud/{id}/aprobar", idSolicitud)
+                .header("Authorization", "Bearer " + token)
                 .bodyValue(usuarioModificador)
                 .retrieve()
                 .toBodilessEntity()
@@ -239,8 +242,11 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public void rechazarSolicitud(Long idSolicitud, String usuarioModificador) {
-        webClient.post()
+        String token = (String) session.getAttribute("token");
+
+        webClient.patch()
                 .uri("/api/solicitud/{id}/rechazar", idSolicitud)
+                .header("Authorization", "Bearer " + token)
                 .bodyValue(usuarioModificador)
                 .retrieve()
                 .toBodilessEntity()

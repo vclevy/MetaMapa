@@ -29,7 +29,7 @@ public class HechoController {
         return ResponseEntity.ok(this.hechoService.obtenerHechosDestacados());
     }
 
-    @PreAuthorize("hasRole('CONTRIBUYENTE')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CONTRIBUYENTE')")
     @PutMapping("/{id}")
     public ResponseEntity<HechoOutputDTO> modificarHecho(@PathVariable Long id,
                                                          @RequestBody HechoInputPUTDTO hechoInputDTO) {

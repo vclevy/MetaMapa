@@ -19,15 +19,15 @@ public class SolicitudController {
     public SolicitudController(ISolicitudesService solcitudesService) {
         this.solicitudesService = solcitudesService;
     }
-
-    @PostMapping("/{idSolicitud}/aprobar")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{idSolicitud}/aprobar")
     public void aprobarSolicitud(@PathVariable Long idSolicitud,
                                  @RequestBody String usuarioModificador) {
         solicitudesService.aprobarSolicitud(idSolicitud, usuarioModificador);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/{idSolicitud}/rechazar")
+    @PatchMapping("/{idSolicitud}/rechazar")
     public void rechazarSolicitud(@PathVariable Long idSolicitud,
                                   @RequestBody String usuarioModificador) {
         solicitudesService.rechazarSolicitud(idSolicitud, usuarioModificador);
