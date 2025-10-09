@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MetaMapa · Resumen de actividad</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" th:href="@{/css/adminLanding.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
@@ -25,27 +27,43 @@
             <b th:text="${generado}">-</b>
         </p>
 
-        <!-- Indicadores a ancho completo -->
+        <!-- Indicadores -->
         <section class="indicators">
             <div class="indicator">
                 <h3>Categoría con más hechos</h3>
-                <div class="indicator__value" th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
-                <div class="indicator__label" th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
+                <div class="indicator__value"
+                     th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
+                <div class="indicator__label"
+                     th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
             </div>
             <div class="indicator">
                 <h3>Provincia con más hechos</h3>
-                <div class="indicator__value" th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
-                <div class="indicator__label" th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
+                <div class="indicator__value"
+                     th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
+                <div class="indicator__label"
+                     th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
             </div>
         </section>
 
-        <!-- Provincia top por categoría (máx 5) -->
+        <!-- Provincia top por categoría -->
         <section class="panel">
             <div class="panel__header">
                 <h2>Categoría con más hechos por provincia</h2>
             </div>
 
-            <table class="styled-table">
+            <!-- Filtro de categoría -->
+            <div class="filter-group">
+                <label for="filtroProvCat">Filtrar por categoría:</label>
+                <select id="filtroProvCat">
+                    <option value="">Todas</option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat.nombre}"
+                            th:text="${cat.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <table id="tablaProvincias" class="styled-table">
                 <thead>
                 <tr>
                     <th>Categoría</th>
@@ -54,16 +72,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- iterar directamente el Map (cada item es Map.Entry) -->
-                <tr th:each="e,st : ${provTopPorCat}" th:if="${st.index < 5}">
+                <tr th:each="e : ${provTopPorCat}">
                     <td th:text="${e.key}">Categoría</td>
                     <td th:text="${e.value.provincia}">Provincia</td>
                     <td th:text="${e.value.cantidad}">0</td>
                 </tr>
-
-                <!-- fila vacía segura -->
-                <tr th:if="${provTopPorCat == null or e == null}" style="display:none"><td></td></tr>
-
                 <tr th:if="${provTopPorCat == null or provTopPorCat.isEmpty()}">
                     <td colspan="3" class="muted"><i>Sin datos disponibles</i></td>
                 </tr>
@@ -71,13 +84,25 @@
             </table>
         </section>
 
-        <!-- Horario top por categoría (máx 5) -->
+        <!-- Horario top por categoría -->
         <section class="panel">
             <div class="panel__header">
                 <h2>Horario con mayor cantidad de hechos por categoría</h2>
             </div>
 
-            <table class="styled-table">
+            <!-- Filtro de categoría -->
+            <div class="filter-group">
+                <label for="filtroHoraCat">Filtrar por categoría:</label>
+                <select id="filtroHoraCat">
+                    <option value="">Todas</option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat.nombre}"
+                            th:text="${cat.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <table id="tablaHoras" class="styled-table">
                 <thead>
                 <tr>
                     <th>Categoría</th>
@@ -86,7 +111,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="h,st : ${horasTop}" th:if="${st.index < 5}">
+                <tr th:each="h : ${horasTop}">
                     <td th:text="${h.categoria}">Categoría</td>
                     <td th:text="${h.hora}">--:--</td>
                     <td th:text="${h.cantidad}">0</td>
@@ -96,24 +121,43 @@
                 </tr>
                 </tbody>
             </table>
-            <div class="filter-group">
-                <label for="categoria">Categoría</label>
-                <select id="categoria" name="categoria">
-                    <option value="">Todas</option>
-                    <option th:each="cat : ${categorias}"
-                            th:value="${cat.id}"
-                            th:text="${cat.nombre}"
-                            th:selected="${cat.id} == ${filtros.categoriaId}">
-                    </option>
-                </select>
-            </div>
         </section>
-
     </main>
 </div>
 
+<!-- Footer -->
 <footer role="contentinfo">
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
+
+<!-- Script de filtrado dinámico -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- Tabla Provincias ---
+        const filtroProv = document.getElementById("filtroProvCat");
+        const filasProv = document.querySelectorAll("#tablaProvincias tbody tr");
+
+        filtroProv.addEventListener("change", () => {
+            const valor = filtroProv.value.toLowerCase();
+            filasProv.forEach(tr => {
+                const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
+                tr.style.display = !valor || categoria === valor ? "" : "none";
+            });
+        });
+
+        // --- Tabla Horas ---
+        const filtroHora = document.getElementById("filtroHoraCat");
+        const filasHora = document.querySelectorAll("#tablaHoras tbody tr");
+
+        filtroHora.addEventListener("change", () => {
+            const valor = filtroHora.value.toLowerCase();
+            filasHora.forEach(tr => {
+                const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
+                tr.style.display = !valor || categoria === valor ? "" : "none";
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

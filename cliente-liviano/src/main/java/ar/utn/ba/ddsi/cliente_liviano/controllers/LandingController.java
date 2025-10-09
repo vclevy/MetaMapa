@@ -2,8 +2,10 @@ package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dashboard.DashboardStats;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.CategoriaDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoFiltroDTO;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DashboardBuilderService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -52,7 +55,8 @@ public class LandingController {
     }
 
     @GetMapping("/admin")
-    public String adminLanding(Model model) {
+    public String adminLanding(@ModelAttribute("filtros") HechoFiltroDTO filtros,
+                               Model model) {
         List<ResultadoEstadisticaDTO> resultados = estadisticasService.obtenerTodas();
 
         DashboardStats dash = dashboardBuilder.build(resultados);
@@ -63,6 +67,9 @@ public class LandingController {
         model.addAttribute("provTopPorCat", dash.getProvinciaTopPorCategoria());
         model.addAttribute("generado", dash.getGenerado());
         model.addAttribute("rawStats", resultados);
+
+        List<CategoriaDTO> categorias = agregador.obtenerCategorias();
+        model.addAttribute("categorias", categorias);
 
         return "adminLanding";
     }
