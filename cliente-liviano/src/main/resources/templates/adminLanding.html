@@ -9,12 +9,13 @@
     <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
 </head>
 <body>
-<!-- Header con logo -->
-<div th:replace="header :: mainHeader"></div>
+
+<!-- Header -->
+<div th:replace="~{header :: mainHeader}"></div>
 
 <div class="layout">
     <!-- Sidebar -->
-    <div th:replace="~{adminSidebar :: sidebarFragment}"></div>
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
 
     <!-- Contenido principal -->
     <main class="main" role="main">
@@ -24,103 +25,95 @@
             <b th:text="${generado}">-</b>
         </p>
 
-        <section class="dashboard-grid">
+        <!-- Indicadores a ancho completo -->
+        <section class="indicators">
+            <div class="indicator">
+                <h3>Categoría con más hechos</h3>
+                <div class="indicator__value" th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
+                <div class="indicator__label" th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
+            </div>
+            <div class="indicator">
+                <h3>Provincia con más hechos</h3>
+                <div class="indicator__value" th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
+                <div class="indicator__label" th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
+            </div>
+        </section>
 
-            <!-- Indicadores destacados -->
-            <article class="card card--stats" aria-labelledby="indicadores-title">
-                <h2 id="indicadores-title" class="card__title">Indicadores destacados</h2>
-                <div class="stats-pair">
-                    <div class="stat">
-                        <div class="stat__label">Categoría con más hechos</div>
-                        <div class="stat__row">
-                            <div class="stat__value"
-                                 th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
-                            <div class="stat__desc"
-                                 th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
-                        </div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat__label">Provincia con más hechos</div>
-                        <div class="stat__row">
-                            <div class="stat__value"
-                                 th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
-                            <div class="stat__desc"
-                                 th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        <!-- Provincia top por categoría (máx 5) -->
+        <section class="panel">
+            <div class="panel__header">
+                <h2>Categoría con más hechos por provincia</h2>
+            </div>
 
-            <!-- Pico horario por categoría -->
-            <article class="card card--solicitudes" aria-labelledby="pico-horario-title">
-                <h2 id="pico-horario-title" class="card__title">Pico horario · por categoría</h2>
-                <ul class="list list--recent" th:if="${!#lists.isEmpty(horasTop)}">
-                    <li class="list__item" th:each="h : ${horasTop}">
-                        <div class="thumb" aria-hidden="true"></div>
-                        <div>
-                            <div class="list__title" th:text="${h.categoria}">Categoría</div>
-                            <div class="list__meta">
-                                Hora: <b th:text="${h.hora}">--:--</b> ·
-                                Cantidad: <b th:text="${h.cantidad}">0</b>
-                            </div>
-                        </div>
-                        <div class="muted">pico</div>
-                    </li>
-                </ul>
-                <p class="muted" th:if="${#lists.isEmpty(horasTop)}"><i>Sin datos disponibles</i></p>
-            </article>
+            <table class="styled-table">
+                <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Provincia</th>
+                    <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- iterar directamente el Map (cada item es Map.Entry) -->
+                <tr th:each="e,st : ${provTopPorCat}" th:if="${st.index < 5}">
+                    <td th:text="${e.key}">Categoría</td>
+                    <td th:text="${e.value.provincia}">Provincia</td>
+                    <td th:text="${e.value.cantidad}">0</td>
+                </tr>
 
-            <article class="card card--barras" aria-labelledby="detalle-title">
-                <h2 id="detalle-title" class="card__title">Detalle de estadísticas</h2>
-                <div class="chart--bars">
-                    <table class="bars">
-                        <thead>
-                        <tr>
-                            <th class="barlbl">Nombre</th>
-                            <th class="barlbl">Clave</th>
-                            <th class="barlbl">Valor</th>
-                            <th class="barlbl">Colección</th>
-                            <th class="barlbl">Generado</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="r : ${rawStats}">
-                            <td th:text="${r.nombreEstadistica}">-</td>
-                            <td th:text="${r.clave}">-</td>
-                            <td th:text="${r.valor}">0</td>
-                            <td th:text="${r.nombreDeLaColeccion}">-</td>
-                            <td th:text="${r.fechaGeneracion}">-</td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(rawStats)}">
-                            <td colspan="5" class="muted"><i>Sin datos</i></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </article>
+                <!-- fila vacía segura -->
+                <tr th:if="${provTopPorCat == null or e == null}" style="display:none"><td></td></tr>
 
-        </section> <!-- cierre section -->
-    </main> <!-- cierre main -->
-</div> <!-- cierre layout -->
+                <tr th:if="${provTopPorCat == null or provTopPorCat.isEmpty()}">
+                    <td colspan="3" class="muted"><i>Sin datos disponibles</i></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
 
-<!-- Footer -->
+        <!-- Horario top por categoría (máx 5) -->
+        <section class="panel">
+            <div class="panel__header">
+                <h2>Horario con mayor cantidad de hechos por categoría</h2>
+            </div>
+
+            <table class="styled-table">
+                <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Horario</th>
+                    <th>Cantidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="h,st : ${horasTop}" th:if="${st.index < 5}">
+                    <td th:text="${h.categoria}">Categoría</td>
+                    <td th:text="${h.hora}">--:--</td>
+                    <td th:text="${h.cantidad}">0</td>
+                </tr>
+                <tr th:if="${horasTop == null or #lists.isEmpty(horasTop)}">
+                    <td colspan="3" class="muted"><i>Sin datos disponibles</i></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="filter-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" name="categoria">
+                    <option value="">Todas</option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat.id}"
+                            th:text="${cat.nombre}"
+                            th:selected="${cat.id} == ${filtros.categoriaId}">
+                    </option>
+                </select>
+            </div>
+        </section>
+
+    </main>
+</div>
+
 <footer role="contentinfo">
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
-
-<!-- Toggle sidebar en mobile -->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    (function(){
-        const btn = document.querySelector('.sidebar__toggle');
-        const sidebar = document.querySelector('.sidebar');
-        if(!btn || !sidebar) return;
-        btn.addEventListener('click', function(){
-            const open = sidebar.classList.toggle('is-open');
-            btn.setAttribute('aria-expanded', String(open));
-        });
-    })();
-    /*]]>*/
-</script>
 </body>
 </html>

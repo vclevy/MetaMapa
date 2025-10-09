@@ -1,9 +1,8 @@
 :root {
     --primario: #000000;
     --primario-700: #061523;
-    --sidebar-bg: #0f2746;
-    --sidebar-active: #0b1e36;
-    --sidebar-text: #e6eef9;
+    /* (El sidebar usa sus propios fallbacks; si querés sobreescribirlos globalmente,
+       podés declarar acá: --sidebar-bg, --sidebar-text, --sidebar-active, --sidebar-w, --header-h, --z-header) */
     --bg: #f4f6fb;
     --card: #ffffff;
     --texto: #111827;
@@ -11,8 +10,7 @@
     --borde: #e5e7eb;
     --shadow: 0 6px 18px rgba(0,0,0,.08);
     --radius: 14px;
-    --sidebar-w: 280px;
-    --header-h: 80px;
+    --header-h: 80px;   /* solo para layout general */
     --z-header: 1000;
     --ok: #16a34a;
     --ok-700: #15803d;
@@ -20,11 +18,15 @@
 
 /* Reset y globales */
 *, *::before, *::after { box-sizing: border-box; }
-html, body { margin:0; padding:0; height:100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:#333; line-height:1.6; background:var(--bg); }
+html, body {
+    margin:0; padding:0; height:100%;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color:#333; line-height:1.6; background:var(--bg);
+}
 a { color: inherit; text-decoration:none; }
 img { max-width:100%; display:block; }
 
-/* Header */
+/* Header (no toca el sidebar) */
 header {
     background-color: rgba(255, 255, 255, 0.88);
     backdrop-filter: blur(10px);
@@ -46,52 +48,39 @@ header {
     margin-left:40px;
     margin-right:100px;
 }
-.logo img { height:150px; width:auto; display:block; object-fit:contain; }
+/* Evita desbordes del header; no imponemos altura fija enorme */
+.logo img { max-height: calc(var(--header-h) - 16px); width:auto; object-fit:contain; }
 
-/* Layout y Sidebar */
-.layout { display:grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: calc(100vh - var(--header-h)); }
-.sidebar {
-    position: sticky;
-    top: var(--header-h);
-    height: calc(100vh - var(--header-h));
-    background: var(--sidebar-bg);
-    color: var(--sidebar-text);
-    padding:1rem;
+/* Layout general (columna del sidebar + contenido) */
+.layout {
+    display:grid;
+    grid-template-columns: var(--sidebar-w, 280px) 1fr; /* reserva la columna del sidebar */
+    min-height: calc(100vh - var(--header-h));
 }
-.menu { display:flex; flex-direction:column; gap:.35rem; }
-.menu__link {
-    padding:.78rem 1rem;
-    border-radius:10px;
-    font-weight:700;
-    color: var(--sidebar-text);
-    transition: background .2s ease, color .2s ease;
-}
-.menu__link:hover { background: rgba(255,255,255,.08); }
-.menu__link.is-active { background: var(--sidebar-active); }
 
 /* Main */
 .main {
     padding:2rem min(3vw, 32px);
-    display: flex;
-    flex-direction: column;
+    display:flex;
+    flex-direction:column;
     min-height: calc(100vh - var(--header-h));
     background: var(--bg);
 }
 
 /* Cabecera superior (botón + título) */
 .main .form-header {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 2rem;
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    margin-bottom:2rem;
 }
 
 /* Contenedor centrado para el form */
 .main .form-wrapper {
-    flex: 1; /* ocupa todo el espacio restante */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 /* Formulario */
@@ -109,7 +98,9 @@ header {
 }
 
 /* Inputs y textarea */
-.form-card-collection input[type="text"], .form-card-collection textarea, .form-card-collection select {
+.form-card-collection input[type="text"],
+.form-card-collection textarea,
+.form-card-collection select {
     width:100%;
     padding:.8rem 1rem;
     border:2px solid #ddd;
@@ -120,7 +111,9 @@ header {
     color:#111827;
 }
 .form-card-collection textarea { resize: vertical; min-height:120px; }
-.form-card-collection input:focus, .form-card-collection textarea:focus, .form-card-collection select:focus {
+.form-card-collection input:focus,
+.form-card-collection textarea:focus,
+.form-card-collection select:focus {
     border-color:var(--primario);
     outline:none;
     box-shadow:0 0 0 3px rgba(43,123,214,.15);
@@ -133,70 +126,36 @@ header {
 /* Botones */
 .btn-primary, .btn--primary,
 .btn-outline, .btn--outline {
-    margin-top: 10px;
-    background-color: #2B7BD6FF;
-    color: #fff;
-    border: 2px solid transparent;
+    margin-top:10px;
+    background-color:#2B7BD6;
+    color:#fff;
+    border:2px solid transparent;
 }
-
 .btn-primary:hover, .btn--primary:hover,
 .btn-outline:hover, .btn--outline:hover {
-    background-color: #0F2746FF;
-    border-color: #0F2746FF;
-    color: #fff;
+    background-color:#0F2746;
+    border-color:#0F2746;
+    color:#fff;
 }
-/* Footer */
-footer { background: #1f5da3; color:#f1faee; text-align:center; padding:1.2rem 0; margin-top:2rem; font-size:.9rem; letter-spacing:.5px; }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .layout { grid-template-columns:1fr; }
-    .sidebar {
-        position: fixed;
-        top: var(--header-h);
-        left:0;
-        width: min(84vw, 320px);
-        height: calc(100vh - var(--header-h));
-        transform: translateX(-100%);
-        transition: transform .2s ease;
-        box-shadow: 0 10px 30px rgba(0,0,0,.25);
-        z-index: calc(var(--z-header) + 1);
-    }
-    .sidebar.is-open { transform: translateX(0); }
-    .sidebar__toggle {
-        display:inline-block;
-        position:absolute;
-        right:-44px;
-        top:8px;
-        width:40px;
-        height:40px;
-        border-radius:10px;
-        background:#fff;
-        color:#000;
-        border:1px solid var(--borde);
-        box-shadow: var(--shadow);
-        line-height:1;
-    }
+/* Footer */
+footer {
+    background:#1f5da3; color:#f1faee; text-align:center;
+    padding:1.2rem 0; margin-top:2rem; font-size:.9rem; letter-spacing:.5px;
 }
+
+/* Responsive (NO se tocan reglas del sidebar aquí) */
 @media (max-width: 720px) {
     .grid-two { grid-template-columns:1fr; }
     .form-card-collection, .form-card { padding:1.25rem; }
 }
 
-/*MENSAJES DE ALERTA*/
+/* MENSAJES DE ALERTA */
 .alert {
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0.375rem;
-    font-weight: 500;
+    padding:0.75rem 1rem;
+    margin-bottom:1rem;
+    border-radius:0.375rem;
+    font-weight:500;
 }
-
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-.alert-error {
-    background-color: #f8d7da;
-    color: #721c24;
-}
+.alert-success { background-color:#d4edda; color:#155724; }
+.alert-error   { background-color:#f8d7da; color:#721c24; }
