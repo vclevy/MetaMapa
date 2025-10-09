@@ -11,7 +11,7 @@ public class GeorefService {
 
     public GeorefService() {
         this.webClient = WebClient.builder()
-                .baseUrl("https://apis.datos.gob.ar/georef/api/v2.0")
+                .baseUrl("https://apis.datos.gob.ar/georef/api")
                 .build();
     }
 
