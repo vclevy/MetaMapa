@@ -10,10 +10,12 @@ import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.repositories.IColeccionesRepository;
+import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.services.georef.LugarService;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import ar.utn.ba.ddsi.services.mappers.ColeccionMapper;
+import ar.utn.ba.ddsi.services.solicitudService.ISolicitudesService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class ColeccionService implements IColeccionService {
     private IFuenteDeHechosRepository fuenteRepository;
     @Autowired
     private LugarService lugarService;
+    @Autowired
+    private ISolicitudesService solicitudesService;
 
     private final AlgoritmoFactory algoritmoFactory;
     private final ColeccionMapper coleccionMapper;
@@ -129,8 +133,6 @@ public class ColeccionService implements IColeccionService {
         }
     }
 
-
-
     @Override
     public ColeccionOutputDTO modificarAtributo(Long id, ColeccionPatchDTO patch) {
         if (this.coleccionesRepository.existsById(id)) {
@@ -199,16 +201,15 @@ public class ColeccionService implements IColeccionService {
 
     @Override
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String unModoDeNavegacion) {
-        var coleccion = coleccionesRepository.findById(id);
-        if (coleccion == null) {
-            throw new NoSuchElementException("No se encontró la colección con handle: " + id);
+        Optional<Coleccion> coleccion = coleccionesRepository.findById(id);
+
+        if (unModoDeNavegacion.equalsIgnoreCase("CURADO")){
+            this.aplicarAlgoritmoDeConsenso(coleccion.get());
         }
-        if(unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
-            return coleccion.get().getHechosConAlgoritmoAplicado();
-        }
-        else {
-            return coleccion.get().getHechos();
-        }
+
+        return coleccion.get().getHechos().stream()
+                .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
+                .toList();
     }
 
     @Override
@@ -237,6 +238,7 @@ public class ColeccionService implements IColeccionService {
         return null;
     }
 
+    @Override
     public List<ColeccionOutputDTO> obtenerColeccionesDestacadas() {
         List<Coleccion> todas = coleccionesRepository.findAll();
         Collections.shuffle(todas);
@@ -246,5 +248,9 @@ public class ColeccionService implements IColeccionService {
         return seleccionadas.stream()
                 .map(coleccionMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void aplicarAlgoritmoDeConsenso(Coleccion unaColeccion) {
     }
 }

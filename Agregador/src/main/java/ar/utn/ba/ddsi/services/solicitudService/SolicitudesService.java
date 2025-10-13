@@ -13,17 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+
+import static ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion.APROBADA;
 
 
 @Service
 public class SolicitudesService implements ISolicitudesService {
     @Autowired
     private ISolicitudesRepository solicitudesRepository;
-
     @Autowired
     private IHechosRepository hechosRepository;
-
     @Autowired
     private DetectorDeSpam detectorDeSpam;
 
@@ -56,7 +57,7 @@ public class SolicitudesService implements ISolicitudesService {
 
     @Override
     public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
-        cambiarEstado(idSolicitud, usuarioModificador, EstadoDeSolicitudDeEliminacion.APROBADA);
+        cambiarEstado(idSolicitud, usuarioModificador, APROBADA);
     }
 
     @Override
@@ -82,7 +83,6 @@ public class SolicitudesService implements ISolicitudesService {
         solicitudesRepository.save(solicitud);
     }
 
-
     @Override
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
         return this.detectorDeSpam.esSpam(unaSolicitud.getJustificacionDeEliminacion());
@@ -106,5 +106,19 @@ public class SolicitudesService implements ISolicitudesService {
                 .toList();
     }
 
+    @Override
+    public boolean tieneSolicitudAprobada (List<Hecho> hechos) {
+        if (hechos == null || hechos.isEmpty()) return false;
+
+        List<Long> ids = hechos.stream()
+                .filter(h -> h != null && h.getId() != null)
+                .map(Hecho::getId)
+                .distinct()
+                .toList();
+
+        if (ids.isEmpty()) return false;
+
+        return solicitudesRepository.existsByHechoIdInAndEstado(ids, APROBADA);
+    }
 
 }
