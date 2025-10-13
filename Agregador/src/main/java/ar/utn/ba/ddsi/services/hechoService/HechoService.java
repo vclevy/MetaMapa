@@ -43,6 +43,9 @@ public class HechoService implements IHechoService {
                 hechoPosta.getCategoria().getNombre().isBlank()) {
             throw new IllegalArgumentException("El hecho debe tener una categoría válida");
         }
+        if(hechoPosta.getEsAnonimo()==null){
+            hechoPosta.setEsAnonimo(true);
+        }
 
         String nombreCategoria = hechoPosta.getCategoria().getNombre().trim();
         Categoria categoriaPersistida = categoriaRepository.findByNombre(nombreCategoria)
