@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
+import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface ISolicitudesService {
     boolean justificacionTieneLongitudValida(String unaJustificacion);
     List<SolicitudOutputDTO> obtenerSolicitudes();
     List<SolicitudOutputDTO> obtenerSolicitudesPendientes();
+    boolean tieneSolicitudAprobada(List<Hecho> hechos);
 }

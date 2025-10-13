@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/Algoritmo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/LandingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/LandingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminLanding.css" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/adminLanding.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminLanding.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminLanding.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/ISolicitudesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/ISolicitudesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/ISolicitudesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/ISolicitudesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/SolicitudesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/SolicitudesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -47,8 +54,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
-    &quot;accountId&quot;: &quot;24e22035-39b4-4174-8946-33ab8d78f4c9&quot;
+    &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
+    &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -156,30 +163,14 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <set>
-              <option value="AuthServiceApplication" />
-              <option value="FuenteEstaticaApplication" />
-              <option value="FuenteProxyApplication" />
+              <option value="AuthServiceApplication (1)" />
             </set>
           </value>
         </entry>
       </map>
     </option>
-    <option name="configurationStatuses">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <map>
-              <entry key="AgregadorApplication" value="STOPPED" />
-              <entry key="ClienteLivianoApplication" value="STOPPED" />
-              <entry key="FuenteDinamicaApplication" value="STOPPED" />
-              <entry key="ServicioEstadisticasApplication" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClienteLivianoApplication">
+  <component name="RunManager" selected="Spring Boot.AuthServiceApplication (1)">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
@@ -273,8 +264,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
         <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
+        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
@@ -284,8 +275,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
-        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
       </set>
     </attachedChunks>
   </component>
@@ -346,6 +337,8 @@
       <workItem from="1759579274986" duration="4316000" />
       <workItem from="1759960850235" duration="2000" />
       <workItem from="1759964493676" duration="1965000" />
+      <workItem from="1760311975748" duration="1387000" />
+      <workItem from="1760377329935" duration="8061000" />
     </task>
     <servers />
   </component>
