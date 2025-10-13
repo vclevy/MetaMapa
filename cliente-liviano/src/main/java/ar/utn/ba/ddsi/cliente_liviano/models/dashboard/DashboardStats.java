@@ -48,6 +48,7 @@ public class DashboardStats {
     private ProvinceTop provinciaConMasHechos;
     private Map<String, ProvinceTop> provinciaTopPorCategoria = new LinkedHashMap<>();
     private List<HourTopByCategory> horaTopPorCategoria = new ArrayList<>();
+    private Map<String, ProvinceTop> provinciaTopPorColeccion = new LinkedHashMap<>();
 
     public LocalDateTime getGenerado(){ return generado; }
     public void setGenerado(LocalDateTime generado){ this.generado=generado; }
@@ -57,4 +58,5 @@ public class DashboardStats {
     public void setProvinciaConMasHechos(ProvinceTop p){ this.provinciaConMasHechos=p; }
     public Map<String, ProvinceTop> getProvinciaTopPorCategoria(){ return provinciaTopPorCategoria; }
     public List<HourTopByCategory> getHoraTopPorCategoria(){ return horaTopPorCategoria; }
+    public Map<String, ProvinceTop> getProvinciaTopPorColeccion() { return provinciaTopPorColeccion; }
 }

@@ -48,8 +48,6 @@ header {
     margin-left:40px;
     margin-right:100px;
 }
-/* Evita desbordes del header; no imponemos altura fija enorme */
-.logo img { max-height: calc(var(--header-h) - 16px); width:auto; object-fit:contain; }
 
 /* Layout general (columna del sidebar + contenido) */
 .layout {

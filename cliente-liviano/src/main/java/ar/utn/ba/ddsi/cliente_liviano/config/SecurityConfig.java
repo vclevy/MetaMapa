@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -18,17 +19,43 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // públicos (GET)
                         .requestMatchers(HttpMethod.GET,
-                                "sesion/debug", "/", "/sesion/registrar", "/sesion/login", "/sesion/registro",
-                                "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**").permitAll()
+                                "/",
+                                "/sesion/debug",
+                                "/sesion/registro",
+                                "/sesion/login",
+                                "/css/**",
+                                "/js/**",
+                                "/img/**",
+                                "/uploads/**",
+                                "/sobre-nosotros",
+                                "/colecciones/**",
+                                // listado y detalle de hechos son públicos
+                                "/hechos",
+                                "/hechos/all",
+                                "/hechos/*"          // /hechos/{id}
+                        ).permitAll()
+
+                        // públicos (POST)
                         .requestMatchers(HttpMethod.POST,
-                                "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear").permitAll()
+                                "/sesion/login",
+                                "/sesion/registrar",
+                                "/api/auth/**",
+                                "/hechos/crear"      // subir hecho sin estar logueado (si así lo querés)
+                        ).permitAll()
+
+                        // solo autenticados (edición de hecho)
+                        .requestMatchers(HttpMethod.GET,  "/hechos/*/editar").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/hechos/*/editar").authenticated()
+
+                        // admin
                         .requestMatchers("/admin/**", "/admin/solicitudes/**").hasRole("ADMIN")
-                        .requestMatchers("/uploads/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
@@ -37,7 +64,8 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .permitAll()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(tokenDecoder), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(tokenDecoder),
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
