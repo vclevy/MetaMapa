@@ -1,28 +1,31 @@
 <header th:fragment="mainHeader">
     <div class="header-container">
+        <!-- Izquierda: logo grande -->
         <a class="logo" th:href="@{/}">
             <img th:src="@{/img/logoMetamapa.png}" alt="Logo MetaMapa" />
         </a>
 
+        <!-- Centro: menú plano con pipes -->
+        <nav class="main-menu" aria-label="Menú principal">
+            <a th:href="@{/hechos}">Ver hechos</a>
+            <a th:href="@{/hechos/subir}">Subir hecho</a>
+            <a th:href="@{/colecciones}">Ver colecciones</a>
+            <a th:href="@{/sobre-nosotros}">¿Quiénes somos?</a>
+        </nav>
+
+        <!-- Derecha: sesión -->
         <nav class="nav-links">
-            <!-- Si está autenticado -->
-            <span th:if="${session.username != null}">
-                Hola, <b th:text="${session.username}">Usuario</b>!<span style="margin-right: 0.8rem;"></span>
-                <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
+      <span th:if="${session.username != null}">
+        Hola, <b th:text="${session.username}">Usuario</b>!
+        <span style="margin-right:.8rem;"></span>
+        <a class="btn btn-primary" th:if="${session.rol == 'ADMIN'}" th:href="@{/admin}">Panel</a>
+        <a class="btn btn-primary" th:href="@{/sesion/logout}">Cerrar sesión</a>
+      </span>
 
-                <!-- Si el usuario es ADMIN -->
-                <a class="btn btn-primary" th:if="${session.rol == 'ADMIN'}" th:href="@{/admin}">Panel</a>
-
-                <!-- Si NO es ADMIN -->
-                <a class="btn btn-icon" th:if="${session.rol != 'ADMIN'}" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
-            </span>
-
-            <!-- Si NO está autenticado -->
             <span th:if="${session.username == null}">
-                <a class="btn btn-primary" th:href="@{/sesion/login}">Iniciar sesión</a>
-                <a class="btn btn-primary" th:href="@{/sesion/registro}">Registrarse</a>
-                <a class="btn btn-icon" th:href="@{/sobre-nosotros}" title="Sobre MetaMapa">?</a>
-            </span>
+        <a class="btn btn-primary" th:href="@{/sesion/login}">Iniciar sesión</a>
+        <a class="btn btn-primary" th:href="@{/sesion/registro}">Registrarse</a>
+      </span>
         </nav>
     </div>
 </header>
