@@ -26,7 +26,7 @@ public class SecurityConfig {
                                 "sesion/debug", "/", "/sesion/registrar", "/sesion/login", "/sesion/registro",
                                 "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**").permitAll()
                         .requestMatchers(HttpMethod.POST,
-                                "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear").permitAll()
+                                "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear", "hechos/filtrar").permitAll()
                         .requestMatchers("/admin/**", "/admin/solicitudes/**").hasRole("ADMIN")
                         .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().authenticated()
