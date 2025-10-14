@@ -284,6 +284,30 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
+    public void eliminarHecho(Long idHecho) {
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            throw new IllegalStateException("No hay token en sesión.");
+        }
+
+        webClient
+                .put()
+                .uri("/api/hecho/eliminar/{id}", idHecho)   // PATH VAR
+                .headers(h -> h.setBearerAuth(token))
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(idHecho)                          // BODY con el mismo id (la API lo pide)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, r ->
+                        r.bodyToMono(String.class)
+                                .map(msg -> new RuntimeException("No se pudo eliminar el hecho: " + msg))
+                )
+                .onStatus(HttpStatusCode::is5xxServerError, r ->
+                        r.bodyToMono(String.class)
+                                .map(msg -> new RuntimeException("Error del servidor al eliminar el hecho: " + msg))
+                )
+                .toBodilessEntity()
+                .block();
+    }
 }
 
 

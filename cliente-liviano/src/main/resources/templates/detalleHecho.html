@@ -79,7 +79,13 @@
         <div class="actions" th:if="${session.rol == 'ADMIN'}" style="margin-top:1.5rem;">
             <a class="btn btn-blue"  th:href="@{/hechos/{id}/editar(id=${hecho.id})}">Editar</a>
             <a class="btn btn-green" th:href="@{/admin/hechos/{id}/aprobar(id=${hecho.id})}">Aprobar</a>
-            <a class="btn btn-red"   th:href="@{/hechos/{id}/eliminar(id=${hecho.id})}">Eliminar</a>
+            <form th:action="@{|/hechos/${hecho.id}/eliminar|}" method="post" class="inline-form">
+                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <button type="submit" class="btn btn-red"
+                        onclick="return confirm('¿Eliminar definitivamente este hecho?');">
+                    Eliminar
+                </button>
+            </form>
         </div>
 
         <div class="actions" th:if="${session.rol != 'ADMIN'}" style="margin-top:1.5rem;">

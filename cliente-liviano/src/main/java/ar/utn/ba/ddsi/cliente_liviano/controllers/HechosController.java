@@ -25,7 +25,7 @@ public class HechosController {
 
     private final AgregadorService agregador;
     private final DinamicaService dinamica;
-    private static final int PAGE_SIZE = 12;
+    static final int PAGE_SIZE = 12;
 
     @Autowired
     public HechosController(AgregadorService agregador, DinamicaService dinamica) {
@@ -181,10 +181,16 @@ public class HechosController {
         return "redirect:/hechos"; //
     }
 
-    @GetMapping("/admin/hechos/{id}/eliminar")
-    public String eliminarHecho(@PathVariable Long id, Model model) {
-        //TODO
-
-        return "";
+    // En tu AdminHechosController (cliente liviano)
+    @PostMapping("/admin/hechos/{id}/eliminar")
+    public String eliminar(@PathVariable Long id, RedirectAttributes ra) {
+        try {
+            agregador.eliminarHecho(id);
+            ra.addFlashAttribute("mensajeExito", "Hecho eliminado correctamente.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("mensajeError", "No se pudo eliminar el hecho: " + e.getMessage());
+        }
+        return "redirect:/admin/hechos";
     }
+
 }
