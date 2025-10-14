@@ -308,6 +308,18 @@ public class AgregadorService implements IAgregadorService {
                 .toBodilessEntity()
                 .block();
     }
+
+    public List<HechoDTO> obtenerHechosDeColeccion(Long id, String modo) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/api/coleccion/{id}/hechos")
+                        .queryParam("modoDeNavegacion", modo)
+                        .build(id))
+                .retrieve()
+                .bodyToFlux(HechoDTO.class)
+                .collectList()
+                .block();
+    }
 }
 
 

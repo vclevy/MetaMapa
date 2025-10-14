@@ -11,38 +11,49 @@
 
 <div th:replace="header :: mainHeader"></div>
 
+
 <main class="container coleccion-detalle">
-    <!-- Volver al listado -->
     <a class="volver" th:href="@{/colecciones}">← Volver a colecciones</a>
 
-    <!-- Header de la colección (ahora un div) -->
-
-    <!-- Listado de hechos -->
     <section class="hechos-list">
         <div class="coleccion-header">
             <h1 th:text="${coleccion.titulo}">Título de la colección</h1>
-            <p class="descripcion" th:text="${coleccion.descripcion}">Descripción de la colección</p>
+            <p class="descripcion" th:text="${coleccion.descripcion}">Descripción</p>
+
+            <!-- Toggle de modo -->
+            <div class="modo-toggle">
+                <a class="modo-link"
+                   th:classappend="${modo}=='IRRESTRICTO' ? ' active' : ''"
+                   th:href="@{/colecciones/{id}(id=${coleccion.id}, modo='IRRESTRICTO')}">
+                    Irrestricto
+                </a>
+                <span class="sep">|</span>
+                <a class="modo-link"
+                   th:classappend="${modo}=='CURADO' ? ' active' : ''"
+                   th:href="@{/colecciones/{id}(id=${coleccion.id}, modo='CURADO')}">
+                    Curado
+                </a>
+            </div>
+
             <div class="meta">
-        <span>Total de hechos:
-            <strong th:text="${#lists.size(coleccion.hechosDeLaColeccion)}">0</strong>
-        </span>
+                <span>Total de hechos: <strong th:text="${#lists.size(hechos)}">0</strong></span>
             </div>
         </div>
+
         <div class="cards container">
-            <article class="card" th:each="hecho : ${coleccion.hechosDeLaColeccion}">
+            <article class="card" th:each="hecho : ${hechos}">
                 <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
                     <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
                         <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
-                                     #strings.endsWith(hecho.multimedia[0], '.jpeg') or
-                                     #strings.endsWith(hecho.multimedia[0], '.png') or
-                                     #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                         #strings.endsWith(hecho.multimedia[0], '.jpeg') or
+                         #strings.endsWith(hecho.multimedia[0], '.png') or
+                         #strings.endsWith(hecho.multimedia[0], '.gif')}"
                              th:src="${hecho.multimedia[0]}"
                              th:alt="|Imagen del hecho ${hecho.titulo}|"/>
                         <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
                                th:src="${hecho.multimedia[0]}"
                                type="video/mp4"
-                               controls
-                               preload="metadata"
+                               controls preload="metadata"
                                style="max-width:100%; border-radius:10px;">
                             Tu navegador no soporta la reproducción de video.
                         </video>
@@ -60,10 +71,7 @@
             </article>
         </div>
 
-        <!-- Mensaje si no hay hechos -->
-        <p th:if="${#lists.isEmpty(coleccion.hechosDeLaColeccion)}">
-            No hay hechos en esta colección todavía.
-        </p>
+        <p th:if="${#lists.isEmpty(hechos)}">No hay hechos en esta colección todavía.</p>
     </section>
 </main>
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,13 +46,30 @@ public class ColeccionController {
         return "listadoColecciones"; // nombre del template Thymeleaf
     }
 
+
     @GetMapping("/{id}")
-    public String verDetalleColeccion(@PathVariable Long id, Model model) {
+    public String verDetalleColeccion(
+            @PathVariable Long id,
+            @RequestParam(name = "modo", defaultValue = "IRRESTRICTO") String modo,
+            Model model) {
+
+
         ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
 
+        // Hechos según modo
+        List<HechoDTO> hechos;
+        if ("CURADO".equalsIgnoreCase(modo)) {
+            hechos = agregador.obtenerHechosDeColeccion(id, "CURADO");
+        } else {
+            // Irrestricto: ya vienen en el DTO de la colección
+            hechos = coleccion.getHechosDeLaColeccion();
+            modo = "IRRESTRICTO"; // normalizamos
+        }
+
         model.addAttribute("coleccion", coleccion);
+        model.addAttribute("hechos", hechos);
+        model.addAttribute("modo", modo); // para marcar el botón activo
 
         return "detalleColeccion";
     }
-
 }
