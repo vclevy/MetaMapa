@@ -11,11 +11,11 @@ map.addLayer(markersCluster);
 
 // Función para crear ícono por categoría
 function crearIcono(categoria) {
-    const url = `/img/beanosPin.png`; // Cambiar si querés íconos distintos por categoría
+    const url = `/img/monoPin.png`; // Cambiar si querés íconos distintos por categoría
     return L.icon({
         iconUrl: url,
-        iconSize: [30, 70],
-        iconAnchor: [15, 70],
+        iconSize: [93, 70],
+        iconAnchor: [46, 70],
         popupAnchor: [0, -70]
     });
 }
