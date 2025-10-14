@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -66,10 +67,14 @@ public class LandingController {
         model.addAttribute("horasTop", dash.getHoraTopPorCategoria());
         model.addAttribute("provTopPorCat", dash.getProvinciaTopPorCategoria());
         model.addAttribute("generado", dash.getGenerado());
+        model.addAttribute("provTopPorCol", dash.getProvinciaTopPorColeccion());
         model.addAttribute("rawStats", resultados);
 
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias);
+
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        model.addAttribute("generadoFmt", dash.getGenerado().format(fmt));
 
         return "adminLanding";
     }

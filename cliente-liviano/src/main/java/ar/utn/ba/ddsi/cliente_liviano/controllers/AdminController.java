@@ -1,9 +1,7 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.ResultadoEstadisticaDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionCreateDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.ColeccionDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.FuenteCreateDTO;
+import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstadisticasService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.EstaticaService;
@@ -18,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
+
+import static ar.utn.ba.ddsi.cliente_liviano.controllers.HechosController.PAGE_SIZE;
 
 @Controller
 @RequestMapping("/admin")
@@ -153,4 +153,43 @@ public class AdminController {
         }
         return "redirect:/admin/colecciones";
     }
+
+    @GetMapping("/hechos")
+    public String listar(@RequestParam(value = "page", defaultValue = "1") int page,
+                         Model model) {
+
+        // 1) Traemos los hechos (si tenés “pendientes” podés llamar al método que corresponda)
+        List<HechoDTO> hechos = agregador.obtenerHechos(); // TODO: reemplazar por obtenerHechosPendientes() si existe
+        List<CategoriaDTO> categorias = agregador.obtenerCategorias();
+        model.addAttribute("categorias", categorias); // por si lo usás en algún badge, etc.
+
+        int totalHechos = hechos.size();
+        if (totalHechos == 0) {
+            model.addAttribute("hechos", List.of());
+            model.addAttribute("paginaActual", 1);
+            model.addAttribute("paginaAnterior", 1);
+            model.addAttribute("paginaSiguiente", 1);
+            model.addAttribute("totalPaginas", 1);
+            return "adminHechos";
+        }
+
+        int totalPaginas = (int) Math.ceil((double) totalHechos / PAGE_SIZE);
+        if (page < 1) page = 1;
+        if (page > totalPaginas) page = totalPaginas;
+
+        int fromIndex = (page - 1) * PAGE_SIZE;
+        int toIndex = Math.min(fromIndex + PAGE_SIZE, totalHechos);
+        List<HechoDTO> hechosPaginados = hechos.subList(fromIndex, toIndex);
+
+        model.addAttribute("hechos", hechosPaginados);
+        model.addAttribute("paginaActual", page);
+        model.addAttribute("paginaAnterior", page > 1 ? page - 1 : 1);
+        model.addAttribute("paginaSiguiente", page < totalPaginas ? page + 1 : totalPaginas);
+        model.addAttribute("totalPaginas", totalPaginas);
+
+        return "adminHechos";
+    }
 }
+
+
+

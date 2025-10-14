@@ -2,28 +2,31 @@ package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
+import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
+import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
 import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+
+import static ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion.APROBADA;
 
 
 @Service
 public class SolicitudesService implements ISolicitudesService {
     @Autowired
     private ISolicitudesRepository solicitudesRepository;
-
     @Autowired
     private IHechosRepository hechosRepository;
-
     @Autowired
     private DetectorDeSpam detectorDeSpam;
 
@@ -56,7 +59,12 @@ public class SolicitudesService implements ISolicitudesService {
 
     @Override
     public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
-        cambiarEstado(idSolicitud, usuarioModificador, EstadoDeSolicitudDeEliminacion.APROBADA);
+        cambiarEstado(idSolicitud, usuarioModificador, APROBADA);
+        Solicitud solicitud = solicitudesRepository.findById(idSolicitud)
+                .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada con id " + idSolicitud));
+        Hecho hecho = solicitud.getHecho();
+        hecho.setFueEliminado(Boolean.TRUE);
+        hechosRepository.save(hecho);
     }
 
     @Override
@@ -82,7 +90,6 @@ public class SolicitudesService implements ISolicitudesService {
         solicitudesRepository.save(solicitud);
     }
 
-
     @Override
     public boolean verificacionDeSpam(Solicitud unaSolicitud) {
         return this.detectorDeSpam.esSpam(unaSolicitud.getJustificacionDeEliminacion());
@@ -106,5 +113,19 @@ public class SolicitudesService implements ISolicitudesService {
                 .toList();
     }
 
+    @Override
+    public boolean tieneSolicitudAprobada (List<Hecho> hechos) {
+        if (hechos == null || hechos.isEmpty()) return false;
+
+        List<Long> ids = hechos.stream()
+                .filter(h -> h != null && h.getId() != null)
+                .map(Hecho::getId)
+                .distinct()
+                .toList();
+
+        if (ids.isEmpty()) return false;
+
+        return solicitudesRepository.existsByHechoIdInAndEstado(ids, APROBADA);
+    }
 
 }

@@ -36,6 +36,16 @@ public class HechoController {
         return ResponseEntity.ok(this.hechoService.modificarHecho(id, hechoInputDTO));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("/eliminar/{id}")
+    public ResponseEntity<HechoOutputDTO> eliminarHecho(@PathVariable Long id,
+                                                         @RequestBody Long hechoId) {
+       //TODO
+        return null;
+    }
+
+
+
     @PostMapping("/filtrar")
     public ResponseEntity<List<HechoOutputDTO>> filtrarHechos(@RequestBody HechoFiltroDTO filtros) {
         return ResponseEntity.ok(this.hechoService.filtrarHechos(filtros));

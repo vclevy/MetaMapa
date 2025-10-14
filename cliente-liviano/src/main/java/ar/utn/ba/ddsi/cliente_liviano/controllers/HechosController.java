@@ -1,6 +1,7 @@
 package ar.utn.ba.ddsi.cliente_liviano.controllers;
 
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
+import ar.utn.ba.ddsi.cliente_liviano.models.entities.Lugar;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +25,7 @@ public class HechosController {
 
     private final AgregadorService agregador;
     private final DinamicaService dinamica;
-    private static final int PAGE_SIZE = 12;
+    static final int PAGE_SIZE = 12;
 
     @Autowired
     public HechosController(AgregadorService agregador, DinamicaService dinamica) {
@@ -78,11 +79,11 @@ public class HechosController {
     }
 
     @GetMapping("/subir")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("hecho", new HechoFormDTO());
-        model.addAttribute("modoEdicion", false);
-        return "subirHecho";
+    public String mostrarFormularioAlta(Model model) {
+        model.addAttribute("hecho", new HechoFormDTO()); // el que ya usabas en alta
+        return "subirHecho"; // <-- vista de ALTA
     }
+
 
     @PostMapping("/crear")
     public String crearHecho(@Valid @ModelAttribute HechoFormDTO hechoForm,
@@ -113,21 +114,29 @@ public class HechosController {
         return agregador.obtenerHechos(); // Método que devuelve todos los hechos
     }
 
-
     @GetMapping("/{id}")
     public String detalle(@PathVariable Long id, Model model) {
         HechoDTO hecho = agregador.obtenerHechoPorId(id);
 
-        // Formateamos la fecha
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        String fechaFormateada = hecho.getFechaDeAcontecimiento().format(formatter);
+        // Formateo de fecha (si querés mantenerlo)
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String fechaFormateada = hecho.getFechaDeAcontecimiento().format(f);
+
+        // Usuario actual
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String usuarioActual = (auth != null && auth.isAuthenticated()) ? auth.getName() : null;
+
+        // *** AQUÍ se revisa si el usuario actual es el dueño del hecho ***
+        boolean puedeEditar =
+                usuarioActual != null &&
+                        hecho.getNombreDeUsuario() != null &&
+                        hecho.getNombreDeUsuario().trim().equalsIgnoreCase(usuarioActual.trim());
 
         model.addAttribute("hecho", hecho);
         model.addAttribute("fechaFormateada", fechaFormateada);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            model.addAttribute("usuarioActual", auth.getName());
-        }
+        model.addAttribute("usuarioActual", usuarioActual);
+        model.addAttribute("puedeEditar", puedeEditar);
+
         return "detalleHecho";
     }
 
@@ -155,14 +164,13 @@ public class HechosController {
         return "redirect:/hechos";
     }
 
-    // Mostrar el formulario con los datos actuales
+
     @GetMapping("/{id}/editar")
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
-        // Obtenemos el hecho actual desde el backend
         HechoDTO hecho = agregador.obtenerHechoPorId(id);
+        if (hecho.getLugar() == null) hecho.setLugar(new Lugar());
         model.addAttribute("hecho", hecho);
-        model.addAttribute("modoEdicion", true);
-        return "subirHecho"; // la vista Thymeleaf (hecho-form.html)
+        return "edicionHecho";
     }
 
     // Procesar el formulario enviado
@@ -170,7 +178,19 @@ public class HechosController {
     public String editarHecho(@PathVariable Long id, @ModelAttribute HechoDTO hechoDTO) {
         hechoDTO.setId(id); // aseguramos que tenga el id
         agregador.editarHecho(hechoDTO);
-        return "redirect:/hechos"; // redirige al listado o a la vista del hecho
+        return "redirect:/hechos"; //
+    }
+
+    // En tu AdminHechosController (cliente liviano)
+    @PostMapping("/admin/hechos/{id}/eliminar")
+    public String eliminar(@PathVariable Long id, RedirectAttributes ra) {
+        try {
+            agregador.eliminarHecho(id);
+            ra.addFlashAttribute("mensajeExito", "Hecho eliminado correctamente.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("mensajeError", "No se pudo eliminar el hecho: " + e.getMessage());
+        }
+        return "redirect:/admin/hechos";
     }
 
 }

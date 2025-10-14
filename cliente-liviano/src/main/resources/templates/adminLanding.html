@@ -9,6 +9,9 @@
     <link rel="stylesheet" th:href="@{/css/adminLanding.css}" />
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -17,31 +20,57 @@
 
 <div class="layout">
     <!-- Sidebar -->
-    <div th:replace="adminSidebar :: sidebarFragment"></div>
+    <div th:replace="~{adminSidebar :: sidebarFragment}"></div>
 
     <!-- Contenido principal -->
     <main class="main" role="main">
         <h1 class="page-title">Resumen de actividad</h1>
         <p class="muted" style="margin-top:-0.35rem">
             Última generación de estadísticas:
-            <b th:text="${generado}">-</b>
+            <b th:text="${generadoFmt != null ? generadoFmt : '-'}">-</b>
         </p>
 
-        <!-- Indicadores -->
-        <section class="indicators">
-            <div class="indicator">
-                <h3>Categoría con más hechos</h3>
-                <div class="indicator__value"
-                     th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</div>
-                <div class="indicator__label"
-                     th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</div>
+        <!-- Cabecera con indicadores + gráfico a la derecha -->
+        <section class="header-grid">
+            <div class="header-grid__left">
+                <div class="indicator">
+                    <h3>Categoría con más hechos</h3>
+                    <div class="indicator__row">
+                        <span class="indicator__value"
+                              th:text="${categoriaTop != null ? categoriaTop.cantidad : 0}">0</span>
+                        <span class="indicator__name"
+                              th:text="${categoriaTop != null ? categoriaTop.categoria : '-'}">-</span>
+                    </div>
+                </div>
+                <div class="indicator">
+                    <h3>Provincia con más hechos</h3>
+                    <div class="indicator__row">
+                        <span class="indicator__value"
+                              th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</span>
+                        <span class="indicator__name"
+                              th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</span>
+                    </div>
+                </div>
             </div>
-            <div class="indicator">
-                <h3>Provincia con más hechos</h3>
-                <div class="indicator__value"
-                     th:text="${provinciaTop != null ? provinciaTop.cantidad : 0}">0</div>
-                <div class="indicator__label"
-                     th:text="${provinciaTop != null ? provinciaTop.provincia : '-'}">-</div>
+
+            <div class="header-grid__right panel">
+                <div class="panel__header">
+                    <h2>¿Por colección, en qué provincia se agrupan más hechos?</h2>
+                </div>
+
+                <canvas id="chartProvPorColeccion" aria-label="Torta por colección y provincia" role="img"
+                        style="width:100%;max-height:360px"></canvas>
+
+                <!-- Datos ocultos para el gráfico -->
+                <div id="chartData" hidden th:if="${provTopPorCol != null}">
+                    <span th:each="e : ${provTopPorCol}"
+                          th:attr="data-label=${e.key + ' (' + e.value.provincia + ')'}, data-value=${e.value.cantidad}">
+                    </span>
+                </div>
+
+                <p class="muted" th:if="${provTopPorCol == null or provTopPorCol.isEmpty()}">
+                    <i>Sin datos disponibles para el gráfico.</i>
+                </p>
             </div>
         </section>
 
@@ -130,32 +159,69 @@
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
-<!-- Script de filtrado dinámico -->
+<!-- Script de filtrado y gráfico -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // --- Tabla Provincias ---
+        // --- Filtros de tablas ---
         const filtroProv = document.getElementById("filtroProvCat");
         const filasProv = document.querySelectorAll("#tablaProvincias tbody tr");
 
-        filtroProv.addEventListener("change", () => {
-            const valor = filtroProv.value.toLowerCase();
-            filasProv.forEach(tr => {
-                const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
-                tr.style.display = !valor || categoria === valor ? "" : "none";
+        if (filtroProv) {
+            filtroProv.addEventListener("change", () => {
+                const valor = (filtroProv.value || "").toLowerCase();
+                filasProv.forEach(tr => {
+                    // Evitar procesar fila "sin datos"
+                    if (tr.querySelectorAll("td").length < 3) return;
+                    const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
+                    tr.style.display = !valor || categoria === valor ? "" : "none";
+                });
             });
-        });
+        }
 
-        // --- Tabla Horas ---
         const filtroHora = document.getElementById("filtroHoraCat");
         const filasHora = document.querySelectorAll("#tablaHoras tbody tr");
 
-        filtroHora.addEventListener("change", () => {
-            const valor = filtroHora.value.toLowerCase();
-            filasHora.forEach(tr => {
-                const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
-                tr.style.display = !valor || categoria === valor ? "" : "none";
+        if (filtroHora) {
+            filtroHora.addEventListener("change", () => {
+                const valor = (filtroHora.value || "").toLowerCase();
+                filasHora.forEach(tr => {
+                    if (tr.querySelectorAll("td").length < 3) return;
+                    const categoria = tr.querySelector("td:first-child").textContent.toLowerCase();
+                    tr.style.display = !valor || categoria === valor ? "" : "none";
+                });
             });
+        }
+
+        // --- Gráfico de torta: Provincia top por Colección ---
+        const etiquetas = [];
+        const valores = [];
+        document.querySelectorAll('#chartData span').forEach(el => {
+            etiquetas.push(el.getAttribute('data-label'));
+            valores.push(parseInt(el.getAttribute('data-value') || '0', 10));
         });
+
+        if (etiquetas.length && valores.length) {
+            const ctx = document.getElementById('chartProvPorColeccion');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: etiquetas,
+                        datasets: [{
+                            data: valores,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            title: { display: true, text: 'Provincias con más hechos por colección' }
+                        }
+                    }
+                });
+            }
+        }
     });
 </script>
 
