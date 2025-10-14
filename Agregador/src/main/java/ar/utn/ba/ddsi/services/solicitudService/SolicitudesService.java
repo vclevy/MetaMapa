@@ -2,12 +2,14 @@ package ar.utn.ba.ddsi.services.solicitudService;
 
 import ar.utn.ba.ddsi.models.dtos.input.solicitud.SolicitudInputDTO;
 import ar.utn.ba.ddsi.models.dtos.output.SolicitudOutputDTO;
+import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
 import ar.utn.ba.ddsi.models.entities.solicitud.HistorialSolicitud;
 import ar.utn.ba.ddsi.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.models.repositories.ISolicitudesRepository;
+import ar.utn.ba.ddsi.services.coleccionService.IColeccionService;
 import ar.utn.ba.ddsi.services.spam.DetectorDeSpam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +60,11 @@ public class SolicitudesService implements ISolicitudesService {
     @Override
     public void aprobarSolicitud(Long idSolicitud, String usuarioModificador) {
         cambiarEstado(idSolicitud, usuarioModificador, APROBADA);
+        Solicitud solicitud = solicitudesRepository.findById(idSolicitud)
+                .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada con id " + idSolicitud));
+        Hecho hecho = solicitud.getHecho();
+        hecho.setFueEliminado(Boolean.TRUE);
+        hechosRepository.save(hecho);
     }
 
     @Override

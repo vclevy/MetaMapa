@@ -57,7 +57,8 @@ public class HechoService implements IHechoService {
 
     @Override
     public List<HechoOutputDTO> obtenerHechos() {
-        return this.hechosRepository.findAll().stream().map(h -> hechoMapper.toDTO(h)).collect(Collectors.toList());
+
+        return this.hechosRepository.findAll().stream().filter(h -> !h.getFueEliminado()).map(h -> hechoMapper.toDTO(h)).collect(Collectors.toList());
     }
 
     @Override
@@ -178,6 +179,7 @@ public class HechoService implements IHechoService {
 
         return hechosRepository.findAll(spec)
                 .stream()
+                .filter(h -> !h.getFueEliminado())
                 .map(hechoMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -187,11 +189,19 @@ public class HechoService implements IHechoService {
         List<Hecho> todos = hechosRepository.findAll();
         Collections.shuffle(todos);
         List<Hecho> seleccionados = todos.stream()
+                .filter(h -> !h.getFueEliminado())
                 .limit(6)
                 .collect(Collectors.toList());
         return seleccionados.stream()
                 .map(hechoMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public HechoOutputDTO eliminarHecho(Long idHecho) {
+        Hecho hecho = this.hechosRepository.findById(idHecho).orElseThrow(() -> new IllegalArgumentException("Hecho no encontrado: " + idHecho));
+        this.hechosRepository.delete(hecho);
+        return hechoMapper.toDTO(hecho);
     }
 
 }
