@@ -46,7 +46,7 @@
 
             <!-- Acciones -->
             <div class="actions">
-                <a class="btn btn-outline btn-cancelar" href="/hechos/listado">Cancelar</a>
+                <a class="btn btn-outline btn-cancelar"  th:href="@{|/hechos/${solicitud.idHecho}|}">Cancelar</a>
                 <button class="btn btn-primary btn-submit" type="submit">Enviar solicitud</button>
             </div>
         </form>

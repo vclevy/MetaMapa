@@ -89,10 +89,20 @@
         </div>
 
         <div class="actions" th:if="${session.rol != 'ADMIN'}" style="margin-top:1.5rem;">
-            <a class="btn btn-outline btn-solicitar"
-               th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
-                Solicitar eliminación
-            </a>
+                <a class="btn btn-outline btn-solicitar"
+                   th:if="${session.rol != null}"
+                   th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
+                    Solicitar eliminación
+                </a>
+
+                <!-- Si NO está logueado (sin rol en sesión), muestra el botón con alert -->
+                <a class="btn btn-outline btn-solicitar"
+                   th:if="${session.rol == null}"
+                   href="#"
+                   onclick="alert('Tenés que estar registrado para solicitar la eliminación de un hecho.'); return false;">
+                    Solicitar eliminación
+                </a>
+
 
 
             <a class="btn btn-blue"
