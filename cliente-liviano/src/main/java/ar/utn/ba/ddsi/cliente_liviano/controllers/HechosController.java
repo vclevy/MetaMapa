@@ -155,8 +155,12 @@ public class HechosController {
             RedirectAttributes redirectAttributes,
             Principal principal) {
 
-        String usuario = principal.getName();
-        solicitudDTO.setNombreDeUsuario(usuario);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String usuarioActual = (auth != null && auth.isAuthenticated()) ? auth.getName() : "Anonimo";
+
+
+        solicitudDTO.setNombreDeUsuario(usuarioActual);
+
 
         agregador.solicitarEliminacion(solicitudDTO);
 

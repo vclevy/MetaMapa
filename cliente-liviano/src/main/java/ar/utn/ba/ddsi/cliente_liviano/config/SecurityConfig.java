@@ -24,9 +24,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET,
                                 "sesion/debug", "/", "/sesion/registrar", "/sesion/login", "/sesion/registro",
-                                "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**").permitAll()
+                                "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**", "hechos/{id}/solicitar-eliminacion").permitAll()
                         .requestMatchers(HttpMethod.POST,
-                                "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear", "hechos/filtrar").permitAll()
+                                "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear", "hechos/filtrar", "hechos/{id}/solicitar-eliminacion").permitAll()
                         .requestMatchers("/admin/**", "/admin/solicitudes/**").hasRole("ADMIN")
                         .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().authenticated()
