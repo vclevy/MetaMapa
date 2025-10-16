@@ -46,6 +46,8 @@ public class FuenteProxy implements IFuenteDeHechos {
                 unHecho.setEtiquetas(new ArrayList<>());
                 unHecho.setSolicitudesDeEliminacion(new ArrayList<>());
                 unHecho.setOrigen(OrigenDelHecho.FUENTEPROXY);
+                unHecho.setPendiente(false);
+                unHecho.setFueAceptado(true);
 
                 if (dto.getLatitud() != null && dto.getLongitud() != null) {
                     Lugar lugar = new Lugar(dto.getLatitud(), dto.getLongitud());

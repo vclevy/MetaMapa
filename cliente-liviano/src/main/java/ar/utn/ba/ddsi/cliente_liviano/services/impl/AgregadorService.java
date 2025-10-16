@@ -46,6 +46,29 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
+    public List<HechoDTO> obtenerHechosVisibles() {
+        String token = (String) session.getAttribute("token");
+
+        return webClient.get()
+                .uri("/api/hecho/visibles")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .bodyToFlux(HechoDTO.class)
+                .collectList()
+                .block();
+    }
+    public List<HechoDTO> obtenerHechosPendientes() {
+        String token = (String) session.getAttribute("token");
+
+        return webClient.get()
+                .uri("/api/hecho/pendientes")
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .bodyToFlux(HechoDTO.class)
+                .collectList()
+                .block();
+    }
+
     public List <HechoDTO> obtenerHechosDestacados(){
         String token = (String) session.getAttribute("token");
 

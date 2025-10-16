@@ -15,4 +15,6 @@ public interface IHechoService {
     List<HechoOutputDTO> filtrarHechos(HechoFiltroDTO filtros);
     List<HechoOutputDTO> obtenerHechosDestacados();
     HechoOutputDTO eliminarHecho(Long idHecho);
+    List<HechoOutputDTO> obtenerHechosPendientes();
+    List<HechoOutputDTO> obtenerHechosVisibles();
 }

@@ -24,6 +24,16 @@ public class HechoController {
         return ResponseEntity.ok(this.hechoService.obtenerHechos());
     }
 
+    @GetMapping("/pendientes")
+    public ResponseEntity<List<HechoOutputDTO>> obtenerHechosPendientes() {
+        return ResponseEntity.ok(this.hechoService.obtenerHechosPendientes());
+    }
+
+    @GetMapping("/visibles")
+    public ResponseEntity<List<HechoOutputDTO>> obtenerHechosDisponibles() {
+        return ResponseEntity.ok(this.hechoService.obtenerHechosVisibles());
+    }
+
     @GetMapping("/destacados")
     public ResponseEntity<List<HechoOutputDTO>> obtenerHechosDestacados() {
         return ResponseEntity.ok(this.hechoService.obtenerHechosDestacados());
@@ -43,7 +53,6 @@ public class HechoController {
        //TODO
         return null;
     }
-
 
 
     @PostMapping("/filtrar")

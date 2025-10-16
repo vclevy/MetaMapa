@@ -62,7 +62,7 @@ public class ColeccionController {
             hechos = agregador.obtenerHechosDeColeccion(id, "CURADO");
         } else {
             // Irrestricto: ya vienen en el DTO de la colección
-            hechos = coleccion.getHechosDeLaColeccion();
+            hechos = agregador.obtenerHechosDeColeccion(id, "IRRESTRICTO");
             modo = "IRRESTRICTO"; // normalizamos
         }
 

@@ -42,6 +42,8 @@ public class FuenteEstatica implements IFuenteDeHechos {
                 unHecho.setMultimedia(dto.getMultimedia());
                 unHecho.setOrigen(OrigenDelHecho.FUENTEESTATICA);
                 unHecho.setNombreArchivo(dto.getNombreArchivo());
+                unHecho.setPendiente(false);
+                unHecho.setFueAceptado(true);
 
                 if (dto.getLugar() != null) {
                     Lugar lugar = new Lugar(dto.getLugar().getLatitud(), dto.getLugar().getLongitud());

@@ -158,8 +158,7 @@ public class AdminController {
     public String listar(@RequestParam(value = "page", defaultValue = "1") int page,
                          Model model) {
 
-        // 1) Traemos los hechos (si tenés “pendientes” podés llamar al método que corresponda)
-        List<HechoDTO> hechos = agregador.obtenerHechos(); // TODO: reemplazar por obtenerHechosPendientes() si existe
+        List<HechoDTO> hechos = agregador.obtenerHechos();
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias); // por si lo usás en algún badge, etc.
 

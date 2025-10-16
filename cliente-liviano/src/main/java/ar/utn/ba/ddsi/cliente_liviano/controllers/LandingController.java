@@ -41,11 +41,11 @@ public class LandingController {
     @GetMapping({"", "/"})
     public String landing(Model model) {
         // Lista de hechos destacados
-        List<HechoDTO> destacados = agregador.obtenerHechosDestacados();
+        List<HechoDTO> destacados = agregador.obtenerHechosDestacados(); //TODO Esta mal esto pero bueno a esta altura del doparti lo corregimos despues
         model.addAttribute("destacados", destacados);
 
         // Todos los hechos para el mapa
-        List<HechoDTO> hechos = agregador.obtenerHechos();
+        List<HechoDTO> hechos = agregador.obtenerHechosVisibles();
         model.addAttribute("hechos", hechos);
 
         // Colecciones destacadas

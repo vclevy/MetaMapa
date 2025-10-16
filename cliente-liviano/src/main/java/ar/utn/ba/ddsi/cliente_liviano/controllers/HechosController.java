@@ -38,7 +38,7 @@ public class HechosController {
                          @RequestParam(value = "page", defaultValue = "1") int page,
                          Model model) {
 
-        List<HechoDTO> hechos = agregador.obtenerHechos(); // trae todos
+        List<HechoDTO> hechos = agregador.obtenerHechosVisibles();
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias);
 
@@ -105,13 +105,6 @@ public class HechosController {
         }
 
         return "redirect:/hechos/subir";
-    }
-
-
-    @GetMapping("/all")
-    @ResponseBody
-    public List<HechoDTO> obtenerTodosHechos() {
-        return agregador.obtenerHechos(); // Método que devuelve todos los hechos
     }
 
     @GetMapping("/{id}")

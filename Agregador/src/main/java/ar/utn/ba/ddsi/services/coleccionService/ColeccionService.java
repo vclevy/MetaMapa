@@ -203,14 +203,16 @@ public class ColeccionService implements IColeccionService {
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String unModoDeNavegacion) {
         Optional<Coleccion> coleccion = coleccionesRepository.findById(id);
 
-        if (unModoDeNavegacion.equalsIgnoreCase("CURADO")){
+        if (unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
             this.aplicarAlgoritmoDeConsenso(coleccion.get());
         }
 
         return coleccion.get().getHechos().stream()
+                .filter(h -> Boolean.FALSE.equals(h.getPendiente()) && Boolean.TRUE.equals(h.getFueAceptado()))
                 .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
                 .toList();
     }
+
 
     @Override
     public void aplicarAlgoritmosAColecciones() {

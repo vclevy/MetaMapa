@@ -57,8 +57,23 @@ public class HechoService implements IHechoService {
 
     @Override
     public List<HechoOutputDTO> obtenerHechos() {
-
         return this.hechosRepository.findAll().stream().filter(h -> !h.getFueEliminado()).map(h -> hechoMapper.toDTO(h)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HechoOutputDTO> obtenerHechosPendientes() {
+        return this.hechosRepository.findAll().stream()
+                .filter(h -> !h.getFueEliminado() && h.getPendiente() && !h.getFueAceptado())
+                .map(hechoMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HechoOutputDTO> obtenerHechosVisibles() {
+        return this.hechosRepository.findAll().stream()
+                .filter(h -> !h.getFueEliminado() && h.getFueAceptado() && !h.getPendiente())
+                .map(hechoMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

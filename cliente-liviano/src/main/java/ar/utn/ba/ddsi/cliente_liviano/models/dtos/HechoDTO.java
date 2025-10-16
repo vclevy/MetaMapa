@@ -23,5 +23,7 @@ public class HechoDTO {
     private List<String> multimedia;
     private String nombreDeUsuario;
     private String tipoFuente;
+    private Boolean pendiente;
+    private Boolean fueAceptado;
 }
 
