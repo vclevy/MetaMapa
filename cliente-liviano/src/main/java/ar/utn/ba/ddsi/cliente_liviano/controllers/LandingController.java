@@ -74,7 +74,12 @@ public class LandingController {
         model.addAttribute("categorias", categorias);
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        model.addAttribute("generadoFmt", dash.getGenerado().format(fmt));
+
+        String generadoFmt = dash.getGenerado() != null
+                ? dash.getGenerado().format(fmt)
+                : "Sin fecha"; // mensaje por defecto si es null
+
+        model.addAttribute("generadoFmt", generadoFmt);
 
         return "adminLanding";
     }

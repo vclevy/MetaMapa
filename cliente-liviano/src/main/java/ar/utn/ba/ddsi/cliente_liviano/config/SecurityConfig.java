@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET,
                                 "sesion/debug", "/", "/sesion/registrar", "/sesion/login", "/sesion/registro",
-                                "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**", "hechos/{id}/solicitar-eliminacion").permitAll()
+                                "/css/**", "/js/**", "/img/**", "hechos/**", "sobre-nosotros","/colecciones/**", "hechos/{id}/solicitar-eliminacion", "/error/**").permitAll()
                         .requestMatchers(HttpMethod.POST,
                                 "/sesion/login", "/sesion/registrar", "/api/auth/**", "hechos/crear", "hechos/filtrar", "hechos/{id}/solicitar-eliminacion").permitAll()
                         .requestMatchers("/admin/**", "/admin/solicitudes/**").hasRole("ADMIN")
@@ -36,6 +36,14 @@ public class SecurityConfig {
                         .logoutUrl("/sesion/logout")
                         .logoutSuccessUrl("/")
                         .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.sendRedirect("/error/403");
+                        })
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.sendRedirect("/error/401");
+                        })
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(tokenDecoder), UsernamePasswordAuthenticationFilter.class);
 
