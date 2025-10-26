@@ -55,6 +55,13 @@ public class HechoController {
     }
 
 
+    @PatchMapping("/{id}/aprobar")
+    public ResponseEntity<?> aprobarHecho(@PathVariable Long id) {
+       this.hechoService.aprobarHecho(id);
+        return ResponseEntity.ok().build();
+    }
+
+
     @PostMapping("/filtrar")
     public ResponseEntity<List<HechoOutputDTO>> filtrarHechos(@RequestBody HechoFiltroDTO filtros) {
         return ResponseEntity.ok(this.hechoService.filtrarHechos(filtros));
