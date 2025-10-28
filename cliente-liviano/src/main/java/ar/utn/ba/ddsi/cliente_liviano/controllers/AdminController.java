@@ -158,7 +158,7 @@ public class AdminController {
     public String listar(@RequestParam(value = "page", defaultValue = "1") int page,
                          Model model) {
 
-        List<HechoDTO> hechos = agregador.obtenerHechos();
+        List<HechoDTO> hechos = agregador.obtenerHechosPendientes();
         List<CategoriaDTO> categorias = agregador.obtenerCategorias();
         model.addAttribute("categorias", categorias); // por si lo usás en algún badge, etc.
 
@@ -188,7 +188,20 @@ public class AdminController {
 
         return "adminHechos";
     }
+
+    @PostMapping("/hechos/{id}/aprobar")
+    public String aprobarHecho(@PathVariable Long id,
+                               RedirectAttributes redirectAttrs) {
+        try {
+            agregador.aprobarHecho(id);
+            redirectAttrs.addFlashAttribute("mensajeExito", "Hecho aprobado correctamente.");
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("mensajeError", "Error al aprobar el hecho: " + e.getMessage());
+        }
+        return "redirect:/admin/hechos";
+    }
 }
+
 
 
 

@@ -11,6 +11,8 @@ import ar.utn.ba.ddsi.models.repositories.ICategoriasRepository;
 import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
 import ar.utn.ba.ddsi.services.hechoService.normalizador.NormalizadorHechos;
 import ar.utn.ba.ddsi.services.mappers.HechoMapper;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -219,4 +221,11 @@ public class HechoService implements IHechoService {
         return hechoMapper.toDTO(hecho);
     }
 
+    @Transactional
+    public void aprobarHecho(Long id) {
+        Hecho hecho = hechosRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hecho no encontrado"));
+        hecho.setPendiente(false);
+        hecho.setFueAceptado(true);
+    }
 }

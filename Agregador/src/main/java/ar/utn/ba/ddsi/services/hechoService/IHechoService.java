@@ -17,4 +17,5 @@ public interface IHechoService {
     HechoOutputDTO eliminarHecho(Long idHecho);
     List<HechoOutputDTO> obtenerHechosPendientes();
     List<HechoOutputDTO> obtenerHechosVisibles();
+    void aprobarHecho(Long id);
 }

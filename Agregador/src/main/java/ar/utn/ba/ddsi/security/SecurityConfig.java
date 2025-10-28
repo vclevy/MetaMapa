@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/api/coleccion/**").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/api/hecho/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/hecho/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/hecho/filtrar").permitAll()

@@ -343,6 +343,17 @@ public class AgregadorService implements IAgregadorService {
                 .collectList()
                 .block();
     }
+
+    public void aprobarHecho(Long idHecho) {
+        String token = (String) session.getAttribute("token");
+
+        webClient.patch()
+                .uri("/api/hecho/{id}/aprobar", idHecho)
+                .header("Authorization", "Bearer " + token)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
+    }
 }
 
 
