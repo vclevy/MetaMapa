@@ -75,6 +75,10 @@
     <p>© 2025 MetaMapa - Todos los derechos reservados</p>
 </footer>
 
+<script th:inline="javascript">
+    const hechos = /*[[${hechos}]]*/ [];
+    console.log("🧾 Hechos desde Thymeleaf:", hechos);
+</script>
 <script src="/js/map.js"></script>
 
 </body>

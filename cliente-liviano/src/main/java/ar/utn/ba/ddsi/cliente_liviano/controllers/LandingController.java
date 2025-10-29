@@ -40,19 +40,14 @@ public class LandingController {
 
     @GetMapping({"", "/"})
     public String landing(Model model) {
-        // Lista de hechos destacados
-        List<HechoDTO> destacados = agregador.obtenerHechosDestacados(); //TODO Esta mal esto pero bueno a esta altura del doparti lo corregimos despues
-        model.addAttribute("destacados", destacados);
-
-        // Todos los hechos para el mapa
         List<HechoDTO> hechos = agregador.obtenerHechosVisibles();
+        System.out.println("🔥 Hechos visibles: " + hechos.size());
+        hechos.forEach(h -> System.out.println(" - " + h.getTitulo()));
+
         model.addAttribute("hechos", hechos);
-
-        // Colecciones destacadas
-        List<ColeccionDTO> coleccionesDestacadas = agregador.obtenerColeccionesDestacadas();
-        model.addAttribute("coleccionesDestacadas", coleccionesDestacadas);
-
-        return "index"; // Vista principal
+        model.addAttribute("destacados", agregador.obtenerHechosDestacados());
+        model.addAttribute("coleccionesDestacadas", agregador.obtenerColeccionesDestacadas());
+        return "index";
     }
 
     @GetMapping("/admin")
