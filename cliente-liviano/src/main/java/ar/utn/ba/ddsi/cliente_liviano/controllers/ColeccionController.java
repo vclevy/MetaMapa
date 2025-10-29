@@ -53,23 +53,23 @@ public class ColeccionController {
             @RequestParam(name = "modo", defaultValue = "IRRESTRICTO") String modo,
             Model model) {
 
-
         ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
 
-        // Hechos según modo
         List<HechoDTO> hechos;
         if ("CURADO".equalsIgnoreCase(modo)) {
+            // Curado sí aplica filtros / consenso
             hechos = agregador.obtenerHechosDeColeccion(id, "CURADO");
         } else {
-            // Irrestricto: ya vienen en el DTO de la colección
-            hechos = agregador.obtenerHechosDeColeccion(id, "IRRESTRICTO");
+            // IRRESTRICTO: devolvemos todos los hechos tal cual vienen en la colección
+            hechos = coleccion.getHechosDeLaColeccion();
             modo = "IRRESTRICTO"; // normalizamos
         }
 
         model.addAttribute("coleccion", coleccion);
         model.addAttribute("hechos", hechos);
-        model.addAttribute("modo", modo); // para marcar el botón activo
+        model.addAttribute("modo", modo);
 
         return "detalleColeccion";
     }
+
 }

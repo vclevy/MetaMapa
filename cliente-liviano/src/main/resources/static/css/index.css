@@ -6,9 +6,11 @@
 }
 
 body {
-    background-color: #f4f4f4;
+    background-color: rgba(223, 236, 251, 0.6);
     color: #333;
     line-height: 2.0;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
@@ -45,19 +47,32 @@ body {
     color: white;
     border-color: #2B7BD6;
 }
+/*    */
+/*!* Intro *!*/
 
-/* Intro */
-.intro {
-    text-align: center;
-    padding: 2rem 0;
-}
+/*#banner {*/
+/*    background: linear-gradient(to bottom, #e7f0fb, rgba(223, 236, 251, 0.6));*/
+/*    height: 100px; !* altura más razonable *!*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
 
-.intro h1 {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
-    color: #133863;
-    text-shadow: 1px 1px 2px rgba(43, 123, 214, 0.4);
-}
+/*.intro {*/
+/*    display: flex;*/
+/*    justify-content: center; !* centra horizontalmente *!*/
+/*    align-items: center;     !* centra verticalmente *!*/
+/*    height: 100vh;           !* ocupa toda la altura de la pantalla *!*/
+/*    text-align: center;      !* centra el texto dentro del contenedor *!*/
+/*}*/
+
+/*.intro h1 {*/
+/*    font-size: 2.4rem;*/
+/*    margin-bottom: 1rem;*/
+/*    color: #133863;*/
+/*    text-shadow: 1px 1px 2px rgba(43, 123, 214, 0.4);*/
+/*}*/
+
 
 .intro p {
     font-size: 1.1rem;
@@ -65,6 +80,22 @@ body {
     max-width: 700px;
     margin: 0 auto;
     line-height: 1.7;
+}
+
+
+.map-section {
+    width: 100vw;
+    height: calc(100vh - 80px); /* ajustá según la altura del header */
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 0;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 /* Destacados con scroll horizontal */

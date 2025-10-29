@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/LandingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/LandingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/js/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/js/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/ColeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/ColeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/static/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -172,6 +172,7 @@
         <entry key="SpringBootApplicationConfigurationType">
           <value>
             <map>
+              <entry key="AgregadorApplication" value="STOPPED" />
               <entry key="AuthServiceApplication (1)" value="STOPPED" />
               <entry key="ClienteLivianoApplication" value="STOPPED" />
             </map>
@@ -275,9 +276,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+        <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
-        <item itemvalue="Spring Boot.AgregadorApplication" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
       </list>
     </recent_temporary>
@@ -350,7 +351,7 @@
       <workItem from="1760311975748" duration="1387000" />
       <workItem from="1760377329935" duration="8061000" />
       <workItem from="1761437619447" duration="2520000" />
-      <workItem from="1761776342279" duration="1065000" />
+      <workItem from="1761776342279" duration="3428000" />
     </task>
     <servers />
   </component>
