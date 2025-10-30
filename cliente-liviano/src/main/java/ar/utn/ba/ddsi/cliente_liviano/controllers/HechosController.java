@@ -178,16 +178,6 @@ public class HechosController {
         return "redirect:/hechos"; //
     }
 
-    // En tu AdminHechosController (cliente liviano)
-    @PostMapping("/admin/hechos/{id}/eliminar")
-    public String eliminar(@PathVariable Long id, RedirectAttributes ra) {
-        try {
-            agregador.eliminarHecho(id);
-            ra.addFlashAttribute("mensajeExito", "Hecho eliminado correctamente.");
-        } catch (Exception e) {
-            ra.addFlashAttribute("mensajeError", "No se pudo eliminar el hecho: " + e.getMessage());
-        }
-        return "redirect:/admin/hechos";
-    }
+
 
 }

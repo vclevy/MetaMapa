@@ -37,7 +37,7 @@
                             <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
                            #strings.endsWith(hecho.multimedia[0], '.jpeg') or
                            #strings.endsWith(hecho.multimedia[0], '.png') or
-                           #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                           #strings.endsWith(hecho.multimedia[0], '.gif')}"|
                                  th:src="${hecho.multimedia[0]}"
                                  th:alt="|Imagen del hecho ${hecho.titulo}|"/>
 
@@ -68,7 +68,7 @@
                                 <button type="submit" class="btn btn-green"
                                         th:attr="aria-label=|Aprobar ${hecho.titulo}|">Aprobar</button>
                             </form>
-                            <form th:action="@{|/hechos/${hecho.id}/eliminar|}" method="post" class="inline-form">
+                            <form th:action="@{|/admin/hechos/${hecho.id}/eliminar|}" method="post" class="inline-form">
                                 <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                 <button type="submit" class="btn btn-red"
                                         onclick="return confirm('¿Eliminar definitivamente este hecho?');">
