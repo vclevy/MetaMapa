@@ -61,8 +61,7 @@ public class ColeccionController {
             hechos = agregador.obtenerHechosDeColeccion(id, "CURADO");
         } else {
             // IRRESTRICTO: devolvemos todos los hechos tal cual vienen en la colección
-            hechos = coleccion.getHechosDeLaColeccion();
-            modo = "IRRESTRICTO"; // normalizamos
+            hechos = agregador.obtenerHechosDeColeccion(id, "IRRESTRICTO");
         }
 
         model.addAttribute("coleccion", coleccion);
