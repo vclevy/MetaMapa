@@ -7,6 +7,7 @@ import ar.utn.ba.ddsi.services.hechoService.IHechoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.List;
 
@@ -14,9 +15,11 @@ import java.util.List;
 @RequestMapping("/api/hecho")
 public class HechoController {
     private final IHechoService hechoService;
+    private final HandlerMapping resourceHandlerMapping;
 
-    public HechoController(IHechoService hechoService) {
+    public HechoController(IHechoService hechoService, HandlerMapping resourceHandlerMapping) {
         this.hechoService = hechoService;
+        this.resourceHandlerMapping = resourceHandlerMapping;
     }
 
     @GetMapping
@@ -48,10 +51,10 @@ public class HechoController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/eliminar/{id}")
-    public ResponseEntity<HechoOutputDTO> eliminarHecho(@PathVariable Long id,
-                                                         @RequestBody Long hechoId) {
-       //TODO
-        return null;
+    public ResponseEntity<HechoOutputDTO> eliminarHecho(@PathVariable Long id) {
+
+        this.hechoService.rechazarHecho(id);
+        return ResponseEntity.ok().build();
     }
 
 
