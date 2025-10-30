@@ -228,4 +228,12 @@ public class HechoService implements IHechoService {
         hecho.setPendiente(false);
         hecho.setFueAceptado(true);
     }
+
+    @Transactional
+    public void rechazarHecho(Long id) {
+        Hecho hecho = hechosRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hecho no encontrado"));
+        hecho.setPendiente(false);
+        hecho.setFueEliminado(true);
+    }
 }
