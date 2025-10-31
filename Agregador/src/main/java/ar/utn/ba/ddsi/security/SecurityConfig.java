@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/coleccion/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/solicitud/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/coleccion/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
