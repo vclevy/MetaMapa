@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.models.entities.coleccion;
 
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.AlgoritmoDeConsenso;
 import ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
 import jakarta.persistence.*;
@@ -38,6 +39,14 @@ public class Coleccion {
     @JoinColumn(name = "coleccion_id")
     private List<Hecho> hechos = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "coleccion_id")
+    private List<Hecho> hechosConsensuados = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "algoritmo_de_consenso", nullable = false)
+    private AlgoritmoDeConsenso algoritmoDeConsensoEnumerado;
+
     @Transient
     private List<Criterio> criterioDePertenencia = new ArrayList<>();
 
@@ -47,11 +56,12 @@ public class Coleccion {
     @Transient
     private List<Hecho> hechosConAlgoritmoAplicado;
 
-    public Coleccion (String titulo, String descripcion,IAlgoritmo algoritmoDeConsenso) {
+    public Coleccion (String titulo, String descripcion/*IAlgoritmo algoritmoDeConsenso*/, AlgoritmoDeConsenso algoritmoEnumerado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
-        this.algoritmoDeConsenso = algoritmoDeConsenso;
+        //this.algoritmoDeConsenso = algoritmoDeConsenso;
+        this.algoritmoDeConsensoEnumerado = algoritmoEnumerado;
         this.criterioDePertenencia = List.of();
     }
 

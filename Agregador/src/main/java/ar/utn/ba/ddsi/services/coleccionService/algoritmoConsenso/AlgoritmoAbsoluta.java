@@ -11,14 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 public class AlgoritmoAbsoluta implements IAlgoritmo {
+
     @Override
-    public void aplicarConsenso(Coleccion unaColeccion) {
+    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
         List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, Integer> conteoHechos = new HashMap<>();
 
         for (Fuente fuente : fuentes) {
             for (Hecho hecho : fuente.obtenerHechos()) {
+                // Aquí puedes aplicar la lógica de eliminación o conteo según sea necesario
                 if (tieneSolicitudAprobada(hecho)) continue;
 
                 conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
@@ -26,20 +28,19 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
         }
 
         List<Hecho> hechosConsensuados = new ArrayList<>();
+        for (Map.Entry<Hecho, Integer> entry : conteoHechos.entrySet()) {
+            if (entry.getValue() == fuentes.size()) {
+                hechosConsensuados.add(entry.getKey());
 
-        for (Map.Entry<Hecho, Integer> entrada : conteoHechos.entrySet()) {
-            if (entrada.getValue() == fuentes.size()) {
-                hechosConsensuados.add(entrada.getKey());
             }
         }
+        return hechosConsensuados;  // Devolvemos la lista de hechos consensuados
 
-        unaColeccion.setHechosConAlgoritmoAplicado(hechosConsensuados);
     }
 
     private boolean tieneSolicitudAprobada(Hecho hecho) {
-        if (hecho.getSolicitudesDeEliminacion() == null) return false;
         return hecho.getSolicitudesDeEliminacion().stream()
-                .anyMatch(solicitud -> solicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
+                .anyMatch(s -> s.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
     }
 
 }
