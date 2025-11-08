@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AlgoritmoMultipleMenciones implements IAlgoritmo {
     @Override
-    public void aplicarConsenso(Coleccion unaColeccion) {
+    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
         List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
 
         Map<Hecho, List<Fuente>> mapaHechos = new HashMap<>();
@@ -20,8 +20,8 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
 
             for (Hecho hecho : hechos) {
                 mapaHechos
-                        .computeIfAbsent(hecho, unHecho -> new ArrayList<>()) // SI EL HECHO YA ESTA EN EL MAPA, NO HACE NADA, SI NO EXISTE, HACE UN ARRAY ASOCIADO AL HECHO
-                        .add(fuente); // AGREGA A LA FUENTE EL ARRAY ASOCIADO
+                        .computeIfAbsent(hecho, unHecho -> new ArrayList<>())  // Si el hecho ya está en el mapa, no hace nada
+                        .add(fuente);  // Agrega la fuente al mapa del hecho
             }
         }
 
@@ -33,11 +33,12 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
 
             if (fuentesQueLoMencionan.size() >= 2) {
 
+                // Verifica si existe un conflicto con otro hecho
                 boolean existeConflicto = fuentes.stream()
                         .flatMap(unaFuente -> unaFuente.obtenerHechos().stream())
-                        .anyMatch(unHecho ->
-                                unHecho.getTitulo().equals(hecho.getTitulo()) && !unHecho.equals(hecho)
-                        ); // SI EXISTE UN HECHO CON EL MISMO TITULO Y NO ES IGUAL AL HECHO QUE ESTOY COMPARANDO, HAY CONFLICTO
+                        .anyMatch(unHecho -> unHecho.getTitulo().equals(hecho.getTitulo()) && !unHecho.equals(hecho));
+
+
 
                 if (!existeConflicto) {
                     hechosConsensuados.add(hecho);
@@ -45,6 +46,7 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
             }
         }
 
-        unaColeccion.setHechosConAlgoritmoAplicado(hechosConsensuados);
+        // Devolver los hechos consensuados, sin modificar directamente la colección
+        return hechosConsensuados;
     }
 }

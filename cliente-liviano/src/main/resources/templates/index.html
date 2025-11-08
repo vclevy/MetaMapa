@@ -6,30 +6,23 @@
     <title>MetaMapa - Landing</title>
 
     <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
     <link rel="stylesheet" th:href="@{/css/index.css}" />
     <link rel="stylesheet" th:href="@{/css/map.css}" />
-    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
-    <!-- Leaflet Marker Cluster -->
+    <!-- Marker Cluster -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 </head>
 <body>
 
-<!-- Header importado -->
+<!-- Header -->
 <div th:replace="header :: mainHeader"></div>
-
-<!-- Banner -->
-<!--<div id="banner">-->
-<!--    <div class="intro">-->
-<!--        <h1>Mapeo colaborativo de la información</h1>-->
-<!--    </div>-->
-<!--</div>-->
 
 <!-- Mapa -->
 <section class="map-section">
@@ -37,38 +30,40 @@
 </section>
 
 <!-- Hechos destacados -->
-<section class="destacados container">
-    <h2>Hechos destacados</h2>
-    <div class="cards">
-        <div class="card" th:each="hecho : ${destacados}">
-            <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
-                <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|" />
-            </div>
-            <div class="card-body">
-                <h3 th:text="${hecho.titulo}">Título del hecho</h3>
-                <p th:text="${hecho.descripcion}">Descripción breve...</p>
+<section class="section destacados">
+    <div class="container">
+        <h2>Hechos destacados</h2>
+        <div class="grid-cards">
+            <div class="card" th:each="hecho : ${destacados}">
+                <div class="img-wrapper" th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                    <img th:src="${hecho.multimedia[0]}" th:alt="|Imagen del hecho ${hecho.titulo}|" />
+                </div>
+                <div class="card-body">
+                    <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                    <p th:text="${hecho.descripcion}">Descripción breve...</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Colecciones destacadas -->
-<section class="destacados container">
-    <h2>Colecciones destacadas</h2>
-    <section class="colecciones-list">
-        <a class="coleccion-item"
-           th:each="coleccion : ${coleccionesDestacadas}"
-           th:href="@{'/colecciones/' + ${coleccion.id}}">
-            <div class="info">
-                <h3 th:text="${coleccion.titulo}">Título</h3>
-                <p th:text="${coleccion.descripcion}">Descripción</p>
-            </div>
-            <span class="badge"
-                  th:text="${#lists.size(coleccion.hechosDeLaColeccion)} + ' hechos'">
-                0 hechos
-            </span>
-        </a>
-    </section>
+<section class="section colecciones">
+    <div class="container">
+        <h2>Colecciones destacadas</h2>
+        <div class="colecciones-grid">
+            <a class="coleccion-card"
+               th:each="coleccion : ${coleccionesDestacadas}"
+               th:href="@{'/colecciones/' + ${coleccion.id}}">
+                <div class="coleccion-info">
+                    <h3 th:text="${coleccion.titulo}">Título</h3>
+                    <p th:text="${coleccion.descripcion}">Descripción</p>
+                </div>
+                <span class="badge"
+                      th:text="${#lists.size(coleccion.hechosDeLaColeccion)} + ' hechos'">0 hechos</span>
+            </a>
+        </div>
+    </div>
 </section>
 
 <footer>

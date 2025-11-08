@@ -9,18 +9,15 @@ public class AlgoritmoFactory {
         if (unAlgoritmoDeConsenso == null) {
             return null;
         }
-
-        if (AlgoritmoDeConsenso.ABSOLUTA.equals(unAlgoritmoDeConsenso)) {
-            return new AlgoritmoAbsoluta();
-        }
-        else if (AlgoritmoDeConsenso.MAYORIA_SIMPLE.equals(unAlgoritmoDeConsenso)) {
-            return new AlgoritmoMayoriaSimple();
-        }
-        else if (AlgoritmoDeConsenso.MULTIPLES_MENCIONES.equals(unAlgoritmoDeConsenso)) {
-            return new AlgoritmoMultipleMenciones();
-        }
-        else {
-            return null;
+        switch (unAlgoritmoDeConsenso) {
+            case ABSOLUTA:
+                return new AlgoritmoAbsoluta();
+            case MAYORIA_SIMPLE:
+                return new AlgoritmoMayoriaSimple();
+            case MULTIPLES_MENCIONES:
+                return new AlgoritmoMultipleMenciones();
+            default:
+                return null;
         }
     }
 }
