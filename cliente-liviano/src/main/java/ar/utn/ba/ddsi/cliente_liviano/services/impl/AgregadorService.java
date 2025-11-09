@@ -34,12 +34,14 @@ public class AgregadorService implements IAgregadorService {
     private final DinamicaService dinamicaService;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final HechoMapper hechoMapper = new HechoMapper();
+    private final EstaticaService estaticaService;
 
     @Autowired
     private HttpSession session;
 
-    public AgregadorService(DinamicaService dinamicaService) {
+    public AgregadorService(DinamicaService dinamicaService, EstaticaService estaticaService) {
         this.dinamicaService = dinamicaService;
+        this.estaticaService = estaticaService;
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:8080")
                 .codecs(configurer ->
@@ -339,7 +341,16 @@ public class AgregadorService implements IAgregadorService {
                 );
 
             } else if ("ESTATICA".equalsIgnoreCase(tipoFuente)) {
-                // Lógica para fuente ESTATICA (pendiente)
+                HechoInputDTO hechoInput = new HechoInputDTO(
+                        hechoDTO.getTitulo() != null ? hechoDTO.getTitulo() : hechoExistente.getTitulo(),
+                        hechoDTO.getDescripcion() != null ? hechoDTO.getDescripcion() : hechoExistente.getDescripcion(),
+                        hechoDTO.getLugar() != null ? hechoDTO.getLugar() : hechoExistente.getLugar(),
+                        hechoDTO.getFechaDeAcontecimiento() != null ? hechoDTO.getFechaDeAcontecimiento() : hechoExistente.getFechaDeAcontecimiento()
+                );
+
+                // 🔹 Llamada al servicio Estática
+                estaticaService.editarHechoEstatica(idEnFuente, hechoInput);
+
             } else {
                 throw new RuntimeException("Tipo de fuente desconocido: " + tipoFuente);
             }

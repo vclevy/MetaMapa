@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.models.dtos.HechoOutputDTO;
 import ar.utn.ba.ddsi.models.entities.hecho.Categoria;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
+import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.importador.Importador;
 import ar.utn.ba.ddsi.models.entities.importador.ImportadorCSV;
 import ar.utn.ba.ddsi.models.repositories.ICategoriaRepository;
@@ -69,4 +70,42 @@ public class HechosServices implements IHechosServices {
                 .map(hechoMapper::toOutputDTO)
                 .toList();
     }
+    @Override
+    public void editarHechoEstatica(Long id, HechoInputDTO hechoDto) {
+        // 1️⃣ Buscar hecho existente
+        Hecho hechoExistente = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
+
+        // 2️⃣ Actualizar campos solo si no son null
+        if (hechoDto.getTitulo() != null) {
+            hechoExistente.setTitulo(hechoDto.getTitulo());
+        }
+        if (hechoDto.getDescripcion() != null) {
+            hechoExistente.setDescripcion(hechoDto.getDescripcion());
+        }
+
+        if (hechoDto.getFechaDelHecho() != null) {
+            hechoExistente.setFechaDeAcontecimiento(hechoDto.getFechaDelHecho());
+        }
+        if (hechoDto.getLugar() != null) {
+            Lugar lugarExistente = hechoExistente.getLugar();
+            if (lugarExistente == null) {
+                hechoExistente.setLugar(hechoDto.getLugar());
+            } else {
+                if (hechoDto.getLugar().getLatitud() != null) {
+                    lugarExistente.setLatitud(hechoDto.getLugar().getLatitud());
+                }
+                if (hechoDto.getLugar().getLongitud() != null) {
+                    lugarExistente.setLongitud(hechoDto.getLugar().getLongitud());
+                }
+            }
+        }
+        if (hechoDto.getNombreArchivo() != null) {
+            hechoExistente.setNombreArchivo(hechoDto.getNombreArchivo());
+        }
+
+        // 3️⃣ Guardar cambios
+        repositorioDeHechos.save(hechoExistente);
+    }
+
 }

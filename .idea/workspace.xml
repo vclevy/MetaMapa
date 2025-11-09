@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoInputDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/schedulers/ColeccionesScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/schedulers/ColeccionesScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/DinamicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/DinamicaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/EstaticaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/EstaticaService.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -286,10 +287,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
-        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
-        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
+        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
+        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
         <item itemvalue="Spring Boot.AgregadorApplication" />
       </list>
     </recent_temporary>
@@ -365,7 +366,7 @@
       <workItem from="1761776342279" duration="4748000" />
       <workItem from="1761862627290" duration="1169000" />
       <workItem from="1761932606019" duration="3770000" />
-      <workItem from="1762690940462" duration="2309000" />
+      <workItem from="1762690940462" duration="3840000" />
     </task>
     <servers />
   </component>
