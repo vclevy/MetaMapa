@@ -31,7 +31,6 @@ public class ColeccionService implements IColeccionService {
     private IHechoService hechoService;
     @Autowired
     private IFuenteDeHechosRepository fuenteRepository;
-    @Autowired
     private LugarService lugarService;
     @Autowired
     private ISolicitudesService solicitudesService;
@@ -42,6 +41,7 @@ public class ColeccionService implements IColeccionService {
     public ColeccionService(AlgoritmoFactory algoritmoFactory, ColeccionMapper coleccionMapper) {
         this.algoritmoFactory = algoritmoFactory;
         this.coleccionMapper = coleccionMapper;
+        this.lugarService=lugarService;
     }
 
     @Override

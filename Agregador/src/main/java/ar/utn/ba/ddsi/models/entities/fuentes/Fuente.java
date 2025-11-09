@@ -59,7 +59,7 @@ public class Fuente {
     public void inicializarFuenteDeHechos() {
         switch (tipo) {
             case "ESTATICA":
-                fuenteDeHechos = new FuenteEstatica(urlBase,lugarService);
+                fuenteDeHechos = new FuenteEstatica(lugarService, urlBase);
                 break;
             case "DINAMICA":
                 fuenteDeHechos = new FuenteDinamica(urlBase, lugarService);
