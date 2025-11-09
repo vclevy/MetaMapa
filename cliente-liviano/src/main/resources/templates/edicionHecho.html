@@ -9,10 +9,39 @@
     <link rel="stylesheet" th:href="@{/css/subirHecho.css}"/>
 
     <style>
-        .alert-success{margin:1rem 0;padding:.5rem 1rem;border:1px solid green;background:#e6ffe6;color:green;border-radius:4px}
-        #sugerencias_ed{border:1px solid #ccc;max-height:150px;overflow-y:auto;background:#fff;list-style:none;padding:0;margin:0;position:absolute;width:100%;max-width:400px;left:50%;transform:translateX(-50%);z-index:1000}
-        #sugerencias_ed li{padding:8px;cursor:pointer}
-        #sugerencias_ed li:hover{background:#f0f0f0}
+        .alert-success {
+            margin: 1rem 0;
+            padding: .5rem 1rem;
+            border: 1px solid green;
+            background: #e6ffe6;
+            color: green;
+            border-radius: 4px;
+        }
+
+        #sugerencias_ed {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            background: #fff;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            max-width: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        #sugerencias_ed li {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        #sugerencias_ed li:hover {
+            background: #f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -30,66 +59,83 @@
     </section>
 
     <section class="form-section">
-        <!-- Importante: 'hecho' viene del model -->
         <form class="form-card"
-              th:action="@{/hechos/{id}/editar(id=${hecho.id})}"
+              th:action="@{'/hechos/' + ${hecho.id} + '/editar'}"
+              th:object="${hecho}"
               method="post"
               enctype="multipart/form-data"
               novalidate>
 
             <!-- CSRF si aplica -->
-            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" th:if="${_csrf != null}"
+                   th:name="${_csrf.parameterName}"
+                   th:value="${_csrf.token}"/>
 
             <!-- ID -->
-            <input type="hidden" name="id" th:value="${hecho.id}"/>
+            <input type="hidden" th:field="*{id}"/>
+
+            <!-- Si usás HiddenHttpMethodFilter -->
+            <!-- <input type="hidden" name="_method" value="put"/> -->
 
             <h2>Datos del hecho</h2>
 
             <label for="titulo_ed">Título</label>
-            <input type="text" id="titulo_ed" name="titulo"
-                   placeholder="Ej.: Marcha por la memoria"
-                   th:value="${hecho.titulo}" required>
+            <input type="text" id="titulo_ed" th:field="*{titulo}"
+                   placeholder="Ej.: Marcha por la memoria" required>
 
             <label for="descripcion_ed">Descripción</label>
-            <textarea id="descripcion_ed" name="descripcion" rows="4"
-                      placeholder="Contá brevemente qué pasó…" required
-                      th:text="${hecho.descripcion}"></textarea>
+            <textarea id="descripcion_ed" th:field="*{descripcion}" rows="4"
+                      placeholder="Contá brevemente qué pasó…" required></textarea>
 
             <div class="grid-two">
                 <div>
                     <label for="categoria_ed">Categoría</label>
-                    <input type="text" id="categoria_ed" name="categoriaNombre"
-                           placeholder="Ej.: Derechos Humanos" required
-                           th:value="${hecho.categoriaNombre}">
+                    <input type="text" id="categoria_ed" th:field="*{categoriaNombre}"
+                           placeholder="Ej.: Derechos Humanos" required>
                 </div>
 
                 <div>
                     <label for="fecha_ed">Fecha y hora</label>
-                    <input type="datetime-local" id="fecha_ed" name="fechaDeAcontecimiento" required
-                           th:value="${#temporals.format(hecho.fechaDeAcontecimiento, 'yyyy-MM-dd''T''HH:mm')}">
+                    <input type="datetime-local" id="fecha_ed"
+                           th:field="*{fechaDeAcontecimiento}"
+                           th:value="${#temporals.format(hecho.fechaDeAcontecimiento, 'yyyy-MM-dd''T''HH:mm')}"
+                           required>
                 </div>
             </div>
 
             <label for="ubicacion_ed">Ubicación</label>
             <div class="input-contenedor" style="position:relative">
-                <!-- visible para autocomplete; no se bindea -->
-                <input type="text" id="ubicacion_ed" placeholder="Barrio, calle o punto de referencia"
+                <input type="text" id="ubicacion_ed"
+                       placeholder="Barrio, calle o punto de referencia"
                        th:value="${hecho.lugar != null ? hecho.lugar.provincia : ''}">
                 <ul id="sugerencias_ed"></ul>
             </div>
 
-            <!-- coordenadas reales: respetan la estructura de HechoDTO.lugar.* -->
-            <input type="hidden" id="latitud_ed"  name="lugar.latitud"  th:value="${hecho.lugar != null ? hecho.lugar.latitud  : null}">
-            <input type="hidden" id="longitud_ed" name="lugar.longitud" th:value="${hecho.lugar != null ? hecho.lugar.longitud : null}">
+            <input type="hidden" id="latitud_ed"  th:field="*{lugar.latitud}">
+            <input type="hidden" id="longitud_ed" th:field="*{lugar.longitud}">
 
+            <!-- Multimedia actual -->
+            <div th:if="${hecho.multimedia != null}">
+                <h3>Multimedia actual</h3>
+                <div class="multimedia-preview">
+                    <div th:each="m : ${hecho.multimedia}">
+                        <img th:if="${#strings.endsWith(m, '.jpg') or #strings.endsWith(m, '.png')}"
+                             th:src="${m}" alt="Imagen previa" style="max-width: 200px;">
+                        <video th:if="${#strings.endsWith(m, '.mp4')}" controls style="max-width: 200px;">
+                            <source th:src="${m}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subida de nuevos archivos -->
             <label for="multimedia_ed">Actualizar multimedia (opcional)</label>
-            <input type="file" id="multimedia_ed" name="multimedia" accept="image/*,video/*,audio/*" multiple>
+            <input type="file" id="multimedia_ed" name="archivos"
+                   accept="image/*,video/*,audio/*" multiple>
 
             <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </form>
     </section>
 </main>
-
-<!-- Tu JS de autocomplete puede leer ubicacion_ed y setear latitud_ed / longitud_ed -->
 </body>
 </html>

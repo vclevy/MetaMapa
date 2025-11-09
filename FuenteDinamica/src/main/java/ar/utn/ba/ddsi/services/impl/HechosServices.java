@@ -129,24 +129,44 @@ public class HechosServices implements IHechosServices {
         return rutas;
     }
 
-    public void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario) {
-        Hecho hechoOriginal = repositorioDeHechos.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
+    @Override
+    public void editarHecho(Long id, HechoInputDTO hechoDto, MultipartFile[] archivos) {
+        // 1️⃣ Buscar hecho existente
+        Hecho hechoExistente = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
 
-        if (hechoOriginal.getNombreDeUsuario() == null) {
-            throw new RuntimeException("Un usuario anónimo no puede editar hechos");
+        // 2️⃣ Actualizar campos editables
+        hechoExistente.setTitulo(hechoDto.getTitulo());
+        hechoExistente.setDescripcion(hechoDto.getDescripcion());
+        hechoExistente.setFechaDeAcontecimiento(hechoDto.getFechaDeAcontecimiento());
+
+        if (hechoDto.getLugar() != null) {
+            hechoExistente.setLugar(hechoDto.getLugar());
         }
 
-        if (!hechoOriginal.esEditable()) {
-            throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
+        hechoExistente.setNombreDeUsuario(hechoDto.getNombreDeUsuario());
+        hechoExistente.setEsAnonimo(hechoDto.getEsAnonimo());
+
+        // 3️⃣ Manejar multimedia
+        List<String> rutasMultimedia = new ArrayList<>();
+        if (archivos != null && archivos.length > 0) {
+            rutasMultimedia = guardarArchivos(archivos);
         }
 
-        // TODO: comparar cambios y registrar
-        // compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
+        // Acumular multimedia existente + nuevas rutas
+        if (hechoExistente.getMultimedia() == null) {
+            hechoExistente.setMultimedia(new ArrayList<>());
+        }
+        if (hechoDto.getMultimedia() != null) {
+            rutasMultimedia.addAll(hechoDto.getMultimedia());
+        }
+        hechoExistente.getMultimedia().addAll(rutasMultimedia);
 
-        repositorioDeHechos.save(hechoOriginal);
+        // 4️⃣ Guardar en la BD
+        repositorioDeHechos.save(hechoExistente);
     }
 
+    @Override
     public List<HechoOutputDTO> obtenerHechos() {
         return repositorioDeHechos.findAll()
                 .stream()

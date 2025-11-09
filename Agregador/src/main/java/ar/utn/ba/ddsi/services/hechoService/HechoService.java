@@ -23,6 +23,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -235,5 +236,12 @@ public class HechoService implements IHechoService {
                 .orElseThrow(() -> new EntityNotFoundException("Hecho no encontrado"));
         hecho.setPendiente(false);
         hecho.setFueEliminado(true);
+    }
+
+    @Override
+    public HechoOutputDTO obtenerHechoPorId(Long idHecho) {
+        Hecho hecho = hechosRepository.findById(idHecho)
+                .orElseThrow(() -> new NoSuchElementException("Hecho no encontrado con id: " + idHecho));
+        return hechoMapper.toDTO(hecho);
     }
 }

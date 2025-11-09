@@ -4,12 +4,14 @@ import ar.utn.ba.ddsi.models.dtos.input.hecho.HechoInputPUTDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.models.dtos.output.HechoOutputDTO;
 import ar.utn.ba.ddsi.services.hechoService.IHechoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/hecho")
@@ -69,4 +71,17 @@ public class HechoController {
     public ResponseEntity<List<HechoOutputDTO>> filtrarHechos(@RequestBody HechoFiltroDTO filtros) {
         return ResponseEntity.ok(this.hechoService.filtrarHechos(filtros));
     }
-}
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HechoOutputDTO> obtenerHechoPorId(@PathVariable Long id) {
+        try {
+            HechoOutputDTO hechoDTO = hechoService.obtenerHechoPorId(id);
+            return ResponseEntity.ok(hechoDTO);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+            }
+        }
+    }

@@ -6,6 +6,7 @@ import ar.utn.ba.ddsi.cliente_liviano.services.impl.AgregadorService;
 import ar.utn.ba.ddsi.cliente_liviano.services.impl.DinamicaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -171,12 +172,18 @@ public class HechosController {
     }
 
     // Procesar el formulario enviado
-    @PostMapping("/{id}/editar")
-    public String editarHecho(@PathVariable Long id, @ModelAttribute HechoDTO hechoDTO) {
-        hechoDTO.setId(id); // aseguramos que tenga el id
-        agregador.editarHecho(hechoDTO);
-        return "redirect:/hechos"; //
+    @PostMapping(value = "/{id}/editar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public String editarHecho(
+            @PathVariable Long id,
+            @ModelAttribute HechoDTO hechoDTO,
+            @RequestParam(value = "archivos", required = false) MultipartFile[] archivos
+    ) {
+        hechoDTO.setId(id);
+        hechoDTO.setMultimedia(null); // 💡 evita el binding conflictivo
+        agregador.editarHecho(hechoDTO, archivos);
+        return "redirect:/hechos";
     }
+
 
 
 
