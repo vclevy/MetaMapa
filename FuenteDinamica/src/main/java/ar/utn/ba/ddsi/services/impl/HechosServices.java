@@ -135,17 +135,35 @@ public class HechosServices implements IHechosServices {
         Hecho hechoExistente = repositorioDeHechos.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
 
-        // 2️⃣ Actualizar campos editables
-        hechoExistente.setTitulo(hechoDto.getTitulo());
-        hechoExistente.setDescripcion(hechoDto.getDescripcion());
-        hechoExistente.setFechaDeAcontecimiento(hechoDto.getFechaDeAcontecimiento());
-
-        if (hechoDto.getLugar() != null) {
-            hechoExistente.setLugar(hechoDto.getLugar());
+        // 2️⃣ Actualizar campos editables solo si no son null
+        if (hechoDto.getTitulo() != null) {
+            hechoExistente.setTitulo(hechoDto.getTitulo());
+        }
+        if (hechoDto.getDescripcion() != null) {
+            hechoExistente.setDescripcion(hechoDto.getDescripcion());
+        }
+        if (hechoDto.getFechaDeAcontecimiento() != null) {
+            hechoExistente.setFechaDeAcontecimiento(hechoDto.getFechaDeAcontecimiento());
         }
 
-        hechoExistente.setNombreDeUsuario(hechoDto.getNombreDeUsuario());
-        hechoExistente.setEsAnonimo(hechoDto.getEsAnonimo());
+        if (hechoDto.getLugar() != null) {
+            Lugar lugarExistente = hechoExistente.getLugar();
+            if (lugarExistente == null) {
+                hechoExistente.setLugar(hechoDto.getLugar());
+            } else {
+                if (hechoDto.getLugar().getLatitud() != null) {
+                    lugarExistente.setLatitud(hechoDto.getLugar().getLatitud());
+                }
+                if (hechoDto.getLugar().getLongitud() != null) {
+                    lugarExistente.setLongitud(hechoDto.getLugar().getLongitud());
+                }
+            }
+        }
+
+        if (hechoDto.getNombreDeUsuario() != null) {
+            hechoExistente.setNombreDeUsuario(hechoDto.getNombreDeUsuario());
+        }
+        hechoExistente.setEsAnonimo(hechoDto.getEsAnonimo()); // boolean, siempre se puede actualizar
 
         // 3️⃣ Manejar multimedia
         List<String> rutasMultimedia = new ArrayList<>();
@@ -153,7 +171,6 @@ public class HechosServices implements IHechosServices {
             rutasMultimedia = guardarArchivos(archivos);
         }
 
-        // Acumular multimedia existente + nuevas rutas
         if (hechoExistente.getMultimedia() == null) {
             hechoExistente.setMultimedia(new ArrayList<>());
         }
@@ -165,6 +182,7 @@ public class HechosServices implements IHechosServices {
         // 4️⃣ Guardar en la BD
         repositorioDeHechos.save(hechoExistente);
     }
+
 
     @Override
     public List<HechoOutputDTO> obtenerHechos() {

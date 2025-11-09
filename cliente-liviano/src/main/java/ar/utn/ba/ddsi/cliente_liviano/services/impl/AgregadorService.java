@@ -305,17 +305,13 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public void editarHecho(HechoDTO hechoDTO, @Nullable MultipartFile[] archivos) {
-        String token = (String) session.getAttribute("token");
-
         try {
-            // 🔹 Primero obtenemos el hecho actual para saber de qué tipo de fuente es
+            // 🔹 Obtener el hecho existente desde el backend (puede ser cualquier fuente)
             HechoOutputFrontDTO hechoExistente = webClient.get()
                     .uri("/api/hecho/{id}", hechoDTO.getId())
-                    .header("Authorization", "Bearer " + token)
                     .retrieve()
                     .bodyToMono(HechoOutputFrontDTO.class)
                     .block();
-
 
             if (hechoExistente == null) {
                 throw new RuntimeException("No se encontró el hecho con ID " + hechoDTO.getId());
@@ -324,64 +320,26 @@ public class AgregadorService implements IAgregadorService {
             String tipoFuente = hechoExistente.getFuenteNombre();
             Long idEnFuente = hechoExistente.getIdEnFuente();
 
-            // 🔹 Armamos el JSON del hecho editado
-            String hechoJson = objectMapper.writeValueAsString(hechoDTO);
-
-            // 🔹 Preparamos el body multipart (solo lo necesitaremos si tiene archivos)
-            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-            MultipartInputResource hechoResource = new MultipartInputResource(
-                    hechoJson.getBytes(),
-                    "hecho.json"
-            );
-            body.add("hecho", hechoResource);
-
-            // 🔹 Agregar archivos si existen
-            if (archivos != null && archivos.length > 0) {
-                for (MultipartFile archivo : archivos) {
-                    if (!archivo.isEmpty()) {
-                        try {
-                            MultipartInputResource fileResource = new MultipartInputResource(
-                                    archivo.getBytes(),
-                                    archivo.getOriginalFilename()
-                            );
-                            body.add("archivos", fileResource);
-                        } catch (IOException e) {
-                            System.err.println("Error leyendo archivo " + archivo.getOriginalFilename() + ": " + e.getMessage());
-                        }
-                    }
-                }
-            }
-
-            // 🔹 Según el tipo de fuente, elegimos a qué servicio llamar
             if ("DINAMICA".equalsIgnoreCase(tipoFuente)) {
-                if ("DINAMICA".equalsIgnoreCase(tipoFuente)) {
-                    HechoFormDTO hechoForm = hechoMapper.toFormDTO(hechoExistente);
+                // 🔹 Convertir a FormDTO y sobrescribir campos editables
+                HechoFormDTO hechoForm = hechoMapper.toFormDTO(hechoExistente);
+                hechoForm.setTitulo(hechoDTO.getTitulo());
+                hechoForm.setDescripcion(hechoDTO.getDescripcion());
+                hechoForm.setFechaDeAcontecimiento(hechoDTO.getFechaDeAcontecimiento());
+                hechoForm.setLatitud(hechoDTO.getLugar().getLatitud());
+                hechoForm.setLongitud(hechoDTO.getLugar().getLongitud());
+                hechoForm.setNombreDeUsuario(hechoDTO.getNombreDeUsuario());
+                hechoForm.setEsAnonimo(false);
 
-                    // Sobrescribimos los campos editables con los valores que vienen del front
-                    hechoForm.setTitulo(hechoDTO.getTitulo());
-                    hechoForm.setDescripcion(hechoDTO.getDescripcion());
-                    hechoForm.setFechaDeAcontecimiento(hechoDTO.getFechaDeAcontecimiento());
-                    hechoForm.setLatitud(hechoDTO.getLugar().getLatitud());
-                    hechoForm.setLongitud(hechoDTO.getLugar().getLongitud());
-                    hechoForm.setNombreDeUsuario(hechoDTO.getNombreDeUsuario());
-                    hechoForm.setEsAnonimo(false);
-
-                    dinamicaService.editarHecho(
-                            idEnFuente,
-                            hechoForm,
-                            archivos != null ? Arrays.asList(archivos) : List.of()
-                    );
-                }
+                // 🔹 Llamada al servicio Dinámica
+                dinamicaService.editarHecho(
+                        idEnFuente,
+                        hechoForm,
+                        archivos != null ? Arrays.asList(archivos) : List.of()
+                );
 
             } else if ("ESTATICA".equalsIgnoreCase(tipoFuente)) {
-                // 📝 Si es fuente estática → lógica pendiente
-                // Ejemplo:
-                // webClient.put()
-                //     .uri("http://estatica/api/hechos/{id}", idEnFuente)
-                //     .body(BodyInserters.fromValue(hechoDTO))
-                //     .retrieve()
-                //     .toBodilessEntity()
-                //     .block();
+                // Lógica para fuente ESTATICA (pendiente)
             } else {
                 throw new RuntimeException("Tipo de fuente desconocido: " + tipoFuente);
             }
@@ -391,6 +349,8 @@ public class AgregadorService implements IAgregadorService {
             e.printStackTrace();
         }
     }
+
+
 
 
 
