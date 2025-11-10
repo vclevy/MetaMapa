@@ -13,34 +13,39 @@ import java.util.Map;
 public class AlgoritmoAbsoluta implements IAlgoritmo {
 
     @Override
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
-        List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
+    public void aplicarConsenso(Coleccion coleccion) {
+        List<Fuente> fuentes = coleccion.getFuentesDeHechos();
+        List<Hecho> hechosDeColeccion = coleccion.getHechos();
 
+        // Si no hay fuentes, nadie puede estar consensuado
+        if (fuentes == null || fuentes.isEmpty()) {
+            // Reseteamos todos a no consensuados
+            for (Hecho h : hechosDeColeccion) {
+                h.setEstaConsensuado(false);
+            }
+            return;
+        }
+
+        // 1) Contamos en cuántas fuentes aparece cada hecho
         Map<Hecho, Integer> conteoHechos = new HashMap<>();
 
         for (Fuente fuente : fuentes) {
-            for (Hecho hecho : fuente.obtenerHechos()) {
-                // Aquí puedes aplicar la lógica de eliminación o conteo según sea necesario
-                if (tieneSolicitudAprobada(hecho)) continue;
-
-                conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
+            for (Hecho hechoFuente : fuente.obtenerHechos()) {
+                conteoHechos.put(
+                        hechoFuente,
+                        conteoHechos.getOrDefault(hechoFuente, 0) + 1
+                );
             }
         }
 
-        List<Hecho> hechosConsensuados = new ArrayList<>();
-        for (Map.Entry<Hecho, Integer> entry : conteoHechos.entrySet()) {
-            if (entry.getValue() == fuentes.size()) {
-                hechosConsensuados.add(entry.getKey());
+        int totalFuentes = fuentes.size();
 
-            }
+        // 2) Reseteamos y marcamos consenso SOLO en los hechos de la colección
+        for (Hecho hechoColeccion : hechosDeColeccion) {
+            int apariciones = conteoHechos.getOrDefault(hechoColeccion, 0);
+
+            boolean esConsensuado = (apariciones == totalFuentes);
+            hechoColeccion.setEstaConsensuado(esConsensuado);
         }
-        return hechosConsensuados;  // Devolvemos la lista de hechos consensuados
-
     }
-
-    private boolean tieneSolicitudAprobada(Hecho hecho) {
-        return hecho.getSolicitudesDeEliminacion().stream()
-                .anyMatch(s -> s.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
-    }
-
 }

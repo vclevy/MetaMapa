@@ -56,11 +56,10 @@ public class Coleccion {
     @Transient
     private List<Hecho> hechosConAlgoritmoAplicado;
 
-    public Coleccion (String titulo, String descripcion/*IAlgoritmo algoritmoDeConsenso*/, AlgoritmoDeConsenso algoritmoEnumerado) {
+    public Coleccion (String titulo, String descripcion, AlgoritmoDeConsenso algoritmoEnumerado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
-        //this.algoritmoDeConsenso = algoritmoDeConsenso;
         this.algoritmoDeConsensoEnumerado = algoritmoEnumerado;
         this.criterioDePertenencia = List.of();
     }
@@ -91,5 +90,11 @@ public class Coleccion {
         }
 
         this.algoritmoDeConsenso.aplicarConsenso(this);
+    }
+
+    public List<Hecho> getHechosConsensuados() {
+        return hechos.stream()
+                .filter(Hecho::getEstaConsensuado)
+                .toList();
     }
 }

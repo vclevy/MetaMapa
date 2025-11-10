@@ -79,7 +79,9 @@ public class ColeccionService implements IColeccionService {
                 unaColeccionInputDTO.getAlgoritmo()
         );
 
-        coleccion.aplicarAlgoritmoDeConsenso();
+        // Al crear probablemente aún no haya hechos, pero no molesta
+        aplicarAlgoritmoDeConsenso(coleccion);
+
         this.coleccionesRepository.save(coleccion);
         return this.coleccionMapper.toDTO(coleccion);
     }
@@ -129,6 +131,7 @@ public class ColeccionService implements IColeccionService {
 
             this.hechoService.registrarHechoDesdeFuente(hecho);
             unaColeccion.getHechos().add(hecho);
+            aplicarAlgoritmoDeConsenso(unaColeccion);
         }
     }
 
@@ -139,7 +142,10 @@ public class ColeccionService implements IColeccionService {
             switch (patch.getCampo().toLowerCase()) {
                 case "titulo" -> coleccion.setTitulo(patch.getNuevoValor());
                 case "descripcion" -> coleccion.setDescripcion(patch.getNuevoValor());
-                case "algoritmo" -> coleccion.setAlgoritmoDeConsenso(algoritmoFactory.crear(patch.getNuevoAlgoritmoDeConsenso()));
+                case "algoritmo" -> {
+                    coleccion.setAlgoritmoDeConsensoEnumerado(patch.getNuevoAlgoritmoDeConsenso());
+                    aplicarAlgoritmoDeConsenso(coleccion);
+                }
                 default -> throw new IllegalArgumentException("Campo inválido: " + patch.getCampo());
             }
 
@@ -191,9 +197,10 @@ public class ColeccionService implements IColeccionService {
             }
 
             this.refrescarColeccion(coleccion, fuente);
-            coleccion.aplicarAlgoritmoDeConsenso();
+            aplicarAlgoritmoDeConsenso(coleccion);
             this.coleccionesRepository.save(coleccion);
             return this.coleccionMapper.toDTO(coleccion);
+
         }
         return null;
     }
@@ -202,30 +209,27 @@ public class ColeccionService implements IColeccionService {
     public List<Hecho> obtenerHechosDeColeccionSegunModoDeNavegacion(Long id, String unModoDeNavegacion) {
         Optional<Coleccion> coleccionOpt = coleccionesRepository.findById(id);
 
-        if (coleccionOpt.isPresent()) {
-            Coleccion coleccion = coleccionOpt.get();
-
-            if (unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
-                // Si la colección no tiene hechos consensuados, aplicamos el algoritmo
-                if (coleccion.getHechosConsensuados().isEmpty()) {
-                    // Aplicamos el algoritmo y obtenemos los hechos consensuados
-                    List<Hecho> hechosConsensuados = aplicarAlgoritmoDeConsenso(coleccion);
-                    coleccion.setHechosConsensuados(hechosConsensuados);  // Actualizamos los hechos consensuados
-                    coleccionesRepository.save(coleccion);  // Guardamos la colección con los hechos consensuados
-                }
-
-                return coleccion.getHechosConsensuados();
-            }
-
-            // Si el modo no es "CURADO", devolvemos los hechos crudos
-            return coleccion.getHechos().stream()
-                    .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))  // Filtramos hechos con solicitudes aprobadas
-                    .collect(Collectors.toList());
+        if (coleccionOpt.isEmpty()) {
+            return Collections.emptyList();
         }
 
-        // Si no se encuentra la colección, devolvemos una lista vacía
-        return Collections.emptyList();
+        Coleccion coleccion = coleccionOpt.get();
 
+        if (unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
+            // Siempre recalculamos consenso antes de devolver curado
+            aplicarAlgoritmoDeConsenso(coleccion);
+            coleccionesRepository.save(coleccion);
+
+            // Devolvemos solo hechos consensuados
+            return coleccion.getHechos().stream()
+                    .filter(Hecho::getEstaConsensuado) // o isEstaConsensuado si es boolean
+                    .toList();
+        }
+
+        // Modo no curado: hechos crudos (filtrando solicitudes aprobadas)
+        return coleccion.getHechos().stream()
+                .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
+                .toList();
     }
 
     @Override
@@ -233,8 +237,7 @@ public class ColeccionService implements IColeccionService {
         List<Coleccion> colecciones = this.coleccionesRepository.findAll();
         for (Coleccion coleccionIndice : colecciones) {
             if (!coleccionIndice.getHechos().isEmpty()) {
-                List<Hecho> hechosConsensuados = aplicarAlgoritmoDeConsenso(coleccionIndice);
-                coleccionIndice.setHechosConsensuados(hechosConsensuados);
+                aplicarAlgoritmoDeConsenso(coleccionIndice); // marca flags en hechos
                 coleccionesRepository.save(coleccionIndice);
             }
         }
@@ -271,13 +274,10 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public List<Hecho> aplicarAlgoritmoDeConsenso(Coleccion unaColeccion) {
+    public void aplicarAlgoritmoDeConsenso(Coleccion unaColeccion) {
         IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccion.getAlgoritmoDeConsensoEnumerado());
-
         if (algoritmo != null) {
-            return algoritmo.aplicarConsenso(unaColeccion);
+            algoritmo.aplicarConsenso(unaColeccion);  // marca estaConsensuado en los hechos
         }
-
-        return unaColeccion.getHechos();
     }
 }
