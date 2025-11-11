@@ -51,9 +51,6 @@ public class Coleccion {
     private List<Criterio> criterioDePertenencia = new ArrayList<>();
 
     @Transient
-    private IAlgoritmo algoritmoDeConsenso;
-
-    @Transient
     private List<Hecho> hechosConAlgoritmoAplicado;
 
     public Coleccion (String titulo, String descripcion, AlgoritmoDeConsenso algoritmoEnumerado) {
@@ -82,19 +79,5 @@ public class Coleccion {
                 .getSolicitudesDeEliminacion()
                 .stream()
                 .anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
-    }
-
-    public void aplicarAlgoritmoDeConsenso() {
-        if (this.algoritmoDeConsenso == null) {
-            return;
-        }
-
-        this.algoritmoDeConsenso.aplicarConsenso(this);
-    }
-
-    public List<Hecho> getHechosConsensuados() {
-        return hechos.stream()
-                .filter(Hecho::getEstaConsensuado)
-                .toList();
     }
 }

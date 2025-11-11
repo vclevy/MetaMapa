@@ -23,8 +23,8 @@ public class ColeccionMapper {
         dto.setTitulo(coleccion.getTitulo());
         dto.setDescripcion(coleccion.getDescripcion());
         dto.setHandle(coleccion.getHandle());
-        dto.setAlgoritmoDeConsenso(coleccion.getAlgoritmoDeConsenso() != null ?
-                coleccion.getAlgoritmoDeConsenso().getClass().getSimpleName() : "Ninguno");
+        dto.setAlgoritmoDeConsenso(coleccion.getAlgoritmoDeConsensoEnumerado() != null ?
+                coleccion.getAlgoritmoDeConsensoEnumerado().getClass().getSimpleName() : "Ninguno");
 
         List<FuenteDeHechoOutputDTO> fuentesDTO = coleccion.getFuentesDeHechos()
                 .stream()

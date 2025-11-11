@@ -3,49 +3,78 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
-import ar.utn.ba.ddsi.models.entities.solicitud.EstadoDeSolicitudDeEliminacion;
+import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
+import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@Component
 public class AlgoritmoAbsoluta implements IAlgoritmo {
+    @Autowired
+    private IFuenteDeHechosRepository fuenteDeHechosRepository;
+    @Autowired
+    private IHechosRepository hechosRepository;
 
     @Override
     public void aplicarConsenso(Coleccion coleccion) {
-        List<Fuente> fuentes = coleccion.getFuentesDeHechos();
+        // Hechos que componen la colección
         List<Hecho> hechosDeColeccion = coleccion.getHechos();
-
-        // Si no hay fuentes, nadie puede estar consensuado
-        if (fuentes == null || fuentes.isEmpty()) {
-            // Reseteamos todos a no consensuados
-            for (Hecho h : hechosDeColeccion) {
-                h.setEstaConsensuado(false);
-            }
+        if (hechosDeColeccion == null || hechosDeColeccion.isEmpty()) {
             return;
         }
 
-        // 1) Contamos en cuántas fuentes aparece cada hecho
-        Map<Hecho, Integer> conteoHechos = new HashMap<>();
+        // Todas las fuentes existentes en el sistema
+        List<Fuente> todasLasFuentes = fuenteDeHechosRepository.findAll();
 
-        for (Fuente fuente : fuentes) {
-            for (Hecho hechoFuente : fuente.obtenerHechos()) {
-                conteoHechos.put(
-                        hechoFuente,
-                        conteoHechos.getOrDefault(hechoFuente, 0) + 1
-                );
+        if (todasLasFuentes.isEmpty()) {
+            // Si no hay fuentes, nadie puede estar consensuado
+            for (Hecho h : hechosDeColeccion) {
+                h.setEstaConsensuado(false);
             }
+            hechosRepository.saveAll(hechosDeColeccion);
+            return;
         }
 
-        int totalFuentes = fuentes.size();
+        // Para cada fuente, armamos un SET de "hechos lógicos" (titulo+descripcion)
+        // para poder preguntar rápido si un hecho de la colección existe en esa fuente
+        Map<Long, Set<String>> clavesPorFuente = new HashMap<>();
 
-        // 2) Reseteamos y marcamos consenso SOLO en los hechos de la colección
+        for (Fuente fuente : todasLasFuentes) {
+            List<Hecho> hechosDeFuente = fuente.getHechos();
+
+            Set<String> clavesHechos = hechosDeFuente.stream()
+                    .map(h -> construirClave(h.getTitulo(), h.getDescripcion()))
+                    .collect(Collectors.toSet());
+
+            clavesPorFuente.put(fuente.getId(), clavesHechos);
+        }
+
         for (Hecho hechoColeccion : hechosDeColeccion) {
-            int apariciones = conteoHechos.getOrDefault(hechoColeccion, 0);
+            String claveHechoColeccion = construirClave(
+                    hechoColeccion.getTitulo(),
+                    hechoColeccion.getDescripcion()
+            );
 
-            boolean esConsensuado = (apariciones == totalFuentes);
-            hechoColeccion.setEstaConsensuado(esConsensuado);
+            boolean estaEnTodas = true;
+
+            for (Fuente fuente : todasLasFuentes) {
+                Set<String> clavesDeEstaFuente = clavesPorFuente.get(fuente.getId());
+
+                if (clavesDeEstaFuente == null || !clavesDeEstaFuente.contains(claveHechoColeccion)) {
+                    estaEnTodas = false;
+                    break;
+                }
+            }
+            hechoColeccion.setEstaConsensuado(estaEnTodas);
         }
+
+        hechosRepository.saveAll(hechosDeColeccion);
+    }
+
+    private String construirClave(String titulo, String descripcion) {
+        return (titulo == null ? "" : titulo) + "||" + (descripcion == null ? "" : descripcion);
     }
 }

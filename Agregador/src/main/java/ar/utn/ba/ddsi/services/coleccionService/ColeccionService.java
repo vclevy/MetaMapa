@@ -215,21 +215,28 @@ public class ColeccionService implements IColeccionService {
 
         Coleccion coleccion = coleccionOpt.get();
 
+        System.out.println(">>> MODO = " + unModoDeNavegacion);
+        System.out.println(">>> Hechos totales en coleccion " + id + " = " + coleccion.getHechos().size());
+
         if (unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
-            // Siempre recalculamos consenso antes de devolver curado
             aplicarAlgoritmoDeConsenso(coleccion);
             coleccionesRepository.save(coleccion);
 
-            // Devolvemos solo hechos consensuados
-            return coleccion.getHechos().stream()
-                    .filter(Hecho::getEstaConsensuado) // o isEstaConsensuado si es boolean
+            List<Hecho> curados = coleccion.getHechos().stream()
+                    .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
+                    .filter(Hecho::getEstaConsensuado)
                     .toList();
+
+            System.out.println(">>> Hechos CURADOS devueltos = " + curados.size());
+            return curados;
         }
 
-        // Modo no curado: hechos crudos (filtrando solicitudes aprobadas)
-        return coleccion.getHechos().stream()
+        List<Hecho> irrestrictos = coleccion.getHechos().stream()
                 .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
                 .toList();
+
+        System.out.println(">>> Hechos IRRESTRICTOS devueltos = " + irrestrictos.size());
+        return irrestrictos;
     }
 
     @Override
@@ -277,7 +284,7 @@ public class ColeccionService implements IColeccionService {
     public void aplicarAlgoritmoDeConsenso(Coleccion unaColeccion) {
         IAlgoritmo algoritmo = algoritmoFactory.crear(unaColeccion.getAlgoritmoDeConsensoEnumerado());
         if (algoritmo != null) {
-            algoritmo.aplicarConsenso(unaColeccion);  // marca estaConsensuado en los hechos
+            algoritmo.aplicarConsenso(unaColeccion);
         }
     }
 }
