@@ -25,6 +25,5 @@ public class HechoDTO {
     private String tipoFuente;
     private Boolean pendiente;
     private Boolean fueAceptado;
-    private Long idEnFuente;
 }
 

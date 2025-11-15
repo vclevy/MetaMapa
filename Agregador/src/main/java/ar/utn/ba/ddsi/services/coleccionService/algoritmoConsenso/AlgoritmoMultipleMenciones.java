@@ -3,50 +3,109 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
+import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Component
 public class AlgoritmoMultipleMenciones implements IAlgoritmo {
+    @Autowired
+    private IFuenteDeHechosRepository fuenteDeHechosRepository;
+    @Autowired
+    private IHechosRepository hechosRepository;
+
     @Override
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
-        List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
-
-        Map<Hecho, List<Fuente>> mapaHechos = new HashMap<>();
-
-        for (Fuente fuente : fuentes) {
-            List<Hecho> hechos = fuente.obtenerHechos();
-
-            for (Hecho hecho : hechos) {
-                mapaHechos
-                        .computeIfAbsent(hecho, unHecho -> new ArrayList<>())  // Si el hecho ya está en el mapa, no hace nada
-                        .add(fuente);  // Agrega la fuente al mapa del hecho
-            }
+    public void aplicarConsenso(Coleccion coleccion) {
+        // Hechos que componen la colección
+        List<Hecho> hechosDeColeccion = coleccion.getHechos();
+        if (hechosDeColeccion == null || hechosDeColeccion.isEmpty()) {
+            return;
         }
 
-        List<Hecho> hechosConsensuados = new ArrayList<>();
+        // Todas las fuentes existentes en el sistema
+        List<Fuente> todasLasFuentes = fuenteDeHechosRepository.findAll();
 
-        for (Map.Entry<Hecho, List<Fuente>> entrada : mapaHechos.entrySet()) {
-            Hecho hecho = entrada.getKey();
-            List<Fuente> fuentesQueLoMencionan = entrada.getValue();
+        if (todasLasFuentes.isEmpty()) {
+            // Si no hay fuentes, nadie puede estar consensuado
+            for (Hecho h : hechosDeColeccion) {
+                h.setEstaConsensuado(false);
+            }
+            hechosRepository.saveAll(hechosDeColeccion);
+            return;
+        }
 
-            if (fuentesQueLoMencionan.size() >= 2) {
+        // Para cada fuente, armamos un SET de "hechos lógicos" (titulo+descripcion)
+        Map<Long, Set<String>> clavesPorFuente = new HashMap<>();
 
-                // Verifica si existe un conflicto con otro hecho
-                boolean existeConflicto = fuentes.stream()
-                        .flatMap(unaFuente -> unaFuente.obtenerHechos().stream())
-                        .anyMatch(unHecho -> unHecho.getTitulo().equals(hecho.getTitulo()) && !unHecho.equals(hecho));
+        // Además, armamos un mapa global titulo -> set de descripciones
+        // para detectar conflictos (mismo título, distintas descripciones)
+        Map<String, Set<String>> descripcionesPorTitulo = new HashMap<>();
 
+        for (Fuente fuente : todasLasFuentes) {
+            List<Hecho> hechosDeFuente = fuente.getHechos();
 
+            Set<String> clavesHechos = hechosDeFuente.stream()
+                    .map(h -> {
+                        String clave = construirClave(h.getTitulo(), h.getDescripcion());
 
-                if (!existeConflicto) {
-                    hechosConsensuados.add(hecho);
+                        // llenamos también el mapa titulo -> descripciones
+                        descripcionesPorTitulo
+                                .computeIfAbsent(
+                                        h.getTitulo() == null ? "" : h.getTitulo(),
+                                        t -> new HashSet<>()
+                                )
+                                .add(h.getDescripcion() == null ? "" : h.getDescripcion());
+
+                        return clave;
+                    })
+                    .collect(Collectors.toSet());
+
+            clavesPorFuente.put(fuente.getId(), clavesHechos);
+        }
+
+        // Para cada hecho de la colección aplicamos la regla:
+        // - aparece en al menos 2 fuentes
+        // - y no hay otra descripción distinta para el mismo título
+        for (Hecho hechoColeccion : hechosDeColeccion) {
+
+            String titulo = hechoColeccion.getTitulo();
+            String descripcion = hechoColeccion.getDescripcion();
+            String claveHechoColeccion = construirClave(titulo, descripcion);
+
+            // 1) Contar en cuántas fuentes aparece este hecho (titulo+descripcion)
+            int cantidadFuentesQueLoContienen = 0;
+
+            for (Fuente fuente : todasLasFuentes) {
+                Set<String> clavesDeEstaFuente = clavesPorFuente.get(fuente.getId());
+
+                if (clavesDeEstaFuente != null && clavesDeEstaFuente.contains(claveHechoColeccion)) {
+                    cantidadFuentesQueLoContienen++;
                 }
             }
+
+            boolean alMenosDosFuentes = cantidadFuentesQueLoContienen >= 2;
+
+            // 2) Verificar que no haya otra descripción distinta para el mismo título
+            Set<String> descripcionesParaTitulo = descripcionesPorTitulo.getOrDefault(
+                    titulo == null ? "" : titulo,
+                    Collections.emptySet()
+            );
+
+            // Si hay más de una descripción distinta asociada a ese título, hay conflicto
+            boolean sinConflictos = descripcionesParaTitulo.size() <= 1;
+
+            boolean estaConsensuado = alMenosDosFuentes && sinConflictos;
+            hechoColeccion.setEstaConsensuado(estaConsensuado);
         }
 
-        // Devolver los hechos consensuados, sin modificar directamente la colección
-        return hechosConsensuados;
+        hechosRepository.saveAll(hechosDeColeccion);
+    }
+
+    private String construirClave(String titulo, String descripcion) {
+        return (titulo == null ? "" : titulo) + "||" + (descripcion == null ? "" : descripcion);
     }
 }

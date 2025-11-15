@@ -2,11 +2,9 @@ package ar.utn.ba.ddsi.models.entities.hecho;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
-import lombok.Setter;
 
 @Embeddable
 @Getter
-@Setter
 public class Lugar {
     private Double latitud;
     private Double longitud;

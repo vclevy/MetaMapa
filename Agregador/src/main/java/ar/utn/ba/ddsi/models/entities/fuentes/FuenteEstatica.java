@@ -5,22 +5,19 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.hecho.Lugar;
 import ar.utn.ba.ddsi.models.entities.hecho.OrigenDelHecho;
 import ar.utn.ba.ddsi.services.georef.LugarService;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class FuenteEstatica implements IFuenteDeHechos {
-
     private final WebClient webClient;
+    private Long id;
     private final LugarService lugarService;
 
-    public FuenteEstatica(LugarService lugarService, @Value("${fuente.estatica.base-url}") String baseUrl) {
-        this.lugarService = lugarService;
+    public FuenteEstatica(String baseUrl, LugarService lugarService) {
         this.webClient = WebClient.builder().baseUrl(baseUrl).build();
+        this.lugarService = lugarService;
     }
 
     @Override

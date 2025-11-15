@@ -19,5 +19,4 @@ public interface IHechoService {
     List<HechoOutputDTO> obtenerHechosVisibles();
     void aprobarHecho(Long id);
     void rechazarHecho(Long id);
-    HechoOutputDTO obtenerHechoPorId(Long id);
 }

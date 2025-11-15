@@ -51,16 +51,12 @@ public class Coleccion {
     private List<Criterio> criterioDePertenencia = new ArrayList<>();
 
     @Transient
-    private IAlgoritmo algoritmoDeConsenso;
-
-    @Transient
     private List<Hecho> hechosConAlgoritmoAplicado;
 
-    public Coleccion (String titulo, String descripcion/*IAlgoritmo algoritmoDeConsenso*/, AlgoritmoDeConsenso algoritmoEnumerado) {
+    public Coleccion (String titulo, String descripcion, AlgoritmoDeConsenso algoritmoEnumerado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.handle = UUID.randomUUID().toString();
-        //this.algoritmoDeConsenso = algoritmoDeConsenso;
         this.algoritmoDeConsensoEnumerado = algoritmoEnumerado;
         this.criterioDePertenencia = List.of();
     }
@@ -83,13 +79,5 @@ public class Coleccion {
                 .getSolicitudesDeEliminacion()
                 .stream()
                 .anyMatch(unaSolicitud -> unaSolicitud.getEstado() == EstadoDeSolicitudDeEliminacion.APROBADA);
-    }
-
-    public void aplicarAlgoritmoDeConsenso() {
-        if (this.algoritmoDeConsenso == null) {
-            return;
-        }
-
-        this.algoritmoDeConsenso.aplicarConsenso(this);
     }
 }

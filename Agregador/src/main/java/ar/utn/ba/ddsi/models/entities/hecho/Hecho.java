@@ -13,6 +13,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.time.LocalDateTime.*;
 
@@ -90,11 +91,31 @@ public class Hecho {
     @Column(name="fue_aceptado", nullable = false)
     private Boolean fueAceptado = false;
 
+    @Column(name = "esta_consensuado", nullable = false)
+    private Boolean estaConsensuado = false;
+
     @PrePersist
     public void prePersist() {
         if (fechaDeCargaDelHecho == null) {
             ZoneId zonaUTC3 = ZoneOffset.ofHours(-3);
             fechaDeCargaDelHecho = ZonedDateTime.now(zonaUTC3).toLocalDateTime();
         }
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hecho)) return false;
+        Hecho hecho = (Hecho) o;
+
+        // Acá definís qué hace que dos Hecho sean "el mismo hecho"
+        return Objects.equals(titulo, hecho.titulo) &&
+                Objects.equals(descripcion, hecho.descripcion) &&
+                Objects.equals(fechaDeAcontecimiento, hecho.fechaDeAcontecimiento) &&
+                Objects.equals(lugar, hecho.lugar) &&
+                Objects.equals(categoria, hecho.categoria);
+    }
+
+    public int hashCode() {
+        return Objects.hash(titulo, descripcion, fechaDeAcontecimiento, lugar, categoria);
     }
 }

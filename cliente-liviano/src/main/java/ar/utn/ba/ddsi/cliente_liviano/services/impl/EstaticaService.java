@@ -1,9 +1,5 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoInputDTO;
-import ar.utn.ba.ddsi.cliente_liviano.models.dtos.HechoOutputFrontDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
@@ -22,11 +18,9 @@ import java.util.stream.Collectors;
 public class EstaticaService {
 
     private WebClient webClient;
-    private ObjectMapper objectMapper;
 
-    public EstaticaService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+    public EstaticaService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:8082").build();
-        this.objectMapper = objectMapper;
     }
 
     public Mono<String> importarArchivo(MultipartFile file) throws IOException {
@@ -69,27 +63,6 @@ public class EstaticaService {
         return Mono.when(monos)
                 .then(Mono.just("Todos los archivos importados correctamente"));
     }
-
-    public void editarHechoEstatica(Long id, HechoInputDTO hechoInput) {
-        try {
-            // 1️⃣ Convertir el DTO a JSON (opcional, WebClient lo hace automáticamente)
-            String hechoJson = objectMapper.writeValueAsString(hechoInput);
-
-            // 2️⃣ Llamada al backend Estática (PUT /hechos/{id})
-            webClient.put()
-                    .uri("/hechos/{id}", id)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(hechoJson)
-                    .retrieve()
-                    .bodyToMono(Void.class)
-                    .block();
-
-        } catch (Exception e) {
-            System.err.println("Error editando hecho en EstaticaService: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
 
 
 

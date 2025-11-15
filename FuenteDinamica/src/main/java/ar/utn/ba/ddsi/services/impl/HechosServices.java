@@ -129,62 +129,24 @@ public class HechosServices implements IHechosServices {
         return rutas;
     }
 
-    @Override
-    public void editarHecho(Long id, HechoInputDTO hechoDto, MultipartFile[] archivos) {
-        // 1️⃣ Buscar hecho existente
-        Hecho hechoExistente = repositorioDeHechos.findById(id)
-                .orElseThrow(() -> new RuntimeException("Hecho no encontrado con id: " + id));
+    public void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario) {
+        Hecho hechoOriginal = repositorioDeHechos.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hecho no encontrado"));
 
-        // 2️⃣ Actualizar campos editables solo si no son null
-        if (hechoDto.getTitulo() != null) {
-            hechoExistente.setTitulo(hechoDto.getTitulo());
-        }
-        if (hechoDto.getDescripcion() != null) {
-            hechoExistente.setDescripcion(hechoDto.getDescripcion());
-        }
-        if (hechoDto.getFechaDeAcontecimiento() != null) {
-            hechoExistente.setFechaDeAcontecimiento(hechoDto.getFechaDeAcontecimiento());
+        if (hechoOriginal.getNombreDeUsuario() == null) {
+            throw new RuntimeException("Un usuario anónimo no puede editar hechos");
         }
 
-        if (hechoDto.getLugar() != null) {
-            Lugar lugarExistente = hechoExistente.getLugar();
-            if (lugarExistente == null) {
-                hechoExistente.setLugar(hechoDto.getLugar());
-            } else {
-                if (hechoDto.getLugar().getLatitud() != null) {
-                    lugarExistente.setLatitud(hechoDto.getLugar().getLatitud());
-                }
-                if (hechoDto.getLugar().getLongitud() != null) {
-                    lugarExistente.setLongitud(hechoDto.getLugar().getLongitud());
-                }
-            }
+        if (!hechoOriginal.esEditable()) {
+            throw new RuntimeException("Este hecho ya no puede ser editado o no sos su autor");
         }
 
-        if (hechoDto.getNombreDeUsuario() != null) {
-            hechoExistente.setNombreDeUsuario(hechoDto.getNombreDeUsuario());
-        }
-        hechoExistente.setEsAnonimo(hechoDto.getEsAnonimo()); // boolean, siempre se puede actualizar
+        // TODO: comparar cambios y registrar
+        // compararYRegistrarCambios(hechoOriginal, hechoModificado, usuario);
 
-        // 3️⃣ Manejar multimedia
-        List<String> rutasMultimedia = new ArrayList<>();
-        if (archivos != null && archivos.length > 0) {
-            rutasMultimedia = guardarArchivos(archivos);
-        }
-
-        if (hechoExistente.getMultimedia() == null) {
-            hechoExistente.setMultimedia(new ArrayList<>());
-        }
-        if (hechoDto.getMultimedia() != null) {
-            rutasMultimedia.addAll(hechoDto.getMultimedia());
-        }
-        hechoExistente.getMultimedia().addAll(rutasMultimedia);
-
-        // 4️⃣ Guardar en la BD
-        repositorioDeHechos.save(hechoExistente);
+        repositorioDeHechos.save(hechoOriginal);
     }
 
-
-    @Override
     public List<HechoOutputDTO> obtenerHechos() {
         return repositorioDeHechos.findAll()
                 .stream()

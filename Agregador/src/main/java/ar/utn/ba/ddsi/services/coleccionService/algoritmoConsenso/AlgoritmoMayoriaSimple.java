@@ -3,41 +3,82 @@ package ar.utn.ba.ddsi.services.coleccionService.algoritmoConsenso;
 import ar.utn.ba.ddsi.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.models.entities.fuentes.Fuente;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import ar.utn.ba.ddsi.models.repositories.IFuenteDeHechosRepository;
+import ar.utn.ba.ddsi.models.repositories.IHechosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Component
 public class AlgoritmoMayoriaSimple implements IAlgoritmo {
+    @Autowired
+    private IFuenteDeHechosRepository fuenteDeHechosRepository;
+    @Autowired
+    private IHechosRepository hechosRepository;
+
     @Override
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion) {
-        List<Fuente> fuentes = unaColeccion.getFuentesDeHechos();
-
-        // Mapa para contar cuántas veces se menciona cada hecho
-        Map<Hecho, Integer> conteoHechos = new HashMap<>();
-
-        // Contamos las menciones de cada hecho en las fuentes
-        for (Fuente fuente : fuentes) {
-            for (Hecho hecho : fuente.obtenerHechos()) {
-                conteoHechos.put(hecho, conteoHechos.getOrDefault(hecho, 0) + 1);
-            }
+    public void aplicarConsenso(Coleccion coleccion) {
+        List<Hecho> hechosDeColeccion = coleccion.getHechos();
+        if (hechosDeColeccion == null || hechosDeColeccion.isEmpty()) {
+            return;
         }
 
-        // Lista para almacenar los hechos que cumplen con la mayoría simple
-        List<Hecho> hechosConsensuados = new ArrayList<>();
+        // Todas las fuentes existentes en el sistema
+        List<Fuente> todasLasFuentes = fuenteDeHechosRepository.findAll();
 
-        // Verificamos cuáles hechos cumplen con la condición de mayoría simple
-        for (Map.Entry<Hecho, Integer> entrada : conteoHechos.entrySet()) {
-            Hecho hecho = entrada.getKey();
-            int cantidadMenciones = entrada.getValue();
-
-            // Si un hecho tiene menciones mayor o igual a la mitad de las fuentes, lo agregamos a la lista
-            if (cantidadMenciones >= Math.ceil(fuentes.size() / 2.0)) {
-                hechosConsensuados.add(hecho);
+        if (todasLasFuentes.isEmpty()) {
+            // Si no hay fuentes, nadie puede estar consensuado
+            for (Hecho h : hechosDeColeccion) {
+                h.setEstaConsensuado(false);
             }
+            hechosRepository.saveAll(hechosDeColeccion);
+            return;
         }
 
-        // Devolvemos la lista de hechos consensuados
-        return hechosConsensuados;
+        int totalFuentes = todasLasFuentes.size();
+        int minimoParaMayoria = (int) Math.ceil(totalFuentes / 2.0);
+
+        // Para cada fuente, armamos un SET de "hechos lógicos" (titulo+descripcion)
+        // para poder preguntar rápido si un hecho de la colección existe en esa fuente
+        Map<Long, Set<String>> clavesPorFuente = new HashMap<>();
+
+        for (Fuente fuente : todasLasFuentes) {
+            List<Hecho> hechosDeFuente = fuente.getHechos();
+
+            Set<String> clavesHechos = hechosDeFuente.stream()
+                    .map(h -> construirClave(h.getTitulo(), h.getDescripcion()))
+                    .collect(Collectors.toSet());
+
+            clavesPorFuente.put(fuente.getId(), clavesHechos);
+        }
+
+        // Para cada hecho de la colección, contamos en cuántas fuentes aparece
+        for (Hecho hechoColeccion : hechosDeColeccion) {
+            String claveHechoColeccion = construirClave(
+                    hechoColeccion.getTitulo(),
+                    hechoColeccion.getDescripcion()
+            );
+
+            int cantidadFuentesQueLoContienen = 0;
+
+            for (Fuente fuente : todasLasFuentes) {
+                Set<String> clavesDeEstaFuente = clavesPorFuente.get(fuente.getId());
+
+                if (clavesDeEstaFuente != null && clavesDeEstaFuente.contains(claveHechoColeccion)) {
+                    cantidadFuentesQueLoContienen++;
+                }
+            }
+
+            boolean estaConsensuado = cantidadFuentesQueLoContienen >= minimoParaMayoria;
+            hechoColeccion.setEstaConsensuado(estaConsensuado);
+        }
+
+        hechosRepository.saveAll(hechosDeColeccion);
+    }
+
+    private String construirClave(String titulo, String descripcion) {
+        return (titulo == null ? "" : titulo) + "||" + (descripcion == null ? "" : descripcion);
     }
 }

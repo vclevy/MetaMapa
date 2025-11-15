@@ -24,5 +24,5 @@ public interface IColeccionService {
     void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente);
     ColeccionOutputDTO obtenerColeccion(Long id);
     List<ColeccionOutputDTO> obtenerColeccionesDestacadas();
-    List<Hecho> aplicarAlgoritmoDeConsenso(Coleccion unaColeccion);
+    void aplicarAlgoritmoDeConsenso(Coleccion unaColeccion);
 }

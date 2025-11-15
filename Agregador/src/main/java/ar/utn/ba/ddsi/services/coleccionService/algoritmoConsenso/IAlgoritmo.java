@@ -5,5 +5,5 @@ import ar.utn.ba.ddsi.models.entities.hecho.Hecho;
 import java.util.List;
 
 public interface IAlgoritmo {
-    public List<Hecho> aplicarConsenso(Coleccion unaColeccion);
+    public void aplicarConsenso(Coleccion unaColeccion);
 }

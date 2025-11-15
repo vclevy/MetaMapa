@@ -8,17 +8,14 @@ import ar.utn.ba.ddsi.cliente_liviano.models.entities.Lugar;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -95,60 +92,6 @@ public class DinamicaService {
             return null;
         }
     }
-    public HechoDinamicaDTO editarHecho(Long id, HechoFormDTO hechoForm, List<MultipartFile> archivos) {
-        try {
-            // 1️⃣ Construir el DTO a enviar
-            HechoDinamicaDTO hechoDto = new HechoDinamicaDTO();
-            hechoDto.setTitulo(hechoForm.getTitulo());
-            hechoDto.setDescripcion(hechoForm.getDescripcion());
-            hechoDto.setFechaDeAcontecimiento(hechoForm.getFechaDeAcontecimiento());
 
-            Lugar lugar = new Lugar();
-            lugar.setLatitud(hechoForm.getLatitud());
-            lugar.setLongitud(hechoForm.getLongitud());
-            hechoDto.setLugar(lugar);
-
-            hechoDto.setNombreDeUsuario(hechoForm.getNombreDeUsuario());
-            hechoDto.setEsAnonimo(hechoForm.getEsAnonimo());
-
-            // 2️⃣ Convertir a JSON
-            String hechoJson = objectMapper.writeValueAsString(hechoDto);
-
-            // 3️⃣ Preparar multipart
-            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-            MultipartInputResource hechoResource = new MultipartInputResource(
-                    hechoJson.getBytes(),
-                    "hecho.json"
-            );
-            body.add("hecho", hechoResource);
-
-            // 4️⃣ Agregar archivos si hay
-            if (archivos != null) {
-                for (MultipartFile archivo : archivos) {
-                    if (!archivo.isEmpty()) {
-                        MultipartInputResource fileResource = new MultipartInputResource(
-                                archivo.getBytes(),
-                                archivo.getOriginalFilename()
-                        );
-                        body.add("archivos", fileResource);
-                    }
-                }
-            }
-
-            // 5️⃣ Llamada al backend Dinámica (PUT /hechos/{id})
-            return webClient.put()
-                    .uri("/hechos/{id}", id)
-                    .contentType(MediaType.MULTIPART_FORM_DATA)
-                    .body(BodyInserters.fromMultipartData(body))
-                    .retrieve()
-                    .bodyToMono(HechoDinamicaDTO.class)
-                    .block();
-
-        } catch (Exception e) {
-            System.err.println("Error editando hecho en DinamicaService: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
 
 }

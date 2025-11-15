@@ -1,29 +1,19 @@
 package ar.utn.ba.ddsi.cliente_liviano.services.impl;
 
-import ar.utn.ba.ddsi.cliente_liviano.config.MultipartInputResource;
 import ar.utn.ba.ddsi.cliente_liviano.jwt.TokenDecoder;
-import ar.utn.ba.ddsi.cliente_liviano.models.HechoMapper;
 import ar.utn.ba.ddsi.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.cliente_liviano.models.entities.solicitud.Solicitud;
 import ar.utn.ba.ddsi.cliente_liviano.services.IAgregadorService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,17 +21,11 @@ import java.util.stream.Collectors;
 public class AgregadorService implements IAgregadorService {
 
     private final WebClient webClient;
-    private final DinamicaService dinamicaService;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final HechoMapper hechoMapper = new HechoMapper();
-    private final EstaticaService estaticaService;
 
     @Autowired
     private HttpSession session;
 
-    public AgregadorService(DinamicaService dinamicaService, EstaticaService estaticaService) {
-        this.dinamicaService = dinamicaService;
-        this.estaticaService = estaticaService;
+    public AgregadorService() {
         this.webClient = WebClient.builder()
                 .baseUrl("http://localhost:8080")
                 .codecs(configurer ->
@@ -306,64 +290,22 @@ public class AgregadorService implements IAgregadorService {
                 .block();
     }
 
-    public void editarHecho(HechoDTO hechoDTO, @Nullable MultipartFile[] archivos) {
-        try {
-            // 🔹 Obtener el hecho existente desde el backend (puede ser cualquier fuente)
-            HechoOutputFrontDTO hechoExistente = webClient.get()
-                    .uri("/api/hecho/{id}", hechoDTO.getId())
-                    .retrieve()
-                    .bodyToMono(HechoOutputFrontDTO.class)
-                    .block();
+    public void editarHecho(HechoDTO hechoDTO) {
+        String token = (String) session.getAttribute("token");
 
-            if (hechoExistente == null) {
-                throw new RuntimeException("No se encontró el hecho con ID " + hechoDTO.getId());
-            }
-
-            String tipoFuente = hechoExistente.getFuenteNombre();
-            Long idEnFuente = hechoExistente.getIdEnFuente();
-
-            if ("DINAMICA".equalsIgnoreCase(tipoFuente)) {
-                // 🔹 Convertir a FormDTO y sobrescribir campos editables
-                HechoFormDTO hechoForm = hechoMapper.toFormDTO(hechoExistente);
-                hechoForm.setTitulo(hechoDTO.getTitulo());
-                hechoForm.setDescripcion(hechoDTO.getDescripcion());
-                hechoForm.setFechaDeAcontecimiento(hechoDTO.getFechaDeAcontecimiento());
-                hechoForm.setLatitud(hechoDTO.getLugar().getLatitud());
-                hechoForm.setLongitud(hechoDTO.getLugar().getLongitud());
-                hechoForm.setNombreDeUsuario(hechoDTO.getNombreDeUsuario());
-                hechoForm.setEsAnonimo(false);
-
-                // 🔹 Llamada al servicio Dinámica
-                dinamicaService.editarHecho(
-                        idEnFuente,
-                        hechoForm,
-                        archivos != null ? Arrays.asList(archivos) : List.of()
-                );
-
-            } else if ("ESTATICA".equalsIgnoreCase(tipoFuente)) {
-                HechoInputDTO hechoInput = new HechoInputDTO(
-                        hechoDTO.getTitulo() != null ? hechoDTO.getTitulo() : hechoExistente.getTitulo(),
-                        hechoDTO.getDescripcion() != null ? hechoDTO.getDescripcion() : hechoExistente.getDescripcion(),
-                        hechoDTO.getLugar() != null ? hechoDTO.getLugar() : hechoExistente.getLugar(),
-                        hechoDTO.getFechaDeAcontecimiento() != null ? hechoDTO.getFechaDeAcontecimiento() : hechoExistente.getFechaDeAcontecimiento()
-                );
-
-                // 🔹 Llamada al servicio Estática
-                estaticaService.editarHechoEstatica(idEnFuente, hechoInput);
-
-            } else {
-                throw new RuntimeException("Tipo de fuente desconocido: " + tipoFuente);
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error editando hecho desde el Agregador: " + e.getMessage());
-            e.printStackTrace();
-        }
+        webClient.put()
+                .uri("/api/hecho/{id}", hechoDTO.getId())
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(hechoDTO)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError, r ->
+                        r.bodyToMono(String.class)
+                                .map(msg -> new RuntimeException("Error al editar el hecho: " + msg))
+                )
+                .toBodilessEntity()
+                .block();
     }
-
-
-
-
 
     public void eliminarHecho(Long idHecho) {
         String token = (String) session.getAttribute("token");

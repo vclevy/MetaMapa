@@ -21,5 +21,4 @@ public class HechoOutputDTO {
     private String fuenteNombre;
     private String nombreArchivo;
     private Boolean esAnonimo;
-    private Long idEnFuente;
 }

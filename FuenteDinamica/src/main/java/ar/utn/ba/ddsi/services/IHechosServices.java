@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IHechosServices {
     void subirHecho(HechoInputDTO hecho, MultipartFile[] archivos);
-    void editarHecho(Long id, HechoInputDTO hechoDto, MultipartFile[] archivos);
+    void editarHecho(Long id, HechoInputDTO hechoModificado, Usuario usuario);
     List<HechoOutputDTO> obtenerHechos();
 }

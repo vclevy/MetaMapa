@@ -5,19 +5,36 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AlgoritmoFactory {
+
+    private final AlgoritmoAbsoluta algoritmoAbsoluta;
+    private final AlgoritmoMayoriaSimple algoritmoMayoriaSimple;
+    private final AlgoritmoMultipleMenciones algoritmoMultipleMenciones;
+
+    public AlgoritmoFactory(
+            AlgoritmoAbsoluta algoritmoAbsoluta,
+            AlgoritmoMayoriaSimple algoritmoMayoriaSimple,
+            AlgoritmoMultipleMenciones algoritmoMultiplesMenciones
+    ) {
+        this.algoritmoAbsoluta = algoritmoAbsoluta;
+        this.algoritmoMayoriaSimple = algoritmoMayoriaSimple;
+        this.algoritmoMultipleMenciones = algoritmoMultiplesMenciones;
+    }
+
     public IAlgoritmo crear(AlgoritmoDeConsenso unAlgoritmoDeConsenso) {
         if (unAlgoritmoDeConsenso == null) {
             return null;
         }
+
         switch (unAlgoritmoDeConsenso) {
             case ABSOLUTA:
-                return new AlgoritmoAbsoluta();
+                return algoritmoAbsoluta;
             case MAYORIA_SIMPLE:
-                return new AlgoritmoMayoriaSimple();
+                return algoritmoMayoriaSimple;
             case MULTIPLES_MENCIONES:
-                return new AlgoritmoMultipleMenciones();
+                return algoritmoMultipleMenciones;
             default:
                 return null;
         }
     }
 }
+
