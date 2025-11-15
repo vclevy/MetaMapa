@@ -30,7 +30,11 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<!-- Web MVC (si NO usás WebFlux) -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-datadog</artifactId>
+        </dependency>
+        <!-- Web MVC (si NO usás WebFlux) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
