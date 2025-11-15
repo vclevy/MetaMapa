@@ -1,0 +1,11 @@
+package ar.utn.ba.ddsi.gateway.models.repositories;
+
+import ar.utn.ba.ddsi.gateway.models.entities.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+    Optional<Usuario> findByNombreDeUsuario(String nombreDeUsuario);
+    Optional<Usuario> findByEmail(String email);
+}

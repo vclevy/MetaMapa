@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway" />
         <module name="AuthService" />
       </profile>
       <profile name="Annotation profile for cliente-liviano" enabled="true">
@@ -25,11 +26,20 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="FuenteEstatica" />
         <module name="ServicioEstadisticas" />
         <module name="FuenteDinamica" />
         <module name="Agregador" />
         <module name="FuenteProxy" />
+      </profile>
+      <profile name="Annotation profile for FuenteEstatica" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="FuenteEstatica" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -44,6 +54,7 @@
       <module name="FuenteEstatica" options="-parameters" />
       <module name="FuenteProxy" options="-parameters" />
       <module name="ServicioEstadisticas" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
       <module name="cliente-liviano" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="tp-multi-module" options="" />

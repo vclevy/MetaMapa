@@ -1,0 +1,67 @@
+#Puerto gateqway
+server:
+  port: 8090
+
+
+app:
+  security:
+    ip:
+      denied: "" # IPs Bloqueadas (0:0:0:0:0:0:0:1 Local)
+      allowed: "" # IPs permitidas (Vacio pasan todas)
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      forwarded:
+        enabled: true
+
+      routes:
+        - id: auth_service_route
+          uri: http://localhost:8086
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<segment>.*), /$\{segment}
+
+        - id: agregador_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/agregador/**
+          filters:
+            - RewritePath=/api/agregador/(?<segment>.*), /$\{segment}
+
+        - id: fuentedinamica_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/fuente-dinamica/**
+          filters:
+            - RewritePath=/api/fuente-dinamica/(?<segment>.*), /$\{segment}
+
+        - id: fuenteestatica_route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/fuente-estatica/**
+          filters:
+            - RewritePath=/api/fuente-estatica/(?<segment>.*), /$\{segment}
+
+        - id: fuenteproxy_route
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/fuente-proxy/**
+          filters:
+            - RewritePath=/api/fuente-proxy/(?<segment>.*), /$\{segment}
+
+        - id: servicioestadisticas_route
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/estadisticas/**
+          filters:
+            - RewritePath=/api/estadisticas/(?<segment>.*), /$\{segment}
+
+#Logs
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO

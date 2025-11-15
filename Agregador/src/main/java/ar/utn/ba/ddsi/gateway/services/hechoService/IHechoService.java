@@ -1,0 +1,22 @@
+package ar.utn.ba.ddsi.gateway.services.hechoService;
+
+import ar.utn.ba.ddsi.gateway.models.dtos.input.hecho.HechoInputPUTDTO;
+import ar.utn.ba.ddsi.gateway.models.dtos.output.HechoFiltroDTO;
+import ar.utn.ba.ddsi.gateway.models.dtos.output.HechoOutputDTO;
+import ar.utn.ba.ddsi.gateway.models.entities.hecho.Hecho;
+
+import java.util.List;
+
+public interface IHechoService {
+    void registrarHechoDesdeFuente(Hecho unHecho);
+    List<HechoOutputDTO> obtenerHechos();
+    HechoOutputDTO modificarHecho(Long idHecho, HechoInputPUTDTO hechoInputDTO);
+    void validarModificacion(Hecho hechoAModificar, HechoInputPUTDTO hechoInputDTO);
+    List<HechoOutputDTO> filtrarHechos(HechoFiltroDTO filtros);
+    List<HechoOutputDTO> obtenerHechosDestacados();
+    HechoOutputDTO eliminarHecho(Long idHecho);
+    List<HechoOutputDTO> obtenerHechosPendientes();
+    List<HechoOutputDTO> obtenerHechosVisibles();
+    void aprobarHecho(Long id);
+    void rechazarHecho(Long id);
+}

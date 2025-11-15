@@ -5,21 +5,305 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/colecciones/ColeccionInputFuentesPatchDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/Criterio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/criterios/CriterioCategoria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/criterios/CriterioLugar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/IFuenteDeHechos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/IAlgoritmo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/LoginResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtroHecho/FiltroHecho.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/Criterio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/IFiltroHecho.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/repositories/ISolicitudesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/IApiExternaServices.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/adapters/IApiAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/calculadores/EstadisticaSolicitudes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/SolicitudEliminacion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/IColeccionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/IStatsServices.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/ar/utn/ba/ddsi/gateway/ApiGatewayApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/java/ar/utn/ba/ddsi/gateway/IpFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/usuario/Rol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/IAgregadorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/AgregadorApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/AgregadorApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/CategoriasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/CategoriasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/ColeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/ColeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/HechoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/LugarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/LugarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/controllers/SolicitudController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/SolicitudController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/colecciones/ColeccionInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/colecciones/ColeccionInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/colecciones/ColeccionInputFuentesPatchDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/colecciones/ColeccionPatchDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/colecciones/ColeccionPatchDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/FuenteCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/fuentesDeHechos/FuenteCreateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/fuentesDeHechos/FuenteDeleteDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/fuentesDeHechos/FuenteDeleteDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/hecho/HechoInputDinamicaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/hecho/HechoInputDinamicaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/hecho/HechoInputEstaticaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/hecho/HechoInputEstaticaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/hecho/HechoInputPUTDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/hecho/HechoInputPUTDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/hecho/HechoInputProxyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/hecho/HechoInputProxyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/input/solicitud/SolicitudInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/solicitud/SolicitudInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/CategoriaOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/CategoriaOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/ColeccionOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/ColeccionOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/FuenteDeHechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/FuenteDeHechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HechoFiltroDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoFiltroDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/dtos/output/SolicitudOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/SolicitudOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/Criterio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/VerificadorDeCriterios.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/VerificadorDeCriterios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/criterios/CriterioCategoria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/criterios/CriterioFechaEntre.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/coleccion/criterios/CriterioFechaEntre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/coleccion/criterios/CriterioLugar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/Fuente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/Fuente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/FuenteDinamica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/FuenteDinamica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/FuenteEstatica.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/FuenteEstatica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/FuenteProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/FuenteProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/IFuenteDeHechos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/fuentes/TipoDeFuente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/TipoDeFuente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Etiqueta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/OrigenDelHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/OrigenDelHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/CategoriaHechoSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/CategoriaHechoSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/FechaHechoSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/FechaHechoSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/FuenteHechoSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/FuenteHechoSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/HechoSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/HechoSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/HechoSpecifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/HechoSpecifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtros/UbicacionHechoSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtros/UbicacionHechoSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/solicitud/EstadoDeSolicitudDeEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/solicitud/EstadoDeSolicitudDeEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/solicitud/HistorialSolicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/solicitud/HistorialSolicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/entities/solicitud/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/solicitud/Solicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/ICategoriasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/ICategoriasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/IColeccionesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/repositories/IColeccionesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/IFuenteDeHechosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/IFuenteDeHechosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/IHechosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/IHechosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/models/repositories/ISolicitudesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/ISolicitudesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/schedulers/ColeccionesScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/schedulers/ColeccionesScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/security/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/security/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/IColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/IColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/AlgoritmoAbsoluta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoAbsoluta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/AlgoritmoDeConsenso.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoDeConsenso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/AlgoritmoMayoriaSimple.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMayoriaSimple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/AlgoritmoMultipleMenciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMultipleMenciones.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/CategoriaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/CategoriaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/coleccionService/algoritmoConsenso/IAlgoritmo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/factory/AlgoritmoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/factory/AlgoritmoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/georef/GeorefResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/georef/GeorefResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/georef/GeorefService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/georef/GeorefService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/georef/LugarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/georef/LugarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/georef/Provincia.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/georef/Provincia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/georef/Ubicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/georef/Ubicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/hechoService/HechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/HechoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/hechoService/IHechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/IHechoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/hechoService/normalizador/NormalizadorHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/normalizador/NormalizadorHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/ColeccionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/mappers/ColeccionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/FuenteDeHechosMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/mappers/FuenteDeHechosMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/mappers/HechoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/mappers/HechoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/ISolicitudesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/solicitudService/ISolicitudesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/solicitudService/SolicitudesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/solicitudService/SolicitudesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/spam/DetectorDeSpam.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/spam/DetectorDeSpam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/services/spam/DetectorDeSpamImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/spam/DetectorDeSpamImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agregador/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AuthService/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/test/java/ar/utn/ba/ddsi/Agregador/AgregadorApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/test/java/ar/utn/ba/ddsi/gateway/Agregador/AgregadorApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/test/java/ar/utn/ba/ddsi/Agregador/RepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/test/java/ar/utn/ba/ddsi/gateway/Agregador/RepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/controllers/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/filters/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/filters/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/dtos/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/dtos/RegistroDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/RegistroDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/LoginResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/Rol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/models/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/providers/CustomAuthProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/providers/CustomAuthProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/services/CustomerUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/services/CustomerUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/services/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/java/ar/utn/ba/ddsi/gateway/services/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/test/java/ar/utn/ba/ddsi/AuthService/AuthServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/test/java/ar/utn/ba/ddsi/gateway/AuthService/AuthServiceApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/FuenteDinamicaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/FuenteDinamicaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/config/JacksonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/config/JacksonConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/ColeccionOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/ColeccionOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/HistorialSolicitudOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HistorialSolicitudOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/dtos/output/SolicitudOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/SolicitudOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/EstadoRevision.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/EstadoRevision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Etiqueta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/ModificacionHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/ModificacionHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/OrigenDelHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/OrigenDelHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Revision.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Revision.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtroHecho/FiltroHecho.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtroHecho/FiltroPorAnonimato.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtroHecho/FiltroPorAnonimato.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtroHecho/FiltroPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtroHecho/FiltroPorCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtroHecho/FiltroPorEtiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtroHecho/FiltroPorEtiqueta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/filtroHecho/FiltroPorLugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/filtroHecho/FiltroPorLugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/EstadoSolicitudEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/solicitudes/EstadoSolicitudEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/HistorialSolicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/solicitudes/HistorialSolicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/solicitudes/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/solicitudes/Solicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Permisos.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/roles/Permisos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Revisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/roles/Revisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/Rol.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/roles/Rol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteAnonimo.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/roles/VisitanteAnonimo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/entities/roles/VisitanteRegistrado.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/roles/VisitanteRegistrado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/repositories/ICategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/ICategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/repositories/IHechosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/IHechosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/models/repositories/ISolicitudesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/ISolicitudesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/normalizador/NormalizadorHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/normalizador/NormalizadorHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/test/java/ar/utn/ba/ddsi/FuenteDinamica/FuenteDinamicaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/test/java/ar/utn/ba/ddsi/gateway/FuenteDinamica/FuenteDinamicaApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FuenteEstatica/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/FuenteEstaticaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/FuenteEstaticaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/conversores/HechoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/conversores/HechoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/dtos/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/dtos/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/hecho/OrigenDelHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/OrigenDelHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/importador/Importador.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/importador/Importador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/importador/ImportadorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/importador/ImportadorCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/entities/importador/LectorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/importador/LectorCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/repositories/ICategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/ICategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/models/repositories/IHechosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/IHechosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/normalizador/NormalizadorHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/normalizador/NormalizadorHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/test/java/ar/utn/ba/ddsi/FuenteEstatica/FuenteEstaticaApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/test/java/ar/utn/ba/ddsi/gateway/FuenteEstatica/FuenteEstaticaApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/FuenteProxyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/FuenteProxyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/config/JacksonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/config/JacksonConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/config/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/controllers/HechoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/controllers/HechoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/FiltroMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/conversores/FiltroMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/conversores/HechoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/conversores/HechoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/ColeccionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/ColeccionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/FiltroHechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/FiltroHechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/RespuestaAPICatedra.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/RespuestaAPICatedra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/SolicitudEliminacionInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/SolicitudEliminacionInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/ColeccionRespuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/external/ColeccionRespuesta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/external/HechoRespuesta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/external/HechoRespuesta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/Criterio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoDesde.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoDesde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoHasta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroFechaAcontecimientoHasta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaDesde.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroFechaDesde.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroFechaHasta.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroFechaHasta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/FiltroUbicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/FiltroHecho/FiltroUbicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/FiltroHecho/IFiltroHecho.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/hecho/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/hecho/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/hecho/OrigenDelHecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/hecho/OrigenDelHecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/solicitudEliminacion/EstadoSolicitudEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/solicitudEliminacion/EstadoSolicitudEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/entities/solicitudEliminacion/SolicitudEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/entities/solicitudEliminacion/SolicitudEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/repositories/ICategoriaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/repositories/ICategoriaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/repositories/IColeccionesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/repositories/IColeccionesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/repositories/IHechosRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/models/repositories/IHechosRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/models/repositories/ISolicitudesRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/normalizador/NormalizadorHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/normalizador/NormalizadorHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IApiExternaServices.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/IMetamapaServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/IMetamapaServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/IApiAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/IMetamapaAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/adapters/IMetamapaAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/ApiCatedraAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/adapters/impl/ApiCatedraAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/adapters/impl/MetamapaAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/adapters/impl/MetamapaAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/IMetaMapaConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/connectors/IMetaMapaConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/connectors/impl/ApiCatedraConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/connectors/impl/MetaMapaConnectorConcreto.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/connectors/impl/MetaMapaConnectorConcreto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/impl/ApiCatedraServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/impl/ApiCatedraServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/FuenteProxy/services/impl/MetaMapaServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/main/java/ar/utn/ba/ddsi/gateway/FuenteProxy/services/impl/MetaMapaServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteProxy/src/test/java/ar/utn/ba/ddsi/FuenteProxy/FuenteProxyApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteProxy/src/test/java/ar/utn/ba/ddsi/gateway/FuenteProxy/FuenteProxyApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/ServicioEstadisticasApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/ServicioEstadisticasApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/controllers/StatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/controllers/StatsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaCategoriaMasHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/calculadores/EstadisticaCategoriaMasHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaHoraPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/calculadores/EstadisticaHoraPorCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaProvinciaMasHechos.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/calculadores/EstadisticaProvinciaMasHechos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaProvinciaPorCategoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/calculadores/EstadisticaProvinciaPorCategoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/calculadores/EstadisticaSolicitudes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/dtos/input/ColeccionInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/dtos/input/ColeccionInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/dtos/input/HechoInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/dtos/input/HechoInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/dtos/output/ColeccionOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/dtos/output/ColeccionOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Coleccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/Coleccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Hecho.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/Hecho.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/ResultadoEstadistica.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/ResultadoEstadistica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/SolicitudEliminacion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/exportador/Exportador.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/exportador/Exportador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/entities/exportador/ExportadorCSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/entities/exportador/ExportadorCSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/models/repositories/IEstadisticasRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/models/repositories/IEstadisticasRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/schedulers/StatsScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/schedulers/StatsScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/IColeccionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/IStatsServices.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/impl/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/ServicioEstadisticas/services/impl/StatsServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/impl/StatsServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/test/java/ar/utn/ba/ddsi/ServicioEstadisticas/ServicioEstadisticasApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/test/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/ServicioEstadisticasApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/ClienteLivianoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/ClienteLivianoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/config/MultipartInputResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/config/MultipartInputResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/AdminSolicitudesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/AdminSolicitudesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/ColeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/ColeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/CustomErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/CustomErrorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/ErrorPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/ErrorPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/GlobalErrorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/GlobalErrorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/LandingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/LandingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/controllers/SesionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/SesionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/jwt/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/jwt/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/jwt/TokenDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/jwt/TokenDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/ResultadoEstadisticaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/ResultadoEstadisticaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dashboard/DashboardStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dashboard/DashboardStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/CategoriaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/CategoriaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/ColeccionCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/ColeccionCreateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/ColeccionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/ColeccionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/FuenteCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/FuenteCreateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/FuenteDeHechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/FuenteDeHechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoDinamicaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoDinamicaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoFiltroDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoFiltroDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/HechoFormDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoFormDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/RegistroForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/RegistroForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/dtos/SolicitudDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/SolicitudDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/Etiqueta.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/Etiqueta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/TokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/TokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/solicitud/EstadoDeSolicitudDeEliminacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/solicitud/EstadoDeSolicitudDeEliminacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/solicitud/HistorialSolicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/solicitud/HistorialSolicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/solicitud/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/solicitud/Solicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/usuario/Rol.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/models/entities/usuario/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/entities/usuario/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/IAgregadorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/DashboardBuilderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DashboardBuilderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/DinamicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/EstadisticasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstadisticasService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/cliente_liviano/services/impl/EstaticaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstaticaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/test/java/ar/utn/ba/ddsi/cliente_liviano/ClienteLivianoApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/test/java/ar/utn/ba/ddsi/gateway/cliente_liviano/ClienteLivianoApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -85,54 +369,64 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthServiceApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ClienteLivianoApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServicioEstadisticasApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;pruebaSesiones&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "DefaultPlantUmlFileTemplate": "UML Class",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [package].executor": "Run",
+    "Maven.tp-multi-module [clean].executor": "Run",
+    "Maven.tp-multi-module [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AgregadorApplication (1).executor": "Run",
+    "Spring Boot.AgregadorApplication.executor": "Run",
+    "Spring Boot.ApiGatewayApplication (1).executor": "Run",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.AuthServiceApplication (1).executor": "Run",
+    "Spring Boot.AuthServiceApplication (2).executor": "Run",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.ClienteLivianoApplication.executor": "Run",
+    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication (1).executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
+    "Spring Boot.FuenteProxyApplication (1).executor": "Run",
+    "Spring Boot.FuenteProxyApplication.executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication (1).executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication.executor": "Run",
+    "git-widget-placeholder": "pruebaSesiones",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -147,11 +441,11 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\resources" />
+      <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\java\ar\utn\ba\ddsi" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\src\main\java\ar\utn\ba\ddsi\src" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\AuthService\src\main\java\ar\utn\ba\ddsi" />
-      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\AuthService\src\main\java" />
-      <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4\ServicioEstadisticas" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ar.utn.ba.ddsi.ServicioEstadisticas.models.entities" />
@@ -172,36 +466,22 @@
           <value>
             <set>
               <option value="AuthServiceApplication" />
+              <option value="FuenteEstaticaApplication" />
               <option value="FuenteProxyApplication" />
+              <option value="ServicioEstadisticasApplication" />
             </set>
           </value>
         </entry>
       </map>
     </option>
-    <option name="configurationStatuses">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <map>
-              <entry key="AgregadorApplication" value="STOPPED" />
-              <entry key="AuthServiceApplication (1)" value="STOPPED" />
-              <entry key="ClienteLivianoApplication" value="STOPPED" />
-              <entry key="FuenteDinamicaApplication" value="STOPPED" />
-              <entry key="FuenteEstaticaApplication" value="STOPPED" />
-              <entry key="ServicioEstadisticasApplication" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
-    <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication (1)">
+    <configuration name="AgregadorApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="Agregador" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AgregadorApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AgregadorApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.*" />
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -209,12 +489,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuthServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="AuthService" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AuthServiceApplication" />
+    <configuration name="ApiGatewayApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.ApiGatewayApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.*" />
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -232,10 +512,10 @@
     <configuration name="ClienteLivianoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="cliente-liviano" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.cliente_liviano.ClienteLivianoApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.cliente_liviano.ClienteLivianoApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.cliente_liviano.*" />
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.cliente_liviano.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -245,10 +525,10 @@
     </configuration>
     <configuration name="FuenteDinamicaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="FuenteDinamica" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.FuenteDinamicaApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteDinamicaApplication" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.*" />
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -256,9 +536,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FuenteEstaticaApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="FuenteEstatica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteEstaticaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FuenteEstaticaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="FuenteEstatica" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.FuenteEstaticaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FuenteProxyApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="FuenteProxy" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteProxy.FuenteProxyApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.FuenteProxy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -284,22 +584,24 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.FuenteEstaticaApplication (1)" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.FuenteEstaticaApplication" />
       <item itemvalue="Spring Boot.FuenteProxyApplication" />
       <item itemvalue="Spring Boot.ServicioEstadisticasApplication" />
-      <item itemvalue="Spring Boot.AgregadorApplication" />
-      <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
       <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+      <item itemvalue="Spring Boot.AgregadorApplication (1)" />
+      <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
+      <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
       <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
-        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
-        <item itemvalue="Spring Boot.AgregadorApplication" />
+        <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
+        <item itemvalue="Spring Boot.AgregadorApplication (1)" />
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
-        <item itemvalue="Spring Boot.AgregadorApplication" />
+        <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
       </list>
     </recent_temporary>
   </component>

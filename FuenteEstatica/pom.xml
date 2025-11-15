@@ -89,7 +89,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>ar.utn.ba.ddsi.FuenteEstaticaApplication</mainClass>
+					<mainClass>ar.utn.ba.ddsi.gateway.FuenteEstaticaApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
