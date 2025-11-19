@@ -94,8 +94,7 @@ public class ColeccionService implements IColeccionService {
                     .getFuentesDeHechos()
                     .forEach(unaFuenteDeHechos -> {
 
-                        // 👉 FIX DEL NULLPOINTER
-                        unaFuenteDeHechos.setLugarService(lugarService);
+                        unaFuenteDeHechos.inicializarFuenteDeHechos(lugarService);
 
                         List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
                         for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
@@ -121,8 +120,7 @@ public class ColeccionService implements IColeccionService {
                             "Fuente inexistente con id " + nuevaFuente.getId()));
         }
 
-        fuentePersistida.setLugarService(lugarService);
-        fuentePersistida.inicializarFuenteDeHechos();
+        fuentePersistida.inicializarFuenteDeHechos(lugarService);
 
         List<Hecho> hechosDeFuente = fuentePersistida.obtenerHechos();
         for (Hecho hecho : hechosDeFuente) {

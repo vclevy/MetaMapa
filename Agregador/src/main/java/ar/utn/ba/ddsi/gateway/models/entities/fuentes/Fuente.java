@@ -22,41 +22,31 @@ public class Fuente {
     @Column(name="nombre")
     private String nombre;
 
-    @OneToMany(mappedBy = "fuente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Hecho> hechos = new ArrayList<>();
-
     @Column(name = "tipo_fuente", nullable = false)
     private String tipo;
 
     @Column(name = "url_fuente", nullable = false)
     private String urlBase;
 
-    @Transient
-    private IFuenteDeHechos fuenteDeHechos;
+    @OneToMany(mappedBy = "fuente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hecho> hechos = new ArrayList<>();
 
     @Transient
-    private LugarService lugarService;
+    private IFuenteDeHechos fuenteDeHechos;
 
     public Fuente(String tipo, String nombre, String urlBase, LugarService lugarService) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.urlBase = urlBase;
-        this.lugarService = lugarService;
-        inicializarFuenteDeHechos();
+        inicializarFuenteDeHechos(lugarService);
     }
+
     public Fuente() {}
 
-    public List<Hecho> obtenerHechos() {
-        if (fuenteDeHechos == null) {
-            throw new IllegalStateException("Fuente de hechos no inicializada");
-        }
-        return fuenteDeHechos.obtenerHechos();
-    }
-    @PostLoad
-    public void inicializarFuenteDeHechos() {
+    public void inicializarFuenteDeHechos(LugarService lugarService) {
         switch (tipo) {
             case "ESTATICA":
-                fuenteDeHechos = new FuenteEstatica(urlBase,lugarService);
+                fuenteDeHechos = new FuenteEstatica(urlBase, lugarService);
                 break;
             case "DINAMICA":
                 fuenteDeHechos = new FuenteDinamica(urlBase, lugarService);
@@ -68,4 +58,12 @@ public class Fuente {
                 fuenteDeHechos = null;
         }
     }
+
+    public List<Hecho> obtenerHechos() {
+        if (fuenteDeHechos == null) {
+            throw new IllegalStateException("Fuente de hechos no inicializada");
+        }
+        return fuenteDeHechos.obtenerHechos();
+    }
 }
+
