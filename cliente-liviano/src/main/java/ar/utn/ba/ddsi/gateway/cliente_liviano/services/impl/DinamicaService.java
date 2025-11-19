@@ -7,6 +7,7 @@ import ar.utn.ba.ddsi.gateway.cliente_liviano.models.entities.Categoria;
 import ar.utn.ba.ddsi.gateway.cliente_liviano.models.entities.Lugar;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -23,10 +24,11 @@ public class DinamicaService {
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
+    @Value("${gateway.url}") String urlGateway;
 
     @Autowired
     public DinamicaService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8090/api/fuente-dinamica").build();
+        this.webClient = webClientBuilder.baseUrl(urlGateway+"/api/fuente-dinamica").build();
         this.objectMapper = objectMapper;
     }
 

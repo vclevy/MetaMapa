@@ -4,6 +4,7 @@ import ar.utn.ba.ddsi.gateway.cliente_liviano.models.dtos.*;
 import ar.utn.ba.ddsi.gateway.cliente_liviano.services.IAgregadorService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -23,9 +24,11 @@ public class AgregadorService implements IAgregadorService {
     @Autowired
     private HttpSession session;
 
-    public AgregadorService() {
+    public AgregadorService(@Value("${gateway.url}") String baseGatewayUrl) {
+        String fullUrl = baseGatewayUrl + "/api/agregador";
+
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8090/api/agregador")
+                .baseUrl(fullUrl)
                 .codecs(configurer ->
                         configurer.defaultCodecs().maxInMemorySize(5 * 1024 * 1024)
                 )

@@ -3,6 +3,7 @@ package ar.utn.ba.ddsi.gateway.cliente_liviano.services.impl;
 import ar.utn.ba.ddsi.gateway.cliente_liviano.models.dtos.LoginDTO;
 import ar.utn.ba.ddsi.gateway.cliente_liviano.models.dtos.RegistroForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 public class AuthService {
 
     private final WebClient webClient;
+    @Value("${gateway.url}") String urlGateway;
 
     @Autowired
     public AuthService(WebClient.Builder webClientBuilder) {
@@ -20,7 +22,7 @@ public class AuthService {
 
     public Map<String, Object> registrar(RegistroForm registroForm) {
         return webClient.post()
-                .uri("/api/auth/register") // endpoint del AuthService
+                .uri(urlGateway+"/api/auth/register") // endpoint del AuthService
                 .bodyValue(registroForm)
                 .retrieve()
                 .bodyToMono(Map.class)

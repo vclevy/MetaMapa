@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(
 		exclude = {
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 				org.springframework.boot.autoconfigure.data.couchbase.CouchbaseDataAutoConfiguration.class
 		}
 )
+@EnableScheduling
 public class AgregadorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AgregadorApplication.class, args);

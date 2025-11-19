@@ -90,9 +90,13 @@ public class ColeccionService implements IColeccionService {
         List<Coleccion> colecciones = coleccionesRepository.findAll();
 
         for(Coleccion coleccionIndice : colecciones) {
-            coleccionIndice.
-                    getFuentesDeHechos()
+            coleccionIndice
+                    .getFuentesDeHechos()
                     .forEach(unaFuenteDeHechos -> {
+
+                        // 👉 FIX DEL NULLPOINTER
+                        unaFuenteDeHechos.setLugarService(lugarService);
+
                         List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
                         for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
                             if (coleccionIndice.verificadorDeAgregadorDeHechos(hechoIndice)) {
@@ -103,6 +107,7 @@ public class ColeccionService implements IColeccionService {
                     });
         }
     }
+
 
     @Override
     public void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente) {

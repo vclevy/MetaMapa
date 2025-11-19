@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.gateway.cliente_liviano.services.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
@@ -18,9 +19,10 @@ import java.util.stream.Collectors;
 public class EstaticaService {
 
     private WebClient webClient;
+    @Value("${gateway.url}") String urlGateway;
 
     public EstaticaService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8090/api/fuente-estatica").build();
+        this.webClient = webClientBuilder.baseUrl(urlGateway+"/api/fuente-estatica").build();
     }
 
     public Mono<String> importarArchivo(MultipartFile file) throws IOException {

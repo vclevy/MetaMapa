@@ -13,7 +13,7 @@ public class ColeccionesScheduler {
         this.coleccionService = coleccionService;
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(fixedRate = 10000)
     public void refrescar() {
         this.coleccionService.refrescarColecciones();
     }

@@ -5,6 +5,7 @@ import ar.utn.ba.ddsi.gateway.ServicioEstadisticas.models.entities.Hecho;
 import ar.utn.ba.ddsi.gateway.ServicioEstadisticas.models.dtos.input.ColeccionInputDTO;
 import ar.utn.ba.ddsi.gateway.ServicioEstadisticas.models.dtos.input.HechoInputDTO;
 import ar.utn.ba.ddsi.gateway.ServicioEstadisticas.services.IColeccionService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
@@ -13,10 +14,12 @@ import java.util.List;
 public class ColeccionService implements IColeccionService {
 
     private final WebClient webClient;
+    @Value("${gateway.url}")
+    String urlGateway;
 
     public ColeccionService() {
         this.webClient = WebClient.builder()
-                .baseUrl("http://localhost:8090/api/agregador")
+                .baseUrl(urlGateway)
                 .build();
     }
 
