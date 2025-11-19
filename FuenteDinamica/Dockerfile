@@ -1,14 +1,23 @@
-# build
-FROM maven:3.9.0-eclipse-temurin-17 AS build
+# ==========================
+# Etapa 1: Build del JAR con Maven
+# ==========================
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
+
+# Copiar los archivos de configuración de Maven
 COPY pom.xml .
 COPY src ./src
-RUN mvn -B -DskipTests package
 
-# runtime
-FROM eclipse-temurin:17-jdk-jammy
-ARG JAR_FILE=target/*.jar
-COPY --from=build /app/${JAR_FILE} /app/app.jar
+# Compilar el proyecto (sin tests)
+RUN mvn clean package -DskipTests
+
+# ==========================
+# Etapa 2: Imagen final (solo el JAR)
+# ==========================
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+
+# Copiar el JAR compilado desde la etapa anterior
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8081
-ENV JAVA_OPTS="-Xms256m -Xmx512m"
-ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar /app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
