@@ -24,11 +24,17 @@ public class DinamicaService {
 
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
-    @Value("${gateway.url}") String urlGateway;
 
     @Autowired
-    public DinamicaService(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
-        this.webClient = webClientBuilder.baseUrl(urlGateway+"/api/fuente-dinamica").build();
+    public DinamicaService(
+            WebClient.Builder webClientBuilder,
+            ObjectMapper objectMapper,
+            @Value("${gateway.url}") String urlGateway
+    ) {
+        this.webClient = webClientBuilder
+                .baseUrl(urlGateway + "/api/fuente-dinamica")
+                .build();
+
         this.objectMapper = objectMapper;
     }
 

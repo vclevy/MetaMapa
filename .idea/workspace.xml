@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/Fuente.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/fuentes/Fuente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/impl/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/java/ar/utn/ba/ddsi/gateway/ServicioEstadisticas/services/impl/ColeccionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstadisticasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstadisticasService.java" afterDir="false" />
     </list>
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
@@ -164,20 +167,6 @@
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
-    <option name="hiddenConfigurations">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <set>
-              <option value="AuthServiceApplication" />
-              <option value="ClienteLivianoApplication" />
-              <option value="FuenteEstaticaApplication" />
-              <option value="ServicioEstadisticasApplication" />
-            </set>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="configurationStatuses">
       <map>
         <entry key="SpringBootApplicationConfigurationType">
@@ -185,31 +174,19 @@
             <map>
               <entry key="AgregadorApplication (1)" value="STOPPED" />
               <entry key="ApiGatewayApplication (1)" value="STOPPED" />
+              <entry key="AuthServiceApplication (1)" value="STOPPED" />
               <entry key="ClienteLivianoApplication" value="STOPPED" />
               <entry key="FuenteDinamicaApplication" value="STOPPED" />
               <entry key="FuenteEstaticaApplication (1)" value="STOPPED" />
-              <entry key="FuenteProxyApplication" value="FAILED" />
               <entry key="FuenteProxyApplication (1)" value="STOPPED" />
+              <entry key="ServicioEstadisticasApplication (1)" value="STOPPED" />
             </map>
           </value>
         </entry>
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication (1)">
-    <configuration name="AgregadorApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="Agregador" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AgregadorApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.ServicioEstadisticasApplication (1)">
     <configuration name="ApiGatewayApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="api-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.ApiGatewayApplication" />
@@ -223,9 +200,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="AuthServiceApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="AuthService" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.AuthService.AuthServiceApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AuthServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -237,19 +220,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.cliente_liviano.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FuenteDinamicaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="FuenteDinamica" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteDinamicaApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -284,9 +254,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FuenteProxyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="FuenteProxy" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.FuenteProxy.FuenteProxyApplication" />
+    <configuration name="ServicioEstadisticasApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="ServicioEstadisticas" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.ServicioEstadisticas.ServicioEstadisticasApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.ServicioEstadisticas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -306,23 +282,21 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.FuenteEstaticaApplication (1)" />
-      <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.FuenteEstaticaApplication" />
-      <item itemvalue="Spring Boot.FuenteProxyApplication" />
       <item itemvalue="Spring Boot.ServicioEstadisticasApplication" />
+      <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
+      <item itemvalue="Spring Boot.ServicioEstadisticasApplication (1)" />
       <item itemvalue="Spring Boot.ClienteLivianoApplication" />
-      <item itemvalue="Spring Boot.AgregadorApplication (1)" />
       <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
       <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
-      <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.AgregadorApplication (1)" />
-        <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
-        <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
-        <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+        <item itemvalue="Spring Boot.ServicioEstadisticasApplication (1)" />
+        <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
+        <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
+        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -401,6 +375,7 @@
       <workItem from="1763207854828" duration="1452000" />
       <workItem from="1763555317950" duration="1149000" />
       <workItem from="1763560465191" duration="1701000" />
+      <workItem from="1763572118293" duration="4070000" />
     </task>
     <servers />
   </component>

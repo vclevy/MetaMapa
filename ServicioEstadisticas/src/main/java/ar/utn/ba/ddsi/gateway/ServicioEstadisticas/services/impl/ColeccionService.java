@@ -14,10 +14,8 @@ import java.util.List;
 public class ColeccionService implements IColeccionService {
 
     private final WebClient webClient;
-    @Value("${gateway.url}")
-    String urlGateway;
 
-    public ColeccionService() {
+    public ColeccionService(@Value("${gateway.url}") String urlGateway) {
         this.webClient = WebClient.builder()
                 .baseUrl(urlGateway)
                 .build();
@@ -25,7 +23,7 @@ public class ColeccionService implements IColeccionService {
 
     public List<Coleccion> obtenerColecciones() {
         return webClient.get()
-                .uri("/api/coleccion")
+                .uri("/api/agregador/api/coleccion")
                 .retrieve()
                 .bodyToFlux(ColeccionInputDTO.class)
                 .map(this::inputDTOaColeccion)
