@@ -89,4 +89,17 @@ public class ColeccionController {
     public ResponseEntity<ColeccionOutputDTO> eliminarFuentes(@PathVariable Long idColeccion, @RequestBody FuenteDeleteDTO fuenteDTO) {
         return ResponseEntity.ok(coleccionService.eliminarUnaFuenteDeUnaColeccion(idColeccion, fuenteDTO.getIdFuente()));
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/{idColeccion}/editar")
+    public ResponseEntity<Void> editarColeccion(
+            @PathVariable Long idColeccion,
+            @RequestBody ColeccionOutputDTO coleccionOutputDTO) {
+
+        // Llama al service (que usa WebClient hacia el micro de colecciones)
+        coleccionService.editarColeccion(idColeccion, coleccionOutputDTO);
+
+        // Devuelve solo 200 OK SIN body al cliente liviano
+        return ResponseEntity.ok().build();
+    }
 }

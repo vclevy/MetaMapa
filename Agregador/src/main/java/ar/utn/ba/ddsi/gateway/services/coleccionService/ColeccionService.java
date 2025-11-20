@@ -289,4 +289,11 @@ public class ColeccionService implements IColeccionService {
             algoritmo.aplicarConsenso(unaColeccion);
         }
     }
+
+    @Override
+    public void editarColeccion(Long idColeccion, ColeccionOutputDTO coleccionOutputDTO) {
+
+        //TODO
+    }
+
 }

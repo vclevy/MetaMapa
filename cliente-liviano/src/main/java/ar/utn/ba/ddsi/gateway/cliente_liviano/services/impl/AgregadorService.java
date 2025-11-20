@@ -167,24 +167,27 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public boolean saveOrUpdate(ColeccionDTO coleccionOriginal, ColeccionDTO coleccionModificada) {
-        boolean exito = true;
-
-        // Comparar título
-        if (!Objects.equals(coleccionOriginal.getTitulo(), coleccionModificada.getTitulo())) {
-            exito &= actualizarAtributo(coleccionOriginal.getId(), "titulo", coleccionModificada.getTitulo(), null);
+        // Si querés, podés chequear si cambió algo y evitar el PUT si son iguales:
+        if (coleccionOriginal != null
+                && Objects.equals(coleccionOriginal.getTitulo(), coleccionModificada.getTitulo())
+                && Objects.equals(coleccionOriginal.getDescripcion(), coleccionModificada.getDescripcion())
+                && Objects.equals(coleccionOriginal.getAlgoritmoDeConsenso(), coleccionModificada.getAlgoritmoDeConsenso())) {
+            // Nada cambió realmente
+            return true;
         }
 
-        // Comparar descripción
-        if (!Objects.equals(coleccionOriginal.getDescripcion(), coleccionModificada.getDescripcion())) {
-            exito &= actualizarAtributo(coleccionOriginal.getId(), "descripcion", coleccionModificada.getDescripcion(), null);
-        }
+        try {
+            webClient.put()
+                    .uri("api/coleccion/{id}/editar", coleccionModificada.getId())
+                    .bodyValue(coleccionModificada)
+                    .retrieve()
+                    .toBodilessEntity()
+                    .block();
 
-        // Comparar algoritmo de consenso
-        if (!Objects.equals(coleccionOriginal.getAlgoritmoDeConsenso(), coleccionModificada.getAlgoritmoDeConsenso())) {
-            exito &= actualizarAtributo(coleccionOriginal.getId(), "algoritmo", null, coleccionModificada.getAlgoritmoDeConsenso());
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-
-        return exito;
     }
 
     private boolean actualizarAtributo(Long id, String campo, String nuevoValor, String nuevoAlgoritmo) {

@@ -99,22 +99,35 @@ public class AdminController {
 
     @GetMapping("/coleccion/editar/{id}")
     public String editarColeccion(@PathVariable Long id, Model model) {
-        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id); // tu servicio
-        model.addAttribute("coleccion", coleccion);
-        return "adminNuevaColeccion"; // Thymeleaf template editarColeccion.html
-    }
+        ColeccionDTO coleccion = agregador.obtenerColeccionPorId(id);
 
-    @PostMapping("/guardar")
-    public String guardarColeccion(@ModelAttribute ColeccionDTO coleccionModificada) {
-        ColeccionDTO coleccionOriginal = agregador.obtenerColeccionPorId(coleccionModificada.getId());
-
-        if (coleccionOriginal != null) {
-            agregador.saveOrUpdate(coleccionOriginal, coleccionModificada);
-        } else {
-            agregador.saveOrUpdate(coleccionOriginal,coleccionModificada); // nueva colección
+        if (coleccion == null) {
+            throw new IllegalArgumentException("No existe coleccion con id " + id);
         }
 
-        return "redirect:/colecciones";
+        model.addAttribute("coleccion", coleccion);
+        return "editarColeccion";
+    }
+
+    @PostMapping("/coleccion/editar/{id}")
+    public String guardarColeccion(@PathVariable Long id,
+                                   @ModelAttribute ColeccionDTO coleccionModificada,
+                                   RedirectAttributes redirectAttrs) {
+
+        try {
+            coleccionModificada.setId(id);
+
+            ColeccionDTO coleccionOriginal = agregador.obtenerColeccionPorId(id);
+
+            agregador.saveOrUpdate(coleccionOriginal, coleccionModificada);
+
+            redirectAttrs.addFlashAttribute("mensajeExito", "Colección editada correctamente");
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("mensajeError",
+                    "Error al editar la coleccion: " + e.getMessage());
+        }
+
+        return "redirect:/admin/colecciones";
     }
 
     @PostMapping("/coleccion/{id}/fuente/agregar")
