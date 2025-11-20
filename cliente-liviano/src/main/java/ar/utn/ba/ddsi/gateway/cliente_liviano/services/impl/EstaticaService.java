@@ -21,8 +21,13 @@ public class EstaticaService {
     private WebClient webClient;
     @Value("${gateway.url}") String urlGateway;
 
-    public EstaticaService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(urlGateway+"/api/fuente-estatica").build();
+    public EstaticaService(
+            WebClient.Builder webClientBuilder,
+            @Value("${gateway.url}") String urlGateway
+    ) {
+        this.webClient = webClientBuilder
+                .baseUrl(urlGateway + "/api/fuente-estatica")
+                .build();
     }
 
     public Mono<String> importarArchivo(MultipartFile file) throws IOException {
