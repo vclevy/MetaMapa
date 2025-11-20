@@ -36,7 +36,13 @@
                         <div class="collection__name" th:text="${coleccion.titulo}">Nombre de la colección</div>
                     </a>
                     <div class="collection__desc" th:text="${coleccion.descripcion}">Descripción</div>
-                </div>
+
+                    <!-- NUEVO: Mostrar algoritmo de consenso -->
+<!--                    <div class="collection__consensus">-->
+<!--                        <strong>Algoritmo: </strong>-->
+<!--                        <span th:text="${coleccion.getAlgoritmoDeConsenso()}">Algoritmo</span>-->
+<!--&lt;!&ndash;                    </div> TODO ver porque carajo se imprime AlgoritmoDeConsenso y no el nombre del algoritmo&ndash;&gt;-->
+<!--                </div>-->
 
                 <!-- Bloque de fuentes -->
                 <div class="collection__sources">
@@ -51,9 +57,18 @@
                         </li>
                     </ul>
 
+                    <!-- NUEVO: desplegable en vez de input texto para tipo -->
                     <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
                         <input type="text" name="nombre" placeholder="Nombre" required />
-                        <input type="text" name="tipo" placeholder="Tipo" required />
+
+                        <!-- Dropdown tipo -->
+                        <select name="tipo" required>
+                            <option value="" disabled selected>Tipo</option>
+                            <option value="DINAMICA">DINÁMICA</option>
+                            <option value="ESTATICA">ESTÁTICA</option>
+                            <option value="PROXY">PROXY</option>
+                        </select>
+
                         <input type="text" name="urlBase" placeholder="URL Base" required />
                         <button type="submit" class="btn-add">Añadir</button>
                     </form>
@@ -84,6 +99,7 @@
 
             </article>
         </section>
+
     </main>
 </div>
 

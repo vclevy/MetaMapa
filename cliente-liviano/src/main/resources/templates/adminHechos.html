@@ -60,8 +60,9 @@
                         <p th:text="${hecho.descripcion}">Descripción…</p>
 
                         <div class="admin-actions">
-                            <a th:href="@{|/hechos/${hecho.id}/editar|}" class="btn btn-blue"
-                               th:attr="aria-label=|Editar ${hecho.titulo}|">Editar</a>
+<!--                            <a th:href="@{|/hechos/${hecho.id}/editar|}" class="btn btn-blue"-->
+<!--                               th:attr="aria-label=|Editar ${hecho.titulo}|">Editar</a>-->
+<!--TODO: HACER QUE ANDE LA EDICION DESDE EDITAR AHI-->
 
                             <form th:action="@{|/admin/hechos/${hecho.id}/aprobar|}" method="post" class="inline-form">
                                 <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
