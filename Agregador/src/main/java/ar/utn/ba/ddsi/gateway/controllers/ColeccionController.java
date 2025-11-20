@@ -91,15 +91,17 @@ public class ColeccionController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/{idColeccion}/editar")
+    @PutMapping("/{idColeccion}/editar")
     public ResponseEntity<Void> editarColeccion(
             @PathVariable Long idColeccion,
             @RequestBody ColeccionOutputDTO coleccionOutputDTO) {
 
+        System.out.println(">>> Llegó al controller editar()");
         // Llama al service (que usa WebClient hacia el micro de colecciones)
         coleccionService.editarColeccion(idColeccion, coleccionOutputDTO);
 
         // Devuelve solo 200 OK SIN body al cliente liviano
         return ResponseEntity.ok().build();
     }
+
 }

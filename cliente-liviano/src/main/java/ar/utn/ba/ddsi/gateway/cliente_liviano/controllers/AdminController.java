@@ -114,21 +114,46 @@ public class AdminController {
                                    @ModelAttribute ColeccionDTO coleccionModificada,
                                    RedirectAttributes redirectAttrs) {
 
+        System.out.println(">>> [CLIENTE LIVIANO] Entró a POST /coleccion/editar/" + id);
+
         try {
+            // Log de DTO modificado recibido del form
+            System.out.println(">>> DTO modificado recibido:");
+            System.out.println("    ID: " + id);
+            System.out.println("    Titulo: " + coleccionModificada.getTitulo());
+            System.out.println("    Descripcion: " + coleccionModificada.getDescripcion());
+            System.out.println("    Algoritmo: " + coleccionModificada.getAlgoritmoDeConsenso());
+
+            // Seteamos el id
             coleccionModificada.setId(id);
 
+            System.out.println(">>> Buscando coleccion original en el agregador...");
             ColeccionDTO coleccionOriginal = agregador.obtenerColeccionPorId(id);
 
-            agregador.saveOrUpdate(coleccionOriginal, coleccionModificada);
+            System.out.println(">>> Coleccion original encontrada:");
+            System.out.println("    Titulo: " + coleccionOriginal.getTitulo());
+            System.out.println("    Descripcion: " + coleccionOriginal.getDescripcion());
+            System.out.println("    Algoritmo: " + coleccionOriginal.getAlgoritmoDeConsenso());
+
+            System.out.println(">>> Llamando a agregador.saveOrUpdate()...");
+            boolean ok = agregador.saveOrUpdate(coleccionOriginal, coleccionModificada);
+
+            System.out.println(">>> Resultado saveOrUpdate = " + ok);
 
             redirectAttrs.addFlashAttribute("mensajeExito", "Colección editada correctamente");
         } catch (Exception e) {
-            redirectAttrs.addFlashAttribute("mensajeError",
-                    "Error al editar la coleccion: " + e.getMessage());
+
+            System.out.println(">>> ERROR en guardarColeccion()");
+            e.printStackTrace();
+
+            redirectAttrs.addFlashAttribute(
+                    "mensajeError",
+                    "Error al editar la colección: " + e.getMessage());
         }
 
         return "redirect:/admin/colecciones";
     }
+
 
     @PostMapping("/coleccion/{id}/fuente/agregar")
     public String agregarFuentesForm(@PathVariable Long id,

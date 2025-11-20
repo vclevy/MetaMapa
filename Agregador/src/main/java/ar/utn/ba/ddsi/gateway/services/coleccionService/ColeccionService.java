@@ -10,6 +10,7 @@ import ar.utn.ba.ddsi.gateway.models.entities.coleccion.Coleccion;
 import ar.utn.ba.ddsi.gateway.models.entities.fuentes.Fuente;
 import ar.utn.ba.ddsi.gateway.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.gateway.models.repositories.IColeccionesRepository;
+import ar.utn.ba.ddsi.gateway.services.coleccionService.algoritmoConsenso.AlgoritmoDeConsenso;
 import ar.utn.ba.ddsi.gateway.services.coleccionService.algoritmoConsenso.IAlgoritmo;
 import ar.utn.ba.ddsi.gateway.services.georef.LugarService;
 import ar.utn.ba.ddsi.gateway.services.hechoService.IHechoService;
@@ -303,10 +304,73 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
-    public void editarColeccion(Long idColeccion, ColeccionOutputDTO coleccionOutputDTO) {
+    public void editarColeccion(Long idColeccion, ColeccionOutputDTO dto) {
 
-        //TODO
+        System.out.println("=== INICIO editarColeccion id=" + idColeccion + " ===");
+
+        Coleccion coleccion = coleccionesRepository.findById(idColeccion)
+                .orElseThrow(() -> new RuntimeException("Colección no encontrada"));
+
+        boolean huboCambios = false;
+
+        // ---- TÍTULO ----
+        System.out.println("TÍTULO -> actual: '" + coleccion.getTitulo() + "', dto: '" + dto.getTitulo() + "'");
+        if (dto.getTitulo() != null && !dto.getTitulo().equals(coleccion.getTitulo())) {
+            System.out.println("CAMBIO en TÍTULO: '" + coleccion.getTitulo() + "' -> '" + dto.getTitulo() + "'");
+            coleccion.setTitulo(dto.getTitulo());
+            huboCambios = true;
+        } else {
+            System.out.println("Título SIN cambios.");
+        }
+
+        // ---- DESCRIPCIÓN ----
+        System.out.println("DESCRIPCIÓN -> actual: '" + coleccion.getDescripcion() + "', dto: '" + dto.getDescripcion() + "'");
+        if (dto.getDescripcion() != null && !dto.getDescripcion().equals(coleccion.getDescripcion())) {
+            System.out.println("CAMBIO en DESCRIPCIÓN: '" + coleccion.getDescripcion() + "' -> '" + dto.getDescripcion() + "'");
+            coleccion.setDescripcion(dto.getDescripcion());
+            huboCambios = true;
+        } else {
+            System.out.println("Descripción SIN cambios.");
+        }
+
+        // ---- HANDLE ----
+        System.out.println("HANDLE -> actual: '" + coleccion.getHandle() + "', dto: '" + dto.getHandle() + "'");
+        if (dto.getHandle() != null && !dto.getHandle().equals(coleccion.getHandle())) {
+            System.out.println("CAMBIO en HANDLE: '" + coleccion.getHandle() + "' -> '" + dto.getHandle() + "'");
+            coleccion.setHandle(dto.getHandle());
+            huboCambios = true;
+        } else {
+            System.out.println("Handle SIN cambios.");
+        }
+
+        // ---- ALGORITMO ----
+        System.out.println("ALGORITMO -> actual: '" + coleccion.getAlgoritmoDeConsensoEnumerado() + "', dto: '" + dto.getAlgoritmoDeConsenso() + "'");
+        if (dto.getAlgoritmoDeConsenso() != null) {
+            AlgoritmoDeConsenso nuevoAlg =
+                    AlgoritmoDeConsenso.valueOf(dto.getAlgoritmoDeConsenso());
+
+            if (!nuevoAlg.equals(coleccion.getAlgoritmoDeConsensoEnumerado())) {
+                System.out.println("CAMBIO en ALGORITMO: '" +
+                        coleccion.getAlgoritmoDeConsensoEnumerado() + "' -> '" + nuevoAlg + "'");
+                coleccion.setAlgoritmoDeConsensoEnumerado(nuevoAlg);
+                huboCambios = true;
+            } else {
+                System.out.println("Algoritmo SIN cambios.");
+            }
+        }
+
+        // ---- FIN ----
+        if (!huboCambios) {
+            System.out.println("=== NO HUBO CAMBIOS — NO SE GUARDA NADA ===");
+            return;
+        }
+
+        System.out.println("=== HUBO CAMBIOS — GUARDANDO COLECCIÓN... ===");
+        coleccionesRepository.save(coleccion);
+        System.out.println("=== COLECCIÓN GUARDADA CORRECTAMENTE ===");
     }
+
+
 
     @Override
     public String construirClave(String titulo, String descripcion) {

@@ -167,28 +167,48 @@ public class AgregadorService implements IAgregadorService {
     }
 
     public boolean saveOrUpdate(ColeccionDTO coleccionOriginal, ColeccionDTO coleccionModificada) {
-        // Si querés, podés chequear si cambió algo y evitar el PUT si son iguales:
+        String token = (String) session.getAttribute("token");
+
+        // Si no cambió nada, salimos
         if (coleccionOriginal != null
                 && Objects.equals(coleccionOriginal.getTitulo(), coleccionModificada.getTitulo())
                 && Objects.equals(coleccionOriginal.getDescripcion(), coleccionModificada.getDescripcion())
                 && Objects.equals(coleccionOriginal.getAlgoritmoDeConsenso(), coleccionModificada.getAlgoritmoDeConsenso())) {
-            // Nada cambió realmente
+
+            System.out.println(">>> No hubo cambios. No hacemos PUT.");
             return true;
         }
 
+        System.out.println(">>> Hay cambios. Preparando PUT...");
+
+
         try {
+            String url = "/api/coleccion/" + coleccionModificada.getId() + "/editar";
+
+            System.out.println(">>> Llamando PUT a: " + url);
+            System.out.println(">>> Body enviado:");
+            System.out.println("    Título: " + coleccionModificada.getTitulo());
+            System.out.println("    Descripción: " + coleccionModificada.getDescripcion());
+            System.out.println("    Algoritmo: " + coleccionModificada.getAlgoritmoDeConsenso());
+
             webClient.put()
-                    .uri("api/coleccion/{id}/editar", coleccionModificada.getId())
+                    .uri(url)
+                    .header("Authorization", "Bearer " + token)
                     .bodyValue(coleccionModificada)
                     .retrieve()
                     .toBodilessEntity()
                     .block();
 
+            System.out.println(">>> PUT ejecutado correctamente. Llegó al agregadorservice");
             return true;
+
         } catch (Exception e) {
+            System.out.println(">>> ERROR en saveOrUpdate()");
+            e.printStackTrace();   // <<<<<< ESTE ES EL LOG IMPORTANTE
             return false;
         }
     }
+
 
     private boolean actualizarAtributo(Long id, String campo, String nuevoValor, String nuevoAlgoritmo) {
         Map<String, Object> body = new HashMap<>();
