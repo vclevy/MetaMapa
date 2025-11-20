@@ -59,18 +59,6 @@
                     </form>
                 </div>
 
-                <!-- Algoritmo de consenso -->
-                <div class="collection__consenso">
-                    <label class="consenso__label" th:for="'consenso-' + ${coleccion.id}">Algoritmo de consenso</label>
-                    <div class="select">
-                        <select th:id="'consenso-' + ${coleccion.id}" name="algoritmoDeConsenso">
-                            <option value="MAYORIA_SIMPLE" th:selected="${coleccion.algoritmoDeConsenso == 'MAYORIA_SIMPLE'}">Mayoría simple</option>
-                            <option value="MULTIPLES_MENCIONES" th:selected="${coleccion.algoritmoDeConsenso == 'MULTIPLES_MENCIONES'}">Múltiples menciones</option>
-                            <option value="ABSOLUTA" th:selected="${coleccion.algoritmoDeConsenso == 'ABSOLUTA'}">Absoluta</option>
-                        </select>
-                    </div>
-                </div>
-
                 <!-- Acciones -->
                 <div class="collection__actions">
                     <!-- Botón editar -->

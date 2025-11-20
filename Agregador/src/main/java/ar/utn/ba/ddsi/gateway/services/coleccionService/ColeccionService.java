@@ -86,29 +86,19 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
+    @Transactional
     public void refrescarColecciones() {
         List<Coleccion> colecciones = coleccionesRepository.findAll();
 
-        for(Coleccion coleccionIndice : colecciones) {
-            coleccionIndice
-                    .getFuentesDeHechos()
-                    .forEach(unaFuenteDeHechos -> {
-
-                        unaFuenteDeHechos.inicializarFuenteDeHechos(lugarService);
-
-                        List<Hecho> hechosDeColeccionDeUnaFuente = unaFuenteDeHechos.obtenerHechos();
-                        for (Hecho hechoIndice : hechosDeColeccionDeUnaFuente) {
-                            if (coleccionIndice.verificadorDeAgregadorDeHechos(hechoIndice)) {
-                                coleccionIndice.getHechos().add(hechoIndice);
-                                this.hechoService.registrarHechoDesdeFuente(hechoIndice);
-                            }
-                        }
-                    });
+        for (Coleccion coleccion : colecciones) {
+            for (Fuente fuente : coleccion.getFuentesDeHechos()) {
+                refrescarColeccion(coleccion, fuente);
+            }
         }
     }
 
-
     @Override
+    @Transactional
     public void refrescarColeccion(Coleccion unaColeccion, Fuente nuevaFuente) {
         Fuente fuentePersistida;
 
@@ -122,17 +112,28 @@ public class ColeccionService implements IColeccionService {
 
         fuentePersistida.inicializarFuenteDeHechos(lugarService);
 
+        Set<String> clavesExistentes = unaColeccion.getHechos().stream()
+                .map(h -> construirClave(h.getTitulo(), h.getDescripcion()))
+                .collect(Collectors.toSet());
+
         List<Hecho> hechosDeFuente = fuentePersistida.obtenerHechos();
+
         for (Hecho hecho : hechosDeFuente) {
             hecho.setFuente(fuentePersistida);
+            String claveHecho = construirClave(hecho.getTitulo(), hecho.getDescripcion());
+            if (clavesExistentes.contains(claveHecho)) {
+                // Ya existe => no lo agregamos
+                continue;
+            }
 
-            // Verificador de agregador de hechos
-            // if (unaColeccion.verificadorDeAgregadorDeHechos(hecho)) {
-            //     unaColeccion.getHechos().add(hecho);
-            // }
-
+            // Registrar y agregar
             this.hechoService.registrarHechoDesdeFuente(hecho);
             unaColeccion.getHechos().add(hecho);
+
+            // Registrar la clave nueva para evitar duplicados dentro de este mismo refresco
+            clavesExistentes.add(claveHecho);
+
+            // Ejecutar consenso
             aplicarAlgoritmoDeConsenso(unaColeccion);
         }
     }
@@ -224,13 +225,22 @@ public class ColeccionService implements IColeccionService {
             aplicarAlgoritmoDeConsenso(coleccion);
             coleccionesRepository.save(coleccion);
 
-            List<Hecho> curados = coleccion.getHechos().stream()
+            // 1) Filtramos consensuados sin solicitudes aprobadas
+            List<Hecho> curadosSinDuplicados = coleccion.getHechos().stream()
                     .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
                     .filter(Hecho::getEstaConsensuado)
+                    // 2) Nos quedamos con un solo hecho por "clave lógica"
+                    .collect(Collectors.toMap(
+                            h -> construirClave(h.getTitulo(), h.getDescripcion()),
+                            h -> h,
+                            (h1, h2) -> h1      // si hay dos con la misma clave, nos quedamos con el primero
+                    ))
+                    .values()
+                    .stream()
                     .toList();
 
-            System.out.println(">>> Hechos CURADOS devueltos = " + curados.size());
-            return curados;
+            System.out.println(">>> Hechos CURADOS devueltos (sin duplicados) = " + curadosSinDuplicados.size());
+            return curadosSinDuplicados;
         }
 
         List<Hecho> irrestrictos = coleccion.getHechos().stream()
@@ -253,6 +263,7 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
+    @Transactional
     public List<FuenteDeHechoOutputDTO> obtenerFuentesDeUnaColeccion(Long id) {
         if(this.coleccionesRepository.existsById(id)) {
             Coleccion coleccion = this.coleccionesRepository.findById(id).get();
@@ -271,6 +282,7 @@ public class ColeccionService implements IColeccionService {
     }
 
     @Override
+    @Transactional
     public List<ColeccionOutputDTO> obtenerColeccionesDestacadas() {
         List<Coleccion> todas = coleccionesRepository.findAll();
         Collections.shuffle(todas);
@@ -296,4 +308,8 @@ public class ColeccionService implements IColeccionService {
         //TODO
     }
 
+    @Override
+    public String construirClave(String titulo, String descripcion) {
+        return (titulo == null ? "" : titulo) + "||" + (descripcion == null ? "" : descripcion);
+    }
 }

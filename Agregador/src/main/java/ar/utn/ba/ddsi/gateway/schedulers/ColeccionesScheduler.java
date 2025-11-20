@@ -17,7 +17,7 @@ public class ColeccionesScheduler {
         this.coleccionService = coleccionService;
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     public void refrescar() {
         log.info("⏳ [Scheduler] Iniciando refresco de colecciones…");
 

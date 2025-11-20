@@ -26,4 +26,5 @@ public interface IColeccionService {
     List<ColeccionOutputDTO> obtenerColeccionesDestacadas();
     void aplicarAlgoritmoDeConsenso(Coleccion unaColeccion);
     void editarColeccion(Long idColeccion, ColeccionOutputDTO coleccionOutputDTO);
+    String construirClave(String titulo, String descripcion);
 }

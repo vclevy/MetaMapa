@@ -2,6 +2,7 @@ package ar.utn.ba.ddsi.gateway.models.entities.fuentes;
 
 import ar.utn.ba.ddsi.gateway.models.entities.hecho.Hecho;
 import ar.utn.ba.ddsi.gateway.services.georef.LugarService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class Fuente {
     private String urlBase;
 
     @OneToMany(mappedBy = "fuente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Hecho> hechos = new ArrayList<>();
 
     @Transient

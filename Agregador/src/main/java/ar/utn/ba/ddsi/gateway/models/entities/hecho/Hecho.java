@@ -34,7 +34,7 @@ public class Hecho {
     @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
@@ -75,6 +75,7 @@ public class Hecho {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fuente_id", nullable = false)
+    @JsonIgnore
     private Fuente fuente;
 
     @Column(name = "es_anonimo", nullable = false)
