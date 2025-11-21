@@ -4,10 +4,10 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copiar TODO el proyecto (incluyendo parent POM y módulos)
+# Copiar TODO el proyecto multi-módulo
 COPY . .
 
-# Compilar solo el módulo del API Gateway sin tests
+# Compilar SOLO api-gateway, resolviendo las dependencias necesarias
 RUN mvn -f /app/pom.xml clean package -pl api-gateway -am -DskipTests
 
 # ==========================
@@ -16,11 +16,11 @@ RUN mvn -f /app/pom.xml clean package -pl api-gateway -am -DskipTests
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
-# Copiar el JAR compilado desde la etapa anterior
+# Copiar el JAR del módulo api-gateway
 COPY --from=builder /app/api-gateway/target/*.jar app.jar
 
-# Puerto del API Gateway
+# Exponer el puerto del gateway
 EXPOSE 8090
 
-# Entrypoint
+# Ejecutar la app
 ENTRYPOINT ["java", "-jar", "app.jar"]
