@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Compilar solo el módulo del API Gateway sin tests
-RUN mvn clean package -pl api-gateway -am -DskipTests
+RUN mvn -f /app/pom.xml clean package -pl api-gateway -am -DskipTests
 
 # ==========================
 # Etapa 2: Imagen final (solo el JAR)
