@@ -19,6 +19,8 @@ public class HechoMapper {
         dto.setNombreDeUsuario(hecho.getNombreDeUsuario());
         dto.setNombreArchivo(hecho.getNombreArchivo());
         dto.setEsAnonimo(hecho.getEsAnonimo());
+        dto.setIdEnFuente(hecho.getIdEnFuente());
+
 
         if (hecho.getFuente() != null) {
             dto.setFuenteNombre(hecho.getFuente().getTipo());

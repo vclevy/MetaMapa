@@ -40,5 +40,22 @@ public class HechosController {
     public ResponseEntity<?> obtenerTodosLosHechos() {
         return ResponseEntity.ok(hechosServices.obtenerHechos());
     }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> editarHecho(
+            @PathVariable Long id,
+            @RequestPart("hecho") String hechoJson,
+            @RequestPart(value = "archivos", required = false) MultipartFile[] archivos
+    ) {
+        try {
+            HechoInputDTO hechoDTO = objectMapper.readValue(hechoJson, HechoInputDTO.class);
+            hechosServices.editarHecho(id, hechoDTO, archivos);
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 }
 

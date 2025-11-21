@@ -5,28 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/HechoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoInputDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoOutputFrontDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/ColeccionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/ColeccionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoAbsoluta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoAbsoluta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMayoriaSimple.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMayoriaSimple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMultipleMenciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/coleccionService/algoritmoConsenso/AlgoritmoMultipleMenciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/ColeccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/ColeccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/HechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/HechoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/IHechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/IHechoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/HechosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminHechos.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/adminHechos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/detalleHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/detalleHecho.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/edicionHecho.html" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/templates/edicionHecho.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstaticaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstaticaService.java" afterDir="false" />
     </list>
     <list id="7ea5f132-a7c2-48ac-9775-afc222a4712a" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
     <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
     <list id="a4a2fa2d-c65f-4ffa-a632-25e8af81dbc2" name="Changes by valen" comment="" />
-    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="">
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,8 +43,8 @@
         <option value="UML Class" />
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -197,6 +200,7 @@
           <value>
             <map>
               <entry key="AgregadorApplication" value="STOPPED" />
+              <entry key="ApiGatewayApplication (1)" value="STOPPED" />
               <entry key="AuthServiceApplication (1)" value="STOPPED" />
               <entry key="ClienteLivianoApplication" value="STOPPED" />
               <entry key="FuenteDinamicaApplication" value="STOPPED" />
@@ -210,7 +214,7 @@
       </map>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ClienteLivianoApplication">
+  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AgregadorApplication" />
@@ -335,8 +339,8 @@
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
         <item itemvalue="Spring Boot.FuenteProxyApplication (1)" />
         <item itemvalue="Spring Boot.ServicioEstadisticasApplication (1)" />
-        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
         <item itemvalue="Spring Boot.ApiGatewayApplication (1)" />
+        <item itemvalue="Spring Boot.AuthServiceApplication (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -417,7 +421,7 @@
       <workItem from="1763560465191" duration="1701000" />
       <workItem from="1763572118293" duration="4070000" />
       <workItem from="1763663670012" duration="3868000" />
-      <workItem from="1763732246134" duration="2610000" />
+      <workItem from="1763732246134" duration="6882000" />
     </task>
     <servers />
   </component>

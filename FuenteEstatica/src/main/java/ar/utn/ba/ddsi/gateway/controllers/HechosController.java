@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.gateway.controllers;
 
+import ar.utn.ba.ddsi.gateway.models.dtos.HechoInputDTO;
 import ar.utn.ba.ddsi.gateway.services.IHechosServices;
 import ar.utn.ba.ddsi.gateway.models.dtos.HechoOutputDTO;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,19 @@ public class HechosController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al importar los hechos: " + e.getMessage());
+        }
+    }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity<?> editarHechoEstatica(
+            @PathVariable("id") Long id,
+            @RequestBody HechoInputDTO hechoDto) {
+        try {
+            hechosServices.editarHechoEstatica(id, hechoDto);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

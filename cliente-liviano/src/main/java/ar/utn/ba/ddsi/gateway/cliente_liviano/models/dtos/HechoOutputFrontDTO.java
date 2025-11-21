@@ -1,14 +1,17 @@
-package ar.utn.ba.ddsi.gateway.models.dtos.output;
+package ar.utn.ba.ddsi.gateway.cliente_liviano.models.dtos;
 
-import ar.utn.ba.ddsi.gateway.models.entities.hecho.Etiqueta;
-import ar.utn.ba.ddsi.gateway.models.entities.hecho.Lugar;
-import lombok.Data;
+import ar.utn.ba.ddsi.gateway.cliente_liviano.models.entities.Etiqueta;
+import ar.utn.ba.ddsi.gateway.cliente_liviano.models.entities.Lugar;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
-public class HechoOutputDTO {
+@Setter
+@Getter
+
+public class HechoOutputFrontDTO {
     private Long id;
     private String titulo;
     private String descripcion;
@@ -19,7 +22,7 @@ public class HechoOutputDTO {
     private List<String> multimedia;
     private String nombreDeUsuario;
     private String fuenteNombre;
-    private String nombreArchivo;
-    private Boolean esAnonimo;
+    private Boolean pendiente;
+    private Boolean fueAceptado;
     private Long idEnFuente;
 }
