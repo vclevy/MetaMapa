@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.utn.ba.ddsi.gateway.services.factory.AlgoritmoFactory;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -219,22 +220,31 @@ public class ColeccionService implements IColeccionService {
 
         Coleccion coleccion = coleccionOpt.get();
 
+        // Filtro común para cualquier modo
+        Predicate<Hecho> filtroEstado = h ->
+                Boolean.TRUE.equals(h.getFueAceptado()) &&
+                        Boolean.FALSE.equals(h.getFueEliminado()) &&
+                        Boolean.FALSE.equals(h.getPendiente());
+
+        // Además mantenés tu filtro de solicitudes aprobadas
+        Predicate<Hecho> filtroSolicitudes = h -> !solicitudesService.tieneSolicitudAprobada(List.of(h));
+
         System.out.println(">>> MODO = " + unModoDeNavegacion);
         System.out.println(">>> Hechos totales en coleccion " + id + " = " + coleccion.getHechos().size());
 
         if (unModoDeNavegacion.equalsIgnoreCase("CURADO")) {
+
             aplicarAlgoritmoDeConsenso(coleccion);
             coleccionesRepository.save(coleccion);
 
-            // 1) Filtramos consensuados sin solicitudes aprobadas
             List<Hecho> curadosSinDuplicados = coleccion.getHechos().stream()
-                    .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
+                    .filter(filtroEstado)          // 👈 tu filtro común
+                    .filter(filtroSolicitudes)
                     .filter(Hecho::getEstaConsensuado)
-                    // 2) Nos quedamos con un solo hecho por "clave lógica"
                     .collect(Collectors.toMap(
                             h -> construirClave(h.getTitulo(), h.getDescripcion()),
                             h -> h,
-                            (h1, h2) -> h1      // si hay dos con la misma clave, nos quedamos con el primero
+                            (h1, h2) -> h1
                     ))
                     .values()
                     .stream()
@@ -244,20 +254,23 @@ public class ColeccionService implements IColeccionService {
             return curadosSinDuplicados;
         }
 
+        // IRRESTRICTO (pero aplicando tu filtro)
         List<Hecho> irrestrictos = coleccion.getHechos().stream()
-                .filter(h -> !solicitudesService.tieneSolicitudAprobada(List.of(h)))
+                .filter(filtroEstado)      // 👈 filtro común
+                .filter(filtroSolicitudes)
                 .toList();
 
         System.out.println(">>> Hechos IRRESTRICTOS devueltos = " + irrestrictos.size());
         return irrestrictos;
     }
 
+
     @Override
     public void aplicarAlgoritmosAColecciones() {
         List<Coleccion> colecciones = this.coleccionesRepository.findAll();
         for (Coleccion coleccionIndice : colecciones) {
             if (!coleccionIndice.getHechos().isEmpty()) {
-                aplicarAlgoritmoDeConsenso(coleccionIndice); // marca flags en hechos
+                aplicarAlgoritmoDeConsenso(coleccionIndice);
                 coleccionesRepository.save(coleccionIndice);
             }
         }
@@ -369,8 +382,6 @@ public class ColeccionService implements IColeccionService {
         coleccionesRepository.save(coleccion);
         System.out.println("=== COLECCIÓN GUARDADA CORRECTAMENTE ===");
     }
-
-
 
     @Override
     public String construirClave(String titulo, String descripcion) {

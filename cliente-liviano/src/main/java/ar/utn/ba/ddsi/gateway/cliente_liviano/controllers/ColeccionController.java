@@ -24,27 +24,36 @@ public class ColeccionController {
 
     @GetMapping
     public String listarColecciones(Model model) {
-        // Obtener todas las colecciones
+
         List<ColeccionDTO> colecciones = agregador.obtenerColecciones();
 
-        // Inicializar listas vacías para evitar nulls
         if (colecciones != null) {
             colecciones.forEach(c -> {
-                if (c.getHechosDeLaColeccion() == null) {
-                    c.setHechosDeLaColeccion(Collections.emptyList());
+                // Por cada colección → obtener hechos usando el agregador
+                List<HechoDTO> hechosIrrestrictos =
+                        agregador.obtenerHechosDeColeccion(c.getId(), "IRRESTRICTO");
+
+                // Evitar nulls
+                if (hechosIrrestrictos == null) {
+                    hechosIrrestrictos = Collections.emptyList();
                 }
+
+                // Guardamos los hechos en el DTO
+                c.setHechosDeLaColeccion(hechosIrrestrictos);
             });
         }
 
         model.addAttribute("colecciones", colecciones);
 
-        // Paginación (opcional, para uso futuro)
-        int totalHechos = colecciones.size();
-        int totalPaginas = (int) Math.ceil((double) totalHechos / PAGE_SIZE);
+        // Si usás paginación, probablemente quieras contar colecciones, no hechos
+        int totalColecciones = colecciones.size();
+        int totalPaginas = (int) Math.ceil((double) totalColecciones / PAGE_SIZE);
+
         model.addAttribute("totalPaginas", totalPaginas);
 
-        return "listadoColecciones"; // nombre del template Thymeleaf
+        return "listadoColecciones";
     }
+
 
 
     @GetMapping("/{id}")

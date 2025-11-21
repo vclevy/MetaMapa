@@ -100,6 +100,4 @@ public class DinamicaService {
             return null;
         }
     }
-
-
 }

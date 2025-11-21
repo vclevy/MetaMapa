@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class AlgoritmoMultipleMenciones implements IAlgoritmo {
-    @Autowired
-    private IFuenteDeHechosRepository fuenteDeHechosRepository;
+
     @Autowired
     private IHechosRepository hechosRepository;
 
@@ -26,11 +25,11 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
             return;
         }
 
-        // Todas las fuentes existentes en el sistema
-        List<Fuente> todasLasFuentes = fuenteDeHechosRepository.findAll();
+        // Usamos SOLO las fuentes asociadas a la colección
+        List<Fuente> fuentesColeccion = coleccion.getFuentesDeHechos();
 
-        if (todasLasFuentes.isEmpty()) {
-            // Si no hay fuentes, nadie puede estar consensuado
+        // Regla: con menos de 2 fuentes NO hay consenso
+        if (fuentesColeccion == null || fuentesColeccion.size() < 2) {
             for (Hecho h : hechosDeColeccion) {
                 h.setEstaConsensuado(false);
             }
@@ -45,7 +44,7 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
         // para detectar conflictos (mismo título, distintas descripciones)
         Map<String, Set<String>> descripcionesPorTitulo = new HashMap<>();
 
-        for (Fuente fuente : todasLasFuentes) {
+        for (Fuente fuente : fuentesColeccion) {
             List<Hecho> hechosDeFuente = fuente.getHechos();
 
             Set<String> clavesHechos = hechosDeFuente.stream()
@@ -79,7 +78,7 @@ public class AlgoritmoMultipleMenciones implements IAlgoritmo {
             // 1) Contar en cuántas fuentes aparece este hecho (titulo+descripcion)
             int cantidadFuentesQueLoContienen = 0;
 
-            for (Fuente fuente : todasLasFuentes) {
+            for (Fuente fuente : fuentesColeccion) {
                 Set<String> clavesDeEstaFuente = clavesPorFuente.get(fuente.getId());
 
                 if (clavesDeEstaFuente != null && clavesDeEstaFuente.contains(claveHechoColeccion)) {

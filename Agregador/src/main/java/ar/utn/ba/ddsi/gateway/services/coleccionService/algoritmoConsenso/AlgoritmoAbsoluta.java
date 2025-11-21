@@ -13,36 +13,31 @@ import java.util.stream.Collectors;
 
 @Component
 public class AlgoritmoAbsoluta implements IAlgoritmo {
-    @Autowired
-    private IFuenteDeHechosRepository fuenteDeHechosRepository;
+
     @Autowired
     private IHechosRepository hechosRepository;
 
     @Override
     public void aplicarConsenso(Coleccion coleccion) {
-        // Hechos que componen la colección
         List<Hecho> hechosDeColeccion = coleccion.getHechos();
         if (hechosDeColeccion == null || hechosDeColeccion.isEmpty()) {
             return;
         }
 
-        // Todas las fuentes existentes en el sistema
-        List<Fuente> todasLasFuentes = fuenteDeHechosRepository.findAll();
+        // Usar SOLO las fuentes de la colección
+        List<Fuente> fuentesColeccion = coleccion.getFuentesDeHechos();
 
-        if (todasLasFuentes.isEmpty()) {
-            // Si no hay fuentes, nadie puede estar consensuado
-            for (Hecho h : hechosDeColeccion) {
-                h.setEstaConsensuado(false);
-            }
+        // Regla extra: con menos de 2 fuentes NO hay consenso
+        if (fuentesColeccion == null || fuentesColeccion.size() < 2) {
+            hechosDeColeccion.forEach(h -> h.setEstaConsensuado(false));
             hechosRepository.saveAll(hechosDeColeccion);
             return;
         }
 
-        // Para cada fuente, armamos un SET de "hechos lógicos" (titulo+descripcion)
-        // para poder preguntar rápido si un hecho de la colección existe en esa fuente
+        // Construimos sets de claves para cada fuente
         Map<Long, Set<String>> clavesPorFuente = new HashMap<>();
 
-        for (Fuente fuente : todasLasFuentes) {
+        for (Fuente fuente : fuentesColeccion) {
             List<Hecho> hechosDeFuente = fuente.getHechos();
 
             Set<String> clavesHechos = hechosDeFuente.stream()
@@ -52,7 +47,9 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
             clavesPorFuente.put(fuente.getId(), clavesHechos);
         }
 
+        // Evaluamos cada hecho
         for (Hecho hechoColeccion : hechosDeColeccion) {
+
             String claveHechoColeccion = construirClave(
                     hechoColeccion.getTitulo(),
                     hechoColeccion.getDescripcion()
@@ -60,14 +57,15 @@ public class AlgoritmoAbsoluta implements IAlgoritmo {
 
             boolean estaEnTodas = true;
 
-            for (Fuente fuente : todasLasFuentes) {
-                Set<String> clavesDeEstaFuente = clavesPorFuente.get(fuente.getId());
+            for (Fuente fuente : fuentesColeccion) {
+                Set<String> claves = clavesPorFuente.get(fuente.getId());
 
-                if (clavesDeEstaFuente == null || !clavesDeEstaFuente.contains(claveHechoColeccion)) {
+                if (claves == null || !claves.contains(claveHechoColeccion)) {
                     estaEnTodas = false;
                     break;
                 }
             }
+
             hechoColeccion.setEstaConsensuado(estaEnTodas);
         }
 

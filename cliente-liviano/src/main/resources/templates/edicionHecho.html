@@ -83,7 +83,9 @@
             <input type="hidden" id="longitud_ed" name="lugar.longitud" th:value="${hecho.lugar != null ? hecho.lugar.longitud : null}">
 
             <label for="multimedia_ed">Actualizar multimedia (opcional)</label>
-            <input type="file" id="multimedia_ed" name="multimedia" accept="image/*,video/*,audio/*" multiple>
+            <input type="file" id="multimedia_ed" name="multimediaArchivos"
+                   accept="image/*,video/*,audio/*" multiple>
+
 
             <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </form>

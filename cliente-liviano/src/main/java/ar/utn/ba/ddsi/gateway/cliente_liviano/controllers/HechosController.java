@@ -171,11 +171,22 @@ public class HechosController {
 
     // Procesar el formulario enviado
     @PostMapping("/{id}/editar")
-    public String editarHecho(@PathVariable Long id, @ModelAttribute HechoDTO hechoDTO) {
-        hechoDTO.setId(id); // aseguramos que tenga el id
-        agregador.editarHecho(hechoDTO);
-        return "redirect:/hechos"; //
+    public String editarHecho(
+            @PathVariable Long id,
+            @ModelAttribute HechoDTO hechoDTO,
+            @RequestParam(name = "archivos", required = false) List<MultipartFile> archivos) {
+
+        // Procesás los archivos por separado si existen
+        if (archivos != null && !archivos.isEmpty()) {
+            agregador.subirMultimedia(id, archivos);
+        }
+
+        // Actualizás el hecho en base al DTO limpio
+        agregador.editarHecho(id, hechoDTO);
+
+        return "redirect:/hechos/" + id;
     }
+
 
 
 
