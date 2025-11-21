@@ -1,17 +1,21 @@
-# ================================
-# Etapa 1: Compilar TODO el proyecto
-# ================================
+# ----------- STAGE 1: BUILD -----------
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copiamos todo el repositorio (el padre + todos los módulos)
+# Copiamos TODO el repo (necesario para multimódulo)
 COPY . .
 
-# Compila todos los módulos del multi-módulo
-RUN mvn clean install -DskipTests
+# Compilamos SOLO el módulo api-gateway, arrastrando dependencias (-am)
+RUN mvn clean package -pl api-gateway -am -DskipTests
 
-# ================================
-# FIN — El root NO genera imagen final
-# ================================
-# Este Dockerfile solo compila el multi-módulo completo.
-# Cada microservicio usa SU PROPIO Dockerfile para generar su imagen.
+
+# ----------- STAGE 2: RUNTIME -----------
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+# Copiar el jar del módulo api-gateway construido en el stage anterior
+COPY --from=builder /app/api-gateway/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
