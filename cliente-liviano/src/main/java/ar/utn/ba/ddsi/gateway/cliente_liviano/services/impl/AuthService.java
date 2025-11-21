@@ -13,21 +13,25 @@ import java.util.Map;
 public class AuthService {
 
     private final WebClient webClient;
-    @Value("${gateway.url}") String urlGateway;
+
 
     @Autowired
-    public AuthService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8090/api/auth").build(); // URL de tu AuthService real
+    public AuthService(WebClient.Builder webClientBuilder,
+                       @Value("${gateway.url}") String urlGateway) {
+        this.webClient = webClientBuilder
+                .baseUrl(urlGateway + "/api/auth")
+                .build();
     }
 
     public Map<String, Object> registrar(RegistroForm registroForm) {
         return webClient.post()
-                .uri(urlGateway+"/api/auth/register") // endpoint del AuthService
+                .uri("/api/auth/register")   // Ya estamos en /api/auth por el baseUrl
                 .bodyValue(registroForm)
                 .retrieve()
                 .bodyToMono(Map.class)
                 .block();
     }
+
 
     public String login(String usuario, String clave) {
         LoginDTO loginRequest = new LoginDTO();
