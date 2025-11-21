@@ -1,5 +1,6 @@
 package ar.utn.ba.ddsi.gateway.services.hechoService;
 
+import ar.utn.ba.ddsi.gateway.graphql.input.HechoFilter;
 import ar.utn.ba.ddsi.gateway.models.dtos.input.hecho.HechoInputPUTDTO;
 import ar.utn.ba.ddsi.gateway.models.dtos.output.HechoFiltroDTO;
 import ar.utn.ba.ddsi.gateway.models.dtos.output.HechoOutputDTO;
@@ -243,5 +244,38 @@ public class HechoService implements IHechoService {
         Hecho hecho = hechosRepository.findById(idHecho)
                 .orElseThrow(() -> new NoSuchElementException("Hecho no encontrado con id: " + idHecho));
         return hechoMapper.toDTO(hecho);
+    }
+
+    public List<Hecho> buscarHechos(HechoFilter filter) {
+
+        if (filter == null) {
+            return hechosRepository.findAll();
+        }
+
+        Specification<Hecho> spec = Specification.where(null);
+
+        if (filter.getTitulo() != null && !filter.getTitulo().isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.like(cb.lower(root.get("titulo")), "%" + filter.getTitulo().toLowerCase() + "%"));
+        }
+
+        if (filter.getFuente() != null && !filter.getFuente().isBlank()) {
+            spec = spec.and((root, query, cb) ->
+                    cb.equal(root.get("fuente"), filter.getFuente()));
+        }
+
+        if (filter.getDesde() != null && !filter.getDesde().isBlank()) {
+            LocalDate fechaDesde = LocalDate.parse(filter.getDesde());
+            spec = spec.and((root, query, cb) ->
+                    cb.greaterThanOrEqualTo(root.get("fecha"), fechaDesde));
+        }
+
+        if (filter.getHasta() != null && !filter.getHasta().isBlank()) {
+            LocalDate fechaHasta = LocalDate.parse(filter.getHasta());
+            spec = spec.and((root, query, cb) ->
+                    cb.lessThanOrEqualTo(root.get("fecha"), fechaHasta));
+        }
+
+        return hechosRepository.findAll(spec);
     }
 }

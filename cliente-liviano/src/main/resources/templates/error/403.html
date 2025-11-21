@@ -67,6 +67,14 @@
             font-size: 48px;
             margin-bottom: 15px;
         }
+
+        .corner-image {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100px; /* ajustá el tamaño */
+            opacity: 0.7; /* opcional, para que no distraiga */
+        }
     </style>
 </head>
 <body>
@@ -76,6 +84,7 @@
     <h1>Acceso denegado</h1>
     <p th:text="${mensaje != null} ? ${mensaje} : 'No tenés permiso para acceder a esta página.'"></p>
     <a th:href="@{/}">Volver al inicio</a>
+    <img th:src="@{/img/vacaError.png}" alt="Logo" class="corner-image">
 </div>
 </body>
 </html>

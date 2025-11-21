@@ -19,6 +19,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative; /* necesario para posicionar hijos absolutos */
         }
 
         .container {
@@ -29,6 +30,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             max-width: 500px;
             width: 90%;
+            z-index: 1; /* para que quede encima de la imagen */
         }
 
         .error-code {
@@ -67,6 +69,15 @@
             font-size: 48px;
             margin-bottom: 15px;
         }
+
+        /* Imagen en la esquina inferior izquierda */
+        .corner-image {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 100px; /* ajustá el tamaño */
+            opacity: 0.7; /* opcional, para que no distraiga */
+        }
     </style>
 </head>
 <body>
@@ -77,5 +88,9 @@
     <p th:text="${mensaje != null} ? ${mensaje} : 'Ocurrió un error inesperado en el servidor.'"></p>
     <a th:href="@{/}">Volver al inicio</a>
 </div>
+
+<!-- Imagen en la esquina inferior izquierda -->
+<img th:src="@{/img/vacaError.png}" alt="Logo" class="corner-image">
+
 </body>
 </html>

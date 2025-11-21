@@ -26,6 +26,13 @@
                                         FilterChain filterChain)
                 throws ServletException, IOException {
 
+            // 🚨 EXCEPCIÓN PARA GRAPHQL + GRAPHiQL
+            String path = request.getServletPath();
+            if (path.startsWith("/graphiql") || path.startsWith("/graphql")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             String authHeader = request.getHeader("Authorization");
 
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -64,3 +71,4 @@
             filterChain.doFilter(request, response);
         }
     }
+

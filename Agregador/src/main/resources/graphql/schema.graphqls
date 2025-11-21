@@ -1,0 +1,38 @@
+type Hecho {
+    id: ID!
+    titulo: String
+    descripcion: String
+    fuente: String
+    fecha: String
+}
+
+type Coleccion {
+    id: ID!
+    titulo: String
+    descripcion: String
+    handle: String
+    algoritmoDeConsenso: String
+    hechosDeLaColeccion: [Hecho]
+    fuentesDeHechos: [Fuente]
+}
+
+type Fuente {
+    id: ID!
+    nombre: String
+    tipo: String
+    urlBase: String
+    hechos: [Hecho]
+}
+
+input HechoFilter {
+    titulo: String
+    fuente: String
+    desde: String
+    hasta: String
+}
+
+type Query {
+    hechos(filter: HechoFilter): [Hecho]
+    coleccion(id: ID!): Coleccion
+    colecciones: [Coleccion]
+}
