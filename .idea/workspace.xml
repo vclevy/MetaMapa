@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="7ea5f132-a7c2-48ac-9775-afc222a4712a" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -146,10 +145,10 @@
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4" />
       <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\resources" />
       <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\java\ar\utn\ba\ddsi" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\src\main\java\ar\utn\ba\ddsi\src" />
-      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4" />
       <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\AuthService\src\main\java\ar\utn\ba\ddsi" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -166,7 +165,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
+  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication ">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Agregador" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AgregadorApplication" />
@@ -288,10 +287,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.ApiGatewayApplication " />
         <item itemvalue="Spring Boot.ClienteLivianoApplication" />
         <item itemvalue="Spring Boot.FuenteProxyApplication " />
         <item itemvalue="Spring Boot.ServicioEstadisticasApplication " />
-        <item itemvalue="Spring Boot.ApiGatewayApplication " />
         <item itemvalue="Spring Boot.AuthServiceApplication " />
       </list>
     </recent_temporary>
@@ -374,6 +373,7 @@
       <workItem from="1763572118293" duration="4070000" />
       <workItem from="1763663670012" duration="3868000" />
       <workItem from="1763732246134" duration="6882000" />
+      <workItem from="1763847631622" duration="792000" />
     </task>
     <servers />
   </component>
