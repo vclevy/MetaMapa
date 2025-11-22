@@ -40,8 +40,8 @@ public class AuthController {
         usuario.setNombreDeUsuario(registro.getNombreDeUsuario());
         usuario.setEmail(registro.getEmail());
         usuario.setContrasenia(passwordEncoder.encode(registro.getClave()));
-        usuario.setRol(Rol.CONTRIBUYENTE);
-        //usuario.setRol(Rol.ADMIN);
+        //usuario.setRol(Rol.CONTRIBUYENTE);
+        usuario.setRol(Rol.ADMIN);
         usuarioRepository.save(usuario);
 
         String token = jwtService.generateToken(usuario);
