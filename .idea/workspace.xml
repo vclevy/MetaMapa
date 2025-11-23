@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
-      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/HechoMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoInputDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/models/dtos/HechoOutputFrontDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/models/dtos/output/HechoOutputDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/HechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/HechoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/IHechoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/java/ar/utn/ba/ddsi/gateway/services/hechoService/IHechoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/controllers/HechosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/models/entities/hecho/Lugar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/IHechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteEstatica/src/main/java/ar/utn/ba/ddsi/gateway/services/impl/HechosServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/HechosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/controllers/HechosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AgregadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/AgregadorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/DinamicaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstaticaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/cliente-liviano/src/main/java/ar/utn/ba/ddsi/gateway/cliente_liviano/services/impl/EstaticaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agregador/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Agregador/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/AuthService/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FuenteDinamica/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ServicioEstadisticas/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <list id="7ea5f132-a7c2-48ac-9775-afc222a4712a" name="Changes by delfi" comment="" />
     <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
@@ -93,62 +84,62 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Class&quot;,
-    &quot;Maven.api-gateway [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.api-gateway [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.tp-multi-module [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.tp-multi-module [install].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.AgregadorApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AgregadorApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ApiGatewayApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthServiceApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthServiceApplication (2).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ClienteLivianoApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteDinamicaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteEstaticaApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteEstaticaApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteProxyApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.FuenteProxyApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServicioEstadisticasApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServicioEstadisticasApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;pruebaSesiones&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "DefaultPlantUmlFileTemplate": "UML Class",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [package].executor": "Run",
+    "Maven.tp-multi-module [clean].executor": "Run",
+    "Maven.tp-multi-module [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AgregadorApplication (1).executor": "Run",
+    "Spring Boot.AgregadorApplication.executor": "Run",
+    "Spring Boot.ApiGatewayApplication (1).executor": "Run",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.AuthServiceApplication (1).executor": "Run",
+    "Spring Boot.AuthServiceApplication (2).executor": "Run",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.ClienteLivianoApplication.executor": "Run",
+    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication (1).executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
+    "Spring Boot.FuenteProxyApplication (1).executor": "Run",
+    "Spring Boot.FuenteProxyApplication.executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication (1).executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication.executor": "Run",
+    "git-widget-placeholder": "ENTREGA__6",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -181,37 +172,6 @@
         <option value="QuarkusRunConfigurationType" />
         <option value="SpringBootApplicationConfigurationType" />
       </set>
-    </option>
-    <option name="hiddenConfigurations">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <set>
-              <option value="FuenteEstaticaApplication" />
-              <option value="ServicioEstadisticasApplication" />
-            </set>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="configurationStatuses">
-      <map>
-        <entry key="SpringBootApplicationConfigurationType">
-          <value>
-            <map>
-              <entry key="AgregadorApplication" value="STOPPED" />
-              <entry key="ApiGatewayApplication (1)" value="STOPPED" />
-              <entry key="AuthServiceApplication (1)" value="STOPPED" />
-              <entry key="ClienteLivianoApplication" value="STOPPED" />
-              <entry key="FuenteDinamicaApplication" value="STOPPED" />
-              <entry key="FuenteEstaticaApplication" value="STOPPED" />
-              <entry key="FuenteEstaticaApplication (1)" value="STOPPED" />
-              <entry key="FuenteProxyApplication (1)" value="STOPPED" />
-              <entry key="ServicioEstadisticasApplication (1)" value="STOPPED" />
-            </map>
-          </value>
-        </entry>
-      </map>
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.AgregadorApplication">

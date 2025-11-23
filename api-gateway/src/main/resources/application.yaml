@@ -1,12 +1,6 @@
 server:
   port: 8090
 
-app:
-  security:
-    ip:
-      denied: ""
-      allowed: ""
-
 spring:
   application:
     name: api-gateway
@@ -18,102 +12,43 @@ spring:
 
       routes:
         - id: auth_service_route
-          uri: http://localhost:8086
+          uri: ${AUTH_URI}
           predicates:
             - Path=/api/auth/**
           filters:
             - RewritePath=/api/auth/(?<segment>.*), /${segment}
 
         - id: agregador_route
-          uri: http://localhost:8080
+          uri: ${AGREGADOR_URI}
           predicates:
             - Path=/api/agregador/**
           filters:
             - RewritePath=/api/agregador/(?<segment>.*), /${segment}
 
         - id: fuentedinamica_route
-          uri: http://localhost:8081
+          uri: ${FUENTE_DINAMICA_URI}
           predicates:
             - Path=/api/fuente-dinamica/**
           filters:
             - RewritePath=/api/fuente-dinamica/(?<segment>.*), /${segment}
 
         - id: fuenteestatica_route
-          uri: http://localhost:8082
+          uri: ${FUENTE_ESTATICA_URI}
           predicates:
             - Path=/api/fuente-estatica/**
           filters:
             - RewritePath=/api/fuente-estatica/(?<segment>.*), /${segment}
 
         - id: fuenteproxy_route
-          uri: http://localhost:8083
+          uri: ${FUENTE_PROXY_URI}
           predicates:
             - Path=/api/fuente-proxy/**
           filters:
             - RewritePath=/api/fuente-proxy/(?<segment>.*), /${segment}
 
         - id: servicioestadisticas_route
-          uri: http://localhost:8084
+          uri: ${ESTADISTICAS_URI}
           predicates:
             - Path=/api/estadisticas/**
           filters:
             - RewritePath=/api/estadisticas/(?<segment>.*), /estadisticas/${segment}
-
-
-
-## esto va a ser cuando deployemos
-##server:
-##  port: 8090
-##
-##spring:
-##  application:
-##    name: api-gateway
-##
-##  cloud:
-##    gateway:
-##      forwarded:
-##        enabled: true
-##
-##      routes:
-##        - id: auth_service_route
-##          uri: http://magrupo-04-auth-xxxxx:8086
-##          predicates:
-##            - Path=/api/auth/**
-##          filters:
-##            - RewritePath=/api/auth/(?<segment>.*), /${segment}
-##
-##        - id: agregador_route
-##          uri: http://magrupo-04-agregador-habgdv:8080
-##          predicates:
-##            - Path=/api/agregador/**
-##          filters:
-##            - RewritePath=/api/agregador/(?<segment>.*), /${segment}
-##
-##        - id: fuentedinamica_route
-##          uri: http://magrupo-04-fuentedinamica-thfbc2:8081
-##          predicates:
-##            - Path=/api/fuente-dinamica/**
-##          filters:
-##            - RewritePath=/api/fuente-dinamica/(?<segment>.*), /${segment}
-##
-##        - id: fuenteestatica_route
-##          uri: http://magrupo-04-fuenteestatica-rvmprz:8082
-##          predicates:
-##            - Path=/api/fuente-estatica/**
-##          filters:
-##            - RewritePath=/api/fuente-estatica/(?<segment>.*), /${segment}
-##
-##        - id: fuenteproxy_route
-##          uri: http://magrupo-04-fuenteproxy-nenhsa:8083
-##          predicates:
-##            - Path=/api/fuente-proxy/**
-##          filters:
-##            - RewritePath=/api/fuente-proxy/(?<segment>.*), /${segment}
-##
-##        - id: servicioestadisticas_route
-##          uri: http://magrupo-04-servicioestadisticas-gfw00e:8084
-##          predicates:
-##            - Path=/api/estadisticas/**
-##          filters:
-##            - RewritePath=/api/estadisticas/(?<segment>.*), /estadisticas/${segment}
-##
