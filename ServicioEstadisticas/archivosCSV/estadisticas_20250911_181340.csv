@@ -1,0 +1,5 @@
+Nombre Estadistica,Clave,Valor,Fecha Generacion,Nombre de la Coleccion
+Categoria con mas hechos,Accidente Vial,3,2025-09-11 18:13:40,null
+Hora del día con mayor cantidad de hechos en categoría Accidente Vial,21:00 hs,3,2025-09-11 18:13:40,Boca predio
+Provincia con más hechos,Ciudad Autónoma de Buenos Aires,3,2025-09-11 18:13:40,Boca predio
+Provincia con más hechos de la categoría Accidente Vial,Ciudad Autónoma de Buenos Aires,3,2025-09-11 18:13:40,null

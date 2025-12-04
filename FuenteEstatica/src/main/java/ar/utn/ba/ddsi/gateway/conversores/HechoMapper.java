@@ -1,0 +1,39 @@
+package ar.utn.ba.ddsi.gateway.conversores;
+
+import ar.utn.ba.ddsi.gateway.models.dtos.HechoInputDTO;
+import ar.utn.ba.ddsi.gateway.models.dtos.HechoOutputDTO;
+import ar.utn.ba.ddsi.gateway.models.entities.hecho.Categoria;
+import ar.utn.ba.ddsi.gateway.models.entities.hecho.Hecho;
+import org.springframework.stereotype.Component;
+
+@Component
+public class HechoMapper {
+
+    public static Hecho toHecho(HechoInputDTO dto) {
+        Hecho hecho = new Hecho(
+                dto.getTitulo(),
+                dto.getDescripcion(),
+                dto.getFechaDelHecho(),
+                dto.getLugar(),
+                dto.getNombreArchivo()
+        );
+
+        Categoria categoria = new Categoria(dto.getCategoria());
+        hecho.setCategoria(categoria);
+        return hecho;
+    }
+
+    public HechoOutputDTO toOutputDTO(Hecho hecho) {
+        return new HechoOutputDTO(
+                hecho.getId(),
+                hecho.getTitulo(),
+                hecho.getDescripcion(),
+                hecho.getCategoria(),
+                hecho.getFechaDeAcontecimiento(),
+                hecho.getFechaDeCarga(),
+                hecho.getLugar(),
+                hecho.getMultimedia(),
+                hecho.getNombreArchivo()
+        );
+    }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Subir hecho — MetaMapa</title>
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/subirHecho.css}"/>
+
+    <style>
+        /* Flash message */
+        .alert-success {
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            border: 1px solid green;
+            background-color: #e6ffe6;
+            color: green;
+            border-radius: 4px;
+        }
+
+        /* Sugerencias */
+        #sugerencias {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            background: white;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            width: 100%;
+            max-width: 400px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+        #sugerencias li {
+            padding: 8px;
+            cursor: pointer;
+        }
+        #sugerencias li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="header :: mainHeader"></div>
+
+<main>
+    <!-- Flash message -->
+    <div th:if="${mensajeExito}" class="alert-success" id="flashMessage">
+        <p th:text="${mensajeExito}"></p>
+    </div>
+
+    <section class="intro">
+        <h1>Subir hecho</h1>
+        <p>Cargá un nuevo hecho para contribuir a la memoria colectiva.</p>
+    </section>
+
+    <section class="form-section">
+        <form class="form-card"
+              th:action="@{/hechos/crear}"
+              th:object="${hecho}"
+              method="post"
+              enctype="multipart/form-data"
+              novalidate>
+            <h2>Datos del hecho</h2>
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" th:field="*{titulo}" placeholder="Ej.: Marcha por la memoria" required>
+            <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" th:field="*{descripcion}" rows="4" placeholder="Contá brevemente qué pasó…" required></textarea>
+            <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+
+            <div class="grid-two">
+                <div>
+                    <label for="categoria">Categoría</label>
+                    <input type="text" id="categoria"
+                           th:field="*{categoriaNombre}"
+                           placeholder="Ej.: Derechos Humanos"
+                           required>
+                    <span th:if="${#fields.hasErrors('categoriaNombre')}" th:errors="*{categoriaNombre}"></span>
+                </div>
+
+                <div>
+                    <label for="fecha">Fecha y hora</label>
+                    <input type="datetime-local" id="fecha" th:field="*{fechaDeAcontecimiento}" required>
+                    <span th:if="${#fields.hasErrors('fechaDeAcontecimiento')}" th:errors="*{fechaDeAcontecimiento}"></span>
+                </div>
+            </div>
+
+            <label for="ubicacion">Ubicación</label>
+            <div class="input-contenedor">
+                <input type="text" id="ubicacion" placeholder="Barrio, calle o punto de referencia" required>
+                <ul id="sugerencias"></ul>
+            </div>
+            <input type="hidden" th:field="*{latitud}" id="latitud">
+            <span th:if="${#fields.hasErrors('latitud')}" th:errors="*{latitud}"></span>
+
+            <input type="hidden" th:field="*{longitud}" id="longitud">
+            <span th:if="${#fields.hasErrors('longitud')}" th:errors="*{longitud}"></span>
+
+            <label for="multimedia">Subir multimedia</label>
+            <input type="file" id="multimedia" name="multimedia" accept="image/*,video/*,audio/*" multiple>
+
+            <!-- Checkbox para anonimato: solo visible si el usuario está autenticado -->
+            <div th:if="${session.username != null}">
+                <input type="checkbox" id="anonimo" th:field="*{esAnonimo}" th:checked="${hecho.esAnonimo}" />
+                <label for="anonimo">Quiero que mi nombre no se muestre públicamente</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </section>
+</main>
+
+<script src="/js/autocomplete.js"></script>
+
+</body>
+</html>

@@ -51,6 +51,7 @@ Hecho --> Multimedia
 Hecho --> OrigenDelHecho
 Hecho --> Categoria
 importadorCSV --> LectorCSV
+Importador ..> Hecho
 
 
 

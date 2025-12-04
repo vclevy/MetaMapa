@@ -1,0 +1,13 @@
+package ar.utn.ba.ddsi.gateway.models.dtos.output;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class FuenteDeHechoOutputDTO {
+    private Long id;
+    private String nombre;
+    private String tipo;
+    private String urlBase;
+}

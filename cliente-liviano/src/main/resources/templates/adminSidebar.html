@@ -1,0 +1,14 @@
+<!-- adminSidebar.html -->
+<aside class="sidebar" th:fragment="sidebarFragment" aria-label="Menú lateral">
+    <button class="sidebar__toggle" aria-label="Abrir/cerrar menú" aria-expanded="false">☰</button>
+    <div class="sidebar__inner">
+        <nav class="menu">
+            <a class="menu__link" th:href="@{/admin}">Resumen de actividad</a>
+            <a class="menu__link" th:href="@{/admin/colecciones}">Gestionar colecciones</a>
+            <a class="menu__link" th:href="@{/admin/coleccion/nueva}">Crear colección</a>
+            <a class="menu__link" th:href="@{/admin/hechos}">Gestionar hechos</a>
+            <a class="menu__link" th:href="@{/admin/solicitudes}">Solicitudes de eliminación</a>
+            <a class="menu__link" th:href="@{/admin/importar}">Importar hechos</a>
+        </nav>
+    </div>
+</aside>

@@ -1,0 +1,30 @@
+package ar.utn.ba.ddsi.gateway.models.entities;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name = "usuarios")
+@Data
+public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String nombre;
+    private String apellido;
+
+    @Column(unique = true, nullable = false)
+    private String nombreDeUsuario;
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    private String contrasenia;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Rol rol;
+
+}

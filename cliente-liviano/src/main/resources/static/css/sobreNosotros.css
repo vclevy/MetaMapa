@@ -1,0 +1,88 @@
+.hero {
+    background: linear-gradient(rgb(19, 56, 99), rgba(13, 60, 113, 0.6)), url('../img/banner.jpg') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.about-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.objetivos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.objetivo {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.objetivo:hover {
+    transform: translateY(-5px);
+}
+
+.objetivo i {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Sección Legal y Privacidad */
+.about-section.legal {
+    background: #133863; /* gris muy oscuro tirando a negro */
+    color: #dcdcdc;      /* texto claro para contraste */
+    padding: 40px 20px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 900px;
+    margin: 60px auto;
+    border-radius: 10px;
+}
+
+.about-section.legal h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #f1faee; /* un blanco ligeramente diferente al footer */
+    text-align: center;
+}
+
+.about-section.legal a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.about-section.legal a:hover {
+    color: #66b0ff;
+    text-decoration: underline;
+}
+
+footer {
+    background: #133863;
+    color: #f1faee;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MetaMapa · Gestionar colecciones</title>
+    <link rel="stylesheet" th:href="@{/css/adminColecciones.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
+
+    <!-- Contenido -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title">Colecciones</h1>
+            <div class="page-actions">
+                <a class="btn btn-primary" th:href="@{/admin/coleccion/nueva}" title="Crear nueva colección">
+                    Crear colección
+                </a>
+            </div>
+        </div>
+
+        <section class="collections-list" aria-label="Listado de colecciones">
+            <!-- Iteración de colecciones -->
+            <article class="collection card" th:each="coleccion : ${colecciones}">
+                <div class="collection__main">
+                    <a th:href="@{'/colecciones/' + ${coleccion.id}}" class="collection__link">
+                        <div class="collection__name" th:text="${coleccion.titulo}">Nombre de la colección</div>
+                    </a>
+                    <div class="collection__desc" th:text="${coleccion.descripcion}">Descripción</div>
+
+                    <!-- NUEVO: Mostrar algoritmo de consenso -->
+<!--                    <div class="collection__consensus">-->
+<!--                        <strong>Algoritmo: </strong>-->
+<!--                        <span th:text="${coleccion.getAlgoritmoDeConsenso()}">Algoritmo</span>-->
+<!--&lt;!&ndash;                    </div> TODO ver porque carajo se imprime AlgoritmoDeConsenso y no el nombre del algoritmo&ndash;&gt;-->
+<!--                </div>-->
+
+                <!-- Bloque de fuentes -->
+                <div class="collection__sources">
+                    <div class="sources__label">Fuentes asociadas</div>
+                    <ul class="fuentes-list" th:id="'fuentes-list-' + ${coleccion.id}">
+                        <li th:each="fuente : ${coleccion.fuentesDeHechos}" th:data-nombre="${fuente.nombre}">
+                            <span th:text="${fuente.nombre} + ' (' + ${fuente.tipo} + ')'">Fuente</span>
+                            <form th:action="@{/admin/coleccion/{idColeccion}/fuente/eliminar(idColeccion=${coleccion.id})}" method="post">
+                                <input type="hidden" name="idFuente" th:value="${fuente.id}" />
+                                <button type="submit" class="btn-remove">Quitar</button>
+                            </form>
+                        </li>
+                    </ul>
+
+                    <!-- NUEVO: desplegable en vez de input texto para tipo -->
+                    <form th:action="@{/admin/coleccion/{id}/fuente/agregar(id=${coleccion.id})}" method="post" class="add-fuente-form">
+                        <input type="text" name="nombre" placeholder="Nombre" required />
+
+                        <!-- Dropdown tipo -->
+                        <select name="tipo" required>
+                            <option value="" disabled selected>Tipo</option>
+                            <option value="DINAMICA">DINÁMICA</option>
+                            <option value="ESTATICA">ESTÁTICA</option>
+                            <option value="PROXY">PROXY</option>
+                        </select>
+
+                        <input type="text" name="urlBase" placeholder="URL Base" required />
+                        <button type="submit" class="btn-add">Añadir</button>
+                    </form>
+                </div>
+
+                <!-- Acciones -->
+                <div class="collection__actions">
+                    <!-- Botón editar -->
+                    <a class="iconbtn" th:href="@{'/admin/coleccion/editar/' + ${coleccion.id}}" aria-label="Editar" data-tooltip="Editar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83z"/>
+                        </svg>
+                    </a>
+
+                    <!-- Botón borrar -->
+                    <form th:action="@{/admin/{id}/eliminar(id=${coleccion.id})}" method="post" class="delete-form"
+                          onsubmit="return confirmarBorrado();">
+                        <button class="iconbtn iconbtn--danger"
+                                type="submit"
+                                aria-label="Borrar"
+                                data-tooltip="Borrar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor" d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+            </article>
+        </section>
+
+    </main>
+</div>
+
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+<!-- Script confirmación -->
+<script>
+    function confirmarBorrado() {
+        return confirm("¿Estás seguro de que querés eliminar esta colección?");
+    }
+</script>
+
+</body>
+</html>

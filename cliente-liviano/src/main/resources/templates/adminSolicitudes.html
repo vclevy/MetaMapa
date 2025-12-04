@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Solicitudes de eliminación</title>
+    <link rel="stylesheet" th:href="@{/css/adminSolicitudes.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
+
+    <!-- Contenido principal -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title">Solicitudes de eliminación</h1>
+
+            <!-- Mensajes flash -->
+            <div th:if="${mensajeExito}" class="alert alert-exito" th:text="${mensajeExito}"></div>
+            <div th:if="${mensajeError}" class="alert alert-error" th:text="${mensajeError}"></div>
+        </div>
+
+        <!-- Lista de solicitudes -->
+        <section class="solicitudes-list">
+            <div th:if="${#lists.isEmpty(solicitudes)}" class="no-data">
+                <p>No hay solicitudes registradas.</p>
+            </div>
+
+            <div th:each="solicitud : ${solicitudes}" class="solicitud-card">
+                <div class="solicitud-info">
+                    <div class="solicitud-header">
+                        <h2 th:text="'Hecho ID: ' + ${solicitud.idHecho}">Hecho ID: 1</h2>
+                    </div>
+
+                    <p class="justificacion">
+                        <strong>Justificación:</strong>
+                        <span th:text="${solicitud.justificacion}">Justificación del usuario...</span>
+                    </p>
+
+                    <div class="meta">
+                        <span th:text="'Solicitado por: ' + ${solicitud.nombreDeUsuario}">usuario</span>
+                    </div>
+                </div>
+
+                <!-- Acciones: botones aprobar/rechazar -->
+                <div class="solicitud-actions">
+                    <form th:action="@{'/admin/solicitudes/' + ${solicitud.id} + '/aprobar'}" method="post">
+                        <input type="hidden" name="usuarioModificador" th:value="${session.username}" />
+                        <button type="submit" class="btn-aprobar">Aprobar</button>
+                    </form>
+
+                    <form th:action="@{'/admin/solicitudes/' + ${solicitud.id} + '/rechazar'}" method="post">
+                        <input type="hidden" name="usuarioModificador" th:value="${session.username}" />
+                        <button type="submit" class="btn-rechazar">Rechazar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>

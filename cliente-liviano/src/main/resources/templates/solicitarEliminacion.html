@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Solicitar eliminación de hecho</title>
+    <link rel="stylesheet" th:href="@{/css/solicitarEliminacion.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+</head>
+<body>
+
+<div th:replace="header :: mainHeader"></div>
+
+<main class="container main-wrap">
+    <section class="form-card" aria-labelledby="titulo-form">
+        <header class="form-head">
+            <h1 id="titulo-form">Solicitar eliminación de hecho</h1>
+            <p class="sub">
+                Contanos por qué este hecho debería eliminarse. La justificación debe tener un mínimo de
+                <strong>500</strong> caracteres.
+            </p>
+        </header>
+
+        <!-- ✅ Acción corregida: ahora envía POST a /hechos/{id}/solicitar-eliminacion -->
+        <form th:action="@{/hechos/{id}/solicitar-eliminacion(id=${solicitud.idHecho})}"
+              th:object="${solicitud}"
+              method="post"
+              class="elim-form"
+              novalidate>
+
+
+        <!-- Justificación -->
+            <div class="row one">
+                <label for="justificacion">Justificación <span class="req">(mínimo 500 caracteres)</span></label>
+                <textarea id="justificacion"
+                          th:field="*{justificacion}"
+                          minlength="500"
+                          required
+                          placeholder="Escribí una justificación detallada…"></textarea>
+                <span th:if="${#fields.hasErrors('justificacion')}" th:errors="*{justificacion}" class="help"></span>
+            </div>
+
+            <!-- Campos ocultos -->
+            <input type="hidden" th:field="*{idHecho}" />
+            <input type="hidden" th:field="*{nombreDeUsuario}" />
+
+            <!-- Acciones -->
+            <div class="actions">
+                <a class="btn btn-outline btn-cancelar"  th:href="@{|/hechos/${solicitud.idHecho}|}">Cancelar</a>
+                <button class="btn btn-primary btn-submit" type="submit">Enviar solicitud</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,77 @@
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}
+
+/* Header sin altura fija: crece lo justo para el logo */
+header{
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid #ddd;
+    position:sticky; top:0; z-index:1000;
+    width:100%;
+}
+
+/* Contenedor: mantiene “sensación” de header fino pero permite crecer */
+.header-container{
+    max-width:1600px;
+    margin:0 auto;
+    padding:0 .75rem;
+    min-height:80px;                 /* alto mínimo */
+    display:grid;
+    grid-template-columns:auto 1fr auto; /* logo | menú | sesión */
+    align-items:center;               /* centra verticalmente todo */
+    column-gap:1.25rem;
+}
+
+/* Logo grande (ajustá a gusto 110–140px) */
+.logo{ display:flex; align-items:center; height:100%; }
+.logo img{
+    height:120px;                     /* << tamaño visible del logo */
+    width:auto; object-fit:contain; display:block;
+}
+
+/* Menú integrado con pipes */
+.main-menu{
+    display:flex; justify-content:center; align-items:center;
+    gap:1.25rem; line-height:1.2;     /* evita que “baje” por line-height global */
+}
+.main-menu a{
+    color:#133863; text-decoration:none; font-weight:700; font-size:1rem;
+    padding:.25rem 0; transition:color .15s ease, transform .15s ease;
+}
+.main-menu a:hover{ color:#2B7BD6; transform:translateY(-1px); }
+.main-menu a:not(:last-child)::after{
+    content:"|"; margin-left:1.25rem; color:rgba(19,56,99,.35); font-weight:400;
+}
+
+/* Sesión derecha */
+.nav-links{ display:flex; align-items:center; gap:.65rem; }
+.nav-links a{ text-decoration:none; }
+
+/* Botones */
+.btn{ padding:.5rem 1rem; border-radius:20px; font-weight:600; font-size:.95rem;
+    cursor:pointer; transition:.3s; border:2px solid transparent; text-decoration:none; }
+.btn-primary{ background:#fff!important; color:#2B7BD6!important; border:0!important;
+    box-shadow:0 4px 6px rgba(13,110,253,.3)!important; }
+.btn-primary:hover{ background:#2B7BD6!important; color:#fff!important;
+    box-shadow:0 6px 12px rgba(13,110,253,.55)!important; }
+
+.btn-icon{ display:inline-flex; align-items:center; justify-content:center;
+    width:32px; height:32px; border-radius:35%; background:#fff; color:#2B7BD6;
+    border:2px solid #2B7BD6; }
+.btn-icon:hover{ background:#2B7BD6; color:#fff; }
+
+/* Responsive */
+@media (max-width:1024px){
+    .logo img{ height:100px; }       /* baja un poco en laptops chicas */
+}
+@media (max-width:820px){
+    .header-container{
+        grid-template-columns:auto 1fr;
+        grid-template-areas:"logo session" "menu menu";
+        row-gap:.4rem; padding:.35rem .75rem;
+    }
+    .logo{ grid-area:logo; }
+    .main-menu{ grid-area:menu; justify-content:flex-start; overflow-x:auto; }
+    .nav-links{ grid-area:session; justify-self:end; }
+    .logo img{ height:90px; }        /* más compacto en mobile */
+}

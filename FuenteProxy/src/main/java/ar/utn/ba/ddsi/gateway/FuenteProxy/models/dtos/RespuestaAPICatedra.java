@@ -1,0 +1,17 @@
+package ar.utn.ba.ddsi.gateway.FuenteProxy.models.dtos;
+
+import lombok.Data;
+import java.util.List;
+
+@Data
+public class RespuestaAPICatedra<T> {
+    private int current_page;
+    private List<T> data;
+    private String first_page_url;
+    private int last_page;
+    private String last_page_url;
+    private String next_page_url;
+    private String prev_page_url;
+    private int per_page;
+    private int total;
+}

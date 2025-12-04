@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle del Hecho</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/detalleHecho.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <style>
+        .detalle-flex { display: flex; align-items: flex-start; gap: 2rem; }
+        .carousel { position: relative; width: 300px; height: 300px; overflow: hidden; flex-shrink: 0; }
+        .carousel img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .carousel img.active { display: block; }
+        .carousel .prev, .carousel .next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.4); color: #fff; border: none;
+            padding: .5rem; cursor: pointer; border-radius: 50%;
+        }
+        .carousel .prev { left: 10px; } .carousel .next { right: 10px; }
+
+        .detalle-flex .detalle-hecho { flex: 1; position: relative; }
+        #map { width: 100%; height: 400px; border-radius: 10px; margin-top: 2rem; }
+
+        @media (max-width: 600px) {
+            .detalle-flex { flex-direction: column; align-items: center; }
+            .carousel { width: 100%; height: auto; }
+            .carousel img { height: auto; }
+            .detalle-flex .detalle-hecho { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<div class="container detalle-flex">
+
+    <!-- Carrusel -->
+    <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}" class="carousel">
+        <div th:each="img, iterStat : ${hecho.multimedia}">
+            <img th:src="${img}" alt="Imagen del hecho" th:classappend="${iterStat.index == 0} ? 'active' : ''"/>
+        </div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+
+    <!-- Detalles -->
+    <div class="detalle-hecho">
+        <h1 th:text="${hecho.titulo}">Título del Hecho</h1>
+
+
+        <p><strong>Subido por:</strong>
+            <span th:if="${hecho.esAnonimo}">Anónimo</span>
+            <span th:unless="${hecho.esAnonimo}" th:text="${hecho.nombreDeUsuario}"></span>
+        </p>
+
+
+
+
+        <p><strong>Descripción:</strong> <span th:text="${hecho.descripcion}"></span></p>
+
+        <p><strong>Categoría:</strong> <span th:text="${hecho.categoriaNombre}"></span></p>
+
+        <p><strong>Fecha del acontecimiento:</strong>
+            <span th:text="${fechaFormateada}"></span>
+        </p>
+
+        <p><strong>Ubicación:</strong>
+            <span th:if="${hecho.lugar != null and hecho.lugar.latitud != null and hecho.lugar.longitud != null}"
+                  th:text="${hecho.lugar.provincia}"></span>
+            <span th:if="${hecho.lugar == null or hecho.lugar.latitud == null or hecho.lugar.longitud == null}">
+                Ubicación no disponible
+            </span>
+        </p>
+
+<!--        <div class="actions" th:if="${session.rol == 'ADMIN'}" style="margin-top:1.5rem;">-->
+<!--            <a class="btn btn-blue"  th:href="@{/hechos/{id}/editar(id=${hecho.id})}">Editar</a>-->
+<!--            <a class="btn btn-green" th:href="@{/admin/hechos/{id}/aprobar(id=${hecho.id})}">Aprobar</a>-->
+<!--            <form th:action="@{|/hechos/${hecho.id}/eliminar|}" method="post" class="inline-form">-->
+<!--                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
+<!--                <button type="submit" class="btn btn-red"-->
+<!--                        onclick="return confirm('¿Eliminar definitivamente este hecho?');">-->
+<!--                    Eliminar-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+        <div class="actions"  style="margin-top:1.5rem;">
+                <a class="btn btn-outline btn-solicitar"
+                   th:href="@{/hechos/{id}/solicitar-eliminacion(id=${hecho.id})}">
+                    Solicitar eliminación
+                </a>
+
+            <a class="btn btn-blue"
+               th:if="${usuarioActual != null and hecho.nombreDeUsuario == usuarioActual}"
+               th:href="@{/hechos/{id}/editar(id=${hecho.id})}">
+                Editar
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Mapa -->
+<div th:if="${hecho.lugar != null and hecho.lugar.latitud != null and hecho.lugar.longitud != null}" class="container">
+    <div id="map"></div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let currentSlide = 0;
+    function showSlide(index) {
+        const slides = document.querySelectorAll(".carousel img");
+        if (!slides.length) return;
+        slides.forEach(s => s.classList.remove("active"));
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+    }
+    function moveSlide(step){ showSlide(currentSlide + step); }
+    document.addEventListener("DOMContentLoaded", ()=> showSlide(0));
+
+    // Mapa (sin cambios de lógica)
+    document.addEventListener("DOMContentLoaded", function () {
+        const lat = [[${hecho.lugar != null && hecho.lugar.latitud != null ? hecho.lugar.latitud : 'null'}]];
+        const lng = [[${hecho.lugar != null && hecho.lugar.longitud != null ? hecho.lugar.longitud : 'null'}]];
+        const titulo = /*[[${hecho.titulo}]]*/ 'Hecho';
+
+        if (lat != null && lng != null) {
+            const map = L.map('map').setView([lat, lng], 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            const icon = L.icon({
+                iconUrl: '/img/beanosPin.png',
+                iconSize: [30, 70],
+                iconAnchor: [15, 70],
+                popupAnchor: [0, -70]
+            });
+
+            L.marker([lat, lng], { icon })
+                .addTo(map)
+                .bindPopup(`<strong>${titulo}</strong>`)
+                .openPopup();
+        } else {
+            const mapDiv = document.getElementById('map');
+            if (mapDiv) mapDiv.style.display = 'none';
+        }
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

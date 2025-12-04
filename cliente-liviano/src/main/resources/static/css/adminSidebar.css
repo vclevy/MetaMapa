@@ -1,0 +1,91 @@
+/* ===== Sidebar autosuficiente ===== */
+/* Usa variables externas si existen; si no, cae en defaults locales */
+.sidebar{
+    /* fallbacks locales */
+    --_sidebar-bg: #0f2746;
+    --_sidebar-text: #e6eef9;
+    --_sidebar-active: #0b1e36;
+    --_sidebar-w: 280px;
+    --_header-h: 80px;
+    --_z-header: 1000;
+
+    /* toma del exterior si está definido, sino usa los _ locales */
+    background: var(--sidebar-bg, var(--_sidebar-bg));
+    color: var(--sidebar-text, var(--_sidebar-text));
+    position: sticky;
+    top: var(--header-h, var(--_header-h));
+    height: calc(100vh - var(--header-h, var(--_header-h)));
+    width: var(--sidebar-w, var(--_sidebar-w));
+    flex-shrink: 0;
+    z-index: calc(var(--z-header, var(--_z-header)) - 1);
+}
+
+.sidebar__toggle{
+    display: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: .75rem 1rem;
+}
+
+.sidebar__inner{ padding: 1rem; }
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+}
+
+.menu__link{
+    padding: .78rem 1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    color: var(--sidebar-text, var(--_sidebar-text));
+    transition: background .2s ease, color .2s ease;
+}
+.menu__link:hover{ background: rgba(255,255,255,.08); }
+.menu__link.is-active{ background: var(--sidebar-active, var(--_sidebar-active)); }
+
+/* --- Responsive: slide-in en mobile sin depender del landing --- */
+@media (max-width: 900px){
+    .sidebar{
+        position: fixed;
+        left: 0;
+        top: var(--header-h, var(--_header-h));
+        height: calc(100vh - var(--header-h, var(--_header-h)));
+        width: min(84vw, var(--sidebar-w, var(--_sidebar-w)));
+        transform: translateX(-100%);
+        transition: transform .2s ease;
+        box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        z-index: calc(var(--z-header, var(--_z-header)) + 1);
+    }
+    .sidebar.is-open{ transform: translateX(0); }
+
+    .sidebar__toggle{
+        display: inline-block;
+        position: absolute;
+        right: -44px;
+        top: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #fff;
+        color: #000;
+        border: 1px solid rgba(229,231,235,1); /* borde suave */
+        box-shadow: 0 6px 18px rgba(0,0,0,.08);
+        line-height: 1;
+    }
+}
+
+/* Accesibilidad */
+.menu__link:focus{
+    outline: 2px solid #bfdbfe;
+    outline-offset: 2px;
+}-active{ background: var(--sidebar-active); }
+
+/* Eliminar subrayado en los enlaces del sidebar */
+.menu__link {
+    text-decoration: none;
+}
+

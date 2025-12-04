@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MetaMapa — Hechos</title>
+    <link rel="stylesheet" th:href="@{/css/listadoHechos.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 38px;
+            padding: 4px 12px;
+            border-radius: 5px;
+        }
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="header :: mainHeader"></div>
+
+<main>
+    <section class="intro container">
+        <h1>Hechos</h1>
+        <p>Explorá y filtrá los hechos reportados por la comunidad.</p>
+    </section>
+
+    <section class="filters container">
+        <form class="filters-form">
+            <div class="filter-group">
+                <label for="fecha-desde">Fecha desde</label>
+                <input type="datetime-local" id="fecha-desde" name="fechaDesde" th:value="${filtros.fechaDesde}">
+            </div>
+
+            <div class="filter-group">
+                <label for="fecha-hasta">Fecha hasta</label>
+                <input type="datetime-local" id="fecha-hasta" name="fechaHasta" th:value="${filtros.fechaHasta}">
+            </div>
+
+            <div class="filter-group">
+                <label for="ubicacion">Ubicación</label>
+                <input type="text" id="ubicacion" name="ubicacion" placeholder="Barrio, calle o ciudad"
+                       th:value="${filtros.provincia}">
+            </div>
+
+            <div class="filter-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" name="categoria">
+                    <option value="">Todas</option>
+                    <option th:each="cat : ${categorias}"
+                            th:value="${cat.id}"
+                            th:text="${cat.nombre}"
+                            th:selected="${cat.id} == ${filtros.categoriaId}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="fuente">Fuente</label>
+                <select id="fuente" name="tipoFuente">
+                    <option value="">Todas</option>
+                    <option value="DINAMICA">DINAMICA</option>
+                    <option value="ESTATICA">ESTATICA</option>
+                    <option value="PROXY">PROXY</option>
+                </select>
+            </div>
+
+
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a th:href="@{/hechos}" class="btn btn-primary">Limpiar</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="hechos-list">
+        <div class="cards container">
+            <article class="card" th:each="hecho : ${hechos}">
+                <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                    <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
+                        <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
+                                     #strings.endsWith(hecho.multimedia[0], '.jpeg') or
+                                     #strings.endsWith(hecho.multimedia[0], '.png') or
+                                     #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                             th:src="${hecho.multimedia[0]}"
+                             th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+                        <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
+                               th:src="${hecho.multimedia[0]}"
+                               type="video/mp4"
+                               controls
+                               preload="metadata"
+                               style="max-width:100%; border-radius:10px;">
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                    <p class="meta">
+                        <span th:text="${#temporals.format(hecho.fechaDeAcontecimiento, 'dd/MM/yyyy')}"></span>
+                        <span class="badge" th:text="${hecho.categoriaNombre}">Categoría</span>
+                    </p>
+                    <p th:text="${hecho.descripcion}">Descripción breve del hecho…</p>
+                    <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+        </div>
+
+        <nav class="pagination" aria-label="Paginación">
+            <a class="page prev" th:href="@{|/hechos?page=${paginaAnterior}|}">Anterior</a>
+            <span th:each="i : ${#numbers.sequence(1,totalPaginas)}">
+                <a class="page" th:classappend="${i==paginaActual} ? ' is-current'"
+                   th:href="@{|/hechos?page=${i}|}" th:text="${i}">1</a>
+            </span>
+            <a class="page next" th:href="@{|/hechos?page=${paginaSiguiente}|}">Siguiente</a>
+        </nav>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Inicializar Select2 con barra de búsqueda
+        $('#categoria').select2({
+            placeholder: "Seleccione categoría",
+            allowClear: true,
+            width: 'resolve'
+        });
+        $('#fuente').select2({
+            placeholder: "Seleccione fuente",
+            allowClear: true,
+            width: 'resolve'
+        });
+    });
+
+    document.querySelector('.filters-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const fechaDesdeVal = document.querySelector('#fecha-desde').value;
+        const fechaHastaVal = document.querySelector('#fecha-hasta').value;
+        const provinciaVal = document.querySelector('#ubicacion').value;
+        const catVal = document.querySelector('#categoria').value;
+        const fuenteVal = document.querySelector('#fuente').value;
+
+        const data = {};
+
+        if (fechaDesdeVal) data.fechaDesde = fechaDesdeVal;
+        if (fechaHastaVal) data.fechaHasta = fechaHastaVal;
+        if (provinciaVal) data.provincia = provinciaVal;
+        if (catVal) data.categoriaId = parseInt(catVal);
+        if (fuenteVal) data.tipoFuente = fuenteVal;
+
+        fetch('/hechos/filtrar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(resp => resp.json())
+            .then(hechos => {
+                const container = document.querySelector('.cards.container');
+                container.innerHTML = '';
+
+                hechos.forEach(hecho => {
+                    const card = document.createElement('article');
+                    card.classList.add('card');
+
+                    let mediaHtml = '';
+                    if (hecho.multimedia && hecho.multimedia.length > 0) {
+                        const url = hecho.multimedia[0];
+                        if (url.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                            mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
+                                <img src="${url}" alt="Imagen del hecho ${hecho.titulo}" />
+                             </a>`;
+                        } else if (url.endsWith('.mp4')) {
+                            mediaHtml = `<a class="card-cover" href="/hechos/${hecho.id}">
+                                <video src="${url}" controls preload="metadata" style="max-width:100%; border-radius:10px;"></video>
+                             </a>`;
+                        }
+                    }
+
+                    card.innerHTML = `
+                    ${mediaHtml}
+                    <div class="card-body">
+                        <h3>${hecho.titulo}</h3>
+                        <p class="meta">
+                            <span>${new Date(hecho.fechaDeAcontecimiento).toLocaleDateString()}</span>
+                            <span class="badge">${hecho.categoriaNombre}</span>
+                        </p>
+                        <p>${hecho.descripcion}</p>
+                        <a href="/hechos/${hecho.id}" class="card-link">Ver detalle</a>
+                    </div>
+                `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => console.error(err));
+    });
+</script>
+
+</body>
+</html>

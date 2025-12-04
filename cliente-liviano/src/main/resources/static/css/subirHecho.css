@@ -1,0 +1,142 @@
+/* Reset y globales */
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; height:100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:#333; line-height:1.6; background:#f4f6fb; }
+a { color: inherit; text-decoration:none; }
+img { max-width:100%; display:block; }
+
+
+/* Layout y Sidebar */
+.layout { display:grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 80px); }
+.sidebar {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    background:#0f2746;
+    color:#e6eef9;
+    padding:1rem;
+}
+.menu { display:flex; flex-direction:column; gap:.35rem; }
+.menu__link {
+    padding:.78rem 1rem;
+    border-radius:10px;
+    font-weight:700;
+    color:#e6eef9;
+    transition: background .2s ease, color .2s ease;
+}
+.menu__link:hover { background: rgba(255,255,255,.08); }
+.menu__link.is-active { background:#0b1e36; }
+
+/* Main */
+.main { padding:2rem min(3vw, 32px); }
+.page-title { font-size: clamp(1.35rem, 1.6vw + .8rem, 1.9rem); font-weight:900; margin:0 0 1rem; }
+.page-actions { display:flex; align-items:center; gap:.6rem; }
+
+/* Botones */
+.btn {
+    padding:0.5rem 1rem;
+    border-radius:20px;
+    font-weight:600;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition: all 0.3s ease;
+    border:2px solid transparent;
+    text-decoration:none;
+}
+.btn-primary {
+    background-color:white;
+    color:#2B7BD6;
+    border:0;
+    box-shadow:0 4px 6px rgba(13,110,253,0.3);
+}
+.btn-primary:hover {
+    background-color:#2B7BD6;
+    color: rgba(248,248,248,0.9);
+    box-shadow:0 6px 12px rgba(13,110,253,0.6);
+}
+.btn-outline {
+    background-color:transparent;
+    color:white;
+    border:2px solid rgba(13,110,253,0.6);
+}
+.btn-outline:hover {
+    background-color:#2B7BD6;
+    color:white;
+    border-color:#2B7BD6;
+}
+
+/* Tarjetas / Formulario */
+.form-section { display:flex; justify-content:center; margin:1rem 0 2rem; padding:0 1rem; }
+.form-card {
+    background:#fff;
+    padding:2rem;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(43,123,214,.10);
+    width:100%;
+    max-width:720px;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    border:1px solid #e6edf7;
+}
+.form-card h2 { margin:0 0 .25rem; color:#133863; }
+.form-card label { font-weight:700; color:#133863; }
+
+/* Centrado del contenido de la sección de introducción */
+.intro {
+    /* Define un ancho máximo para que no se extienda por toda la pantalla */
+    max-width: 600px;
+    /* Centra el bloque .intro horizontalmente dentro de su contenedor (el .main) */
+    margin-left: auto;
+    margin-right: auto;
+    /* Centra el texto (el h1 y el p) dentro de la sección .intro */
+    text-align: center;
+    /* Añade un poco de margen inferior para separarlo del formulario, si lo hubiera */
+    margin-bottom: 2rem;
+}
+
+/* Opcional: Asegura que el h1 y p no tengan márgenes extraños que rompan el centrado */
+.intro h1, .intro p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+/* Inputs, Textareas y Selects modernos */
+.form-card input[type="text"],
+.form-card input[type="datetime-local"],
+.form-card input[type="file"],
+.form-card textarea,
+.form-card select {
+    width:100%;
+    padding:.8rem 1rem;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:1rem;
+    transition:border-color .2s ease, box-shadow .2s ease;
+    background:#fff;
+    color:#111827;
+}
+.form-card textarea { resize: vertical; min-height:120px; }
+.form-card input:focus,
+.form-card textarea:focus,
+.form-card select:focus {
+    border-color:#2B7BD6;
+    outline:none;
+    box-shadow:0 0 0 3px rgba(43,123,214,.15);
+}
+
+/* Ayuda / hints */
+.help { color:#6b7c93; font-size:.9rem; margin-top:-.3rem; }
+
+/* Grid de dos columnas */
+.grid-two { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+
+/* Acciones del formulario */
+.actions { display:flex; justify-content:flex-end; align-items:center; gap:.6rem; margin-top:.5rem; }
+
+/* Footer */
+footer { background:#133863; color:#f1faee; text-align:center; padding:1.2rem 0; margin-top:2rem; font-size:.9rem; letter-spacing:.5px; }
+
+/* Responsive */
+@media (max-width: 720px) {
+    .grid-two { grid-template-columns:1fr; }
+    .form-card { padding:1.25rem; }
+}

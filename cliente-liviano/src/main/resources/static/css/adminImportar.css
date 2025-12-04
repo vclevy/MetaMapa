@@ -1,0 +1,110 @@
+:root {
+    --primario: #2B7BD6;
+    --primario-700: #1f5da3;
+    --sidebar-bg: #0f2746;
+    --sidebar-active: #0b1e36;
+    --sidebar-text: #e6eef9;
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --texto: #111827;
+    --muted: #6b7280;
+    --borde: #e5e7eb;
+    --shadow: 0 6px 18px rgba(0,0,0,.08);
+    --radius: 14px;
+    --sidebar-w: 280px;
+    --header-h: 80px;
+    --z-header: 1000;
+}
+
+/* Reset */
+*,*::before,*::after { box-sizing: border-box; }
+html,body { height:100%; margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color:var(--texto); line-height:1.6; background:var(--bg); }
+a { color:inherit; text-decoration:none; }
+img { max-width:100%; display:block; }
+
+/* Layout y Sidebar */
+.layout { display:grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: calc(100vh - var(--header-h)); }
+.sidebar {
+    position: sticky; top: var(--header-h);
+    height: calc(100vh - var(--header-h));
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding:1rem;
+}
+.menu { display:flex; flex-direction:column; gap:.35rem; }
+.menu__link {
+    padding:.78rem 1rem;
+    border-radius:10px;
+    font-weight:700;
+    color: var(--sidebar-text);
+    transition: background .2s ease, color .2s ease;
+}
+.menu__link:hover { background: rgba(255,255,255,.08); }
+.menu__link.is-active { background: var(--sidebar-active); }
+
+/* Main */
+.main { padding: 2rem min(3vw, 32px); }
+.page-title { font-size: clamp(1.35rem, 1.6vw + .8rem, 1.9rem); font-weight:900; margin:0 0 1rem; }
+
+/* Mensajes */
+.alert { padding:.85rem 1rem; border-radius:10px; font-weight:700; margin-bottom:1rem; }
+.alert-success { background:#ecfdf5; color:#15803d; border:1px solid #16a34a; }
+.alert-error { background:#fee2e2; color:#b91c1c; border:1px solid #ef4444; }
+
+/* Formulario Importar */
+.import-card {
+    background: var(--card);
+    padding:2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 720px;
+    margin-inline: auto;
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    border:1px solid var(--borde);
+}
+.import-form { display:flex; flex-direction:column; gap:1rem; }
+.import-help { font-weight:900; color:#334155; margin:0; }
+.dropzone {
+    display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;
+    min-height:96px;
+    border:2px dashed #cfe0ff; border-radius:12px;
+    background:#f8fbff; padding:.9rem;
+    transition:border-color .15s ease, background .15s ease;
+    cursor:pointer;
+}
+.dropzone.dragover { background:#eef5ff; border-color:#9fc3ff; }
+.file-trigger {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:.55rem .9rem; font-weight:900; border-radius:10px;
+    background:#fff; color:var(--primario-700);
+    border:1px solid #d7e7ff; cursor:pointer;
+}
+.file-trigger:hover { background:#eef5ff; }
+.file-hint { color:#64748b; font-weight:700; }
+.file-name {
+    font-weight:800; color:#111827;
+    background:#ffffff; border:1px solid var(--borde);
+    border-radius:10px; padding:.45rem .6rem;
+}
+.import-actions { display:flex; align-items:center; gap:.6rem; }
+.btn { font-family:inherit; display:inline-flex; align-items:center; justify-content:center; border-radius:20px; padding:.8rem 1.2rem; font-weight:700; border:2px solid transparent; cursor:pointer; transition: all .3s ease; }
+.btn:disabled { opacity:.6; cursor:not-allowed; }
+.btn-primary { background-color: var(--primario); color:#fff; border-color: var(--primario); }
+.btn-primary:hover { background-color: var(--primario-700); border-color: var(--primario-700); }
+
+/* Footer */
+footer { background:#133863; color:#f1faee; text-align:center; padding:1.2rem 0; margin-top:2rem; font-size:.9rem; letter-spacing:.5px; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .layout { grid-template-columns:1fr; }
+    .sidebar { position: fixed; left:0; top: var(--header-h); width:min(84vw,320px); transform:translateX(-100%); transition: transform .2s ease; z-index: calc(var(--z-header) + 1); }
+    .sidebar.is-open { transform:translateX(0); }
+    .main { padding-top:1.25rem; }
+}
+@media (max-width:560px){
+    .import-card { padding:1.25rem; }
+    .file-name{ width:100%; }
+}

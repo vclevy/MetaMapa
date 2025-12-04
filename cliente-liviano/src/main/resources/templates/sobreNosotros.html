@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre nosotros - MetaMapa</title>
+
+    <!-- CSS local -->
+    <link rel="stylesheet" th:href="@{/css/sobreNosotros.css}">
+    <link rel = "stylesheet" th:href="@{/css/header.css}">
+
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet"
+          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+</head>
+<body>
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<!-- Hero con título -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Sobre MetaMapa</h1>
+        <p>Cartografiando memorias colectivas para construir conocimiento comunitario.</p>
+    </div>
+</section>
+
+<!-- Propósito -->
+<section class="about-section">
+    <h2>Propósito</h2>
+    <p>
+        MetaMapa busca ser una plataforma abierta y descentralizada que permita mapear hechos
+        sociales y ambientales, visibilizar problemáticas y construir conocimiento comunitario,
+        protegiendo siempre la identidad de quienes participan.
+    </p>
+</section>
+
+<!-- Objetivos -->
+<section class="about-section objetivos">
+    <h2>Objetivos</h2>
+    <div class="objetivos-grid">
+        <div class="objetivo">
+            <i class="fas fa-map-marked-alt fa-2x"></i>
+            <h3>Mapeo colectivo</h3>
+            <p>Permitir a las comunidades geolocalizar información en un mapa colaborativo.</p>
+        </div>
+        <div class="objetivo">
+            <i class="fas fa-bullhorn fa-2x"></i>
+            <h3>Visibilización</h3>
+            <p>Dar espacio a problemáticas que no aparecen en los medios tradicionales.</p>
+        </div>
+        <div class="objetivo">
+            <i class="fas fa-user-shield fa-2x"></i>
+            <h3>Protección de identidad</h3>
+            <p>Cuidar la privacidad de quienes comparten información sensible.</p>
+        </div>
+        <div class="objetivo">
+            <i class="fas fa-users fa-2x"></i>
+            <h3>Participación comunitaria</h3>
+            <p>Fomentar la construcción colectiva de conocimiento desde las bases sociales.</p>
+        </div>
+    </div>
+</section>
+<!-- Información Legal y Privacidad -->
+<section class="about-section legal">
+    <h2>Información Legal y Privacidad</h2>
+    <p>
+        MetaMapa respeta y protege la privacidad de todos los usuarios. Los datos personales
+        que se recopilan se utilizan exclusivamente para fines relacionados con la plataforma
+        y no se comparten con terceros sin consentimiento explícito.
+    </p>
+    <p>
+        Los usuarios son responsables de la información que aportan y deben asegurarse de que
+        no infringe derechos de terceros. MetaMapa no se hace responsable por el contenido
+        publicado por los usuarios.
+    </p>
+    <p>
+        Al utilizar MetaMapa, aceptas nuestros <a href="/terminos">Términos y Condiciones</a>
+        y nuestra <a href="/privacidad">Política de Privacidad</a>.
+    </p>
+</section>
+
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

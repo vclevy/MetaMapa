@@ -1,0 +1,13 @@
+package ar.utn.ba.ddsi.gateway.cliente_liviano.models.dtos;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class FuenteDeHechoDTO {
+    private Long id;
+    private String nombre;
+    private String tipo;
+    private String urlBase;
+}

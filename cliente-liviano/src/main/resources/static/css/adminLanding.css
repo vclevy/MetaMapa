@@ -1,0 +1,217 @@
+/* Usa las variables globales declaradas en otras vistas (si existen) */
+:root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --texto: #111827;
+    --muted: #6b7280;
+    --borde: #e5e7eb;
+    --shadow: 0 6px 18px rgba(0,0,0,.08);
+    --radius: 14px;
+    --accent: #2563eb;
+}
+
+.main {
+    padding: 2rem min(3vw, 32px);
+    background: var(--bg);
+    color: var(--texto);
+}
+
+.page-title {
+    margin: 0 0 .25rem;
+    font-size: 2rem;
+}
+
+.muted { color: var(--muted); }
+
+/* ---------- NUEVO: cabecera con indicadores (izq) + gráfico (der) ---------- */
+.header-grid{
+    display: grid;
+    grid-template-columns: minmax(300px, 420px) 1fr; /* izq fija, der flexible */
+    grid-template-rows: 1fr 1fr;                    /* dos filas de igual alto */
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+    align-items: stretch;
+}
+
+.header-grid__left{
+    grid-column: 1;
+    grid-row: 1 / span 2;              /* ocupa las dos filas */
+    display: grid;
+    grid-template-rows: 1fr 1fr;       /* dos tarjetas del mismo alto */
+    gap: 1rem;
+}
+
+.header-grid__right{
+    grid-column: 2;
+    grid-row: 1 / span 2;              /* panel del gráfico ocupa toda la altura */
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem 1.25rem;
+    box-shadow: var(--shadow);
+    border: 1px solid #e6edf7;
+    min-height: 420px;                 /* altura mínima razonable del bloque */
+}
+
+.header-grid__right .panel__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: .5rem;
+}
+
+.header-grid__right canvas{
+    flex: 1 1 auto;                    /* que el canvas crezca y llene el bloque */
+    width: 100% !important;
+    height: 100% !important;           /* Chart.js necesita altura explícita */
+}
+
+/* ---------- Indicadores (estilo de tarjeta) ---------- */
+.indicator {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid #e6edf7;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.indicator h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #334155;
+    font-weight: 700;
+}
+
+.indicator__row{
+    display: flex;
+    align-items: baseline;
+    gap: .75rem;
+}
+
+.indicator__value {
+    font-size: 2.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.1;
+}
+
+.indicator__name{
+    font-weight: 700;
+    color: #374151;
+}
+
+/* ---------- Paneles y tablas ---------- */
+.panel {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem 1.25rem;
+    box-shadow: var(--shadow);
+    border: 1px solid #e6edf7;
+    margin-bottom: 1.5rem;
+}
+
+.panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    margin-bottom: .75rem;
+}
+
+.panel__header h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: #1e293b;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .95rem;
+}
+
+.styled-table thead {
+    background: var(--accent);
+    color: #fff;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: .75rem 1rem;
+    text-align: left;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background: #f1f5f9;
+}
+
+.styled-table tbody tr:hover {
+    background: #e2e8f0;
+}
+
+.styled-table .muted { text-align: center; }
+
+/* --- Layout de página: sidebar + contenido --- */
+.layout{
+    display: grid;
+    grid-template-columns: var(--sidebar-w, 280px) 1fr;
+    min-height: calc(100vh - var(--header-h, 80px));
+}
+
+/* ---------- Filtros de tablas ---------- */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.filter-group label {
+    font-weight: 800;
+    color: #334155;
+}
+
+.filter-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff;
+    color: #0f172a;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: .5rem 1.5rem .5rem .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.filter-group select:focus {
+    outline: 2px solid #bfdbfe;
+    outline-offset: 2px;
+    border-color: #cfe0ff;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+    .layout { grid-template-columns: 1fr; }
+    .header-grid{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto; /* indicadores arriba, gráfico abajo */
+    }
+    .header-grid__left{
+        grid-row: auto;
+        grid-column: 1;
+        grid-template-rows: auto;
+    }
+    .header-grid__right{
+        grid-row: auto;
+        grid-column: 1;
+        min-height: 320px;
+    }
+}

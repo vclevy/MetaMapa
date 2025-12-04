@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/sesion.css}" />
+  <link rel="stylesheet" th:href="@{/css/header.css}" /> <!-- Header CSS -->
+
+  <title>MetaMapa - Iniciar Sesión</title>
+</head>
+<body>
+
+<div th:replace="header :: mainHeader"></div>
+
+<main class="main-content">
+  <section class="intro">
+    <h2>Iniciar sesión</h2>
+    <p>Accedé a tu cuenta. Si todavía no tenés una, debés
+      <a th:href="@{/sesion/registro}">registrarte</a>.
+    </p>
+  </section>
+
+  <section class="form-section">
+    <form th:action="@{/sesion/login}" th:object="${loginDTO}" method="post" class="form-card">
+      <label for="nombreDeUsuario">Usuario:</label>
+      <input type="text" id="nombreDeUsuario" th:field="*{nombreDeUsuario}" required/>
+
+      <label for="clave">Contraseña:</label>
+      <input type="password" id="clave" th:field="*{clave}" required/>
+
+      <button type="submit" class="btn btn-primary">Ingresar</button>
+    </form>
+
+    <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

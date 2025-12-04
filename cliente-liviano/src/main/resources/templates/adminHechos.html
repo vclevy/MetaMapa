@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MetaMapa · Gestión de hechos</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" th:href="@{/css/header.css}"/>
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}"/>
+    <link rel="stylesheet" th:href="@{/css/adminHechos.css}"/>
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="~{header :: mainHeader}"></div>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div th:replace="~{adminSidebar :: sidebarFragment}"></div>
+
+    <!-- Contenido principal -->
+    <main class="main container">
+        <section class="intro">
+            <h1>Gestión de hechos</h1>
+            <p>Revisá, editá, aprobá o rechazá los hechos reportados.</p>
+
+            <div th:if="${mensajeExito}" class="alert alert-success" th:text="${mensajeExito}"></div>
+            <div th:if="${mensajeError}" class="alert alert-error" th:text="${mensajeError}"></div>
+        </section>
+
+        <section class="hechos-list">
+            <div class="cards">
+                <article class="card" th:each="hecho : ${hechos}">
+                    <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                        <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
+                            <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
+                           #strings.endsWith(hecho.multimedia[0], '.jpeg') or
+                           #strings.endsWith(hecho.multimedia[0], '.png') or
+                           #strings.endsWith(hecho.multimedia[0], '.gif')}"|
+                                 th:src="${hecho.multimedia[0]}"
+                                 th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+
+                            <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
+                                   th:src="${hecho.multimedia[0]}" type="video/mp4"
+                                   controls preload="metadata"
+                                   style="max-width:100%; border-radius:10px;">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <h3 th:text="${hecho.titulo}">Título</h3>
+                        <p class="meta">
+                            <span th:text="${#temporals.format(hecho.fechaDeAcontecimiento, 'dd/MM/yyyy')}">--/--/----</span>
+                            <span class="badge" th:text="${hecho.categoriaNombre}">Categoría</span>
+                            <span class="badge alt" th:text="${hecho.tipoFuente}">FUENTE</span>
+                        </p>
+                        <p th:text="${hecho.descripcion}">Descripción…</p>
+
+                        <div class="admin-actions">
+                            <a th:href="@{|/hechos/${hecho.id}/editar|}" class="btn btn-blue"
+                               th:attr="aria-label=|Editar ${hecho.titulo}|">Editar</a>
+<!--TODO: HACER QUE ANDE LA EDICION DESDE EDITAR AHI-->
+
+                            <form th:action="@{|/admin/hechos/${hecho.id}/aprobar|}" method="post" class="inline-form">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-green"
+                                        th:attr="aria-label=|Aprobar ${hecho.titulo}|">Aprobar</button>
+                            </form>
+                            <form th:action="@{|/admin/hechos/${hecho.id}/eliminar|}" method="post" class="inline-form">
+                                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-red"
+                                        onclick="return confirm('¿Eliminar definitivamente este hecho?');">
+                                    Eliminar
+                                </button>
+                            </form>
+
+                            <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
+                        </div>
+                    </div>
+                </article>
+
+                <p class="empty" th:if="${#lists.isEmpty(hechos)}"><i>No hay hechos para gestionar.</i></p>
+            </div>
+
+            <nav class="pagination" aria-label="Paginación">
+                <a class="page prev" th:href="@{|/admin/hechos?page=${paginaAnterior}|}">Anterior</a>
+                <span th:each="i : ${#numbers.sequence(1,totalPaginas)}">
+          <a class="page" th:classappend="${i==paginaActual} ? ' is-current'"
+             th:href="@{|/admin/hechos?page=${i}|}" th:text="${i}">1</a>
+        </span>
+                <a class="page next" th:href="@{|/admin/hechos?page=${paginaSiguiente}|}">Siguiente</a>
+            </nav>
+        </section>
+    </main>
+</div>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

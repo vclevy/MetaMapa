@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+entity  hechos {
+  * id : INTEGER(11) «PK»
+ * categoria_id : INTEGER(11) «FK»
+  --
+  titulo : VARCHAR(255)
+  descripcion : TEXT
+  fecha_acontecimiento: DATE
+  fecha_carga: DATE
+  origen : ENUM(DATASET, CARGA_MANUAL, CONTRIBUYENTE)
+}
+
+entity "hechos_multimedia" {
+  * hecho_id : INTEGER(11) «FK»
+  --
+  url: VARCHAR(255)
+}
+
+entity lugares {
+  * id : INTEGER(11) «PK»
+  --
+  fecha : date
+  total : decimal
+}
+
+entity categorias {
+  *id : INTEGER(11) «PK»
+  --
+  nombre : VARCHAR(100)
+}
+
+hechos ||--|| lugares
+categorias ||--{ hechos
+hechos ||--o{ hechos_multimedia
+
+@enduml
+

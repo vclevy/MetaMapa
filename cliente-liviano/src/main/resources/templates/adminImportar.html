@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MetaMapa · Importar hechos</title>
+    <link rel="stylesheet" th:href="@{/css/adminImportar.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+    <link rel="stylesheet" th:href="@{/css/adminSidebar.css}" />
+</head>
+<body>
+
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<div class="layout">
+
+    <div th:replace="adminSidebar :: sidebarFragment"></div>
+
+    <!-- Contenido -->
+    <main class="main" role="main">
+        <div class="page-header">
+            <h1 class="page-title">Importar hechos</h1>
+        </div>
+
+        <!-- Mensajes flash dinámicos -->
+        <div id="mensaje" class="alert" style="display:none;"></div>
+
+        <article class="card import-card">
+            <div class="import-form">
+                <p class="import-help">Cargar archivo con extensión <strong>.csv</strong></p>
+
+                <div class="dropzone" id="dropzone" tabindex="0" aria-label="Área para seleccionar o soltar un archivo .csv">
+                    <input type="file" id="csvFile" name="archivos" accept=".csv" required hidden multiple>
+                    <button class="file-trigger" type="button" aria-controls="csvFile">Examinar…</button>
+                    <span class="file-hint">o arrastrá y soltá aquí</span>
+                    <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+                </div>
+
+                <div class="import-actions">
+                    <button class="btn btn--primary btn--lg" id="importBtn" type="button" disabled>Importar</button>
+                </div>
+            </div>
+        </article>
+    </main>
+</div>
+
+<footer role="contentinfo">
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+<script>
+    (function(){
+        const fileInput = document.getElementById('csvFile');
+        const dropzone = document.getElementById('dropzone');
+        const fileList = document.getElementById('fileName'); // para mostrar todos los nombres
+        const trigger = document.querySelector('.file-trigger');
+        const importBtn = document.getElementById('importBtn');
+        const mensaje = document.getElementById('mensaje');
+
+        let archivosSeleccionados = [];
+
+        function mostrarMensaje(texto, tipo){
+            mensaje.textContent = texto;
+            mensaje.className = 'alert ' + tipo;
+            mensaje.style.display = 'block';
+        }
+
+        function setFiles(files){
+            if(!files || files.length === 0) return;
+
+            // validar todos los archivos
+            const csvFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.csv'));
+            if(csvFiles.length !== files.length){
+                mostrarMensaje('Solo se permiten archivos .csv', 'alert-error');
+                archivosSeleccionados = [];
+                fileInput.value = '';
+                fileList.textContent = 'Ningún archivo seleccionado';
+                importBtn.disabled = true;
+                return;
+            }
+
+            archivosSeleccionados = csvFiles;
+            fileList.textContent = archivosSeleccionados.map(f => f.name).join(' · ');
+            importBtn.disabled = archivosSeleccionados.length === 0;
+            mensaje.style.display = 'none';
+        }
+
+        // eventos para seleccionar archivos
+        trigger.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', e => setFiles(e.target.files));
+
+        ['dragenter','dragover'].forEach(ev => {
+            dropzone.addEventListener(ev, e => {
+                e.preventDefault();
+                dropzone.classList.add('dragover');
+            });
+        });
+
+        ['dragleave','drop'].forEach(ev => {
+            dropzone.addEventListener(ev, e => {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+            });
+        });
+
+        dropzone.addEventListener('drop', e => {
+            const files = e.dataTransfer.files;
+            setFiles(files);
+        });
+
+        // subir archivos al backend
+        importBtn.addEventListener('click', async () => {
+            if(archivosSeleccionados.length === 0){
+                mostrarMensaje('Seleccioná al menos un archivo antes de importar', 'alert-error');
+                return;
+            }
+
+            const formData = new FormData();
+            archivosSeleccionados.forEach(f => formData.append('archivos', f)); // enviar todos los archivos
+
+            try {
+                const res = await fetch('/admin/importar', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const text = await res.text();
+
+                if(res.ok){
+                    mostrarMensaje('Archivos importados correctamente', 'alert-success');
+                    archivosSeleccionados = [];
+                    fileInput.value = '';
+                    fileList.textContent = 'Ningún archivo seleccionado';
+                    importBtn.disabled = true;
+                } else {
+                    mostrarMensaje('Error al importar archivos: ' + text, 'alert-error');
+                }
+            } catch(err) {
+                mostrarMensaje('Error al importar archivos: ' + err, 'alert-error');
+            }
+        });
+
+    })();
+</script>
+
+</body>
+</html>

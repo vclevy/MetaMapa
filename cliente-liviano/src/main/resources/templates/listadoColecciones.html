@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Colecciones — MetaMapa</title>
+    <link rel="stylesheet" th:href="@{/css/listadoColecciones.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+</head>
+<body>
+
+<!-- Header reutilizable -->
+<div th:replace="header :: mainHeader"></div>
+
+<main class="container colecciones">
+    <h1>Colecciones</h1>
+    <p>Explorá las colecciones</p>
+
+    <section class="colecciones-list">
+        <!-- Iteración dinámica con Thymeleaf -->
+        <a class="coleccion-item"
+           th:each="coleccion : ${colecciones}"
+           th:href="@{'/colecciones/' + ${coleccion.id}}">
+            <div class="info">
+                <h3 th:text="${coleccion.titulo}">Título</h3>
+                <p th:text="${coleccion.descripcion}">Descripción</p>
+            </div>
+            <span class="badge"
+                  th:text="${#lists.size(coleccion.hechosDeLaColeccion)} + ' hechos'">
+                0 hechos
+            </span>
+        </a>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+
+</body>
+</html>

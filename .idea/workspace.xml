@@ -4,11 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="" />
+    <list default="true" id="6ec3f4e9-3d75-4bd5-9500-f8ccc13bc5df" name="Changes" comment="Merge branch 'pruebaSesiones' of github.com:dds-utn/2025-tpa-ma-ma-grupo-4 into pruebaSesiones&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;AuthService/target/classes/ar/utn/ba/ddsi/models/entities/Usuario.class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <list id="7ea5f132-a7c2-48ac-9775-afc222a4712a" name="Changes by delfi" comment="" />
+    <list id="1ff2e16e-5874-46bc-96f2-616049804fc6" name="Changes by laurahonczaryk" comment="" />
+    <list id="19bb7380-5542-4fbb-ac36-8e99b2fbd68d" name="Changes by Usuario" comment="" />
+    <list id="a4a2fa2d-c65f-4ffa-a632-25e8af81dbc2" name="Changes by valen" comment="" />
+    <list id="7c0befda-bef3-41cc-b839-b52f05738a79" name="Changes by Valentino" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="HTML File" />
+        <option value="UML Class" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="CSS File" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -24,12 +44,16 @@
     &quot;assignee&quot;: &quot;delfisartorio&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git",
-    "accountId": "318f196a-af48-422d-9b98-5460137261bc"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dds-utn/2025-tpa-ma-ma-grupo-4.git&quot;,
+    &quot;accountId&quot;: &quot;318f196a-af48-422d-9b98-5460137261bc&quot;
   }
-}]]></component>
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -37,38 +61,99 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 5
-}</component>
+        &quot;customColor&quot;: &quot;&quot;,
+        &quot;associatedIndex&quot;: 5
+        }</component>
   <component name="ProjectId" id="2x3kGgdtpbaEIL0JIur1Q6ZC1q1" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "DefaultPlantUmlFileTemplate": "UML Class",
+    "Maven.api-gateway [clean].executor": "Run",
+    "Maven.api-gateway [install].executor": "Run",
+    "Maven.api-gateway [package].executor": "Run",
+    "Maven.tp-multi-module [clean].executor": "Run",
+    "Maven.tp-multi-module [install].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ENTREGA__3__AG",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.AgregadorApplication (1).executor": "Run",
+    "Spring Boot.AgregadorApplication.executor": "Run",
+    "Spring Boot.ApiGatewayApplication (1).executor": "Run",
+    "Spring Boot.ApiGatewayApplication .executor": "Run",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.AuthServiceApplication (1).executor": "Run",
+    "Spring Boot.AuthServiceApplication (2).executor": "Run",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.ClienteLivianoApplication.executor": "Run",
+    "Spring Boot.FuenteDinamicaApplication.executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication (1).executor": "Run",
+    "Spring Boot.FuenteEstaticaApplication.executor": "Run",
+    "Spring Boot.FuenteProxyApplication (1).executor": "Run",
+    "Spring Boot.FuenteProxyApplication.executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication (1).executor": "Run",
+    "Spring Boot.ServicioEstadisticasApplication.executor": "Run",
+    "git-widget-placeholder": "deploy",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Usuario/Desktop/2025-tpa-ma-ma-grupo-4",
+    "last_opened_file_path": "/Users/laurahonczaryk/Documents/UTN 2025/Diseño/2025-tpa-ma-ma-grupo-4",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "onboarding.tips.debug.path": "C:/Users/delfi/OneDrive/Desktop/UTN/DSI/2025-tpa-ma-ma-grupo-4/common/src/main/java/ar/utn/ba/ddsi/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.configurations.included.in.services": "true",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ar.utn.ba.ddsi.services.georef" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main\java\ar\utn\ba\ddsi\FuenteProxy" />
+      <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\java\ar\utn\ba\ddsi" />
+      <recent name="C:\Users\delfi\OneDrive\Desktop\UTN\DSI\2025-tpa-ma-ma-grupo-4\FuenteEstatica\src\main\java\ar\utn\ba\ddsi" />
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\maquetadoUi" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteProxy\src\main" />
-      <recent name="C:\Users\Usuario\Desktop\2025-tpa-ma-ma-grupo-4\FuenteDinamica\src\main\diagramaDeClases" />
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4" />
+      <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\resources" />
+      <recent name="C:\Users\user\Documents\UTN\DdSI\2025-tpa-ma-ma-grupo-4\api-gateway\src\main\java\ar\utn\ba\ddsi" />
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\src\main\java\ar\utn\ba\ddsi\src" />
+      <recent name="C:\Users\valen\OneDrive\Documents\2025-tpa-ma-ma-grupo-4\AuthService\AuthService\src\main\java\ar\utn\ba\ddsi" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ar.utn.ba.ddsi.ServicioEstadisticas.models.entities" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -81,17 +166,64 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AgregadorApplication">
+  <component name="RunManager" selected="Spring Boot.ApiGatewayApplication ">
     <configuration name="AgregadorApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Agregador" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="AgregadorApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AgregadorApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiGatewayApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.ApiGatewayApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="AuthService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.AuthServiceApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClienteLivianoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="cliente-liviano" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.cliente_liviano.ClienteLivianoApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.cliente_liviano.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="FuenteDinamicaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="FuenteDinamica" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.FuenteDinamicaApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteDinamicaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FuenteEstaticaApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="FuenteEstatica" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteEstaticaApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -103,19 +235,72 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FuenteProxyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="FuenteProxyApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="FuenteProxy" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.FuenteProxy.FuenteProxyApplication" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.FuenteProxy.FuenteProxyApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.FuenteProxy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ServicioEstadisticasApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="ServicioEstadisticas" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.gateway.ServicioEstadisticas.ServicioEstadisticasApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.utn.ba.ddsi.gateway.ServicioEstadisticas.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServicioEstadisticasApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="ServicioEstadisticas" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.utn.ba.ddsi.ServicioEstadisticas.ServicioEstadisticasApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.AgregadorApplication" />
+      <item itemvalue="Spring Boot.FuenteDinamicaApplication" />
+      <item itemvalue="Spring Boot.FuenteEstaticaApplication " />
+      <item itemvalue="Spring Boot.FuenteEstaticaApplication" />
+      <item itemvalue="Spring Boot.ServicioEstadisticasApplication" />
+      <item itemvalue="Spring Boot.AuthServiceApplication " />
+      <item itemvalue="Spring Boot.ServicioEstadisticasApplication " />
+      <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+      <item itemvalue="Spring Boot.ApiGatewayApplication " />
+      <item itemvalue="Spring Boot.FuenteProxyApplication " />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ApiGatewayApplication " />
+        <item itemvalue="Spring Boot.ClienteLivianoApplication" />
+        <item itemvalue="Spring Boot.FuenteProxyApplication " />
+        <item itemvalue="Spring Boot.ServicioEstadisticasApplication " />
+        <item itemvalue="Spring Boot.AuthServiceApplication " />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -140,13 +325,75 @@
       <workItem from="1748459520593" duration="303000" />
       <workItem from="1748897090666" duration="338000" />
       <workItem from="1749755831210" duration="277000" />
+      <workItem from="1752195884498" duration="1887000" />
+      <workItem from="1754948630596" duration="244000" />
+      <workItem from="1755003545654" duration="1024000" />
+      <workItem from="1755018798738" duration="13632000" />
+      <workItem from="1755108289305" duration="2618000" />
+      <workItem from="1755523859887" duration="3512000" />
+      <workItem from="1755603607340" duration="1584000" />
+      <workItem from="1755794719025" duration="3481000" />
+      <workItem from="1756225639796" duration="1393000" />
+      <workItem from="1756233815955" duration="2580000" />
+      <workItem from="1756400896700" duration="5314000" />
+      <workItem from="1756411948502" duration="20000" />
+      <workItem from="1756412036820" duration="30000" />
+      <workItem from="1756413030324" duration="6725000" />
+      <workItem from="1756491450131" duration="3681000" />
+      <workItem from="1756497460968" duration="5447000" />
+      <workItem from="1756557050577" duration="3555000" />
+      <workItem from="1756589560367" duration="5141000" />
+      <workItem from="1756598158499" duration="2116000" />
+      <workItem from="1756659145499" duration="7470000" />
+      <workItem from="1756822026555" duration="4025000" />
+      <workItem from="1756902036319" duration="7960000" />
+      <workItem from="1757030874204" duration="4185000" />
+      <workItem from="1757353328167" duration="1659000" />
+      <workItem from="1757355220764" duration="6916000" />
+      <workItem from="1757363721172" duration="4178000" />
+      <workItem from="1757426458779" duration="2866000" />
+      <workItem from="1757444707739" duration="34000" />
+      <workItem from="1757623753049" duration="2719000" />
+      <workItem from="1758644019828" duration="3899000" />
+      <workItem from="1758893766290" duration="3000" />
+      <workItem from="1758980464437" duration="1629000" />
+      <workItem from="1759532954542" duration="9814000" />
+      <workItem from="1759579274986" duration="4316000" />
+      <workItem from="1759960850235" duration="2000" />
+      <workItem from="1759964493676" duration="1965000" />
+      <workItem from="1760311975748" duration="1387000" />
+      <workItem from="1760377329935" duration="8061000" />
+      <workItem from="1761437619447" duration="2520000" />
+      <workItem from="1761776342279" duration="4748000" />
+      <workItem from="1761862627290" duration="1169000" />
+      <workItem from="1761932606019" duration="3770000" />
+      <workItem from="1762690940462" duration="5123000" />
+      <workItem from="1763207854828" duration="1452000" />
+      <workItem from="1763555317950" duration="1149000" />
+      <workItem from="1763560465191" duration="1701000" />
+      <workItem from="1763572118293" duration="4070000" />
+      <workItem from="1763663670012" duration="3868000" />
+      <workItem from="1763732246134" duration="6882000" />
+      <workItem from="1763847631622" duration="5351000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="e54dd4c4-b1af-45a0-aa3f-715537109ea0" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -154,7 +401,28 @@
             <State />
           </value>
         </entry>
+        <entry key="e54dd4c4-b1af-45a0-aa3f-715537109ea0">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/Main.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/common/src/main/java/ar/utn/ba/ddsi/Main.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${coleccion.titulo} + ' — MetaMapa'">Detalle Colección</title>
+    <link rel="stylesheet" th:href="@{/css/detalleColeccion.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+</head>
+<body>
+
+<div th:replace="header :: mainHeader"></div>
+
+
+<main class="container coleccion-detalle">
+    <a class="volver" th:href="@{/colecciones}">← Volver a colecciones</a>
+
+    <section class="hechos-list">
+        <div class="coleccion-header">
+            <h1 th:text="${coleccion.titulo}">Título de la colección</h1>
+            <p class="descripcion" th:text="${coleccion.descripcion}">Descripción</p>
+
+            <!-- Toggle de modo -->
+            <div class="modo-toggle">
+                <a class="modo-link"
+                   th:classappend="${modo}=='IRRESTRICTO' ? ' active' : ''"
+                   th:href="@{/colecciones/{id}(id=${coleccion.id}, modo='IRRESTRICTO')}">
+                    Irrestricto
+                </a>
+                <span class="sep">|</span>
+                <a class="modo-link"
+                   th:classappend="${modo}=='CURADO' ? ' active' : ''"
+                   th:href="@{/colecciones/{id}(id=${coleccion.id}, modo='CURADO')}">
+                    Curado
+                </a>
+            </div>
+
+            <div class="meta">
+                <span>Total de hechos: <strong th:text="${#lists.size(hechos)}">0</strong></span>
+            </div>
+        </div>
+
+        <div class="cards container">
+            <article class="card" th:each="hecho : ${hechos}">
+                <div th:if="${hecho.multimedia != null and !#lists.isEmpty(hecho.multimedia)}">
+                    <a class="card-cover" th:href="@{|/hechos/${hecho.id}|}">
+                        <img th:if="${#strings.endsWith(hecho.multimedia[0], '.jpg') or
+                         #strings.endsWith(hecho.multimedia[0], '.jpeg') or
+                         #strings.endsWith(hecho.multimedia[0], '.png') or
+                         #strings.endsWith(hecho.multimedia[0], '.gif')}"
+                             th:src="${hecho.multimedia[0]}"
+                             th:alt="|Imagen del hecho ${hecho.titulo}|"/>
+                        <video th:if="${#strings.endsWith(hecho.multimedia[0], '.mp4')}"
+                               th:src="${hecho.multimedia[0]}"
+                               type="video/mp4"
+                               controls preload="metadata"
+                               style="max-width:100%; border-radius:10px;">
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h3 th:text="${hecho.titulo}">Título del hecho</h3>
+                    <p class="meta">
+                        <span th:text="${#temporals.format(hecho.fechaDeAcontecimiento, 'dd/MM/yyyy')}"></span>
+                        <span class="badge" th:text="${hecho.categoriaNombre}">Categoría</span>
+                    </p>
+                    <p th:text="${hecho.descripcion}">Descripción breve del hecho…</p>
+                    <a th:href="@{|/hechos/${hecho.id}|}" class="card-link">Ver detalle</a>
+                </div>
+            </article>
+        </div>
+
+        <p th:if="${#lists.isEmpty(hechos)}">No hay hechos en esta colección todavía.</p>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa — Todos los derechos reservados</p>
+</footer>
+</body>
+</html>

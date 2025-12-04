@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MetaMapa - Registro de Contribuyentes</title>
+    <link rel="stylesheet" th:href="@{/css/sesion.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+</head>
+<body>
+<!-- Header -->
+<div th:replace="header :: mainHeader"></div>
+
+<main class="main-content">
+    <section class="intro">
+        <h2>Registro de contribuyentes</h2>
+        <p>Unite a MetaMapa y ayudanos a mapear la memoria colectiva</p>
+        <p>
+            Si ya tenés una cuenta, debés
+            <a th:href="@{/sesion/login}">iniciar sesión</a>.
+        </p>
+    </section>
+
+    <section class="form-section">
+        <form th:action="@{/sesion/registrar}" th:object="${registroForm}" method="post" class="form-card">
+
+            <label th:for="*{nombre}">Nombre <span style="color:red">*</span></label>
+            <input type="text" th:field="*{nombre}" placeholder="Tu nombre" required/>
+
+            <label th:for="*{apellido}">Apellido</label>
+            <input type="text" th:field="*{apellido}" placeholder="Tu apellido"/>
+
+            <label th:for="*{nombreDeUsuario}">Nombre de usuario</label>
+            <input type="text" th:field="*{nombreDeUsuario}" placeholder="Elegí un usuario"/>
+
+            <label th:for="*{email}">Correo electrónico</label>
+            <input type="email" th:field="*{email}" placeholder="ejemplo@correo.com"/>
+
+            <label th:for="*{clave}">Contraseña <span style="color:red">*</span></label>
+            <input type="password" th:field="*{clave}" placeholder="Ingresá una contraseña segura"/>
+
+            <button type="submit" class="btn btn-primary">Registrarme</button>
+        </form>
+
+        <!-- Mensajes -->
+        <div th:if="${error}">
+            <p th:text="${error}" style="color:red"></p>
+        </div>
+        <div th:if="${mensajeExito}">
+            <p th:text="${mensajeExito}" style="color:green"></p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 MetaMapa - Todos los derechos reservados</p>
+</footer>
+</body>
+</html>
